@@ -1,38 +1,21 @@
-class Course:
-    def __init__(self, id, name):
+class Resenha:
+    def __init__(self, id, tipo_review, author_id, spotify_link, nome_review,
+                 nome_banda, review, date_register, image_file):
         self.id = id
-        self.name = name
-
+        self.tipo_review = tipo_review
+        self.author_id = author_id
+        self.spotify_link = spotify_link
+        self.nome_review = nome_review
+        self.nome_banda = nome_banda
+        self.review = review
+        self.date_register = date_register
+        self.image_file = image_file
 
 class Users:
-    def __init__(self, id, username, name, password, course, access_level):
+    def __init__(self, id, username, name, surname, password):
         self.id = id
         self.username = username
         self.name = name
+        self.surname = surname
         self.password = password
-        self.course = course
-        self.access_level = access_level
-
-
-class Edit_Users_Access_Level:
-    def __init__(self, id, username, name, access_level):
-        self.id = id
-        self.username = username
-        self.name = name
-        self.access_level = access_level
-
-
-class Edit_Users_Pass:
-    def __init__(self, id, password):
-        self.id = id
-        self.password = password
-
-
-class Enrollment:
-    def __init__(self, user_id, course_id):
-        self.user_id = user_id
-        self.course_id = course_id
-
-
-ACCESS_LEVEL = ['Master', 'Instructor', 'Student']
 

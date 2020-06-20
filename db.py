@@ -1,5 +1,5 @@
 import psycopg2
-
+from models import Users, Resenha
 
 msdb = psycopg2.connect(
     host='ec2-54-75-246-118.eu-west-1.compute.amazonaws.com',
@@ -10,7 +10,7 @@ msdb = psycopg2.connect(
 )
 
 
-# <--- Authentication DEFs beginning --->
+#   <--- Authentication DEFs beginning --->
 
 def authenticate(username):
     try:
@@ -18,7 +18,7 @@ def authenticate(username):
         cursor.execute("ROLLBACK")
         cursor.execute(f"SELECT * FROM public.users where username = '{username}'")
         find = cursor.fetchone()
-        return Users(find[0], find[1], find[2], find[3], find[4], find[5])
+        return Users(find[0], find[1], find[2], find[3], find[4])
     except:
         TryDBMessage.message()
 
@@ -26,11 +26,67 @@ def authenticate(username):
 # <--- Authentication DEFs Ending --->
 
 
-# <--- Course DEFs beginning --->
+#   <--- Resenhas DEFs beginning --->
 
-def course_list():  # <- List Courses on Courses Page ->
+def resenha_list():  # <- List Courses on Courses Page ->
     cursor = msdb.cursor()
     cursor.execute("ROLLBACK")
     cursor.execute(f"SELECT * FROM public.course")
-    course = translate_courses(cursor.fetchall())
-    return course
+    resenha = translate_resenha(cursor.fetchall())
+    return resenha
+
+
+def resenha_new(tipo_review, author_id, spotify_link, nome_review,
+                nome_banda, review, date_register, image_file=None):  # <- Register a new 'Resenha' in the table ->
+    try:
+        cursor = msdb.cursor()
+        cursor.execute = f"INSERT INTO public.resenha (tipo_review, author_id, spotify_link, nome_review, " \
+                         f"nome_banda, review, date_register, image_file) " \
+                         f"VALUES ('{tipo_review}', '{author_id}', '{spotify_link}', '{nome_review}', " \
+                         f"'{nome_banda}', '{review}', '{date_register}', '{image_file}')"
+        msdb.commit()
+    except:
+        TryDBMessage.message()
+
+
+# <--- Resenhas DEFs ending --->
+
+
+#   <--- Users DEFs beginning --->
+
+def users_new(username, name, surname, password):  # <- Register a new 'User' in the table ->
+    try:
+        cursor = msdb.cursor()
+        cursor.execute = f"INSERT INTO public.users (username, name, surname, password) " \
+                         f"VALUES ('{username}', '{name}', '{surname}', '{password}')"
+        msdb.commit()
+    except:
+        TryDBMessage.message()
+
+
+# <--- Users DEFs ending --->
+
+
+#   <--- Translating DB beginning --->
+def translate_resenha(resenha):  # <- Converts DB data (resenha) into Tuple ->
+    def create_resenha_with_tuple(tuple):
+        return Resenha(tuple[0], tuple[1], tuple[2], tuple[3], tuple[4], tuple[5], tuple[6], tuple[7], tuple[8])
+
+    return list(map(create_resenha_with_tuple, resenha))
+
+
+def translate_users(user):  # <- Converts DB data (resenha) into Tuple ->
+    def create_user_with_tuple(tuple):
+        return Users(tuple[0], tuple[1], tuple[2], tuple[3], tuple[4])
+
+    return list(map(create_user_with_tuple, user))
+
+
+# <--- Translating DB ending --->
+
+
+class TryDBMessage:
+    @staticmethod
+    def message():  # <- Raise an error on the log if the table isn't found ->
+        return f'The connection with the database filed.\n' \
+               f" Make sure you have executed the script 'db_script.sql' in MySQL."
