@@ -31,37 +31,94 @@ def authenticate(username):
 def resenha_list():  # <- List Courses on Courses Page ->
     cursor = msdb.cursor()
     cursor.execute("ROLLBACK")
-    cursor.execute(f"SELECT * FROM public.course")
+    cursor.execute(f"SELECT * FROM public.resenha")
     resenha = translate_resenha(cursor.fetchall())
     return resenha
 
 
 def resenha_new(tipo_review, author_id, spotify_link, nome_review,
-                nome_banda, review, date_register, image_file=None):  # <- Register a new 'Resenha' in the table ->
+                nome_banda, review, date_register, image_file):  # <- Register a new 'Resenha' in the table ->
     try:
         cursor = msdb.cursor()
-        cursor.execute = f"INSERT INTO public.resenha (tipo_review, author_id, spotify_link, nome_review, " \
+        insert = f"INSERT INTO public.resenha (tipo_review, author_id, spotify_link, nome_review, " \
                          f"nome_banda, review, date_register, image_file) " \
-                         f"VALUES ('{tipo_review}', '{author_id}', '{spotify_link}', '{nome_review}', " \
-                         f"'{nome_banda}', '{review}', '{date_register}', '{image_file}')"
+                 f"VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+
+        cursor.execute(insert, (tipo_review, author_id, spotify_link, nome_review,
+                nome_banda, review, date_register, image_file))
         msdb.commit()
     except:
         TryDBMessage.message()
 
+
+def resenha_find_id(id):  # <- ID finder to redirect to Edit page ->
+    cursor = msdb.cursor()
+    cursor.execute(f"SELECT * FROM public.resenha where id = {id}")
+    find = cursor.fetchone()
+    return Resenha(find[0], find[1], find[2], find[3], find[4], find[5], find[6], find[7], find[8])
+
+
+def resenha_find_non_id(author_id, review, date_register):  # <- Find a 'Resenha' without the ID ->
+    cursor = msdb.cursor()
+    cursor.execute("ROLLBACK")
+    cursor.execute(f"SELECT * FROM public.resenha where author_id = {author_id} and review ='{review}' and date_register = '{date_register}'")
+    find = cursor.fetchone()
+    return Resenha(find[0], find[1], find[2], find[3], find[4], find[5], find[6], find[7], find[8])
 
 # <--- Resenhas DEFs ending --->
 
 
 #   <--- Users DEFs beginning --->
 
-def users_new(username, name, surname, password):  # <- Register a new 'User' in the table ->
+def users_new(username, name, surname):  # <- Register a new 'User' in the table ->
     try:
         cursor = msdb.cursor()
-        cursor.execute = f"INSERT INTO public.users (username, name, surname, password) " \
-                         f"VALUES ('{username}', '{name}', '{surname}', '{password}')"
+        insert = f"INSERT INTO public.users (username, name, surname, password) " \
+                 f"VALUES (%s, %s, %s, %s)"
+        cursor.execute(insert, (username, name, surname, 'pass'))
         msdb.commit()
     except:
         TryDBMessage.message()
+
+
+def users_password_update(id, new_password):  # <- Update User's password ->
+    try:
+        cursor = msdb.cursor()
+        updating_query = f"UPDATE public.users SET PASSWORD='{new_password}' WHERE id='{id}'"
+        cursor.execute(updating_query)
+        msdb.commit()
+    except:
+        TryDBMessage.message()
+
+
+def users_list():  # <- List USERS registered ->
+    cursor = msdb.cursor()
+    cursor.execute("ROLLBACK")
+    cursor.execute(f"SELECT * FROM public.users")
+    users = translate_users(cursor.fetchall())
+    return users
+
+
+def users_update(id, new_username, new_register, surname):  # <- Update an existent User ->
+    try:
+        cursor = msdb.cursor()
+        updating_query = f"UPDATE public.users SET USERNAME='{new_username}', NAME='{new_register}', SURNAME='{surname}' WHERE id='{id}'"
+        cursor.execute(updating_query)
+        msdb.commit()
+    except:
+        TryDBMessage.message()
+
+
+class DeletingDB:
+    def __init__(self, item):   # <- Delete an user on DB ->
+        try:
+            cursor = msdb.cursor()
+            cursor.execute("ROLLBACK")
+            deleting_query = f"DELETE FROM public.users WHERE id='{item}'"
+            cursor.execute(deleting_query)
+            msdb.commit()
+        except:
+            TryDBMessage.message()
 
 
 # <--- Users DEFs ending --->

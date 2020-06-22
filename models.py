@@ -11,6 +11,7 @@ class Resenha:
         self.date_register = date_register
         self.image_file = image_file
 
+
 class Users:
     def __init__(self, id, username, name, surname, password):
         self.id = id
@@ -19,3 +20,8 @@ class Users:
         self.surname = surname
         self.password = password
 
+
+class EditUsersPass:
+    def __init__(self, id, password):
+        self.id = id
+        self.password = password

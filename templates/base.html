@@ -16,7 +16,6 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
-
 </head>
 
 <body>
@@ -25,6 +24,101 @@
         <i class="circle-preloader"></i>
         <img src="{{ url_for('static', filename='img/core-img/pizza.png') }}" alt="">
     </div>
+
+    <!-- Search Wrapper -->
+    <div class="search-wrapper">
+        <!-- Close Btn -->
+        <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <form action="#" method="post">
+                        <input type="search" name="search" placeholder="O que está procurando...">
+                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+
+        <!-- Top Header Area -->
+        <div class="top-header-area">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center justify-content-between">
+                    <!-- Breaking News -->
+                    <div class="col-12 col-sm-6">
+                        <div class="breaking-news">
+                            <div id="breakingNewsTicker" class="ticker">
+                                <ul>
+                                    <li><a href="">Resenha de musicas</a></li>
+                                    <li><a href="">Faça a sua resenha</a></li>
+                                    <li><a href="">Ouça a playlist baseada nas resenhas!</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Login Area -->
+                    <div>
+                        {% if session['id'] == '' %}
+                        <a href="{{ url_for('login') }}"><p>Cique aqui para logar</p></a>
+                        {% else %}
+                            {{ session['name'] }} está logado
+                            <form method="get" action="{{ url_for('logout') }}" enctype="multipart/form-data">
+                                <button type="submit" id="logout">Logout</button>
+                                </form>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Navbar Area -->
+        <div class="delicious-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="deliciousNav">
+
+                        <!-- Logo -->
+                        <a class="nav-brand" href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/core-img/logo.png') }}" alt=""></a>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                                    <li><a href="{{ url_for('resenha') }}">Nova resenha</a></li>
+                                    <li><a href="{{ url_for('home') }}">Minhas resenhas</a></li>
+                                </ul>
+
+                                <!-- Formulario de busca -->
+                                <div class="search-btn">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </div>
+                                <!-- Formulario de busca -->
+
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
 
 
     <!-- Python Block -->
@@ -36,15 +130,8 @@
         <div class="container h-100">
             <div class="row h-100">
                 <div class="col-12 h-100 d-flex flex-wrap align-items-center justify-content-between">
-                    <!-- Footer Social Info -->
-                    <div class="footer-social-info text-right">
-                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    </div>
+
                     <!-- Footer Logo -->
-                    <div class="footer-logo">
-                        <a href="index"><img src="{{ url_for('static', filename='img/core-img/logo.png') }}" alt=""></a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -62,6 +149,8 @@
     <script src="{{ url_for('static', filename='js/plugins/plugins.js') }}"></script>
     <!-- Active js -->
     <script src="{{ url_for('static', filename='js/active.js') }}"></script>
+    <!-- responsive 'capa' js -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 
 </html>

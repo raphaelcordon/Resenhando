@@ -647,7 +647,7 @@ textarea:focus {
     }
     .nav-brand img {
         @media #{$breakpoint-xs} {
-            max-width: 90px;
+            width: 40px;
         }
     }
 }
@@ -1369,7 +1369,7 @@ textarea:focus {
     }
     .footer-logo {
         @media #{$breakpoint-xs} {
-            max-width: 90px;
+            width: 40px;
         }
     }
 }

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+        <!-- ##### Main Area Start ##### -->
+    <main>
+        <div class="main_top">
+            <div class="mainmenu_bodytext">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul id="messages" class="list-unstyled">
+                        {% for message in messages %}
+                            <li class="alert alert-success">{{ message }}</li>
+                        {% endfor %}
+                         </ul>
+                    {% endif %}
+                {% endwith %}
+
+                <h1>Log in</h1>
+                <form method="POST" action="{{ url_for('authenticate') }}">
+                    <input type="hidden" name="next" value="{{ next }}">
+                    <p><label>Username:</label> <input class="form-control" type="text" id="username" name="username" required>
+                    <label>Senha:</label> <input class="form-control" type="password" id="password" name="password" required>
+                    <button type="submit">Logar</button></p>
+                </form>
+                <br>
+            </div>
+        </div>
+    </main>
+{% endblock %}

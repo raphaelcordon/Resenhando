@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+        <!-- ##### Main Area Start ##### -->
+        <main>
+            <!-- ##### Form New Register Start ##### -->
+            <div class="access_level">
+                <p>Registre um novo usuario:</p>
+                <br>
+                <form action="{{ url_for('users_registry') }}" method="post" enctype="multipart/form-data">
+                    <fieldset>
+
+                    <div class="alert-{{category}}">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" class="form-control">
+
+                        <label for="name">Nome</label>
+                        <input type="text" id="name" name="name" class="form-control">
+
+                        <label for="surname">Sobrenome</label>
+                        <input type="text" id="surname" name="surname" class="form-control">
+
+                        <button type="submit">Save</button>
+                    </div>
+                    <div>
+                        {% for category, message in get_flashed_messages(with_categories=True) %}
+                        {{ message }}
+                        {% endfor %}
+                    </div>
+                    </fieldset>
+                </form>
+            </div>    
+            <br>
+            <div class="mainmenu_bodytext">
+                <p>Usuários registrados:</p>
+
+                <!-- ##### Table List Users Start ##### -->
+                <table class="table-lists">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Nome</th>
+                            <th>Sobrenome</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{user.username}}</td>
+                            <td>{{user.name}}</td>
+                            <td>{{user.surname}}</td>
+                            <td>&nbsp;
+                            <a href="{{ url_for('Delete', id=user.id) }}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <!-- ##### Table List Users End ##### -->
+
+            </div>
+        </main>
+        <!-- ##### Main Area End ##### -->
+{% endblock %}

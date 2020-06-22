@@ -1,117 +1,71 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <!-- Search Wrapper -->
-    <div class="search-wrapper">
-        <!-- Close Btn -->
-        <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <form action="#" method="post">
-                        <input type="search" name="search" placeholder="O que está procurando...">
-                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ##### Header Area Start ##### -->
-    <header class="header-area">
-
-        <!-- Top Header Area -->
-        <div class="top-header-area">
-            <div class="container h-100">
-                <div class="row h-100 align-items-center justify-content-between">
-                    <!-- Breaking News -->
-                    <div class="col-12 col-sm-6">
-                        <div class="breaking-news">
-                            <div id="breakingNewsTicker" class="ticker">
-                                <ul>
-                                    <li><a href="">Blog de Música</a></li>
-                                    <li><a href="">Resenha de musicas</a></li>
-                                    <li><a href="">Que estão na nossa cabeça</a></li>
-                                    <li><a href="">E queremos compartilhar com você!</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Top Social Info -->
-                    <div class="col-12 col-sm-6">
-                        <div class="top-social-info text-right">
-                            <a href=""><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Navbar Area -->
-        <div class="delicious-main-menu">
-            <div class="classy-nav-container breakpoint-off">
-                <div class="container">
-                    <!-- Menu -->
-                    <nav class="classy-navbar justify-content-between" id="deliciousNav">
-
-                        <!-- Logo -->
-                        <a class="nav-brand" href="index"><img src="{{ url_for('static', filename='img/core-img/logo.png') }}" alt=""></a>
-
-                        <!-- Navbar Toggler -->
-                        <div class="classy-navbar-toggler">
-                            <span class="navbarToggler"><span></span><span></span><span></span></span>
-                        </div>
-
-                        <!-- Menu -->
-                        <div class="classy-menu">
-
-                            <!-- close btn -->
-                            <div class="classycloseIcon">
-                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                            </div>
-
-                            <!-- Nav Start -->
-                            <div class="classynav">
-                                <ul>
-                                    <li><a href="{{ index }}">Home</a></li>
-                                </ul>
-
-                                <!-- Formulario de busca -->
-                                <div class="search-btn">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </div>
-                                <!-- Formulario de busca -->
-
-                            </div>
-                            <!-- Nav End -->
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- ##### Header Area End ##### -->
-
-    <!-- ##### Best Receipe Area Start ##### -->
+    <!-- ##### 'Resenha' Area Start ##### -->
     <section class="best-receipe-area">
         <div class="container">
             <div class="row">
-                <!-- Single Best Receipe Area -->
+
                 <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-best-receipe-area mb-30">
-                        <img src="{{ url_for('static', filename='img/bg-img/No-Image-Available.png') }}" alt="">
-                        <div class="receipe-content">
-                            <a href="{{ index }}">
-                                <h5>Nome da playlist</h5>
-                            </a>
+
+                <!-- ##### Form Edit Start ##### -->
+                <form action="{{ url_for('nova_resenha') }}" method="post" enctype="multipart/form-data">
+                    <figure class="thumb col-md-4">
+                        <img class="img-responsive" src="{{ url_for('imagem', nome_arquivo='No-Image-Available.png') }}">
+                        <figcaption>
+                            <label class="fileContainer">
+                            Definir capa
+                            <input type="file" name="image_file" id="image_file">
+                            </label>
+                        </figcaption>
+                    </figure>
+
+                    <fieldset>
+                        <div class="form-grup">
+                            <label for="tipo_review">Tipo de Review</label>
+                            <select id="tipo_review" name="tipo_review" class="form-control">
+                                <option value="disco" selected>Um disco inteiro</option>
+                                <option value="musica">Uma música somente</option>
+                            </select>
+                            <br>
+
+                            <br>
+                            <label for="nome_review">Titulo da Review</label>
+                            <input id="nome_review" name="nome_review" class="form-control">
+                            <br>
+
+                            <label for="nome_banda">Nome da Banda</label>
+                            <input id="nome_banda" name="nome_banda" class="form-control">
+                            <br>
+
+                            <label for="review">Resenha</label>
+                            <textarea id="review" name="review" class="form-control" rows="10" cols="50">Sua resenha aqui!
+                            </textarea>
+                            <br>
+
+                            <label for="spotify_link">Link do Spotify</label>
+                            <input id="spotify_link" name="spotify_link" class="form-control">
+                            <br>
+
+                            <button type="submit" class="btn btn-primary btn-salvar">Enviar resenha</button>
+                            <a class="btn btn-danger" href="{{ url_for('home') }}">Voltar</a>
+                            <br>
                         </div>
+                    </fieldset>
+                </form>
+                    <div>
+                        {% for category, message in get_flashed_messages(with_categories=True) %}
+                        {{ message }}
+                        {% endfor %}
                     </div>
+
+
+                <!-- ##### Form Edit End ##### -->
+
                 </div>
             </div>
         </div>
     </section>
-    <!-- ##### Best Receipe Area End ##### -->
+    <!-- ##### 'Resenha' Area End ##### -->
 {% endblock %}

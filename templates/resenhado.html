@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+        <!-- ##### Main Area Start ##### -->
+        <main>
+            <div class="mainmenu_bodytext">
+                <p>Resenha:</p>
+
+                <!-- ##### Table Resenha Start ##### -->
+                <table class="table-lists">
+                    <thead>
+                        <tr>
+                            <th>Titulo da Review</th>
+                            <th>Nome da Banda</th>
+                            <th>Resenha</th>
+                            <th>Link do Spotify</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{data.tipo_review}}</td>
+                            <td>{{data.nome_banda}}</td>
+                            <td>{{data.review}}</td>
+                            <td>{{data.spotify_link}}</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- ##### Table Resenha End ##### -->
+
+            </div>
+        </main>
+        <!-- ##### Main Area End ##### -->
+{% endblock %}
