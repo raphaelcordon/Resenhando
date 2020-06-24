@@ -2,11 +2,11 @@ import psycopg2
 from models import Users, Resenha
 
 msdb = psycopg2.connect(
-    host='ec2-54-75-246-118.eu-west-1.compute.amazonaws.com',
-    database='d89gkq7l8caqks',
-    user='xcdauuhtrmsrhw',
+    host='ec2-176-34-123-50.eu-west-1.compute.amazonaws.com',
+    database='dgs1bk31h45p3',
+    user='jrqbypzwfthnnb',
     port='5432',
-    password='b6e8f984b04f80bf4311d33f68a2e6c04ce062540161e7f092c3b047c4cca9e5',
+    password='581cf159c1fb3d57e39bb6fc3238e9c92cce2574c6d0e5435eb87b06d2a8137a'
 )
 
 
@@ -43,7 +43,6 @@ def resenha_new(tipo_review, author_id, spotify_link, nome_review,
         insert = f"INSERT INTO public.resenha (tipo_review, author_id, spotify_link, nome_review, " \
                          f"nome_banda, review, date_register, image_file) " \
                  f"VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-
         cursor.execute(insert, (tipo_review, author_id, spotify_link, nome_review,
                 nome_banda, review, date_register, image_file))
         msdb.commit()
