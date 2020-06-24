@@ -89,8 +89,11 @@ def users_new(username, name, surname):  # <- Register a new 'User' in the table
 
 def users_password_update(id, new_password):  # <- Update User's password ->
     try:
+        id = int(id)
+        new_password = str(new_password)
         cursor = msdb.cursor()
-        updating_query = f"UPDATE public.users SET PASSWORD='{new_password}' WHERE id='{id}'"
+        cursor.execute("ROLLBACK")
+        updating_query = f"UPDATE public.users SET PASSWORD='{new_password}' WHERE id={id}"
         cursor.execute(updating_query)
         msdb.commit()
     except:

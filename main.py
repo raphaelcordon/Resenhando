@@ -5,7 +5,6 @@ from models import EditUsersPass, DateConversion
 from passlib.hash import sha256_crypt
 from datetime import date
 from time import time
-from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -31,49 +30,61 @@ def home():
 
 @app.route('/resenha', methods=['GET', 'POST'])
 def resenha():
-    return render_template('resenha.html')
+    if session['username'] == '' or 'username' not in session:
+        flash('Você precisa logar para acessar essa área')
+        return redirect(url_for('index'))
+    else:
+     return render_template('resenha.html')
 
 
 @app.route('/nova_resenha', methods=['GET', 'POST'])
 def nova_resenha():
-    tipo_review = request.form['tipo_review']
-    author_id = session['id']
-    spotify_link = request.form['spotify_link']
-    nome_review = request.form['nome_review']
-    nome_banda = request.form['nome_banda']
-    review = request.form['review']
-    date_register = date.today()
-    print(request.files['image_file'])
-
-#   <-- input image -->
-    if request.files['image_file']:
-        image_file = request.files['image_file']
-        ext_file = str(request.files['image_file'])
-        if ext_file.lower().endswith('jpg'):
-            ext = '.jpg'
-        elif ext_file.lower().endswith('jpeg'):
-            ext = '.jpeg'
-        else:
-            ext = '.png'
-        timestamp = time()
-        filename = f'capa-{timestamp}{ext}'
-        image_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
+    if session['username'] == '' or 'username' not in session:
+        flash('Você precisa logar para acessar essa área')
+        return redirect(url_for('index'))
     else:
-        filename = None
+        tipo_review = request.form['tipo_review']
+        author_id = session['id']
+        spotify_link = request.form['spotify_link']
+        nome_review = request.form['nome_review']
+        nome_banda = request.form['nome_banda']
+        review = request.form['review']
+        date_register = date.today()
+        print(request.files['image_file'])
 
-    db.resenha_new(tipo_review, author_id, spotify_link, nome_review, nome_banda, review, date_register, filename)
+    #   <-- input image -->
+        if request.files['image_file']:
+            image_file = request.files['image_file']
+            ext_file = str(request.files['image_file'])
+            if ext_file.lower().endswith('jpg'):
+                ext = '.jpg'
+            elif ext_file.lower().endswith('jpeg'):
+                ext = '.jpeg'
+            else:
+                ext = '.png'
+            timestamp = time()
+            filename = f'capa-{timestamp}{ext}'
+            image_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-    return redirect(url_for('home'))
+        else:
+            filename = None
+
+        db.resenha_new(tipo_review, author_id, spotify_link, nome_review, nome_banda, review, date_register, filename)
+
+        return redirect(url_for('home'))
 
 
 @app.route('/resenhado/<int:id>/')
 def resenhado(id):
-    data = db.resenha_find_id(id)
-    user = db.user_find_id(data.author_id)
-    date = DateConversion(str(data.date_register))
+    if session['username'] == '' or 'username' not in session:
+        flash('Você precisa logar para acessar essa área')
+        return redirect(url_for('index'))
+    else:
+        data = db.resenha_find_id(id)
+        user = db.user_find_id(data.author_id)
+        date = DateConversion(str(data.date_register))
 
-    return render_template('resenhado.html', data=data, user=user, date=date)
+        return render_template('resenhado.html', data=data, user=user, date=date)
 
 
 @app.route('/static/img/bg-img/<nome_arquivo>')
@@ -102,10 +113,12 @@ def image(file_name):
 
 @app.route('/home/<int:id>/')
 def minhas_resenhas(id):
-
-    resenhas = db.resenha_author_id(id)
-
-    return render_template('index.html', resenhas=resenhas)
+    if session['username'] == '' or 'username' not in session:
+        flash('Você precisa logar para acessar essa área')
+        return redirect(url_for('home'))
+    else:
+        resenhas = db.resenha_author_id(id)
+        return render_template('index.html', resenhas=resenhas)
 
 
 # <--- 'Resenha' routes beginning --->
@@ -165,7 +178,6 @@ def update_pass_db():
     password = sha256_crypt.encrypt(str(request.form['password']))
     new_pass = EditUsersPass(id, password)
     db.users_password_update(new_pass.id, new_pass.password)
-    print(new_pass.id, new_pass.password)
     flash('Senha alterada com sucesso')
     return redirect(url_for('home'))
 
@@ -174,8 +186,6 @@ def update_pass_db():
 
 
 # <--- Users routes beginning --->
-
-
 
 @app.route('/UsersRegistry', methods=['POST',])
 def users_registry():
