@@ -16,13 +16,14 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='resenhado.css') }}">
 </head>
 
 <body>
     <!-- Preloader -->
     <div id="preloader">
         <i class="circle-preloader"></i>
-        <img src="{{ url_for('static', filename='img/core-img/pizza.png') }}" alt="">
+        <img src="{{ url_for('static', filename='img/core-img/pencil.png') }}" alt="">
     </div>
 
     <!-- Search Wrapper -->
@@ -63,15 +64,16 @@
                     </div>
 
                     <!-- Login Area -->
-                    <div>
-                        {% if session['id'] == '' %}
-                        <a href="{{ url_for('login') }}"><p>Cique aqui para logar</p></a>
-                        {% else %}
-                            {{ session['name'] }} está logado
-                            <form method="get" action="{{ url_for('logout') }}" enctype="multipart/form-data">
-                                <button type="submit" id="logout">Logout</button>
-                                </form>
-                        {% endif %}
+                    <div class="col-12 col-sm-6">
+                        <div class="top-social-info text-right">
+                            {% if session['id'] == '' %}
+                            <a href="{{ url_for('login') }}"><p>Cique aqui para logar</p></a>
+                            {% else %}
+                                <b>{{ session['name'] }}</b> está logado
+                                <form method="get" action="{{ url_for('logout') }}" enctype="multipart/form-data"><button type="submit" id="logout" class="btn btn-link">Logout</button>
+                                    </form>
+                            {% endif %}
+                        </div>
                     </div>
 
                 </div>
@@ -100,8 +102,11 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a href="{{ url_for('home') }}">Home</a></li>
-                                    <li><a href="{{ url_for('resenha') }}">Nova resenha</a></li>
-                                    <li><a href="{{ url_for('home') }}">Minhas resenhas</a></li>
+                                    {% if session.id != '' %}
+                                        <li><a href="{{ url_for('resenha') }}">Nova resenha</a></li>
+                                        <li><a href="{{ url_for('minhas_resenhas', id=session.id) }}">Minhas resenhas</a></li>
+                                    {% endif %}
+                                    <li><a href="{{ url_for('home') }}">Sobre</a></li>
                                 </ul>
 
                                 <!-- Formulario de busca -->
@@ -120,7 +125,19 @@
     </header>
     <!-- ##### Header Area End ##### -->
 
+    <!-- ##### Flask Messages start ##### -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul id="messages" class="list-unstyled">
+                {% for message in messages %}
+                    <li class="alert alert-success">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <!-- ##### Flask Messages start ##### -->
 
+    
     <!-- Python Block -->
     {% block content %} {% endblock %}
 

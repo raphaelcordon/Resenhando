@@ -1,0 +1,48 @@
+.main_results {
+    padding-left: 7%;
+}
+
+.poster_more_details {
+    width: 95%;
+    display:-ms-flexbox;
+    display:flex;
+    -ms-flex-wrap:wrap;
+    flex-wrap:wrap;
+}
+
+.poster_image {
+    padding-right: 2%;
+    border-collapse: collapse;
+    border-style: none;
+    float: left;
+    margin-bottom: 2%;
+    max-width: 500px;
+    max-height: 500px;
+}
+
+.table_poster {
+    padding: 0 2% 0 2%;
+}
+
+.table_poster td {
+    padding: 0px 1% 3%;
+}
+
+.resenha_titles {
+    vertical-align: top;
+    font-weight: bold;
+    -ms-flex-wrap:nowrap;
+    flex-wrap:nowrap;
+    min-width: 20%;
+
+}
+
+.resenha_item {
+    vertical-align: top;
+    width: 80%;
+}
+
+.figcaption {
+    text-align: center;
+    vertical-align: top;
+}

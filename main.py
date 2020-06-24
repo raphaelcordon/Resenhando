@@ -1,13 +1,13 @@
 from flask import Flask, render_template, session, redirect, request, url_for, flash, send_from_directory
 import db
 import os
-from models import EditUsersPass
+from models import EditUsersPass, DateConversion
 from passlib.hash import sha256_crypt
 from datetime import date
 from time import time
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = 'static/img/bg-img/'
+UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
@@ -43,22 +43,26 @@ def nova_resenha():
     nome_banda = request.form['nome_banda']
     review = request.form['review']
     date_register = date.today()
+    print(request.files['image_file'])
 
 #   <-- input image -->
-    image_file = request.files['image_file']
-    ext_file = str(request.files['image_file'])
-    if ext_file.lower().endswith('jpg'):
-        ext = '.jpg'
-    elif ext_file.lower().endswith('jpeg'):
-        ext = '.jpeg'
-    else:
-        ext = '.png'
-    timestamp = time()
-    filename = f'capa-{timestamp}{ext}'
-    image_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    image_file = 'img/bg-img/' + filename
+    if request.files['image_file']:
+        image_file = request.files['image_file']
+        ext_file = str(request.files['image_file'])
+        if ext_file.lower().endswith('jpg'):
+            ext = '.jpg'
+        elif ext_file.lower().endswith('jpeg'):
+            ext = '.jpeg'
+        else:
+            ext = '.png'
+        timestamp = time()
+        filename = f'capa-{timestamp}{ext}'
+        image_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-    db.resenha_new(tipo_review, author_id, spotify_link, nome_review, nome_banda, review, date_register, image_file)
+    else:
+        filename = None
+
+    db.resenha_new(tipo_review, author_id, spotify_link, nome_review, nome_banda, review, date_register, filename)
 
     return redirect(url_for('home'))
 
@@ -66,10 +70,10 @@ def nova_resenha():
 @app.route('/resenhado/<int:id>/')
 def resenhado(id):
     data = db.resenha_find_id(id)
+    user = db.user_find_id(data.author_id)
+    date = DateConversion(str(data.date_register))
 
-    return render_template('resenhado.html', data=data)
-
-    #   <- 'Imagem' routes ->
+    return render_template('resenhado.html', data=data, user=user, date=date)
 
 
 @app.route('/static/img/bg-img/<nome_arquivo>')
@@ -91,10 +95,29 @@ def deleta_arquivo(id):
         os.remove(os.path.join(app.config['UPLOAD_PATH'], image_file))
 
 
+@app.route('/image/<file_name>')
+def image(file_name):
+    return send_from_directory('image', file_name)
+
+
+@app.route('/home/<int:id>/')
+def minhas_resenhas(id):
+
+    resenhas = db.resenha_author_id(id)
+
+    return render_template('index.html', resenhas=resenhas)
+
+
 # <--- 'Resenha' routes beginning --->
 
 
 # <--- Login/Logout and Change Pass routes beginning --->
+
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
 
 @app.route('/authenticate', methods=['POST',])
 def authenticate():
@@ -117,13 +140,8 @@ def authenticate():
             flash(f'Bem vindo {user.name}')
             return redirect(url_for('home'))
     else:
-        flash('Login falhou, por favor tente novamente')
-        return redirect(url_for('home'))
-
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
+        flash('Login falhou, por favor tente novamente', 'error')
+        return redirect(url_for('login'))
 
 
 @app.route('/logout')
@@ -157,10 +175,6 @@ def update_pass_db():
 
 # <--- Users routes beginning --->
 
-@app.route('/usuarios')
-def usuarios():
-    users_list = db.users_list()
-    return render_template('usuarios.html', users=users_list)
 
 
 @app.route('/UsersRegistry', methods=['POST',])
@@ -178,12 +192,33 @@ def users_registry():
     return redirect(url_for('usuarios'))
 
 
-@app.route('/Delete/<int:id>/')
-def Delete(id):
-    db.DeletingDB(id)
+@app.route('/Delete/<string:table>/<int:id>/')
+def Delete(table, id):
+    db.DeletingDB(table, id)
     flash('Successfully removed')
-    return redirect(url_for('usuarios'))
+    if table == 'users':
+        return redirect(url_for('usuarios'))
+    elif table == 'resenha':
+        return redirect(url_for('adm_resenhas'))
+    else:
+        return redirect(url_for('home'))
 
+
+# <--- ADMINISTRATIVE routes beginning --->
+
+@app.route('/usuarios')
+def usuarios():
+    users_list = db.users_list()
+    return render_template('_usuarios.html', users=users_list)
+
+
+@app.route('/adm_resenhas')
+def adm_resenhas():
+    resenhas = db.resenha_list()
+    return render_template('_adm_resenhas.html', resenhas=resenhas)
+
+
+# <--- ADMINISTRATIVE routes ending --->
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

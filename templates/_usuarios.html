@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
         <!-- ##### Main Area Start ##### -->
-        <main>
+        <main class="main_results">
             <!-- ##### Form New Register Start ##### -->
-            <div class="access_level">
+            <div class="mainmenu_bodytext">
                 <p>Registre um novo usuario:</p>
                 <br>
                 <form action="{{ url_for('users_registry') }}" method="post" enctype="multipart/form-data">
@@ -34,7 +34,7 @@
                 <p>Usuários registrados:</p>
 
                 <!-- ##### Table List Users Start ##### -->
-                <table class="table-lists">
+                <table class="table_poster">
                     <thead>
                         <tr>
                             <th>Username</th>
@@ -49,15 +49,12 @@
                             <td>{{user.username}}</td>
                             <td>{{user.name}}</td>
                             <td>{{user.surname}}</td>
-                            <td>&nbsp;
-                            <a href="{{ url_for('Delete', id=user.id) }}">Delete</a>
-                            </td>
+                            <td>&nbsp;<a href="{{ url_for('Delete', table='users', id=user.id) }}">Delete</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
                 <!-- ##### Table List Users End ##### -->
-
             </div>
         </main>
         <!-- ##### Main Area End ##### -->

@@ -1,71 +1,63 @@
 {% extends 'base.html' %}
 {% block content %}
+        <!-- ##### Main Area Start ##### -->
+        <main class="main_results">
+            <section class="poster_more_details">
+                <div>
+                    <!-- ##### Form Edit Start ##### -->
+                    <form action="{{ url_for('nova_resenha') }}" method="post" enctype="multipart/form-data">
+                        <figure class="poster_image">
+                            <img class="img-responsive" src="{{ url_for('imagem', nome_arquivo='No-Image-Available.png') }}">
+                            <figcaption class="figcaption">
+                                <label class="fileContainer">
+                                    <p>Escolha uma capa</p>
+                                <input type="file" name="image_file" id="image_file" class="btn btn-light">
+                                    <p>Faça download de um arquivo JPG ou PNG e adicione à resenha.</p>
+                                </label>
+                            </figcaption>
+                        </figure>
 
+                        <fieldset>
+                            <div class="form-grup">
+                                <label for="tipo_review">Tipo de Review</label>
+                                <select id="tipo_review" name="tipo_review" class="form-control">
+                                    <option value="disco" selected>Um disco inteiro</option>
+                                    <option value="musica">Uma música somente</option>
+                                </select>
+                                <br>
 
-    <!-- ##### 'Resenha' Area Start ##### -->
-    <section class="best-receipe-area">
-        <div class="container">
-            <div class="row">
+                                <br>
+                                <label for="nome_review">Titulo da Review</label>
+                                <input id="nome_review" name="nome_review" class="form-control">
+                                <br>
 
-                <div class="col-12 col-sm-6 col-lg-4">
+                                <label for="nome_banda">Nome do Artista/Banda</label>
+                                <input id="nome_banda" name="nome_banda" class="form-control">
+                                <br>
 
-                <!-- ##### Form Edit Start ##### -->
-                <form action="{{ url_for('nova_resenha') }}" method="post" enctype="multipart/form-data">
-                    <figure class="thumb col-md-4">
-                        <img class="img-responsive" src="{{ url_for('imagem', nome_arquivo='No-Image-Available.png') }}">
-                        <figcaption>
-                            <label class="fileContainer">
-                            Definir capa
-                            <input type="file" name="image_file" id="image_file">
-                            </label>
-                        </figcaption>
-                    </figure>
+                                <label for="review">Resenha</label>
+                                <textarea id="review" name="review" class="form-control" rows="10" cols="50">Sua resenha aqui!
+                                </textarea>
+                                <br>
 
-                    <fieldset>
-                        <div class="form-grup">
-                            <label for="tipo_review">Tipo de Review</label>
-                            <select id="tipo_review" name="tipo_review" class="form-control">
-                                <option value="disco" selected>Um disco inteiro</option>
-                                <option value="musica">Uma música somente</option>
-                            </select>
-                            <br>
+                                <label for="spotify_link">Link do Spotify</label>
+                                <input id="spotify_link" name="spotify_link" class="form-control">
+                                <br>
 
-                            <br>
-                            <label for="nome_review">Titulo da Review</label>
-                            <input id="nome_review" name="nome_review" class="form-control">
-                            <br>
-
-                            <label for="nome_banda">Nome da Banda</label>
-                            <input id="nome_banda" name="nome_banda" class="form-control">
-                            <br>
-
-                            <label for="review">Resenha</label>
-                            <textarea id="review" name="review" class="form-control" rows="10" cols="50">Sua resenha aqui!
-                            </textarea>
-                            <br>
-
-                            <label for="spotify_link">Link do Spotify</label>
-                            <input id="spotify_link" name="spotify_link" class="form-control">
-                            <br>
-
-                            <button type="submit" class="btn btn-primary btn-salvar">Enviar resenha</button>
-                            <a class="btn btn-danger" href="{{ url_for('home') }}">Voltar</a>
-                            <br>
-                        </div>
-                    </fieldset>
-                </form>
+                                <button type="submit" class="btn btn-primary btn-salvar">Enviar resenha</button>
+                                <a class="btn btn-danger" href="{{ url_for('home') }}">Voltar</a>
+                                <br>
+                            </div>
+                        </fieldset>
+                    </form>
                     <div>
                         {% for category, message in get_flashed_messages(with_categories=True) %}
                         {{ message }}
                         {% endfor %}
                     </div>
-
-
-                <!-- ##### Form Edit End ##### -->
-
+                    <!-- ##### Form Edit End ##### -->
                 </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### 'Resenha' Area End ##### -->
+            </section>
+        </main>
+<!-- ##### 'Resenha' Area End ##### -->
 {% endblock %}

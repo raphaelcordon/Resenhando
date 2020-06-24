@@ -11,19 +11,18 @@
                     <div class="single-best-receipe-area mb-30">
                         <a href="{{ url_for('resenhado', id=resenha.id) }}">
                             {% if resenha.image_file == None %}
-                                <img src="{{ url_for('static', filename='img/bg-img/No-Image-Available.png') }}" alt="">
+                                <img src="../static/uploads/No-Image-Available.png" alt="" width="500px" height="500px">
+                            {% else %}
+                                <img src="/static/uploads/{{ resenha.image_file }}" alt="" width="500px" height="500px">
                             {% endif %}
-                                <img src="../static/{{ resenha.image_file }}" alt="">
-
                             <div class="receipe-content">
                                 <h5>{{ resenha.nome_banda }}</h5>
                                 <h5>{{ resenha.nome_review }}</h5>
                         </a>
-                        </div>
                     </div>
                 </div>
-                {% endfor %}
             </div>
+                {% endfor %}
         </div>
     </section>
     <!-- ##### 'Resenhas' Area End ##### -->

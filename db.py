@@ -58,6 +58,13 @@ def resenha_find_id(id):  # <- ID finder to redirect to Edit page ->
     return Resenha(find[0], find[1], find[2], find[3], find[4], find[5], find[6], find[7], find[8])
 
 
+def resenha_author_id(id):  # <- ID finder to redirect to Edit page ->
+    cursor = msdb.cursor()
+    cursor.execute(f"SELECT * FROM public.resenha where author_id = {id}")
+    resenha = translate_resenha(cursor.fetchall())
+    return resenha
+
+
 def resenha_find_non_id(author_id, review, date_register):  # <- Find a 'Resenha' without the ID ->
     cursor = msdb.cursor()
     cursor.execute("ROLLBACK")
@@ -110,15 +117,22 @@ def users_update(id, new_username, new_register, surname):  # <- Update an exist
 
 
 class DeletingDB:
-    def __init__(self, item):   # <- Delete an user on DB ->
+    def __init__(self,table, item):   # <- Delete an user on DB ->
         try:
             cursor = msdb.cursor()
             cursor.execute("ROLLBACK")
-            deleting_query = f"DELETE FROM public.users WHERE id='{item}'"
+            deleting_query = f"DELETE FROM public.{table} WHERE id='{item}'"
             cursor.execute(deleting_query)
             msdb.commit()
         except:
             TryDBMessage.message()
+
+
+def user_find_id(id):  # <- ID finder to redirect to resenhas page ->
+    cursor = msdb.cursor()
+    cursor.execute(f"SELECT * FROM public.users where id = {id}")
+    find = cursor.fetchone()
+    return Users(find[0], find[1], find[2], find[3], find[4])
 
 
 # <--- Users DEFs ending --->
