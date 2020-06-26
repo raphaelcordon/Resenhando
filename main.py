@@ -52,7 +52,6 @@ def nova_resenha():
         review = request.form['review']
         date_register = date.today()
 
-
     #   <-- input image -->
         if request.files['image_file']:
             image_file = request.files['image_file']
@@ -90,8 +89,6 @@ def atualizar_resenha():
     nome_banda = request.form['nome_banda']
     review = request.form['review']
     date_register = date.today()
-
-
 
     #   <-- input image -->
     if request.files['image_file'].filename == '':
@@ -171,12 +168,11 @@ def login():
 
 @app.route('/authenticate', methods=['POST',])
 def authenticate():
-    user = db.authenticate(request.form['username'])
+    user = db.authenticate(str(request.form['username']).lower().strip())
     try:
         check_pass = sha256_crypt.verify(request.form['password'], user.password)
     except:
         check_pass = request.form['password'], user.password
-
     finally:
             session['id'] = user.id
             session['username'] = user.username
