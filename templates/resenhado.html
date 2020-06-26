@@ -25,20 +25,34 @@
                             <td class="resenha_titles">Banda / Artista:</td>
                             <td class="resenha_item">{{ data.nome_banda }}</td>
                         </tr>
+                         <tr>
+                            <td class="resenha_titles">Resenha de:</td>
+                             {% if data.tipo_review == 'disco' %}
+                            <td class="resenha_item">Disco completo</td>
+                             {% else %}
+                            <td class="resenha_item">Somente uma música</td>
+                             {% endif %}
+                        </tr>
                         <tr>
                             <td class="resenha_titles">Resenha:</td>
                             <td class="resenha_item">{{ data.review }}</td>
                         </tr>
                         <tr>
                             <td class="resenha_titles">Link do Spotify:</td>
-                            <td class="resenha_item">{{ data.spotify_link }}
+                            <td class="resenha_item"><a href="{{ data.spotify_link }}"
+                                                        target="_blank">{{ data.spotify_link }}</a>
                         </tr>
+                        {% if session.id == user.id %}
+                            <td class="resenha_titles">Editar detalhes:</td>
+                                <td class="resenha_item"><a href="{{ url_for('editar_resenha', id=data.id) }}">
+                                    <button type="submit" class="btn btn-primary btn-salvar" value="data.id">Editar</button></a></td>
+                        </tr>
+                        {% endif %}
                     </table>
                     <!-- ##### Table Resenha End ##### -->
 
                 </div>
             </section>
         </main>
-        </div>
         <!-- ##### Main Area End ##### -->
 {% endblock %}

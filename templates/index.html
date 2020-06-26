@@ -15,16 +15,22 @@
                             {% else %}
                                 <img src="/static/uploads/{{ resenha.image_file }}" alt="" width="500px" height="500px">
                             {% endif %}
-                            <div class="receipe-content">
-                                <h5>{{ resenha.nome_banda }}</h5>
-                                <h5>{{ resenha.nome_review }}</h5>
                         </a>
+                            <div class="receipe-content">
+                                <a href="{{ url_for('resenhado', id=resenha.id) }}">
+                                    <h5>{{ resenha.nome_review }}</h5>
+                                    <h5>{{ resenha.nome_banda }}</h5>
+                                    {% for user in users %}
+                                        {% if user.id == resenha.author_id %}
+                                            <h5>Autor: {{ user.name }} {{ user.surname }}</h5>
+                                    {% endif %} {% endfor %}
+                                </a>
+                            </div>
                     </div>
                 </div>
-            </div>
                 {% endfor %}
+            </div>
         </div>
     </section>
     <!-- ##### 'Resenhas' Area End ##### -->
-
 {% endblock %}

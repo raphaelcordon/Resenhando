@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- ##### Main Area Start ##### -->
+    <main>
+        <div class="container">
+            <div class="mainmenu_bodytext">
+                <h1>Sobre a página</h1><br>
+            </div>
+            <!-- Nav Start -->
+            <div class="classynav">
+                <p>Resenhando foi criado para que amantes de música possam expressar em palavras os seus sentimentos
+                    em relação a uma certa música disco ou banda.
+                <br>O tema é livre desde que seja sobre música</p>
+                <p>
+                    Vá em frente e faça a sua resenha, mas por favor, atente-se a certos detalhes:
+                </p>
+                <ol class="sobre_list">
+                    <li>&nbsp; - Faça download de uma capa de disco para inserir na sua resenha.</li>
+                    <li>&nbsp; - Enriqueça sua resenha linkando a música ou disco com o Spotify.</li>
+                    <li>&nbsp; - Evite o uso de palavras de baixo calão, apesar de não serem proibidas,
+                        nem todo mundo se sente confortável lendo isso.</li>
+                    <li>&nbsp; - Divirta-se!</li>
+                </ol>
+                </div>
+
+            <!-- Nav End -->
+
+            <div class="mainmenu_bodytext">
+                <br>
+                <h1>Sobre mim</h1><br>
+            </div>
+            <!-- Nav Start -->
+            <div class="classynav">
+                <p>Meu nome é Raphael Cordon, atualmente morando em Zurique, Suiça.<br>
+                Sou Gerente de Projetos de TI há quase 10 anos e esse site faz parte de um conjunto de aplicativos
+                que tenho preparado para formar um portifólio de desenvolvimento de Software com forte foco em Python.</p>
+                <p>
+                Esse é o primeiro (e provavelmente o unico) site a ser construido em portugues, foi feito dessa forma
+                para que eu coloque em teste com multiplos usuários,<br> como a maioria dos meus amigos falam portugues
+                eu entendi que faria mais sentido ter um site em portugues.</p>
+                <p>
+                    Os demais aplicativos podem ser encontrados no meu site pessoal: &nbsp;&nbsp;<a 
+                    href="http://www.raphaelcordon.com" target="_blank">raphaelcordon.com</a>
+                </p>
+                
+            </div>
+            <!-- Nav End -->
+
+        </div>
+    </main>
+    <!-- ##### Main Area End ##### -->
+
+    <!-- ##### Footer Start ##### -->
+    <footer>
+        <a href="http://www.raphaelcordon.com/" target="_blank">
+            <img src="{{ url_for('static', filename='img/core-img/main_logo_white.png') }}"
+                    class="footer_logo" alt="raphaecordon.com"></a>
+        <p>&copy; Raphael Cordon - 2020</p>
+    </footer>
+    <!-- ##### Footer End ##### -->
+{% endblock %}

@@ -5,9 +5,13 @@
             <section class="poster_more_details">
                 <div>
                     <!-- ##### Form Edit Start ##### -->
-                    <form action="{{ url_for('nova_resenha') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ url_for('atualizar_resenha') }}" method="post" enctype="multipart/form-data">
                         <figure class="poster_image">
-                            <img class="img-responsive" src="{{ url_for('imagem', nome_arquivo='No-Image-Available.png') }}">
+                            {% if resenha.image_file == None %}
+                                <img src="../static/uploads/No-Image-Available.png" alt="">
+                            {% else %}
+                                <img src="/static/uploads/{{ resenha.image_file }}" alt="">
+                            {% endif %}
                             <figcaption class="figcaption">
                                 <label class="fileContainer">
                                     <p>Escolha uma capa</p>
@@ -20,6 +24,7 @@
 
                         <fieldset>
                             <div class="form-grup">
+                                <input type="hidden" name="id" value="{{ resenha.id }}">
                                 <label for="tipo_review">Tipo de Review</label>
                                 <select id="tipo_review" name="tipo_review" class="form-control">
                                     <option value="disco" selected>Um disco inteiro</option>
@@ -30,25 +35,25 @@
                                 <br>
                                 <label for="nome_review">Titulo da Review</label>
                                 <input id="nome_review" name="nome_review" class="form-control"
-                                       placeholder="ex: Meu disco nacional favorito!" required>
+                                       placeholder="ex: Meu disco nacional favorito!" required value="{{ resenha.nome_review }}">
                                 <br>
 
                                 <label for="nome_banda">Nome do Artista/Banda</label>
                                 <input id="nome_banda" name="nome_banda" class="form-control"
-                                       placeholder="ex: Sexy Young Lady" required>
+                                       placeholder="ex: Sexy Young Lady" required value="{{ resenha.nome_banda }}">
                                 <br>
 
                                 <label for="review">Resenha</label>
                                 <textarea id="review" name="review" class="form-control" rows="10" cols="50"
-                                          placeholder="Sua resenha aqui:" required></textarea>
+                                          placeholder="Sua resenha aqui:" required>{{ resenha.review }}</textarea>
                                 <br>
 
                                 <label for="spotify_link">Link do Spotify</label>
                                 <input id="spotify_link" name="spotify_link" class="form-control"
-                                placeholder="Copie de seu spotify e cole aqui">
+                                placeholder="Copie de seu spotify e cole aqui" value="{{ resenha.spotify_link }}">
                                 <br>
 
-                                <button type="submit" class="btn btn-primary btn-salvar">Enviar resenha</button>
+                                <button type="submit" class="btn btn-primary btn-salvar">Atualizar resenha</button>
                                 <a class="btn btn-danger" href="{{ url_for('home') }}">Voltar</a>
                                 <br>
                             </div>

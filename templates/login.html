@@ -1,21 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-        <!-- ##### Main Area Start ##### -->
+    <!-- ##### Main Area Start ##### -->
     <main>
         <div class="container">
             <div class="mainmenu_bodytext">
                 <h1>Log in</h1><br>
             </div>
-                <!-- Nav Start -->
-                <div class="classynav">
+            <!-- Nav Start -->
+            <div class="classynav">
+                <!-- ##### Form Edit Start ##### -->
+                <form method="POST" action="{{ url_for('authenticate') }}">
                     <ul>
-                        <form method="POST" action="{{ url_for('authenticate') }}">
-                            <li><label>Username:</label> <input class="form-control" type="text" id="username" name="username" required></li>
-                            <li><label>Senha:</label> <input class="form-control" type="password" id="password" name="password" required></li>
-                            <li><button type="submit" class="btn btn-info">Logar</button></li>
+                        <li><label>Username:</label> <input class="form-control" type="text" id="username" name="username" required></li>
+                        <li><label>Senha:</label> <input class="form-control" type="password" id="password" name="password" required></li>
+                        <li><button type="submit" class="btn btn-info">Logar</button></li>
                     </ul>
-                </div>
-                <!-- Nav End -->
+                </form>
+                <!-- ##### Form Edit End ##### -->
+            </div>
+            <!-- Nav End -->
         </div>
     </main>
+    <!-- ##### Main Area End ##### -->
 {% endblock %}

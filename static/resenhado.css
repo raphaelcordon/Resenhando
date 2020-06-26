@@ -46,3 +46,24 @@
     text-align: center;
     vertical-align: top;
 }
+
+.sobre_list {
+    color: grey;
+    font-style: italic;
+}
+
+
+footer {
+    width: 100;
+    margin: 0 auto 0 auto;
+    margin-top: 5%;
+    text-align: center;
+    background: black;
+    color:#ffffff;
+    padding: 5% 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.footer_logo {
+    width: 15%;
+}

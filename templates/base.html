@@ -12,7 +12,7 @@
     <title>Resenha de música</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ url_for('static', filename='img/core-img/favicon.ico') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/core-img/icon.ico') }}">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
@@ -97,7 +97,6 @@
 
                         <!-- Menu -->
                         <div class="classy-menu">
-
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
@@ -106,15 +105,8 @@
                                         <li><a href="{{ url_for('resenha') }}">Nova resenha</a></li>
                                         <li><a href="{{ url_for('minhas_resenhas', id=session.id) }}">Minhas resenhas</a></li>
                                     {% endif %}
-                                    <li><a href="{{ url_for('home') }}">Sobre</a></li>
+                                    <li><a href="{{ url_for('sobre') }}">Sobre</a></li>
                                 </ul>
-
-                                <!-- Formulario de busca -->
-                                <div class="search-btn">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </div>
-                                <!-- Formulario de busca -->
-
                             </div>
                             <!-- Nav End -->
                         </div>
@@ -142,18 +134,7 @@
     {% block content %} {% endblock %}
 
 
-    <!-- ##### Footer Area Start ##### -->
-    <footer class="footer-area">
-        <div class="container h-100">
-            <div class="row h-100">
-                <div class="col-12 h-100 d-flex flex-wrap align-items-center justify-content-between">
 
-                    <!-- Footer Logo -->
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- ##### Footer Area Start ##### -->
 
     <!-- ##### All Javascript Files ##### -->
     <!-- jQuery-2.2.4 js -->

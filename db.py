@@ -64,12 +64,39 @@ def resenha_author_id(id):  # <- ID finder to redirect to Edit page ->
     return resenha
 
 
-def resenha_find_non_id(author_id, review, date_register):  # <- Find a 'Resenha' without the ID ->
+def resenha_find_capa(id):  # <- ID finder to redirect to Edit page ->
     cursor = msdb.cursor()
-    cursor.execute("ROLLBACK")
-    cursor.execute(f"SELECT * FROM public.resenha where author_id = {author_id} and review ='{review}' and date_register = '{date_register}'")
-    find = cursor.fetchone()
-    return Resenha(find[0], find[1], find[2], find[3], find[4], find[5], find[6], find[7], find[8])
+    cursor.execute(f"SELECT image_file FROM public.resenha where id = {id}")
+    capa = cursor.fetchall()
+    return capa
+
+
+def resenha_edit_ni(id, tipo_review, spotify_link, nome_review,
+                nome_banda, review, date_register):  # <- Register a new 'Resenha' in the table ->
+    try:
+        cursor = msdb.cursor()
+        cursor.execute("ROLLBACK")
+        updating_query = f"update public.resenha set tipo_review='{tipo_review}', spotify_link='{spotify_link}', " \
+                         f"nome_review='{nome_review}', nome_banda='{nome_banda}', review='{review}', " \
+                         f"date_register='{date_register}' where id='{id}'"
+        cursor.execute(updating_query)
+        msdb.commit()
+    except:
+        TryDBMessage.message()
+
+
+def resenha_edit_i(id, tipo_review, spotify_link, nome_review,
+                nome_banda, review, date_register, image_file):  # <- Register a new 'Resenha' in the table ->
+    try:
+        cursor = msdb.cursor()
+        cursor.execute("ROLLBACK")
+        updating_query = f"update public.resenha set tipo_review='{tipo_review}', spotify_link='{spotify_link}', " \
+                         f"nome_review='{nome_review}', nome_banda='{nome_banda}', review='{review}', " \
+                         f"date_register='{date_register}', image_file='{image_file}' where id='{id}'"
+        cursor.execute(updating_query)
+        msdb.commit()
+    except:
+        TryDBMessage.message()
 
 # <--- Resenhas DEFs ending --->
 
@@ -89,11 +116,9 @@ def users_new(username, name, surname):  # <- Register a new 'User' in the table
 
 def users_password_update(id, new_password):  # <- Update User's password ->
     try:
-        id = int(id)
-        new_password = str(new_password)
         cursor = msdb.cursor()
-        cursor.execute("ROLLBACK")
-        updating_query = f"UPDATE public.users SET PASSWORD='{new_password}' WHERE id={id}"
+        print(id, new_password)
+        updating_query = f"UPDATE public.users SET PASSWORD='{new_password}' WHERE id='{id}'"
         cursor.execute(updating_query)
         msdb.commit()
     except:

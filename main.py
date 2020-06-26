@@ -23,7 +23,8 @@ def index():
 @app.route('/home/')
 def home():
     resenhas = db.resenha_list()
-    return render_template('index.html', resenhas=resenhas)
+    users = db.users_list()
+    return render_template('index.html', resenhas=resenhas, users=users)
 
 
 # <--- 'Resenha' routes beginning --->
@@ -50,7 +51,7 @@ def nova_resenha():
         nome_banda = request.form['nome_banda']
         review = request.form['review']
         date_register = date.today()
-        print(request.files['image_file'])
+
 
     #   <-- input image -->
         if request.files['image_file']:
@@ -65,13 +66,55 @@ def nova_resenha():
             timestamp = time()
             filename = f'capa-{timestamp}{ext}'
             image_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
         else:
             filename = None
 
         db.resenha_new(tipo_review, author_id, spotify_link, nome_review, nome_banda, review, date_register, filename)
 
         return redirect(url_for('home'))
+
+
+@app.route('/editar_resenha/<int:id>', methods=['GET', 'POST'])
+def editar_resenha(id):
+    resenha = db.resenha_find_id(id)
+    return render_template('editar_resenha.html', resenha=resenha)
+
+
+@app.route('/atualizar_resenha', methods=['GET', 'POST'])
+def atualizar_resenha():
+
+    id = request.form['id']
+    tipo_review = request.form['tipo_review']
+    spotify_link = request.form['spotify_link']
+    nome_review = request.form['nome_review']
+    nome_banda = request.form['nome_banda']
+    review = request.form['review']
+    date_register = date.today()
+
+
+
+    #   <-- input image -->
+    if request.files['image_file'].filename == '':
+        db.resenha_edit_ni(id, tipo_review, spotify_link, nome_review, nome_banda, review, date_register)
+    else:
+        capa = db.resenha_find_capa(request.form['id'])
+        capa = capa[0][0]
+        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], capa))
+        image_file = request.files['image_file']
+        ext_file = str(request.files['image_file'])
+        if ext_file.lower().endswith('jpg'):
+            ext = '.jpg'
+        elif ext_file.lower().endswith('jpeg'):
+            ext = '.jpeg'
+        else:
+            ext = '.png'
+        timestamp = time()
+        filename = f'capa-{timestamp}{ext}'
+        image_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        db.resenha_edit_i(id, tipo_review, spotify_link, nome_review, nome_banda, review, date_register, filename)
+
+    return redirect(url_for('minhas_resenhas', id=session['id']))
 
 
 @app.route('/resenhado/<int:id>/')
@@ -98,12 +141,6 @@ def recupera_imagem(id):
             return nome_arquivo
         else:
             return 'No-Image-Available.png'
-
-
-def deleta_arquivo(id):
-    image_file = recupera_imagem(id)
-    if image_file != 'No-Image-Available.png':
-        os.remove(os.path.join(app.config['UPLOAD_PATH'], image_file))
 
 
 @app.route('/image/<file_name>')
@@ -140,21 +177,26 @@ def authenticate():
     except:
         check_pass = request.form['password'], user.password
 
-    if check_pass:
-        session['id'] = user.id
-        session['username'] = user.username
-        session['name'] = user.name
-        session['surname'] = user.surname
-        session['password'] = user.password
+    finally:
+            session['id'] = user.id
+            session['username'] = user.username
+            session['name'] = user.name
+            session['surname'] = user.surname
+            session['password'] = user.password
 
-        if user.password == 'pass':
-            return redirect(url_for('change_pass'))
-        else:
-            flash(f'Bem vindo {user.name}')
-            return redirect(url_for('home'))
-    else:
+    if user.password == 'pass':
+        return redirect(url_for('change_pass'))
+
+    elif not sha256_crypt.verify(request.form['password'], user.password):
         flash('Login falhou, por favor tente novamente', 'error')
         return redirect(url_for('login'))
+    else:
+        if check_pass:
+            flash(f'Bem vindo {user.name}')
+            return redirect(url_for('home'))
+        else:
+            flash('Login falhou, por favor tente novamente', 'error')
+            return redirect(url_for('login'))
 
 
 @app.route('/logout')
@@ -175,7 +217,7 @@ def change_pass():
 @app.route('/update_pass_db', methods=['POST',])
 def update_pass_db():
     id = session['id']
-    password = sha256_crypt.encrypt(str(request.form['password']))
+    password = sha256_crypt.hash(str(request.form['password']))
     new_pass = EditUsersPass(id, password)
     db.users_password_update(new_pass.id, new_pass.password)
     flash('Senha alterada com sucesso')
@@ -227,6 +269,10 @@ def adm_resenhas():
     resenhas = db.resenha_list()
     return render_template('_adm_resenhas.html', resenhas=resenhas)
 
+
+@app.route('/sobre')
+def sobre():
+    return render_template('sobre.html')
 
 # <--- ADMINISTRATIVE routes ending --->
 

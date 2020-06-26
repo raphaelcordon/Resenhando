@@ -40,3 +40,8 @@ class DateConversion:
 
     def __str__(self):
         return f'{self.day} de {self.month} de {self.year}'
+
+
+class TranslateCapa:
+    def __init__(self, capa):
+        self.capa = capa
