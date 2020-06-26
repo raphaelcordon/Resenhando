@@ -116,15 +116,11 @@ def atualizar_resenha():
 
 @app.route('/resenhado/<int:id>/')
 def resenhado(id):
-    if session['username'] == '' or 'username' not in session:
-        flash('Você precisa logar para acessar essa área')
-        return redirect(url_for('index'))
-    else:
-        data = db.resenha_find_id(id)
-        user = db.user_find_id(data.author_id)
-        date = DateConversion(str(data.date_register))
+    data = db.resenha_find_id(id)
+    user = db.user_find_id(data.author_id)
+    date = DateConversion(str(data.date_register))
 
-        return render_template('resenhado.html', data=data, user=user, date=date)
+    return render_template('resenhado.html', data=data, user=user, date=date)
 
 
 @app.route('/static/img/bg-img/<nome_arquivo>')
