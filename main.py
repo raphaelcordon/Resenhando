@@ -94,9 +94,12 @@ def atualizar_resenha():
     if request.files['image_file'].filename == '':
         db.resenha_edit_ni(id, tipo_review, spotify_link, nome_review, nome_banda, review, date_register)
     else:
-        capa = db.resenha_find_capa(request.form['id'])
-        capa = capa[0][0]
-        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], capa))
+        try:
+            capa = db.resenha_find_capa(request.form['id'])
+            capa = capa[0][0]
+            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], capa))
+        except:
+            pass
         image_file = request.files['image_file']
         ext_file = str(request.files['image_file'])
         if ext_file.lower().endswith('jpg'):
@@ -269,4 +272,4 @@ def sobre():
 # <--- ADMINISTRATIVE routes ending --->
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

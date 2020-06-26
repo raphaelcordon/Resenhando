@@ -11,7 +11,6 @@
                             {% if resenha.image_file == None %}
                                 <img src="../static/uploads/No-Image-Available.png" alt="">
                             {% else %}
-                                <input type='file' onchange="readURL(this);" />
                                 <img src="/static/uploads/{{ resenha.image_file }}" alt="">
                             {% endif %}
                             <figcaption class="figcaption">
