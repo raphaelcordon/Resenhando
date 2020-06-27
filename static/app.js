@@ -3,7 +3,7 @@ $('form input[type="file"]').change(event => {
   if (arquivos.length === 0) {
     console.log('sem imagem pra mostrar')
   } else {
-      if(arquivos[0].type == 'image/png'){
+      if(arquivos[0].type == 'image/png' || arquivos[0].type == 'image/jpeg'){
         $('img').remove();
         let imagem = $('<img class="img-responsive">');
         imagem.attr('src', window.URL.createObjectURL(arquivos[0]));
