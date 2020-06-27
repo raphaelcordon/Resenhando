@@ -18,5 +18,11 @@ CREATE TABLE IF NOT EXISTS public."resenha" (
 						);
 
 
-
+CREATE TABLE IF NOT EXISTS public."comentarios" (
+						ID serial PRIMARY KEY,
+						RESENHA_ID SMALLINT,
+						USER_ID SMALLINT,
+						REVIEW TEXT,
+						DATE DATE
+						);
 

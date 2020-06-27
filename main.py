@@ -120,10 +120,15 @@ def atualizar_resenha():
 @app.route('/resenhado/<int:id>/')
 def resenhado(id):
     data = db.resenha_find_id(id)
-    user = db.user_find_id(data.author_id)
+    user_author = db.user_find_id(data.author_id)
     date = DateConversion(str(data.date_register))
 
-    return render_template('resenhado.html', data=data, user=user, date=date)
+    comments = db.comentarios_list(id)
+    comment_user = db.users_list()
+    for c in comments:
+        print(c.comment_date)
+    return render_template('resenhado.html', data=data, user_author=user_author, date=date,
+                           comments=comments, comment_user=comment_user)
 
 
 @app.route('/static/img/bg-img/<nome_arquivo>')
@@ -154,7 +159,23 @@ def minhas_resenhas(id):
         return render_template('index.html', resenhas=resenhas)
 
 
-# <--- 'Resenha' routes beginning --->
+# <--- 'Resenha' routes ending --->
+
+# <--- 'Comentarios' routes beginning --->
+
+@app.route('/comentario', methods=['GET', 'POST'])
+def comentario():
+    id_resenha = request.form['id']
+    id_user = session['id']
+    review = request.form['comentario']
+    comment_date = date.today()
+    db.comentarios_new(id_resenha, id_user, review, comment_date)
+    id = int(id_resenha)
+    return redirect(url_for('resenhado', id=id))
+
+
+
+# <--- 'Comentarios' routes ending --->
 
 
 # <--- Login/Logout and Change Pass routes beginning --->
@@ -167,31 +188,35 @@ def login():
 
 @app.route('/authenticate', methods=['POST',])
 def authenticate():
-    user = db.authenticate(str(request.form['username']).lower().strip())
     try:
-        check_pass = sha256_crypt.verify(request.form['password'], user.password)
-    except:
-        check_pass = request.form['password'], user.password
-    finally:
-            session['id'] = user.id
-            session['username'] = user.username
-            session['name'] = user.name
-            session['surname'] = user.surname
-            session['password'] = user.password
+        user = db.authenticate(str(request.form['username']).lower().strip())
+        try:
+            check_pass = sha256_crypt.verify(request.form['password'], user.password)
+        except:
+            check_pass = request.form['password'], user.password
+        finally:
+                session['id'] = user.id
+                session['username'] = user.username
+                session['name'] = user.name
+                session['surname'] = user.surname
+                session['password'] = user.password
 
-    if user.password == 'pass':
-        return redirect(url_for('change_pass'))
+        if user.password == 'pass':
+            return redirect(url_for('change_pass'))
 
-    elif not sha256_crypt.verify(request.form['password'], user.password):
-        flash('Login falhou, por favor tente novamente', 'error')
-        return redirect(url_for('login'))
-    else:
-        if check_pass:
-            flash(f'Bem vindo {user.name}')
-            return redirect(url_for('home'))
-        else:
+        elif not sha256_crypt.verify(request.form['password'], user.password):
             flash('Login falhou, por favor tente novamente', 'error')
             return redirect(url_for('login'))
+        else:
+            if check_pass:
+                flash(f'Bem vindo {user.name}')
+                return redirect(url_for('home'))
+            else:
+                flash('Login falhou, por favor tente novamente', 'error')
+                return redirect(url_for('login'))
+    except:
+        flash('Verifique username e/ou senha e tente novamente', 'error')
+        return redirect(url_for('login'))
 
 
 @app.route('/logout')
@@ -246,6 +271,12 @@ def Delete(table, id):
     if table == 'users':
         return redirect(url_for('usuarios'))
     elif table == 'resenha':
+        try:
+            capa = db.resenha_find_capa(request.form['id'])
+            capa = capa[0][0]
+            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], capa))
+        except:
+            pass
         return redirect(url_for('adm_resenhas'))
     else:
         return redirect(url_for('home'))

@@ -1,5 +1,5 @@
 import psycopg2
-from models import Users, Resenha
+from models import Users, Resenha, Comentations
 
 msdb = psycopg2.connect(
     host='ec2-176-34-123-50.eu-west-1.compute.amazonaws.com',
@@ -157,6 +157,7 @@ class DeletingDB:
 
 def user_find_id(id):  # <- ID finder to redirect to resenhas page ->
     cursor = msdb.cursor()
+    cursor.execute("ROLLBACK")
     cursor.execute(f"SELECT * FROM public.users where id = {id}")
     find = cursor.fetchone()
     return Users(find[0], find[1], find[2], find[3], find[4])
@@ -165,7 +166,32 @@ def user_find_id(id):  # <- ID finder to redirect to resenhas page ->
 # <--- Users DEFs ending --->
 
 
+#   <--- Comentarios DEFs beginning --->
+
+def comentarios_new(resenha_id, user_id, review, date):  # <- Register a new 'Comentario' in the table ->
+    try:
+        cursor = msdb.cursor()
+        insert = f"INSERT INTO public.comentarios (resenha_id, user_id, review, date) " \
+                 f"VALUES (%s, %s, %s, %s)"
+        cursor.execute(insert, (resenha_id, user_id, review, date))
+        msdb.commit()
+    except:
+        TryDBMessage.message()
+
+
+def comentarios_list(resenha_id):  # <- List Comentario registered accordingly to the 'Resenha' ID ->
+    cursor = msdb.cursor()
+    cursor.execute("ROLLBACK")
+    cursor.execute(f"SELECT * FROM public.comentarios where resenha_id='{resenha_id}'")
+    comment = translate_comentarios(cursor.fetchall())
+    return comment
+
+
+# <--- Comentarios DEFs ending --->
+
+
 #   <--- Translating DB beginning --->
+
 def translate_resenha(resenha):  # <- Converts DB data (resenha) into Tuple ->
     def create_resenha_with_tuple(tuple):
         return Resenha(tuple[0], tuple[1], tuple[2], tuple[3], tuple[4], tuple[5], tuple[6], tuple[7], tuple[8])
@@ -173,11 +199,18 @@ def translate_resenha(resenha):  # <- Converts DB data (resenha) into Tuple ->
     return list(map(create_resenha_with_tuple, resenha))
 
 
-def translate_users(user):  # <- Converts DB data (resenha) into Tuple ->
+def translate_users(user):  # <- Converts DB data (user) into Tuple ->
     def create_user_with_tuple(tuple):
         return Users(tuple[0], tuple[1], tuple[2], tuple[3], tuple[4])
 
     return list(map(create_user_with_tuple, user))
+
+
+def translate_comentarios(comentario):  # <- Converts DB data (comentario) into Tuple ->
+    def create_comentario_with_tuple(tuple):
+        return Comentations(tuple[0], tuple[1], tuple[2], tuple[3], tuple[4])
+
+    return list(map(create_comentario_with_tuple, comentario))
 
 
 # <--- Translating DB ending --->

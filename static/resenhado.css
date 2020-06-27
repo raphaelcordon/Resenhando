@@ -67,3 +67,36 @@ footer {
 .footer_logo {
     width: 15%;
 }
+
+.comments {
+    width: 100;
+    margin: 0 auto 0 auto;
+    background: rgb(241, 241, 241);
+    padding: 1px 7% 7%;
+}
+
+.comments_text {
+    color: rgb(60, 60, 60);
+}
+
+.comments_writing {
+    display:flex;
+    width: 70%;
+}
+
+.comments_result {
+    font-weight: bold;
+    width: 70%;
+}
+
+.comments_review {
+    padding: 0 5% 0%;
+    font-size: 1.5em;
+    color: rgb(60, 60, 60);
+    background: rgb(230, 230, 230);
+    width: 100%;
+}
+
+.buttons {
+    text-align: right;
+}

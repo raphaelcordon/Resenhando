@@ -5,7 +5,7 @@
             <section class="poster_more_details">
                 <div>
                     <p class="resenha_titles">Resenha escrita em: {{ date }}</p>
-                    <p class="resenha_titles">Autor: {{ user.name }} {{ user.surname }}</p>
+                    <p class="resenha_titles">Autor: {{ user_author.name }} {{ user_author.surname }}</p>
 
                     <div class="poster_image">
                         {% if data.image_file == None %}
@@ -42,10 +42,14 @@
                             <td class="resenha_item"><a href="{{ data.spotify_link }}"
                                                         target="_blank">{{ data.spotify_link }}</a>
                         </tr>
-                        {% if session.id == user.id %}
-                            <td class="resenha_titles">Editar detalhes:</td>
+                        {% if session.id == user_author.id %}
+                            <td class="resenha_titles"></td>
                                 <td class="resenha_item"><a href="{{ url_for('editar_resenha', id=data.id) }}">
-                                    <button type="submit" class="btn btn-primary btn-salvar" value="data.id">Editar</button></a></td>
+                                    <button type="submit" class="btn btn-link" value="data.id">Editar</button></a>
+
+                                    <a href="{{ url_for('Delete',table='resenha', id=data.id) }}">
+                                    <button type="submit" class="btn btn-link">Deletar</button></a>
+                                </td>
                         </tr>
                         {% endif %}
                     </table>
@@ -54,5 +58,43 @@
                 </div>
             </section>
         </main>
-        <!-- ##### Main Area End ##### -->
+         <!-- ##### Main Area End ##### -->
+        <section class="comments">
+            <section>
+                <p class="comments_text">Faça login para postar um comentário</p>
+                {% if session.id %}
+                    <form action="{{ url_for('comentario') }}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="{{ data.id }}">
+                        <div class="comments_writing">
+                        <textarea id="comentario" name="comentario" class="form-control" rows="2" cols="3"
+                                  placeholder="Comente essa resenha:" required></textarea>
+                        <button type="submit" class="btn btn-link">Postar</button>
+                        </div>
+                        <br>
+                    </form>
+                {% endif %}
+            </section>
+            <section class="comments_result">
+                {% for comment in comments %}
+                    {% for user in comment_user %}
+                        {% if comment.user_id == user.id %}
+                            {{ user.name }} {{ user.surname }}
+                        {% endif %}
+                    {% endfor %} no dia {{ comment.comment_date.strftime('%d-%m-%Y') }}, comentou:<br>
+                    <table class="comments_review">
+                        <tr>
+                            <td>{{ comment.review }}</td>
+                            {% if comment.user_id == session.id %}
+                                <td class="buttons">
+                                    <a href="{{ url_for('Delete',table='comentarios', id=comment.id) }}">
+                                    <button type="submit" class="btn btn-link">deletar</button></a></td>
+                            {% endif %}
+                        </tr>
+                    </table>
+                <br>
+                {% endfor %}
+
+            </section>
+        </section>
+
 {% endblock %}
