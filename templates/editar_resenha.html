@@ -28,8 +28,12 @@
                                 <input type="hidden" name="id" value="{{ resenha.id }}">
                                 <label for="tipo_review">Tipo de Review</label>
                                 <select id="tipo_review" name="tipo_review" class="form-control">
-                                    <option value="disco" selected>Um disco inteiro</option>
-                                    <option value="musica">Uma música somente</option>
+                                    {% if resenha.tipo_review == disco %}
+                                        <option value="disco" selected>Um disco inteiro</option>
+                                    {% else %}
+                                        <option value="disco">Um disco inteiro</option>
+                                        <option value="musica" selected>Uma música somente</option>
+                                    {% endif %}
                                 </select>
                                 <br>
 

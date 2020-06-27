@@ -46,9 +46,6 @@
                             <td class="resenha_titles"></td>
                                 <td class="resenha_item"><a href="{{ url_for('editar_resenha', id=data.id) }}">
                                     <button type="submit" class="btn btn-link" value="data.id">Editar</button></a>
-
-                                    <a href="{{ url_for('Delete',table='resenha', id=data.id) }}">
-                                    <button type="submit" class="btn btn-link">Deletar</button></a>
                                 </td>
                         </tr>
                         {% endif %}
