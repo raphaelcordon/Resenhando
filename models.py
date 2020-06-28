@@ -1,3 +1,6 @@
+import re
+
+
 class Resenha:
     def __init__(self, id, tipo_review, author_id, spotify_link, nome_review,
                  nome_banda, review, date_register, image_file):
@@ -25,6 +28,7 @@ class EditUsersPass:
     def __init__(self, id, password):
         self.id = id
         self.password = password
+
 
 class DateConversion:
     def __init__(self, db_date):
@@ -54,3 +58,30 @@ class Comentations:
         self.user_id = user_id
         self.review = review
         self.comment_date = comment_date
+
+
+class Spotify:
+    def __init__(self, address):
+        self.address = address
+
+        if 'album:' in self.address:
+            self.segment = 'album'
+            self.link = re.search(r'(?<=album:)\w+', self.address)
+        elif 'album/' in self.address:
+            self.segment = 'album'
+            self.link = re.search(r'(?<=album/)\w+', self.address)
+        elif 'track:' in self.address:
+            self.segment = 'track'
+            self.link = re.search(r'(?<=track:)\w+', self.address)
+        elif 'track/' in self.address:
+            self.segment = 'track'
+            self.link = re.search(r'(?<=track/)\w+', self.address)
+        elif 'playlist:' in self.address:
+            self.segment = 'playlist'
+            self.link = re.search(r'(?<=playlist:)\w+', self.address)
+        elif 'playlist/' in self.address:
+            self.segment = 'playlist'
+            self.link = re.search(r'(?<=playlist/)\w+', self.address)
+
+    def __str__(self):
+        return f'https://open.spotify.com/embed/{self.segment}/{self.link.group(0)}'

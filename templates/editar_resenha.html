@@ -55,7 +55,8 @@
 
                                 <label for="spotify_link">Link do Spotify</label>
                                 <input id="spotify_link" name="spotify_link" class="form-control"
-                                placeholder="Copie de seu spotify e cole aqui" value="{{ resenha.spotify_link }}">
+                                placeholder="Copie de seu spotify e cole aqui" value="{{ resenha.spotify_link }}" required>
+                                <p>Pode ser o Link ou URL :)<br><img src="{{ url_for('static', filename='img/core-img/spotify_instructions.png') }}"></p>
                                 <br>
 
                                 <button type="submit" class="btn btn-primary btn-salvar">Atualizar resenha</button>

@@ -18,8 +18,8 @@
                             </figcaption>
                         </figure>
 
-                        <fieldset>
-                            <div class="form-grup">
+                        <fieldset class="resenha_smartphone">
+                            <div class="form-group">
                                 <label for="tipo_review">Tipo de Review</label>
                                 <select id="tipo_review" name="tipo_review" class="form-control">
                                     <option value="disco" selected>Um disco inteiro</option>
@@ -45,8 +45,10 @@
 
                                 <label for="spotify_link">Link do Spotify</label>
                                 <input id="spotify_link" name="spotify_link" class="form-control"
-                                placeholder="Copie de seu spotify e cole aqui">
+                                placeholder="Copie de seu spotify e cole aqui" required>
+                                <p>Pode ser o Link ou URL :)<br><img src="{{ url_for('static', filename='img/core-img/spotify_instructions.png') }}"></p>
                                 <br>
+
 
                                 <button type="submit" class="btn btn-primary btn-salvar">Enviar resenha</button>
                                 <a class="btn btn-danger" href="{{ url_for('home') }}">Voltar</a>

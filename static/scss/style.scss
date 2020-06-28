@@ -549,10 +549,11 @@ textarea:focus {
         }
         .top-social-info {
             a {
-                display: inline-block;
+                display: flex;
+                float: left;
                 color: #b6b6b6;
                 font-size: 13px;
-                margin-right: 20px;
+                margin-right: 15px;
                 &:last-child {
                     margin-right: 0;
                 }

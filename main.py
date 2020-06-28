@@ -1,7 +1,7 @@
 from flask import Flask, render_template, session, redirect, request, url_for, flash, send_from_directory
 import db
 import os
-from models import EditUsersPass, DateConversion
+from models import EditUsersPass, DateConversion, Spotify
 from passlib.hash import sha256_crypt
 from datetime import date
 from time import time
@@ -46,7 +46,7 @@ def nova_resenha():
     else:
         tipo_review = request.form['tipo_review']
         author_id = session['id']
-        spotify_link = request.form['spotify_link']
+        spotify_link = Spotify(str(request.form['spotify_link']))
         nome_review = request.form['nome_review']
         nome_banda = request.form['nome_banda']
         review = request.form['review']
@@ -84,7 +84,7 @@ def atualizar_resenha():
 
     id = request.form['id']
     tipo_review = request.form['tipo_review']
-    spotify_link = request.form['spotify_link']
+    spotify_link = Spotify(str(request.form['spotify_link']))
     nome_review = request.form['nome_review']
     nome_banda = request.form['nome_banda']
     review = request.form['review']

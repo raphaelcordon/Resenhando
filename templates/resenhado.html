@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+
+
+
         <!-- ##### Main Area Start ##### -->
         <main class="main_results">
             <section class="poster_more_details">
@@ -38,9 +41,7 @@
                             <td class="resenha_item">{{ data.review }}</td>
                         </tr>
                         <tr>
-                            <td class="resenha_titles">Link do Spotify:</td>
-                            <td class="resenha_item"><a href="{{ data.spotify_link }}"
-                                                        target="_blank">{{ data.spotify_link }}</a>
+                            <td colspan="2" class="resenha_spotify"><iframe src="{{ data.spotify_link }}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></td>
                         </tr>
                         {% if session.id == user_author.id %}
                             <td class="resenha_titles"></td>
@@ -77,7 +78,7 @@
                         {% if comment.user_id == user.id %}
                             {{ user.name }} {{ user.surname }}
                         {% endif %}
-                    {% endfor %} no dia {{ comment.comment_date.strftime('%d-%m-%Y') }}, comentou:<br>
+                    {% endfor %} em {{ comment.comment_date.strftime('%d/%m/%Y') }}:<br>
                     <table class="comments_review">
                         <tr>
                             <td>{{ comment.review }}</td>

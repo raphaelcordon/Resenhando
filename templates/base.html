@@ -65,12 +65,12 @@
 
                     <!-- Login Area -->
                     <div class="col-12 col-sm-6">
-                        <div class="top-social-info text-right">
+                        <div class="login">
                             {% if session['id'] == '' %}
                             <a href="{{ url_for('login') }}"><p>Cique aqui para logar</p></a>
                             {% else %}
-                                <b>{{ session['name'] }}</b> está logado
-                                <form method="get" action="{{ url_for('logout') }}" enctype="multipart/form-data"><button type="submit" id="logout" class="btn btn-link">Logout</button>
+                                <b>{{ session['name'] }}</b> &nbsp;está logado&nbsp;
+                            <form method="get" action="{{ url_for('logout') }}" enctype="multipart/form-data"><button type="submit" id="logout" class="btn btn-link">Logout</button>
                                     </form>
                             {% endif %}
                         </div>
@@ -88,7 +88,7 @@
                     <nav class="classy-navbar justify-content-between" id="deliciousNav">
 
                         <!-- Logo -->
-                        <a class="nav-brand" href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/core-img/logo.png') }}" alt=""></a>
+                        <a class="nav-brand" href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/core-img/logo.png') }}" alt="" class="logo_smartphone"></a>
 
                         <!-- Navbar Toggler -->
                         <div class="classy-navbar-toggler">
