@@ -46,11 +46,12 @@ def nova_resenha():
     else:
         tipo_review = request.form['tipo_review']
         author_id = session['id']
-        spotify_link = Spotify(str(request.form['spotify_link']))
+        spotify_link = str(Spotify(str(request.form['spotify_link'])))
         nome_review = request.form['nome_review']
         nome_banda = request.form['nome_banda']
         review = request.form['review']
         date_register = date.today()
+        print(spotify_link)
 
     #   <-- input image -->
         if request.files['image_file']:
@@ -84,7 +85,7 @@ def atualizar_resenha():
 
     id = request.form['id']
     tipo_review = request.form['tipo_review']
-    spotify_link = Spotify(str(request.form['spotify_link']))
+    spotify_link = str(Spotify(str(request.form['spotify_link'])))
     nome_review = request.form['nome_review']
     nome_banda = request.form['nome_banda']
     review = request.form['review']

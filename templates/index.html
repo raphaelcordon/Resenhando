@@ -5,7 +5,7 @@
     <section class="best-receipe-area">
         <div class="container">
             <div class="row">
-                {% for resenha in resenhas %}
+                {% for resenha in resenhas|sort(attribute='id', reverse=true) %}
                 <!-- Single 'Resenhas' Area -->
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
