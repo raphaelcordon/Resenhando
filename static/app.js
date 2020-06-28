@@ -12,4 +12,4 @@ $('form input[type="file"]').change(event => {
         alert('Formato não suportado')
       }
   }
-});s
+});
