@@ -2,8 +2,13 @@
 {% block content %}
 
     <!-- ##### 'Resenhas' Area Start ##### -->
+
     <section class="best-receipe-area">
         <div class="container">
+                <p>Um espaço pra você falar de musica, pode ser um album, uma playlist ou somente uma musica mesmo.<br>
+                    Vai lá e faz uma resenha, compartilhe conosco!</p>
+
+                <p>Essas são as resenhas escritas até o momento:</p>
             <div class="row">
                 {% for resenha in resenhas|sort(attribute='id', reverse=true) %}
                 <!-- Single 'Resenhas' Area -->
