@@ -71,21 +71,7 @@ def resenha_find_capa(id):  # <- ID finder to redirect to Edit page ->
     return capa
 
 
-def resenha_edit_ni(id, tipo_review, spotify_link, nome_review,
-                nome_banda, review, date_register):  # <- Register a new 'Resenha' in the table ->
-    try:
-        cursor = msdb.cursor()
-        cursor.execute("ROLLBACK")
-        updating_query = f"update public.resenha set tipo_review='{tipo_review}', spotify_link='{spotify_link}', " \
-                         f"nome_review='{nome_review}', nome_banda='{nome_banda}', review='{review}', " \
-                         f"date_register='{date_register}' where id='{id}'"
-        cursor.execute(updating_query)
-        msdb.commit()
-    except:
-        TryDBMessage.message()
-
-
-def resenha_edit_i(id, tipo_review, spotify_link, nome_review,
+def resenha_edit(id, tipo_review, spotify_link, nome_review,
                 nome_banda, review, date_register, image_file):  # <- Register a new 'Resenha' in the table ->
     try:
         cursor = msdb.cursor()

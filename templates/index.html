@@ -13,7 +13,7 @@
                             {% if resenha.image_file == None %}
                                 <img src="../static/uploads/No-Image-Available.png" alt="" width="500px" height="500px">
                             {% else %}
-                                <img src="/static/uploads/{{ resenha.image_file }}" alt="" width="500px" height="500px">
+                                <img src="{{ resenha.image_file }}" alt="" width="500px" height="500px">
                             {% endif %}
                         </a>
                             <div class="receipe-content">

@@ -7,37 +7,15 @@
                 <div>
                     <!-- ##### Form Edit Start ##### -->
                     <form action="{{ url_for('atualizar_resenha') }}" method="post" enctype="multipart/form-data">
-                        <figure class="poster_image">
-                            {% if resenha.image_file == None %}
-                                <img src="../static/uploads/No-Image-Available.png" alt="">
-                            {% else %}
-                                <img src="/static/uploads/{{ resenha.image_file }}" alt="">
-                            {% endif %}
-                            <figcaption class="figcaption">
-                                <label class="fileContainer">
-                                    <p>Escolha uma capa</p>
-                                <input type="file" name="image_file" id="image_file" class="btn btn-light"
-                                accept="image/png, image/jpeg">
-                                    <p>Faça download de um arquivo JPG ou PNG e adicione à resenha.</p>
-                                </label>
-                            </figcaption>
-                        </figure>
-
                         <fieldset>
                             <div class="form-grup">
                                 <input type="hidden" name="id" value="{{ resenha.id }}">
-                                <label for="tipo_review">Tipo de Review</label>
-                                <select id="tipo_review" name="tipo_review" class="form-control">
-                                    {% if resenha.tipo_review == disco %}
-                                        <option value="disco" selected>Um disco inteiro</option>
-                                    {% else %}
-                                        <option value="disco">Um disco inteiro</option>
-                                        <option value="musica" selected>Uma música somente</option>
-                                    {% endif %}
-                                </select>
-                                <br>
 
-                                <br>
+                                <label for="spotify_link">Link do Spotify</label>
+                                <input id="spotify_link" name="spotify_link" class="form-control"
+                                placeholder="Copie de seu spotify e cole aqui" value="{{ resenha.spotify_link }}" required>
+                                <p>Pode ser o Link ou URL :)
+
                                 <label for="nome_review">Titulo da Review</label>
                                 <input id="nome_review" name="nome_review" class="form-control"
                                        placeholder="ex: Meu disco nacional favorito!" required value="{{ resenha.nome_review }}">
@@ -53,14 +31,11 @@
                                           placeholder="Sua resenha aqui:" required>{{ resenha.review }}</textarea>
                                 <br>
 
-                                <label for="spotify_link">Link do Spotify</label>
-                                <input id="spotify_link" name="spotify_link" class="form-control"
-                                placeholder="Copie de seu spotify e cole aqui" value="{{ resenha.spotify_link }}" required>
-                                <p>Pode ser o Link ou URL :)<br><img src="{{ url_for('static', filename='img/core-img/spotify_instructions.png') }}"></p>
-                                <br>
-
                                 <button type="submit" class="btn btn-primary btn-salvar">Atualizar resenha</button>
                                 <a class="btn btn-danger" href="{{ url_for('home') }}">Voltar</a>
+
+                                <p>Intruções para o Spotify:</p>
+                                <img src="{{ url_for('static', filename='img/core-img/spotify_instructions.png') }}"></p>
                                 <br>
                             </div>
                         </fieldset>

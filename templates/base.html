@@ -118,13 +118,16 @@
     <!-- ##### Header Area End ##### -->
 
     <!-- ##### Flask Messages start ##### -->
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
         {% if messages %}
-            <ul id="messages" class="list-unstyled">
-                {% for message in messages %}
-                    <li class="alert alert-success">{{ message }}</li>
-                {% endfor %}
-            </ul>
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <!-- <strong>Title</strong> --> {{ message }}
+                </div>
+            {% endfor %}
         {% endif %}
     {% endwith %}
     <!-- ##### Flask Messages start ##### -->

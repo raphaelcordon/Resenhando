@@ -1,6 +1,3 @@
-import re
-
-
 class Resenha:
     def __init__(self, id, tipo_review, author_id, spotify_link, nome_review,
                  nome_banda, review, date_register, image_file):
@@ -60,32 +57,3 @@ class Comentations:
         self.comment_date = comment_date
 
 
-class Spotify:
-    def __init__(self, address):
-        self.address = address
-        self.segment = ''
-        self.link = ''
-
-        if 'album:' in self.address:
-            self.segment = 'album'
-            self.link = re.search(r'(?<=album:)\w+', self.address).group(0)
-        elif 'album/' in self.address:
-            self.segment = 'album'
-            self.link = re.search(r'(?<=album/)\w+', self.address).group(0)
-        elif 'track:' in self.address:
-            self.segment = 'track'
-            self.link = re.search(r'(?<=track:)\w+', self.address).group(0)
-        elif 'track/' in self.address:
-            self.segment = 'track'
-            self.link = re.search(r'(?<=track/)\w+', self.address).group(0)
-        elif 'playlist:' in self.address:
-            self.segment = 'playlist'
-            self.link = re.search(r'(?<=playlist:)\w+', self.address).group(0)
-        elif 'playlist/' in self.address:
-            self.segment = 'playlist'
-            self.link = re.search(r'(?<=playlist/)\w+', self.address).group(0)
-
-        self.spotify = str(f'https://open.spotify.com/embed/{self.segment}/{self.link}')
-
-    def __str__(self):
-        return self.spotify

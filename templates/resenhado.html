@@ -14,7 +14,7 @@
                         {% if data.image_file == None %}
                             <img src="/static/uploads/No-Image-Available.png" alt="">
                         {% else %}
-                            <img src="/static/uploads/{{ data.image_file }}" alt="">
+                            <img src="{{ data.image_file }}" alt="">
                         {% endif %}
                     </div>
 
@@ -29,11 +29,13 @@
                             <td class="resenha_item">{{ data.nome_banda }}</td>
                         </tr>
                          <tr>
-                            <td class="resenha_titles">Resenha de:</td>
-                             {% if data.tipo_review == 'disco' %}
-                            <td class="resenha_item">Disco completo</td>
+                            <td class="resenha_titles">Sobre:</td>
+                             {% if data.tipo_review == 'album' %}
+                            <td class="resenha_item">um ALBUM completo</td>
+                             {% elif data.tipo_review == 'track' %}
+                            <td class="resenha_item">Uma MÚSICA de um album</td>
                              {% else %}
-                            <td class="resenha_item">Somente uma música</td>
+                            <td class="resenha_item">Uma PLAYLIST</td>
                              {% endif %}
                         </tr>
                         <tr>

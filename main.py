@@ -1,7 +1,8 @@
 from flask import Flask, render_template, session, redirect, request, url_for, flash, send_from_directory
 import db
 import os
-from models import EditUsersPass, DateConversion, Spotify
+from models import EditUsersPass, DateConversion
+from spotify import SpotifyLink, SpotifyImage, SpotifyTipoResenha
 from passlib.hash import sha256_crypt
 from datetime import date
 from time import time
@@ -32,42 +33,27 @@ def home():
 @app.route('/resenha', methods=['GET', 'POST'])
 def resenha():
     if session['username'] == '' or 'username' not in session:
-        flash('Você precisa logar para acessar essa área')
+        flash('Você precisa logar para acessar essa área', 'danger')
         return redirect(url_for('index'))
     else:
-     return render_template('resenha.html')
+        flash('!!!IMPORTANTE!!!   Sem um link do Spotify, sua resenha NÃO irá ao ar.', 'warning')
+        return render_template('resenha.html')
 
 
 @app.route('/nova_resenha', methods=['GET', 'POST'])
 def nova_resenha():
     if session['username'] == '' or 'username' not in session:
-        flash('Você precisa logar para acessar essa área')
+        flash('Você precisa logar para acessar essa área', 'danger')
         return redirect(url_for('index'))
     else:
-        tipo_review = request.form['tipo_review']
+        tipo_review = str(SpotifyTipoResenha(str(request.form['spotify_link'])))
         author_id = session['id']
-        spotify_link = str(Spotify(str(request.form['spotify_link'])))
+        spotify_link = str(SpotifyLink(str(request.form['spotify_link'])))
         nome_review = request.form['nome_review']
         nome_banda = request.form['nome_banda']
         review = request.form['review']
         date_register = date.today()
-        print(spotify_link)
-
-    #   <-- input image -->
-        if request.files['image_file']:
-            image_file = request.files['image_file']
-            ext_file = str(request.files['image_file'])
-            if ext_file.lower().endswith('jpg'):
-                ext = '.jpg'
-            elif ext_file.lower().endswith('jpeg'):
-                ext = '.jpeg'
-            else:
-                ext = '.png'
-            timestamp = time()
-            filename = f'capa-{timestamp}{ext}'
-            image_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        else:
-            filename = None
+        filename = str(SpotifyImage(str(request.form['spotify_link'])))
 
         db.resenha_new(tipo_review, author_id, spotify_link, nome_review, nome_banda, review, date_register, filename)
 
@@ -77,6 +63,7 @@ def nova_resenha():
 @app.route('/editar_resenha/<int:id>', methods=['GET', 'POST'])
 def editar_resenha(id):
     resenha = db.resenha_find_id(id)
+    flash('!!!IMPORTANTE!!!   Sem um link do Spotify, sua resenha NÃO irá ao ar.', 'warning')
     return render_template('editar_resenha.html', resenha=resenha)
 
 
@@ -84,37 +71,17 @@ def editar_resenha(id):
 def atualizar_resenha():
 
     id = request.form['id']
-    tipo_review = request.form['tipo_review']
-    spotify_link = str(Spotify(str(request.form['spotify_link'])))
+    tipo_review = str(SpotifyTipoResenha(str(request.form['spotify_link'])))
+    spotify_link = str(SpotifyLink(str(request.form['spotify_link'])))
     nome_review = request.form['nome_review']
     nome_banda = request.form['nome_banda']
     review = request.form['review']
     date_register = date.today()
+    filename = str(SpotifyImage(str(request.form['spotify_link'])))
 
-    #   <-- input image -->
-    if request.files['image_file'].filename == '':
-        db.resenha_edit_ni(id, tipo_review, spotify_link, nome_review, nome_banda, review, date_register)
-    else:
-        try:
-            capa = db.resenha_find_capa(request.form['id'])
-            capa = capa[0][0]
-            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], capa))
-        except:
-            pass
-        image_file = request.files['image_file']
-        ext_file = str(request.files['image_file'])
-        if ext_file.lower().endswith('jpg'):
-            ext = '.jpg'
-        elif ext_file.lower().endswith('jpeg'):
-            ext = '.jpeg'
-        else:
-            ext = '.png'
-        timestamp = time()
-        filename = f'capa-{timestamp}{ext}'
-        image_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    db.resenha_edit(id, tipo_review, spotify_link, nome_review, nome_banda, review, date_register, filename)
 
-        db.resenha_edit_i(id, tipo_review, spotify_link, nome_review, nome_banda, review, date_register, filename)
-
+    flash('Resenha atualizada com sucesso', 'success')
     return redirect(url_for('minhas_resenhas', id=session['id']))
 
 
@@ -153,10 +120,11 @@ def image(file_name):
 @app.route('/home/<int:id>/')
 def minhas_resenhas(id):
     if session['username'] == '' or 'username' not in session:
-        flash('Você precisa logar para acessar essa área')
+        flash('Você precisa logar para acessar essa área', 'danger')
         return redirect(url_for('home'))
     else:
         resenhas = db.resenha_author_id(id)
+        flash('Essas são as resenhas criadas por você até o momento', 'info')
         return render_template('index.html', resenhas=resenhas)
 
 
@@ -206,17 +174,17 @@ def authenticate():
             return redirect(url_for('change_pass'))
 
         elif not sha256_crypt.verify(request.form['password'], user.password):
-            flash('Login falhou, por favor tente novamente', 'error')
+            flash('Login falhou, por favor tente novamente', 'danger')
             return redirect(url_for('login'))
         else:
             if check_pass:
-                flash(f'Bem vindo {user.name}')
+                flash(f'Bem vindo {user.name}', 'success')
                 return redirect(url_for('home'))
             else:
-                flash('Login falhou, por favor tente novamente', 'error')
+                flash('Login falhou, por favor tente novamente', 'danger')
                 return redirect(url_for('login'))
     except:
-        flash('Verifique username e/ou senha e tente novamente', 'error')
+        flash('Verifique username e/ou senha e tente novamente', 'danger')
         return redirect(url_for('login'))
 
 
@@ -241,7 +209,7 @@ def update_pass_db():
     password = sha256_crypt.hash(str(request.form['password']))
     new_pass = EditUsersPass(id, password)
     db.users_password_update(new_pass.id, new_pass.password)
-    flash('Senha alterada com sucesso')
+    flash('Senha alterada com sucesso', 'success')
     return redirect(url_for('home'))
 
 
@@ -257,18 +225,18 @@ def users_registry():
     surname = str(request.form['surname']).strip().title()
 
     if username == '' or name == '' or surname == '':
-        flash('Blank field not accepted')
+        flash('Blank field not accepted', 'info')
     elif db.users_new(username, name, surname):
-        flash('Already registered, please check below')
+        flash('Already registered, please check below', 'info')
     else:
-        flash("Successfully created. User the password 'pass' to login for the first time.")
+        flash("Successfully created. User the password 'pass' to login for the first time.", 'success')
     return redirect(url_for('usuarios'))
 
 
 @app.route('/Delete/<string:table>/<int:id>/')
 def Delete(table, id):
     db.DeletingDB(table, id)
-    flash('Successfully removed')
+    flash('Successfully removed', 'info')
     if table == 'users':
         return redirect(url_for('usuarios'))
     elif table == 'resenha':
