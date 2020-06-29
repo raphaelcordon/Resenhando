@@ -5,7 +5,7 @@ msdb = db.con()
 
 class TryDBMessage:
     @staticmethod
-    def message():  # <- Raise an error on the log if the table isn't found ->
+    def message():  # <- Raise an error on the log if the table isn'db found ->
         return f'The connection with the database filed.\n' \
                f" Make sure you have executed the script 'db_script.sql' in MySQL."
 

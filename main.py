@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session, redirect, request, url_for, flash, send_from_directory
-from db import db_resenhas, db_helpers, db_users, db_comments, db_authentication
+from db import db_users, db_authentication, db_resenhas, db_comments, db_helpers
 import os
 from models import EditUsersPass, DateConversion
 from spotify import SpotifyLink, SpotifyImage, SpotifyTipoResenha
