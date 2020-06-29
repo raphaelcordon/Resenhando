@@ -8,4 +8,5 @@ locket==0.2.0
 PyMySQL==0.9.3
 passlib~=1.7.2
 psycopg2==2.8.5
+spotipy==2.13.0
 
