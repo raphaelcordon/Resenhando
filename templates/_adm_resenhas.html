@@ -18,7 +18,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {% for resenha in resenhas %}
+                    {% for resenha in resenhas|sort(attribute='id', reverse=true) %}
                         <tr>
                             <td>{{ resenha.id }}</td>
                             <td>{{ resenha.author_id }}</td>

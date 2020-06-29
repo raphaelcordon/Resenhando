@@ -1,18 +1,14 @@
 from flask import Flask, render_template, session, redirect, request, url_for, flash, send_from_directory
-import db
+from db import db_resenhas, db_helpers, db_users, db_comments, db_authentication
 import os
 from models import EditUsersPass, DateConversion
 from spotify import SpotifyLink, SpotifyImage, SpotifyTipoResenha
 from passlib.hash import sha256_crypt
 from datetime import date
-from time import time
 
-UPLOAD_FOLDER = 'static/uploads'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route('/')
@@ -23,9 +19,9 @@ def index():
 
 @app.route('/home/')
 def home():
-    resenhas = db.resenha_list()
-    users = db.users_list()
-    return render_template('index.html', resenhas=resenhas, users=users)
+    review = db_resenhas.resenha_list()
+    users = db_users.users_list()
+    return render_template('index.html', resenhas=review, users=users)
 
 
 # <--- 'Resenha' routes beginning --->
@@ -55,21 +51,20 @@ def nova_resenha():
         date_register = date.today()
         filename = str(SpotifyImage(str(request.form['spotify_link'])))
 
-        db.resenha_new(tipo_review, author_id, spotify_link, nome_review, nome_banda, review, date_register, filename)
+        db_resenhas.resenha_new(tipo_review, author_id, spotify_link, nome_review, nome_banda, review, date_register, filename)
 
         return redirect(url_for('home'))
 
 
 @app.route('/editar_resenha/<int:id>', methods=['GET', 'POST'])
 def editar_resenha(id):
-    resenha = db.resenha_find_id(id)
+    resenha = db_resenhas.resenha_find_id(id)
     flash('!!!IMPORTANTE!!!   Sem um link do Spotify, sua resenha NÃO irá ao ar.', 'warning')
     return render_template('editar_resenha.html', resenha=resenha)
 
 
 @app.route('/atualizar_resenha', methods=['GET', 'POST'])
 def atualizar_resenha():
-
     id = request.form['id']
     tipo_review = str(SpotifyTipoResenha(str(request.form['spotify_link'])))
     spotify_link = str(SpotifyLink(str(request.form['spotify_link'])))
@@ -79,7 +74,7 @@ def atualizar_resenha():
     date_register = date.today()
     filename = str(SpotifyImage(str(request.form['spotify_link'])))
 
-    db.resenha_edit(id, tipo_review, spotify_link, nome_review, nome_banda, review, date_register, filename)
+    db_resenhas.resenha_edit(id, tipo_review, spotify_link, nome_review, nome_banda, review, date_register, filename)
 
     flash('Resenha atualizada com sucesso', 'success')
     return redirect(url_for('minhas_resenhas', id=session['id']))
@@ -87,12 +82,12 @@ def atualizar_resenha():
 
 @app.route('/resenhado/<int:id>/')
 def resenhado(id):
-    data = db.resenha_find_id(id)
-    user_author = db.user_find_id(data.author_id)
+    data = db_resenhas.resenha_find_id(id)
+    user_author = db_users.user_find_id(data.author_id)
     date = DateConversion(str(data.date_register))
 
-    comments = db.comentarios_list(id)
-    comment_user = db.users_list()
+    comments = db_comments.comentarios_list(id)
+    comment_user = db_users.users_list()
     for c in comments:
         print(c.comment_date)
     return render_template('resenhado.html', data=data, user_author=user_author, date=date,
@@ -123,7 +118,7 @@ def minhas_resenhas(id):
         flash('Você precisa logar para acessar essa área', 'danger')
         return redirect(url_for('home'))
     else:
-        resenhas = db.resenha_author_id(id)
+        resenhas = db_resenhas.resenha_author_id(id)
         flash('Essas são as resenhas criadas por você até o momento', 'info')
         return render_template('index.html', resenhas=resenhas)
 
@@ -138,10 +133,9 @@ def comentario():
     id_user = session['id']
     review = request.form['comentario']
     comment_date = date.today()
-    db.comentarios_new(id_resenha, id_user, review, comment_date)
+    db_comments.comentarios_new(id_resenha, id_user, review, comment_date)
     id = int(id_resenha)
     return redirect(url_for('resenhado', id=id))
-
 
 
 # <--- 'Comentarios' routes ending --->
@@ -158,7 +152,7 @@ def login():
 @app.route('/authenticate', methods=['POST',])
 def authenticate():
     try:
-        user = db.authenticate(str(request.form['username']).lower().strip())
+        user = db_authentication.authenticate(str(request.form['username']).lower().strip())
         try:
             check_pass = sha256_crypt.verify(request.form['password'], user.password)
         except:
@@ -208,7 +202,7 @@ def update_pass_db():
     id = session['id']
     password = sha256_crypt.hash(str(request.form['password']))
     new_pass = EditUsersPass(id, password)
-    db.users_password_update(new_pass.id, new_pass.password)
+    db_users.users_password_update(new_pass.id, new_pass.password)
     flash('Senha alterada com sucesso', 'success')
     return redirect(url_for('home'))
 
@@ -226,7 +220,7 @@ def users_registry():
 
     if username == '' or name == '' or surname == '':
         flash('Blank field not accepted', 'info')
-    elif db.users_new(username, name, surname):
+    elif db_users.users_new(username, name, surname):
         flash('Already registered, please check below', 'info')
     else:
         flash("Successfully created. User the password 'pass' to login for the first time.", 'success')
@@ -235,17 +229,11 @@ def users_registry():
 
 @app.route('/Delete/<string:table>/<int:id>/')
 def Delete(table, id):
-    db.DeletingDB(table, id)
+    db_helpers.DeletingDB(table, id)
     flash('Successfully removed', 'info')
     if table == 'users':
         return redirect(url_for('usuarios'))
     elif table == 'resenha':
-        try:
-            capa = db.resenha_find_capa(request.form['id'])
-            capa = capa[0][0]
-            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], capa))
-        except:
-            pass
         return redirect(url_for('adm_resenhas'))
     else:
         return redirect(url_for('home'))
@@ -255,13 +243,13 @@ def Delete(table, id):
 
 @app.route('/usuarios')
 def usuarios():
-    users_list = db.users_list()
+    users_list = db_users.users_list()
     return render_template('_usuarios.html', users=users_list)
 
 
 @app.route('/adm_resenhas')
 def adm_resenhas():
-    resenhas = db.resenha_list()
+    resenhas = db_resenhas.resenha_list()
     return render_template('_adm_resenhas.html', resenhas=resenhas)
 
 
@@ -270,6 +258,7 @@ def sobre():
     return render_template('sobre.html')
 
 # <--- ADMINISTRATIVE routes ending --->
+
 
 if __name__ == '__main__':
     app.run(debug=True)

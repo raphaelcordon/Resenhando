@@ -40,7 +40,9 @@
                         </tr>
                         <tr>
                             <td class="resenha_titles">Resenha:</td>
-                            <td class="resenha_item">{{ data.review }}</td>
+                            {% autoescape false %}
+                            <td class="resenha_item">{{ data.review|replace('\n', "<br>") }}</td>
+                            {% endautoescape %}
                         </tr>
                         <tr>
                             <td colspan="2" class="resenha_spotify"><iframe src="{{ data.spotify_link }}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></td>
