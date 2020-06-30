@@ -41,7 +41,10 @@ class SpotifyLink:
             self.link = re.search(r'(?<=playlist/)\w+', self.address).group(0)
 
     def __str__(self):
-        return str(f'https://open.spotify.com/embed/{self.segment}/{self.link}')
+        if self.segment == ''or self.link == '':
+            return ''
+        else:
+            return str(f'https://open.spotify.com/embed/{self.segment}/{self.link}')
 
 
 class SpotifyImage:

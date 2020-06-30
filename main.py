@@ -68,6 +68,12 @@ def atualizar_resenha():
     id = request.form['id']
     tipo_review = str(SpotifyTipoResenha(str(request.form['spotify_link'])))
     spotify_link = str(SpotifyLink(str(request.form['spotify_link'])))
+
+    if '' == spotify_link:
+        resenha = db_resenhas.resenha_find_id(id)
+        flash('Link do Spotify inválido', 'danger')
+        return render_template('editar_resenha.html', resenha=resenha)
+
     nome_review = request.form['nome_review']
     nome_banda = request.form['nome_banda']
     review = request.form['review']
