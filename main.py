@@ -14,9 +14,17 @@ app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
+def __createSessionVariables():
+    session['id'] = ''
+    session['username'] = ''
+    session['name'] = ''
+    session['access_level'] = ''
+
+
 @app.route('/')
 def index():
-    return redirect('home')
+    __createSessionVariables()
+    return redirect(url_for('home'))
 
 
 @app.route('/home/')
@@ -103,8 +111,8 @@ def resenhado(id):
     comments = CommentsRepository().List(id)
     comment_user = UsersRepository().List()
 
-    return render_template('resenhado.html', data=data, user_author=user_author, 
-        date=date, comments=comments, comment_user=comment_user)
+    return render_template('resenhado.html', data=data, user_author=user_author,
+                           date=date, comments=comments, comment_user=comment_user)
 
 
 @app.route('/home/<int:id>/')
@@ -199,10 +207,7 @@ def authenticate():
 
 @app.route('/logout')
 def logout():
-    session['id'] = ''
-    session['username'] = ''
-    session['name'] = ''
-    session['access_level'] = ''
+    __createSessionVariables()
     return redirect(url_for('home'))
 
 
@@ -246,22 +251,26 @@ def usuarios():
     users_list = UsersRepository().List()
     return render_template('_usuarios.html', users=users_list)
 
+
 @app.route('/UsuariosDelete/<int:user_id>')
 def UsuariosDelete(user_id):
     UsersRepository().Delete(user_id)
     flash('Usuario Successfully removed', 'info')
     return redirect(url_for('usuarios'))
 
+
 @app.route('/adm_resenhas')
 def adm_resenhas():
     resenhas = ResenhaRepository().List()
     return render_template('_adm_resenhas.html', resenhas=resenhas)
+
 
 @app.route('/ResenhasDelete/<int:resenha_id>')
 def ResenhasDelete(resenha_id):
     ResenhaRepository().Delete(resenha_id)
     flash('Resenha Successfully removed', 'info')
     return redirect(url_for('adm_resenhas'))
+
 
 @app.route('/sobre')
 def sobre():
