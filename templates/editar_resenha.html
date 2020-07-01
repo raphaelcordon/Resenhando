@@ -5,7 +5,7 @@
     <section class="poster_more_details">
         <div>
             <!-- ##### Form Edit Start ##### -->
-            <form action="{{ url_for('atualizar_resenha') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url_for('res.atualizar_resenha') }}" method="post" enctype="multipart/form-data">
                 <fieldset>
                     <div class="form-grup">
                         <input type="hidden" name="id" value="{{ resenha.id }}">
@@ -26,7 +26,7 @@
                             placeholder="Sua resenha aqui:" required>{{ resenha.review }}</textarea>
                         <br>
                         <button type="submit" class="btn btn-primary btn-salvar">Atualizar resenha</button>
-                        <a class="btn btn-danger" href="{{ url_for('home') }}">Voltar</a>
+                        <a class="btn btn-danger" href="{{ url_for('ind.home') }}">Voltar</a>
                         <p>Intruções para o Spotify:</p>
                         <img src="{{ url_for('static', filename='img/core-img/spotify_instructions.png') }}"></p>
                         <br>

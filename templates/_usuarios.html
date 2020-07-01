@@ -6,7 +6,7 @@
     <div class="mainmenu_bodytext">
         <p>Registre um novo usuario:</p>
         <br>
-        <form action="{{ url_for('users_registry') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ url_for('use.users_registry') }}" method="post" enctype="multipart/form-data">
             <fieldset>
                 <div class="alert-{{category}}">
                     <label for="username">Username</label>
@@ -44,7 +44,7 @@
                     <td>{{user.username}}</td>
                     <td>{{user.name}}</td>
                     <td>{{user.surname}}</td>
-                    <td>&nbsp;<a href="{{ url_for('UsuariosDelete', user_id=user.id) }}">Delete</a></td>
+                    <td>&nbsp;<a href="{{ url_for('adm.UsuariosDelete', user_id=user.id) }}">Delete</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

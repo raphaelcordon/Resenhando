@@ -45,7 +45,7 @@
                 </tr>
                 {% if session.id == user_author.id %}
                 <td class="resenha_titles"></td>
-                <td class="resenha_item"><a href="{{ url_for('editar_resenha', id=data.id) }}">
+                <td class="resenha_item"><a href="{{ url_for('res.editar_resenha', id=data.id) }}">
                         <button type="submit" class="btn btn-link" value="data.id">Editar</button></a>
                 </td>
                 </tr>
@@ -60,7 +60,7 @@
     <section>
         <p class="comments_text">Faça login para postar um comentário</p>
         {% if session.id %}
-        <form action="{{ url_for('comentario') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ url_for('com.comentario') }}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="{{ data.id }}">
             <div class="comments_writing">
                 <textarea id="comentario" name="comentario" class="form-control" rows="2" cols="3"
@@ -83,7 +83,7 @@
                 <td>{{ comment.review }}</td>
                 {% if comment.user_id == session.id %}
                 <td class="buttons">
-                    <a href="{{ url_for('CommentDelete', comment_id=comment.id, resenha_id=data.id) }}">
+                    <a href="{{ url_for('com.CommentDelete', comment_id=comment.id, resenha_id=data.id) }}">
                         <button type="submit" class="btn btn-link">deletar</button></a></td>
                 {% endif %}
             </tr>

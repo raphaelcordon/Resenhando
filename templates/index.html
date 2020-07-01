@@ -11,7 +11,7 @@
             <!-- Single 'Resenhas' Area -->
             <div class="col-12 col-sm-6 col-lg-4">
                 <div class="single-best-receipe-area mb-30">
-                    <a href="{{ url_for('resenhado', id=resenha.id) }}">
+                    <a href="{{ url_for('res.resenhado', id=resenha.id) }}">
                         {% if resenha.image_file == None %}
                         <img src="../static/uploads/No-Image-Available.png" alt="" width="500px" height="500px">
                         {% else %}
@@ -19,7 +19,7 @@
                         {% endif %}
                     </a>
                     <div class="receipe-content">
-                        <a href="{{ url_for('resenhado', id=resenha.id) }}">
+                        <a href="{{ url_for('res.resenhado', id=resenha.id) }}">
                             <h5>{{ resenha.nome_review }}</h5>
                             <h5>{{ resenha.nome_banda }}</h5>
                             {% for user in users %}

@@ -59,13 +59,13 @@
                     <div class="col-12 col-sm-6">
                         <div class="login">
                             {% if session['id'] == '' %}
-                            <a href="{{ url_for('login') }}">
+                            <a href="{{ url_for('log.login') }}">
                                 <p>Cique aqui para logar</p>
                             </a>
                             {% else %}
                             <div class="btn" style="padding-right: 0;"><b>{{ session['name'] }}</b> está logado</div>
                             <div class="btn" style="padding-right: 0;">|</div>
-                            <a id="logout" href="{{ url_for('logout') }}" class="btn btn-link logout">Logout</a>
+                            <a id="logout" href="{{ url_for('log.logout') }}" class="btn btn-link logout">Logout</a>
                             {% endif %}
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                     <!-- Menu -->
                     <nav class="classy-navbar justify-content-between" id="deliciousNav">
                         <!-- Logo -->
-                        <a class="nav-brand" href="{{ url_for('home') }}">
+                        <a class="nav-brand" href="{{ url_for('ind.home') }}">
                             <img src="{{ url_for('static', filename='img/core-img/logo.png') }}" alt=""
                                 class="logo_smartphone">
                         </a>
@@ -92,13 +92,13 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                                    <li><a href="{{ url_for('ind.home') }}">Home</a></li>
                                     {% if session.id != '' %}
-                                    <li><a href="{{ url_for('resenha') }}">Nova resenha</a></li>
-                                    <li><a href="{{ url_for('minhas_resenhas', id=session.id) }}">Minhas resenhas</a>
+                                    <li><a href="{{ url_for('res.resenha') }}">Nova resenha</a></li>
+                                    <li><a href="{{ url_for('res.minhas_resenhas', id=session.id) }}">Minhas resenhas</a>
                                     </li>
                                     {% endif %}
-                                    <li><a href="{{ url_for('sobre') }}">Sobre</a></li>
+                                    <li><a href="{{ url_for('adm.sobre') }}">Sobre</a></li>
                                 </ul>
                             </div>
                             <!-- Nav End -->
