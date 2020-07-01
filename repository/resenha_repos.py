@@ -1,4 +1,3 @@
-
 from .base_repos import PostgreDB
 from models.resenha_model import Resenha, ResenhaCapa
 
