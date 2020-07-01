@@ -1,7 +1,9 @@
 decorator==4.4.2
+flake8==3.8.2
 Flask==1.1.2
 Flask-Login==0.5.0
 gunicorn==20.0.4
+html5lib==1.0.1
 locket==0.2.0
 PyMySQL==0.9.3
 passlib~=1.7.2
