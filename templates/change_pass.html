@@ -1,26 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-    <!-- ##### Main Area Start ##### -->
-    <main>
-        <div class="container">
-            <div class="mainmenu_bodytext">
-                <h1>Log in</h1><br>
-            </div>
-            <!-- Nav Start -->
-            <div class="classynav">
-                <!-- ##### Form Edit Start ##### -->
-                <form action="{{ url_for('update_pass_db') }}" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="{{ data.id }}">
-                    <ul>
-                        <li><label for="password">Nova senha</label></li>
-                        <li><input type="password" id="password" name="password" value="{{ data.password }}"></li>
-                        <li><button type="submit" class="btn btn-info">Salvar</button></li>
-                    </ul>
-                </form>
-                <!-- ##### Form Edit End ##### -->
-            </div>
-            <!-- Nav End -->
+<!-- ##### Main Area Start ##### -->
+<main>
+    <div class="container">
+        <div class="mainmenu_bodytext">
+            <h1>Log in</h1><br>
         </div>
-    </main>
-    <!-- ##### Main Area End ##### -->
+        <!-- Nav Start -->
+        <div class="classynav">
+            <!-- ##### Form Edit Start ##### -->
+            <form action="{{ url_for('update_pass_db') }}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{ data.id }}">
+                <ul>
+                    <li><label for="password">Nova senha</label></li>
+                    <li><input type="password" id="password" name="password" value="{{ data.password }}"></li>
+                    <li><button type="submit" class="btn btn-info">Salvar</button></li>
+                </ul>
+            </form>
+            <!-- ##### Form Edit End ##### -->
+        </div>
+        <!-- Nav End -->
+    </div>
+</main>
+<!-- ##### Main Area End ##### -->
 {% endblock %}

@@ -7,13 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
     <!-- Title -->
     <title>Resenha de música</title>
-
     <!-- Favicon -->
     <link rel="icon" href="{{ url_for('static', filename='img/core-img/icon.ico') }}">
-
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='resenhado.css') }}">
@@ -25,12 +22,10 @@
         <i class="circle-preloader"></i>
         <img src="{{ url_for('static', filename='img/core-img/pencil.png') }}" alt="">
     </div>
-
     <!-- Search Wrapper -->
     <div class="search-wrapper">
         <!-- Close Btn -->
         <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
-
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -42,10 +37,8 @@
             </div>
         </div>
     </div>
-
     <!-- ##### Header Area Start ##### -->
     <header class="header-area">
-
         <!-- Top Header Area -->
         <div class="top-header-area">
             <div class="container h-100">
@@ -62,39 +55,38 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Login Area -->
                     <div class="col-12 col-sm-6">
                         <div class="login">
                             {% if session['id'] == '' %}
-                            <a href="{{ url_for('login') }}"><p>Cique aqui para logar</p></a>
+                            <a href="{{ url_for('login') }}">
+                                <p>Cique aqui para logar</p>
+                            </a>
                             {% else %}
-                                <b>{{ session['name'] }}</b> &nbsp;está logado&nbsp;
-                            <form method="get" action="{{ url_for('logout') }}" enctype="multipart/form-data"><button type="submit" id="logout" class="btn btn-link">Logout</button>
-                                    </form>
+                            <div class="btn" style="padding-right: 0;"><b>{{ session['name'] }}</b> está logado</div>
+                            <div class="btn" style="padding-right: 0;">|</div>
+                            <a id="logout" href="{{ url_for('logout') }}" class="btn btn-link logout">Logout</a>
                             {% endif %}
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
         <!-- Navbar Area -->
         <div class="delicious-main-menu">
             <div class="classy-nav-container breakpoint-off">
                 <div class="container">
                     <!-- Menu -->
                     <nav class="classy-navbar justify-content-between" id="deliciousNav">
-
                         <!-- Logo -->
-                        <a class="nav-brand" href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/core-img/logo.png') }}" alt="" class="logo_smartphone"></a>
-
+                        <a class="nav-brand" href="{{ url_for('home') }}">
+                            <img src="{{ url_for('static', filename='img/core-img/logo.png') }}" alt=""
+                                class="logo_smartphone">
+                        </a>
                         <!-- Navbar Toggler -->
                         <div class="classy-navbar-toggler">
                             <span class="navbarToggler"><span></span><span></span><span></span></span>
                         </div>
-
                         <!-- Menu -->
                         <div class="classy-menu">
                             <!-- Nav Start -->
@@ -102,8 +94,9 @@
                                 <ul>
                                     <li><a href="{{ url_for('home') }}">Home</a></li>
                                     {% if session.id != '' %}
-                                        <li><a href="{{ url_for('resenha') }}">Nova resenha</a></li>
-                                        <li><a href="{{ url_for('minhas_resenhas', id=session.id) }}">Minhas resenhas</a></li>
+                                    <li><a href="{{ url_for('resenha') }}">Nova resenha</a></li>
+                                    <li><a href="{{ url_for('minhas_resenhas', id=session.id) }}">Minhas resenhas</a>
+                                    </li>
                                     {% endif %}
                                     <li><a href="{{ url_for('sobre') }}">Sobre</a></li>
                                 </ul>
@@ -116,29 +109,22 @@
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
-
     <!-- ##### Flask Messages start ##### -->
     {% with messages = get_flashed_messages(with_categories=true) %}
-        <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }} alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                    <!-- <strong>Title</strong> --> {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
+    <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+        <!-- <strong>Title</strong> --> {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
     {% endwith %}
     <!-- ##### Flask Messages start ##### -->
-
-    
     <!-- Python Block -->
     {% block content %} {% endblock %}
-
-
-
-
     <!-- ##### All Javascript Files ##### -->
     <!-- jQuery-2.2.4 js -->
     <script src="{{ url_for('static', filename='js/jquery/jquery-2.2.4.min.js') }}"></script>

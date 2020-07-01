@@ -41,7 +41,7 @@ class SpotifyLink:
             self.link = re.search(r'(?<=playlist/)\w+', self.address).group(0)
 
     def __str__(self):
-        if self.segment == ''or self.link == '':
+        if self.segment == '' or self.link == '':
             return ''
         else:
             return str(f'https://open.spotify.com/embed/{self.segment}/{self.link}')
@@ -63,14 +63,18 @@ class SpotifyImage:
         spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(
             client_id=CLIENT_ID, client_secret=CLIENT_SECRET))
         if 'album' in self.address:
-            self.image_link = str(spotify.album(self.address)['images'][0]['url'])
+            self.image_link = str(spotify.album(
+                self.address)['images'][0]['url'])
         elif 'track' in self.address:
-            self.image_link = str(spotify.track(self.address)['album']['images'][0]['url'])
+            self.image_link = str(spotify.track(self.address)[
+                                  'album']['images'][0]['url'])
         elif 'playlist' in self.address:
-            self.image_link = str(spotify.playlist_cover_image(self.address)[0]['url'])
+            self.image_link = str(
+                spotify.playlist_cover_image(self.address)[0]['url'])
 
     def __str__(self):
         return self.image_link
+
 
 class SpotifyTipoResenha:
     def __init__(self, address: str):
@@ -85,8 +89,8 @@ class SpotifyTipoResenha:
         self.address = str(address)
         self.tipo_resenha = ''
 
-        spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(
-            client_id=CLIENT_ID, client_secret=CLIENT_SECRET))
+        # spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(
+        #    client_id=CLIENT_ID, client_secret=CLIENT_SECRET))
         if 'album' in self.address:
             self.tipo_resenha = 'album'
         elif 'track' in self.address:

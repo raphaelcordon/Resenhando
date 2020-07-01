@@ -1,38 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
-        <!-- ##### Main Area Start ##### -->
-        <main class="main_results">
-            <!-- ##### Form New Register Start ##### -->
-            <div class="mainmenu_bodytext">
-                <p>Resenhas registradas:</p>
-
-                <!-- ##### Table List Users Start ##### -->
-                <table class="table_poster">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>author_id</th>
-                            <th>nome_review</th>
-                            <th>nome_banda</th>
-                            <th>date_register</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for resenha in resenhas|sort(attribute='id', reverse=true) %}
-                        <tr>
-                            <td>{{ resenha.id }}</td>
-                            <td>{{ resenha.author_id }}</td>
-                            <td>{{ resenha.nome_review }}</td>
-                            <td>{{ resenha.nome_banda }}</td>
-                            <td>{{ resenha.date_register }}</td>
-                            <td>&nbsp;<a href="{{ url_for('Delete',table='resenha', id=resenha.id) }}">Delete</a></td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                <br>
-                <!-- ##### Table List Users End ##### -->
-            </div>
-        </main>
-        <!-- ##### Main Area End ##### -->
+<!-- ##### Main Area Start ##### -->
+<main class="main_results">
+    <!-- ##### Form New Register Start ##### -->
+    <div class="mainmenu_bodytext">
+        <p>Resenhas registradas:</p>
+        <!-- ##### Table List Users Start ##### -->
+        <table class="table_poster">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>author_id</th>
+                    <th>nome_review</th>
+                    <th>nome_banda</th>
+                    <th>date_register</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for resenha in resenhas|sort(attribute='id', reverse=true) %}
+                <tr>
+                    <td>{{ resenha.id }}</td>
+                    <td>{{ resenha.author_id }}</td>
+                    <td>{{ resenha.nome_review }}</td>
+                    <td>{{ resenha.nome_banda }}</td>
+                    <td>{{ resenha.date_register }}</td>
+                    <td>&nbsp;<a href="{{ url_for('ResenhasDelete', resenha_id=resenha.id) }}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <!-- ##### Table List Users End ##### -->
+    </div>
+</main>
+<!-- ##### Main Area End ##### -->
 {% endblock %}

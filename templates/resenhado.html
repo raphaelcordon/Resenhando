@@ -1,102 +1,95 @@
 {% extends 'base.html' %}
 {% block content %}
-
-
-
-        <!-- ##### Main Area Start ##### -->
-        <main class="main_results">
-            <section class="poster_more_details">
-                <div>
-                    <p class="resenha_titles">Resenha escrita em: {{ date }}</p>
-                    <p class="resenha_titles">Autor: {{ user_author.name }} {{ user_author.surname }}</p>
-
-                    <div class="poster_image">
-                        {% if data.image_file == None %}
-                            <img src="/static/uploads/No-Image-Available.png" alt="">
-                        {% else %}
-                            <img src="{{ data.image_file }}" alt="">
-                        {% endif %}
-                    </div>
-
-                    <!-- ##### Table Resenha Start ##### -->
-                    <table class="table_poster">
-                        <tr>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                            <td class="resenha_titles">{{ data.nome_review }}</td>
-                        </tr>
-                        <tr>
-                            <td class="resenha_titles">Banda / Artista:</td>
-                            <td class="resenha_item">{{ data.nome_banda }}</td>
-                        </tr>
-                         <tr>
-                            <td class="resenha_titles">Sobre:</td>
-                             {% if data.tipo_review == 'album' %}
-                            <td class="resenha_item">um ALBUM completo</td>
-                             {% elif data.tipo_review == 'track' %}
-                            <td class="resenha_item">Uma MÚSICA de um album</td>
-                             {% else %}
-                            <td class="resenha_item">Uma PLAYLIST</td>
-                             {% endif %}
-                        </tr>
-                        <tr>
-                            <td class="resenha_titles">Resenha:</td>
-                            {% autoescape false %}
-                            <td class="resenha_item">{{ data.review|replace('\n', "<br>") }}</td>
-                            {% endautoescape %}
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="resenha_spotify"><iframe src="{{ data.spotify_link }}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></td>
-                        </tr>
-                        {% if session.id == user_author.id %}
-                            <td class="resenha_titles"></td>
-                                <td class="resenha_item"><a href="{{ url_for('editar_resenha', id=data.id) }}">
-                                    <button type="submit" class="btn btn-link" value="data.id">Editar</button></a>
-                                </td>
-                        </tr>
-                        {% endif %}
-                    </table>
-                    <!-- ##### Table Resenha End ##### -->
-
-                </div>
-            </section>
-        </main>
-         <!-- ##### Main Area End ##### -->
-        <section class="comments">
-            <section>
-                <p class="comments_text">Faça login para postar um comentário</p>
-                {% if session.id %}
-                    <form action="{{ url_for('comentario') }}" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="id" value="{{ data.id }}">
-                        <div class="comments_writing">
-                        <textarea id="comentario" name="comentario" class="form-control" rows="2" cols="3"
-                                  placeholder="Comente essa resenha:" required></textarea>
-                        <button type="submit" class="btn btn-link">Postar</button>
-                        </div>
-                        <br>
-                    </form>
+<!-- ##### Main Area Start ##### -->
+<main class="main_results">
+    <section class="poster_more_details">
+        <div>
+            <p class="resenha_titles">Resenha escrita em: {{ date }}</p>
+            <p class="resenha_titles">Autor: {{ user_author.name }} {{ user_author.surname }}</p>
+            <div class="poster_image">
+                {% if data.image_file == None %}
+                <img src="/static/uploads/No-Image-Available.png" alt="">
+                {% else %}
+                <img src="{{ data.image_file }}" alt="">
                 {% endif %}
-            </section>
-            <section class="comments_result">
-                {% for comment in comments %}
-                    {% for user in comment_user %}
-                        {% if comment.user_id == user.id %}
-                            {{ user.name }} {{ user.surname }}
-                        {% endif %}
-                    {% endfor %} em {{ comment.comment_date.strftime('%d/%m/%Y') }}:<br>
-                    <table class="comments_review">
-                        <tr>
-                            <td>{{ comment.review }}</td>
-                            {% if comment.user_id == session.id %}
-                                <td class="buttons">
-                                    <a href="{{ url_for('Delete',table='comentarios', id=comment.id) }}">
-                                    <button type="submit" class="btn btn-link">deletar</button></a></td>
-                            {% endif %}
-                        </tr>
-                    </table>
-                <br>
-                {% endfor %}
-
-            </section>
-        </section>
-
+            </div>
+            <!-- ##### Table Resenha Start ##### -->
+            <table class="table_poster">
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td class="resenha_titles">{{ data.nome_review }}</td>
+                </tr>
+                <tr>
+                    <td class="resenha_titles">Banda / Artista:</td>
+                    <td class="resenha_item">{{ data.nome_banda }}</td>
+                </tr>
+                <tr>
+                    <td class="resenha_titles">Sobre:</td>
+                    {% if data.tipo_review == 'album' %}
+                    <td class="resenha_item">um ALBUM completo</td>
+                    {% elif data.tipo_review == 'track' %}
+                    <td class="resenha_item">Uma MÚSICA de um album</td>
+                    {% else %}
+                    <td class="resenha_item">Uma PLAYLIST</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class="resenha_titles">Resenha:</td>
+                    {% autoescape false %}
+                    <td class="resenha_item">{{ data.review|replace('\n', "<br>") }}</td>
+                    {% endautoescape %}
+                </tr>
+                <tr>
+                    <td colspan="2" class="resenha_spotify"><iframe src="{{ data.spotify_link }}" width="300"
+                            height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></td>
+                </tr>
+                {% if session.id == user_author.id %}
+                <td class="resenha_titles"></td>
+                <td class="resenha_item"><a href="{{ url_for('editar_resenha', id=data.id) }}">
+                        <button type="submit" class="btn btn-link" value="data.id">Editar</button></a>
+                </td>
+                </tr>
+                {% endif %}
+            </table>
+            <!-- ##### Table Resenha End ##### -->
+        </div>
+    </section>
+</main>
+<!-- ##### Main Area End ##### -->
+<section class="comments">
+    <section>
+        <p class="comments_text">Faça login para postar um comentário</p>
+        {% if session.id %}
+        <form action="{{ url_for('comentario') }}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="{{ data.id }}">
+            <div class="comments_writing">
+                <textarea id="comentario" name="comentario" class="form-control" rows="2" cols="3"
+                    placeholder="Comente essa resenha:" required></textarea>
+                <button type="submit" class="btn btn-link">Postar</button>
+            </div>
+            <br>
+        </form>
+        {% endif %}
+    </section>
+    <section class="comments_result">
+        {% for comment in comments %}
+        {% for user in comment_user %}
+        {% if comment.user_id == user.id %}
+        {{ user.name }} {{ user.surname }}
+        {% endif %}
+        {% endfor %} em {{ comment.comment_date.strftime('%d/%m/%Y') }}:<br>
+        <table class="comments_review">
+            <tr>
+                <td>{{ comment.review }}</td>
+                {% if comment.user_id == session.id %}
+                <td class="buttons">
+                    <a href="{{ url_for('CommentDelete', comment_id=comment.id, resenha_id=data.id) }}">
+                        <button type="submit" class="btn btn-link">deletar</button></a></td>
+                {% endif %}
+            </tr>
+        </table>
+        <br>
+        {% endfor %}
+    </section>
+</section>
 {% endblock %}

@@ -1,51 +1,43 @@
 {% extends 'base.html' %}
 {% block content %}
-        <!-- ##### Main Area Start ##### -->
-        <main class="main_results">
-            <section class="poster_more_details">
-                <div>
-                    <!-- ##### Form Edit Start ##### -->
-                    <form action="{{ url_for('nova_resenha') }}" method="post" enctype="multipart/form-data">
-
-                        <fieldset class="resenha_smartphone">
-                            <div class="form-group">
-
-                                <label for="spotify_link">Link do Spotify</label>
-                                <input id="spotify_link" name="spotify_link" class="form-control"
-                                placeholder="Copie de seu spotify e cole aqui" required>
-                                <p>Pode ser o Link ou URL, instruções abaixo :)</p>
-
-                                <label for="nome_review">Titulo da Review</label>
-                                <input id="nome_review" name="nome_review" class="form-control" required>
-                                <br>
-
-                                <label for="nome_banda">Nome do Artista/Banda</label>
-                                <input id="nome_banda" name="nome_banda" class="form-control"
-                                       placeholder="ex: Sexy Young Lady" required>
-                                <br>
-
-                                <label for="review">Resenha</label>
-                                <textarea id="review" name="review" class="form-control" rows="10" cols="50"
-                                          placeholder="Sua resenha aqui:" required></textarea>
-                                <br>
-
-                                <button type="submit" class="btn btn-primary btn-salvar">Enviar resenha</button>
-                                <a class="btn btn-danger" href="{{ url_for('home') }}">Voltar</a>
-                                <br>
-
-                                <br><p>Intruções para o Spotify:</p>
-                                <img src="{{ url_for('static', filename='img/core-img/spotify_instructions.png') }}"></p>
-                                <br>
-
-
-
-                            </div>
-                        </fieldset>
-                    </form>
-                    <!-- ##### Form Edit End ##### -->
-                </div>
-            </section>
-            <p></p>
-        </main>
+<!-- ##### Main Area Start ##### -->
+<main class="main_results">
+    <section class="poster_more_details">
+        <div>
+            <!-- ##### Form Edit Start ##### -->
+            <form action="{{ url_for('nova_resenha') }}" method="post" enctype="multipart/form-data"
+                onsubmit="return validateForm();">
+                <fieldset class="resenha_smartphone">
+                    <div class="form-group">
+                        <label for="spotify_link">Link do Spotify</label>
+                        <input id="spotify_link" name="spotify_link" class="form-control"
+                            placeholder="Copie de seu spotify e cole aqui" required>
+                        <p>Pode ser o Link ou URL, instruções abaixo :)</p>
+                        <label for="nome_review">Titulo da Review</label>
+                        <input id="nome_review" name="nome_review" class="form-control" required>
+                        <br>
+                        <label for="nome_banda">Nome do Artista/Banda</label>
+                        <input id="nome_banda" name="nome_banda" class="form-control" placeholder="ex: Sexy Young Lady"
+                            required>
+                        <br>
+                        <label for="review">Resenha</label>
+                        <textarea id="review" name="review" class="form-control" rows="10" cols="50"
+                            placeholder="Sua resenha aqui:" required></textarea>
+                        <br>
+                        <button type="submit" class="btn btn-primary btn-salvar">Enviar resenha</button>
+                        <a class="btn btn-danger" href="{{ url_for('home') }}">Voltar</a>
+                        <br>
+                        <br>
+                        <p>Intruções para o Spotify:</p>
+                        <img src="{{ url_for('static', filename='img/core-img/spotify_instructions.png') }}"></p>
+                        <br>
+                    </div>
+                </fieldset>
+            </form>
+            <!-- ##### Form Edit End ##### -->
+        </div>
+    </section>
+    <p></p>
+</main>
 <!-- ##### 'Resenha' Area End ##### -->
 {% endblock %}

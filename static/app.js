@@ -13,3 +13,12 @@ $('form input[type="file"]').change(event => {
       }
   }
 });
+
+function validateForm() {
+  var spotify = $("#spotify_link");
+  if (spotify.val().index0f('spotify.com') < 0) {
+      alert("Link do Spotify e invalido");
+      spotify.focus();
+      return false;
+  }
+}

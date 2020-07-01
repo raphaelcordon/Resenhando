@@ -119,6 +119,9 @@ footer {
     text-align: right;
 }
 
+#logout {
+    font-size: 16px !important;
+}
 
 /* CSS for Smartphones */
 

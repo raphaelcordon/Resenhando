@@ -1,41 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
-
-    <!-- ##### 'Resenhas' Area Start ##### -->
-
-    <section class="best-receipe-area">
-        <div class="container">
-                <p>Um espaço pra você falar de musica, pode ser um album, uma playlist ou somente uma musica mesmo.<br>
-                    Vai lá e faz uma resenha, compartilhe conosco!</p>
-
-                <p>Essas são as resenhas escritas até o momento:</p>
-            <div class="row">
-                {% for resenha in resenhas|sort(attribute='id', reverse=true) %}
-                <!-- Single 'Resenhas' Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-best-receipe-area mb-30">
+<!-- ##### 'Resenhas' Area Start ##### -->
+<section class="best-receipe-area">
+    <div class="container">
+        <p>Um espaço pra você falar de musica, pode ser um album, uma playlist ou somente uma musica mesmo.<br>
+            Vai lá e faz uma resenha, compartilhe conosco!</p>
+        <p>Essas são as resenhas escritas até o momento:</p>
+        <div class="row">
+            {% for resenha in resenhas|sort(attribute='id', reverse=true) %}
+            <!-- Single 'Resenhas' Area -->
+            <div class="col-12 col-sm-6 col-lg-4">
+                <div class="single-best-receipe-area mb-30">
+                    <a href="{{ url_for('resenhado', id=resenha.id) }}">
+                        {% if resenha.image_file == None %}
+                        <img src="../static/uploads/No-Image-Available.png" alt="" width="500px" height="500px">
+                        {% else %}
+                        <img src="{{ resenha.image_file }}" alt="" width="500px" height="500px">
+                        {% endif %}
+                    </a>
+                    <div class="receipe-content">
                         <a href="{{ url_for('resenhado', id=resenha.id) }}">
-                            {% if resenha.image_file == None %}
-                                <img src="../static/uploads/No-Image-Available.png" alt="" width="500px" height="500px">
-                            {% else %}
-                                <img src="{{ resenha.image_file }}" alt="" width="500px" height="500px">
-                            {% endif %}
+                            <h5>{{ resenha.nome_review }}</h5>
+                            <h5>{{ resenha.nome_banda }}</h5>
+                            {% for user in users %}
+                            {% if user.id == resenha.author_id %}
+                            <h5>Autor: {{ user.name }} {{ user.surname }}</h5>
+                            {% endif %} {% endfor %}
                         </a>
-                            <div class="receipe-content">
-                                <a href="{{ url_for('resenhado', id=resenha.id) }}">
-                                    <h5>{{ resenha.nome_review }}</h5>
-                                    <h5>{{ resenha.nome_banda }}</h5>
-                                    {% for user in users %}
-                                        {% if user.id == resenha.author_id %}
-                                            <h5>Autor: {{ user.name }} {{ user.surname }}</h5>
-                                    {% endif %} {% endfor %}
-                                </a>
-                            </div>
                     </div>
                 </div>
-                {% endfor %}
             </div>
+            {% endfor %}
         </div>
-    </section>
-    <!-- ##### 'Resenhas' Area End ##### -->
+    </div>
+</section>
+<!-- ##### 'Resenhas' Area End ##### -->
 {% endblock %}
