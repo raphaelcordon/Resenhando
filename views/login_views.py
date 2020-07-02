@@ -26,13 +26,13 @@ def authenticate():
         flash('Verifique usuário e/ou senha e tente novamente', 'danger')
         return redirect(url_for('log.login'))
 
-    if sha256_crypt.verify(request.form['password'], user.password):
+    if user.password == 'pass':
+        UpdateSession(user)
+        return redirect(url_for('log.change_pass'))
+    elif sha256_crypt.verify(request.form['password'], user.password):
         UpdateSession(user)
         flash(f'Bem vindo {user.name}', 'success')
         return redirect(url_for('ind.home'))
-    elif user.password == 'pass':
-        UpdateSession(user)
-        return redirect(url_for('log.change_pass'))
     else:
         flash('Verifique usuário e/ou senha e tente novamente', 'danger')
         return redirect(url_for('log.login'))
