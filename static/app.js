@@ -22,3 +22,17 @@ function validateForm() {
       return false;
   }
 }
+
+$('.delete').click(function () {  
+  var url = this.dataset.url;
+  bootbox.confirm({ 
+    size: "small",
+    message: "Are you sure?",
+    callback: function(result){ 
+      if (result){
+        window.location.href = url;
+      }      
+    }
+  })  
+});
+

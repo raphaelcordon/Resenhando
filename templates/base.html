@@ -122,16 +122,19 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
-    <!-- ##### Flask Messages start ##### -->
+    <!-- ##### Flask Messages start ##### -->    
     <!-- Python Block -->
     {% block content %} {% endblock %}
     <!-- ##### All Javascript Files ##### -->
+
     <!-- jQuery-2.2.4 js -->
     <script src="{{ url_for('static', filename='js/jquery/jquery-2.2.4.min.js') }}"></script>
     <!-- Popper js -->
     <script src="{{ url_for('static', filename='js/bootstrap/popper.min.js') }}"></script>
     <!-- Bootstrap js -->
     <script src="{{ url_for('static', filename='js/bootstrap/bootstrap.min.js') }}"></script>
+    <!-- Bootbox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
     <!-- All Plugins js -->
     <script src="{{ url_for('static', filename='js/plugins/plugins.js') }}"></script>
     <!-- Active js -->
