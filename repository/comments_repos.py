@@ -8,8 +8,8 @@ class CommentsRepository:
     def New(self, resenha_id, user_id, review, date):
         db = PostgreDB()
         try:
-            insert = f"INSERT INTO public.comentarios (resenha_id, user_id, review, date) VALUES ('{resenha_id}', '{user_id}', '{review}', '{date}')"
-            db.query(insert)
+            insert = f"INSERT INTO public.comentarios (resenha_id, user_id, review, date) VALUES (%s, %s, %s, %s)"
+            db.queryParams(insert, (resenha_id, user_id, review, date))
         except Exception as exp:
             print(exp)
         finally:
@@ -19,7 +19,8 @@ class CommentsRepository:
     def List(self, resenha_id):
         db = PostgreDB()
         try:
-            db.query(f"SELECT * FROM public.comentarios where resenha_id='{resenha_id}'")
+            db.query(
+                f"SELECT * FROM public.comentarios where resenha_id = {resenha_id}")
             return self.__toList(db.fetchAll())
         except Exception as exp:
             print(exp)
@@ -30,7 +31,7 @@ class CommentsRepository:
     def Delete(self, comment_id):
         db = PostgreDB()
         try:
-            db.query(f"DELETE FROM public.comentarios WHERE id='{comment_id}'")
+            db.query(f"DELETE FROM public.comentarios WHERE id = {comment_id}")
         except Exception as exp:
             print(exp)
         finally:
@@ -40,7 +41,8 @@ class CommentsRepository:
     def DeleteAllComments(self, resenha_id):
         db = PostgreDB()
         try:
-            db.query(f"DELETE FROM public.comentarios WHERE RESENHA_ID='{resenha_id}'")
+            db.query(
+                f"DELETE FROM public.comentarios WHERE RESENHA_ID = {resenha_id}")
         except Exception as exp:
             print(exp)
         finally:

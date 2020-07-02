@@ -95,10 +95,13 @@
                                     <li><a href="{{ url_for('ind.home') }}">Home</a></li>
                                     {% if session.id != '' %}
                                     <li><a href="{{ url_for('res.nova_resenha') }}">Nova resenha</a></li>
-                                    <li><a href="{{ url_for('res.minhas_resenhas', id=session.id) }}">Minhas resenhas</a>
-                                    </li>
+                                    <li><a href="{{ url_for('res.minhas_resenhas', id=session.id) }}">Minhas resenhas</a></li>
                                     {% endif %}
                                     <li><a href="{{ url_for('adm.sobre') }}">Sobre</a></li>
+                                    {% if session.id != '' and session['username'] == 'cordon' or session['username'] == 'soria' %}
+                                    <li style="background-color: #f2f2f2;"><a href="{{ url_for('adm.adm_resenhas') }}">*Resenhas</a></li>
+                                    <li style="background-color: #f2f2f2;"><a href="{{ url_for('use.usuarios') }}">*Usuarios</a></li>
+                                    {% endif %}
                                 </ul>
                             </div>
                             <!-- Nav End -->

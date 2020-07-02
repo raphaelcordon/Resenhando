@@ -20,7 +20,8 @@ class ResenhaRepository:
         try:
             insert = f"INSERT INTO public.resenha (tipo_review, author_id, spotify_link, nome_review, nome_banda, review, date_register, image_file) " \
                 f"VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-            db.queryParams(insert, (tipo_review, author_id, spotify_link, nome_review, nome_banda, review, date_register, image_file))
+            db.queryParams(insert, (tipo_review, author_id, spotify_link,
+                                    nome_review, nome_banda, review, date_register, image_file))
         except Exception as exp:
             print(exp)
         finally:
@@ -63,10 +64,10 @@ class ResenhaRepository:
     def Edit(self, id, tipo_review, spotify_link, nome_review, nome_banda, review, date_register, image_file):
         db = PostgreDB()
         try:
-            updating_query = f"update public.resenha set tipo_review='{tipo_review}', spotify_link='{spotify_link}', " \
-                f"nome_review='{nome_review}', nome_banda='{nome_banda}', review='{review}', " \
-                f"date_register='{date_register}', image_file='{image_file}' where id='{id}'"
-            db.query(updating_query)
+            updating_query = f"update public.resenha set tipo_review=%s, spotify_link=%s, " \
+                f"nome_review=%s, nome_banda=%s, review=%s, date_register=%s, image_file=%s where id = {id}"
+            db.queryParams(updating_query, (tipo_review, spotify_link,
+                                            nome_review, nome_banda, review, date_register, image_file))
         except Exception as exp:
             print(exp)
         finally:
@@ -76,7 +77,7 @@ class ResenhaRepository:
     def Delete(self, resenha_id):
         try:
             db = PostgreDB()
-            db.query(f"DELETE FROM public.resenha WHERE id='{resenha_id}'")
+            db.query(f"DELETE FROM public.resenha WHERE id = {resenha_id}")
         except Exception as exp:
             print(exp)
         finally:
