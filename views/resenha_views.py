@@ -77,7 +77,6 @@ def atualizar_resenha():
 
     ResenhaRepository().Edit(id, tipo_review, spotify_link, nome_review,
                              nome_banda, review, date_register, filename)
-    CleanSession()
     flash('Resenha atualizada com sucesso', 'success')
     return redirect(url_for('res.minhas_resenhas', id=session['id']))
 
