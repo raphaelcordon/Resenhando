@@ -103,10 +103,3 @@ def minhas_resenhas(id):
         flash('Essas são as resenhas criadas por você até o momento', 'info')
     return render_template('index.html', resenhas=resenhas)
 
-
-@res.route('/ResenhasDelete/<int:resenha_id>')
-def ResenhasDelete(resenha_id):
-    CommentsRepository().DeleteAllComments(resenha_id)
-    ResenhaRepository().Delete(resenha_id)
-    flash('Resenha Successfully removed', 'info')
-    return redirect(url_for('adm.adm_resenhas'))
