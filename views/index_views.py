@@ -1,8 +1,6 @@
 from flask import render_template, session, redirect, url_for, Blueprint
 from repository.users_repos import UsersRepository
 from repository.resenha_repos import ResenhaRepository
-from views.login_views import *
-from views.adm_views import *
 
 ind = Blueprint('ind', __name__, url_prefix='')
 
@@ -25,3 +23,6 @@ def __createSessionVariables():
     session['username'] = ''
     session['name'] = ''
     session['access_level'] = ''
+    session['nome_review'] = ''
+    session['nome_banda'] = ''
+    session['review'] = ''

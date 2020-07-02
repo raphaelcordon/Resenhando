@@ -1,3 +1,4 @@
+from flask import session
 
 class DateConversion:
     def __init__(self, db_date):
@@ -13,3 +14,23 @@ class DateConversion:
 
     def __str__(self):
         return f'{self.day} de {self.month} de {self.year}'
+
+
+class KeepInSession:
+    def __init__(self, nome_review, nome_banda, review):
+        """
+        :return: Feed temporary data from "nova_resenha" to be re-filled in case of error.
+        """
+        session['nome_review'] = nome_review
+        session['nome_banda'] = nome_banda
+        session['review'] = review
+
+
+class CleanSession:
+    def __init__(self):
+        """
+        :return: Cleaning the data from "nova_resenha" in Session after succeed.
+        """
+        session['nome_review'] = ''
+        session['nome_banda'] = ''
+        session['review'] = ''
