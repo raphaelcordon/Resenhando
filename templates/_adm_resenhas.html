@@ -6,7 +6,7 @@
     <div class="mainmenu_bodytext">
         <p>Resenhas registradas:</p>
         <!-- ##### Table List Users Start ##### -->
-        <table class="table_poster">
+        <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -24,7 +24,7 @@
                     <td>{{ resenha.nome_review }}</td>
                     <td>{{ resenha.nome_banda }}</td>
                     <td>{{ resenha.date_register }}</td>
-                    <td>&nbsp;<a data-url="{{ url_for('adm.ResenhasDelete', resenha_id=resenha.id) }}" class="delete">Delete</a></td>
+                    <td>&nbsp;<a data-url="{{ url_for('adm.ResenhasDelete', resenha_id=resenha.id) }}" class="btn btn-danger white delete">Delete</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

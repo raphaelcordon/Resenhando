@@ -123,6 +123,15 @@ footer {
     font-size: 16px !important;
 }
 
+.delete {
+    font-size: 16px !important;
+    font-weight: normal !important;
+}
+
+.white {
+    color:white !important;
+}
+
 /* CSS for Smartphones */
 
 @media screen and (max-width: 480px) {
