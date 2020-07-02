@@ -12,6 +12,7 @@ class Resenha:
         self.date_register = date_register
         self.image_file = image_file
 
+
 class ResenhaCapa:
     def __init__(self, capa):
         self.capa = capa

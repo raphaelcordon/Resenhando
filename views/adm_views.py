@@ -5,7 +5,6 @@ from repository.comments_repos import CommentsRepository
 
 adm = Blueprint('adm', __name__)
 
-# <--- ADMINISTRATIVE routes beginning --->
 
 @adm.route('/adm_resenhas')
 def adm_resenhas():

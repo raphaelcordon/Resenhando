@@ -4,8 +4,6 @@ from repository.users_repos import UsersRepository
 use = Blueprint('use', __name__)
 
 
-# <--- Users routes beginning --->
-
 @use.route('/usuarios')
 def usuarios():
     users_list = UsersRepository().List()

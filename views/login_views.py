@@ -7,9 +7,6 @@ from models.users_model import UsersPass
 log = Blueprint('log', __name__)
 
 
-# <--- Login/Logout and Change Pass routes beginning --->
-
-
 @log.route('/login')
 def login():
     return render_template('login.html')
