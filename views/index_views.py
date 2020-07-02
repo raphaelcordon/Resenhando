@@ -1,8 +1,7 @@
 from flask import render_template, session, redirect, url_for, Blueprint
 from repository.users_repos import UsersRepository
 from repository.resenha_repos import ResenhaRepository
-from views.login_views import *
-from views.adm_views import *
+from models.common import CleanSession
 
 ind = Blueprint('ind', __name__, url_prefix='')
 
@@ -15,6 +14,7 @@ def index():
 
 @ind.route('/home/')
 def home():
+    CleanSession()
     review = ResenhaRepository().List()
     users = UsersRepository().List()
     return render_template('index.html', resenhas=review, users=users)
@@ -25,3 +25,6 @@ def __createSessionVariables():
     session['username'] = ''
     session['name'] = ''
     session['access_level'] = ''
+    session['nome_review'] = ''
+    session['nome_banda'] = ''
+    session['review'] = ''

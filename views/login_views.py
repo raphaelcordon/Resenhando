@@ -44,6 +44,9 @@ def logout():
     session['username'] = ''
     session['name'] = ''
     session['access_level'] = ''
+    session['nome_review'] = ''
+    session['nome_banda'] = ''
+    session['review'] = ''
     return redirect(url_for('ind.home'))
 
 

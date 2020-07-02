@@ -2,7 +2,7 @@ from flask import render_template, session, redirect, request, url_for, flash, B
 from repository.users_repos import UsersRepository
 from repository.resenha_repos import ResenhaRepository
 from repository.comments_repos import CommentsRepository
-from models.common import DateConversion
+from models.common import DateConversion, KeepInSession, CleanSession
 from thirdparty.spotify import SpotifyLink, SpotifyImage, SpotifyTipoResenha
 from datetime import date
 
@@ -13,6 +13,7 @@ res = Blueprint('res', __name__)
 
 @res.route('/nova_resenha', methods=['GET', 'POST'])
 def nova_resenha():
+    CleanSession()
     if session['username'] == '' or 'username' not in session:
         flash('Você precisa logar para acessar essa área', 'danger')
         return redirect(url_for('ind.home'))
@@ -31,6 +32,8 @@ def criar_resenha():
     author_id = session['id']
     spotify_link = str(SpotifyLink(str(request.form['spotify_link'])))
 
+    KeepInSession(request.form['nome_review'], request.form['nome_banda'], request.form['review'])
+
     if '' == spotify_link:
         flash('Link do Spotify invalido', 'danger')
         return render_template('nova_resenha.html')
@@ -43,7 +46,7 @@ def criar_resenha():
 
     ResenhaRepository().New(tipo_review, author_id, spotify_link,
                             nome_review, nome_banda, review, date_register, filename)
-
+    CleanSession()
     flash('Resenha criada com sucesso', 'success')
     return redirect(url_for('ind.home'))
 
@@ -74,6 +77,7 @@ def atualizar_resenha():
 
     ResenhaRepository().Edit(id, tipo_review, spotify_link, nome_review,
                              nome_banda, review, date_register, filename)
+    CleanSession()
     flash('Resenha atualizada com sucesso', 'success')
     return redirect(url_for('res.minhas_resenhas', id=session['id']))
 
@@ -93,6 +97,7 @@ def resenhado(id):
 
 @res.route('/home/<int:id>/')
 def minhas_resenhas(id):
+    CleanSession()
     if session['username'] == '' or 'username' not in session:
         flash('Você precisa logar para acessar essa área', 'danger')
         return redirect(url_for('ind.home'))
@@ -103,4 +108,6 @@ def minhas_resenhas(id):
     else:
         flash('Essas são as resenhas criadas por você até o momento', 'info')
     return render_template('index.html', resenhas=resenhas)
+
+
 
