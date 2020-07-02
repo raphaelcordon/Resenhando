@@ -23,6 +23,16 @@ function validateForm() {
   }
 }
 
-$('.delete').click(function () {
-  return confirm("Are you sure?");
+$('.delete').click(function () {  
+  var url = this.dataset.url;
+  bootbox.confirm({ 
+    size: "small",
+    message: "Are you sure?",
+    callback: function(result){ 
+      if (result){
+        window.location.href = url;
+      }      
+    }
+  })  
 });
+
