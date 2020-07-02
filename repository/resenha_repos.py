@@ -19,8 +19,8 @@ class ResenhaRepository:
         db = PostgreDB()
         try:
             insert = f"INSERT INTO public.resenha (tipo_review, author_id, spotify_link, nome_review, nome_banda, review, date_register, image_file) " \
-                f"VALUES ('{tipo_review}', '{author_id}', '{spotify_link}', '{nome_review}', '{nome_banda}', '{review}', '{date_register}', '{image_file}')"
-            db.query(insert)
+                f"VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+            db.queryParams(insert, (tipo_review, author_id, spotify_link, nome_review, nome_banda, review, date_register, image_file))
         except Exception as exp:
             print(exp)
         finally:

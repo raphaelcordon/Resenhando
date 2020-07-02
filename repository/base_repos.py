@@ -16,6 +16,10 @@ class PostgreDB:
         self.cur.execute(query)
         self.conn.commit()
 
+    def queryParams(self, query, params):
+        self.cur.execute(query, params)
+        self.conn.commit()
+
     def fetchOne(self):
         return self.cur.fetchone()
 
