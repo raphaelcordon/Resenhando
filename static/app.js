@@ -22,3 +22,7 @@ function validateForm() {
       return false;
   }
 }
+
+$('.delete').click(function () {
+  return confirm("Are you sure?");
+});

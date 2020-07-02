@@ -24,7 +24,7 @@
                     <td>{{ resenha.nome_review }}</td>
                     <td>{{ resenha.nome_banda }}</td>
                     <td>{{ resenha.date_register }}</td>
-                    <td>&nbsp;<a href="{{ url_for('adm.ResenhasDelete', resenha_id=resenha.id) }}">Delete</a></td>
+                    <td>&nbsp;<a href="{{ url_for('adm.ResenhasDelete', resenha_id=resenha.id) }}" class="delete">Delete</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
