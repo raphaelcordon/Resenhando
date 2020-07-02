@@ -44,6 +44,7 @@ def criar_resenha():
     ResenhaRepository().New(tipo_review, author_id, spotify_link,
                             nome_review, nome_banda, review, date_register, filename)
 
+    flash('Resenha criada com sucesso', 'success')
     return redirect(url_for('ind.home'))
 
 
