@@ -1,9 +1,16 @@
-from flask import redirect, request, url_for, flash, Blueprint
+from flask import redirect, request, url_for, flash, Blueprint, render_template
 from repository.users_repos import UsersRepository
 
 use = Blueprint('use', __name__)
 
+
 # <--- Users routes beginning --->
+
+@use.route('/usuarios')
+def usuarios():
+    users_list = UsersRepository().List()
+    return render_template('_usuarios.html', users=users_list)
+
 
 @use.route('/UsersRegistry', methods=['POST', ])
 def users_registry():
@@ -17,4 +24,4 @@ def users_registry():
         flash('Already registered, please check below', 'info')
     else:
         flash("Successfully created. User the password 'pass' to login for the first time.", 'success')
-    return redirect(url_for('adm.usuarios'))
+    return redirect(url_for('use.usuarios'))

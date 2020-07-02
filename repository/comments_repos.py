@@ -1,4 +1,3 @@
-
 from .base_repos import PostgreDB
 from models.comentations_model import Comentations
 
@@ -29,9 +28,19 @@ class CommentsRepository:
 
     # <- Delete a comment on DB ->
     def Delete(self, comment_id):
+        db = PostgreDB()
         try:
-            db = PostgreDB()
             db.query(f"DELETE FROM public.comentarios WHERE id='{comment_id}'")
+        except Exception as exp:
+            print(exp)
+        finally:
+            db.close()
+
+    # <- Delete comments on DB when a review is deleted ->
+    def DeleteAllComments(self, resenha_id):
+        db = PostgreDB()
+        try:
+            db.query(f"DELETE FROM public.comentarios WHERE RESENHA_ID='{resenha_id}'")
         except Exception as exp:
             print(exp)
         finally:

@@ -6,6 +6,7 @@ from models.users_model import UsersPass
 
 log = Blueprint('log', __name__)
 
+
 # <--- Login/Logout and Change Pass routes beginning --->
 
 
@@ -16,35 +17,24 @@ def login():
 
 @log.route('/authenticate', methods=['POST', ])
 def authenticate():
-    try:
+    session['username'] = request.form['username']
+    if AuthenticateRepository().auth(
+            str(request.form['username']).lower().strip()):
         user = AuthenticateRepository().auth(
             str(request.form['username']).lower().strip())
-        try:
-            check_pass = sha256_crypt.verify(
-                request.form['password'], user.password)
-        except:
-            check_pass = request.form['password'], user.password
-        finally:
-            session['id'] = user.id
-            session['username'] = user.username
-            session['name'] = user.name
-            session['surname'] = user.surname
-            session['password'] = user.password
+    else:
+        flash('Verifique usuário e/ou senha e tente novamente', 'danger')
+        return redirect(url_for('log.login'))
 
-        if user.password == 'pass':
-            return redirect(url_for('change_pass'))
-        elif not sha256_crypt.verify(request.form['password'], user.password):
-            flash('Login falhou, por favor tente novamente', 'danger')
-            return redirect(url_for('login'))
-        else:
-            if check_pass:
-                flash(f'Bem vindo {user.name}', 'success')
-                return redirect(url_for('home'))
-            else:
-                flash('Login falhou, por favor tente novamente', 'danger')
-                return redirect(url_for('login'))
-    except:
-        flash('Verifique username e/ou senha e tente novamente', 'danger')
+    if sha256_crypt.verify(request.form['password'], user.password):
+        UpdateSession(user)
+        flash(f'Bem vindo {user.name}', 'success')
+        return redirect(url_for('ind.home'))
+    elif user.password == 'pass':
+        UpdateSession(user)
+        return redirect(url_for('log.change_pass'))
+    else:
+        flash('Verifique usuário e/ou senha e tente novamente', 'danger')
         return redirect(url_for('log.login'))
 
 
@@ -71,3 +61,11 @@ def update_pass_db():
     UsersRepository().UpdatePassword(new_pass.id, new_pass.password)
     flash('Senha alterada com sucesso', 'success')
     return redirect(url_for('ind.home'))
+
+
+def UpdateSession(user):
+    session['id'] = user.id
+    session['username'] = user.username
+    session['name'] = user.name
+    session['surname'] = user.surname
+    session['password'] = user.password

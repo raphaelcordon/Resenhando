@@ -11,21 +11,21 @@ res = Blueprint('res', __name__)
 
 # <--- 'Resenha' routes beginning --->
 
-@res.route('/resenha', methods=['GET', 'POST'])
-def resenha():
-    if session['username'] == '' or 'username' not in session:
-        flash('Você precisa logar para acessar essa área', 'danger')
-        return redirect(url_for('ind.index'))
-
-    flash('!!!IMPORTANTE!!! Sem um link do Spotify, sua resenha NÃO irá ao ar.', 'warning')
-    return render_template('resenha.html')
-
-
 @res.route('/nova_resenha', methods=['GET', 'POST'])
 def nova_resenha():
     if session['username'] == '' or 'username' not in session:
         flash('Você precisa logar para acessar essa área', 'danger')
-        return redirect(url_for('ind.index'))
+        return redirect(url_for('ind.home'))
+
+    flash('!!!IMPORTANTE!!! Sem um link do Spotify, sua resenha NÃO irá ao ar.', 'warning')
+    return render_template('nova_resenha.html')
+
+
+@res.route('/criar_resenha', methods=['GET', 'POST'])
+def criar_resenha():
+    if session['username'] == '' or 'username' not in session:
+        flash('Você precisa logar para acessar essa área', 'danger')
+        return redirect(url_for('ind.home'))
 
     tipo_review = str(SpotifyTipoResenha(str(request.form['spotify_link'])))
     author_id = session['id']
@@ -33,7 +33,7 @@ def nova_resenha():
 
     if '' == spotify_link:
         flash('Link do Spotify invalido', 'danger')
-        return render_template('resenha.html')
+        return render_template('nova_resenha.html')
 
     nome_review = request.form['nome_review']
     nome_banda = request.form['nome_banda']
@@ -97,5 +97,16 @@ def minhas_resenhas(id):
         return redirect(url_for('ind.home'))
 
     resenhas = ResenhaRepository().FindAuthorById(id)
-    flash('Essas são as resenhas criadas por você até o momento', 'info')
+    if not resenhas:
+        flash('Você ainda não criou nenhuma resenha', 'info')
+    else:
+        flash('Essas são as resenhas criadas por você até o momento', 'info')
     return render_template('index.html', resenhas=resenhas)
+
+
+@res.route('/ResenhasDelete/<int:resenha_id>')
+def ResenhasDelete(resenha_id):
+    CommentsRepository().DeleteAllComments(resenha_id)
+    ResenhaRepository().Delete(resenha_id)
+    flash('Resenha Successfully removed', 'info')
+    return redirect(url_for('adm.adm_resenhas'))
