@@ -69,8 +69,8 @@ def atualizar_resenha():
         flash('Link do Spotify inválido', 'danger')
         return render_template('editar_resenha.html', resenha=resenha)
 
-    nome_review = request.form['nome_review']
-    nome_banda = request.form['nome_banda']
+    nome_review = str(request.form['nome_review'])
+    nome_banda = str(request.form['nome_banda'])
     review = request.form['review']
     date_register = date.today()
     filename = str(SpotifyImage(str(request.form['spotify_link'])))
