@@ -6,6 +6,7 @@ adm = Blueprint('adm', __name__)
 
 # <--- ADMINISTRATIVE routes beginning --->
 
+
 @adm.route('/usuarios')
 def usuarios():
     users_list = UsersRepository().List()

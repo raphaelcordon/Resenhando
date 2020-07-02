@@ -32,17 +32,17 @@ def authenticate():
             session['password'] = user.password
 
         if user.password == 'pass':
-            return redirect(url_for('change_pass'))
+            return redirect(url_for('log.change_pass'))
         elif not sha256_crypt.verify(request.form['password'], user.password):
             flash('Login falhou, por favor tente novamente', 'danger')
-            return redirect(url_for('login'))
+            return redirect(url_for('log.login'))
         else:
             if check_pass:
                 flash(f'Bem vindo {user.name}', 'success')
-                return redirect(url_for('home'))
+                return redirect(url_for('ind.home'))
             else:
                 flash('Login falhou, por favor tente novamente', 'danger')
-                return redirect(url_for('login'))
+                return redirect(url_for('log.login'))
     except:
         flash('Verifique username e/ou senha e tente novamente', 'danger')
         return redirect(url_for('log.login'))

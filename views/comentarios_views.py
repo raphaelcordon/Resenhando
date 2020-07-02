@@ -6,6 +6,7 @@ com = Blueprint('com', __name__)
 
 # <--- 'Comentarios' routes beginning --->
 
+
 @com.route('/comentario', methods=['GET', 'POST'])
 def comentario():
     id_resenha = request.form['id']
@@ -22,4 +23,3 @@ def CommentDelete(comment_id, resenha_id):
     CommentsRepository().Delete(comment_id)
     flash('Comment Successfully removed', 'info')
     return redirect(url_for('res.resenhado', id=resenha_id))
-

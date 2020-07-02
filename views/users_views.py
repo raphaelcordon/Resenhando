@@ -5,6 +5,7 @@ use = Blueprint('use', __name__)
 
 # <--- Users routes beginning --->
 
+
 @use.route('/UsersRegistry', methods=['POST', ])
 def users_registry():
     username = str(request.form['username']).strip().lower()

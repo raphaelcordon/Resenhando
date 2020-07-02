@@ -87,7 +87,7 @@ def resenhado(id):
     comment_user = UsersRepository().List()
 
     return render_template('resenhado.html', data=data, user_author=user_author,
-        date=date, comments=comments, comment_user=comment_user)
+                           date=date, comments=comments, comment_user=comment_user)
 
 
 @res.route('/home/<int:id>/')
