@@ -26,6 +26,17 @@ class UsersRepository:
         finally:
             db.close()
 
+    # <- Reset User's password ->
+    def ResetPassword(self, username):
+        db = PostgreDB()
+        try:
+            updating_query = f"UPDATE public.users SET PASSWORD=%s WHERE USERNAME = {username}"
+            db.queryParams(updating_query, ('pass'))
+        except Exception as exp:
+            print(exp)
+        finally:
+            db.close()
+
     # <- List USERS registered ->
     def List(self):
         db = PostgreDB()
@@ -54,6 +65,17 @@ class UsersRepository:
         db = PostgreDB()
         try:
             db.query(f"SELECT * FROM public.users where id = {id}")
+            return self.__toOne(db.fetchOne())
+        except Exception as exp:
+            print(exp)
+        finally:
+            db.close()
+
+    # <- Username finder to redirect to resenhas page ->
+    def FindByUsername(self, username):
+        db = PostgreDB()
+        try:
+            db.query(f"SELECT * FROM public.users where username = '{username}'")
             return self.__toOne(db.fetchOne())
         except Exception as exp:
             print(exp)

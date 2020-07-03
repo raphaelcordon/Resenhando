@@ -40,12 +40,19 @@ def logout():
     session['id'] = ''
     session['username'] = ''
     session['name'] = ''
+    session['surname'] = ''
     session['access_level'] = ''
     session['nome_review'] = ''
     session['nome_banda'] = ''
     session['review'] = ''
     return redirect(url_for('ind.home'))
 
+
+@log.route('/nova_conta')
+def nova_conta():
+    return render_template('nova_conta.html')
+
+#  <---- defs related to PASSWORD beginning ---->
 
 @log.route('/change_pass')
 def change_pass():
@@ -56,16 +63,35 @@ def change_pass():
 @log.route('/update_pass_db', methods=['POST', ])
 def update_pass_db():
     id = session['id']
-    password = sha256_crypt.hash(str(request.form['password']))
-    new_pass = UsersPass(id, password)
-    UsersRepository().UpdatePassword(new_pass.id, new_pass.password)
-    flash('Senha alterada com sucesso', 'success')
-    return redirect(url_for('ind.home'))
+    if request.form['password'] == request.form['password2']:
+        password = sha256_crypt.hash(str(request.form['password']))
+        new_pass = UsersPass(id, password)
+        UsersRepository().UpdatePassword(new_pass.id, new_pass.password)
+        flash('Senha alterada com sucesso', 'success')
+        return redirect(url_for('ind.home'))
+    else:
+        flash('As senhas não são identicas, tente novamente', 'danger')
+        return redirect(url_for('log.change_pass'))
 
 
-@log.route('/nova_conta')
-def nova_conta():
-    return render_template('nova_conta.html')
+#  <-- Reset Pass -->
+
+@log.route('/reset_pass')
+def reset_pass():
+    return render_template('reset_pass.html')
+
+@log.route('/reset_pass_db', methods=['POST', ])
+def reset_pass_db():
+    if not UsersRepository().FindByUsername(request.form['username']):
+        flash('Nome de usuário não encontrado', 'info')
+        return redirect(url_for('log.reset_pass'))
+    else:
+        UsersRepository().ResetPassword(str(request.form['username']))
+        flash("Senha resetada para 'pass' ", 'success')
+        return redirect(url_for('log.login'))
+
+
+#  <---- defs related to PASSWORD ending ---->
 
 
 def UpdateSession(user):

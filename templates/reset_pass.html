@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- ##### Main Area Start ##### -->
+<main>
+    <div class="container">
+        <div class="mainmenu_bodytext">
+            <h4>Digite seu nome de usuário</h4><br>
+        </div>
+        <!-- Nav Start -->
+        <div class="classynav">
+            <!-- ##### Form Edit Start ##### -->
+            <form action="{{ url_for('log.reset_pass_db') }}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <ul>
+                        <li ><input type="text" id="username" name="username"></li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><button type="submit" class="btn btn-info">Resetar senha</button></li>
+                    </ul>
+                </div>
+            </form>
+            <!-- ##### Form Edit End ##### -->
+        </div>
+        <!-- Nav End -->
+    </div>
+</main>
+<!-- ##### Main Area End ##### -->
+{% endblock %}

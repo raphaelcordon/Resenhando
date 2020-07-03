@@ -35,3 +35,18 @@ class CleanSession:
         session['nome_review'] = ''
         session['nome_banda'] = ''
         session['review'] = ''
+
+
+class CleanLoginItens:
+    def __init__(self):
+        """
+        :return: Cleaning the data in Session.
+        """
+        session['id'] = ''
+        session['username'] = ''
+        session['name'] = ''
+        session['surname'] = ''
+        session['access_level'] = ''
+        session['nome_review'] = ''
+        session['nome_banda'] = ''
+        session['review'] = ''

@@ -12,16 +12,16 @@ def adm_resenhas():
     return render_template('_adm_resenhas.html', resenhas=resenhas)
 
 @adm.route('/adm_usuarios')
-def usuarios():
+def adm_usuarios():
     users_list = UsersRepository().List()
-    return render_template('_usuarios.html', users=users_list)
+    return render_template('_adm_usuarios.html', users=users_list)
 
 
 @adm.route('/UsuariosDelete/<int:user_id>')
 def UsuariosDelete(user_id):
     UsersRepository().Delete(user_id)
     flash('Usuario Successfully removed', 'info')
-    return redirect(url_for('use.usuarios'))
+    return redirect(url_for('adm.adm_usuarios'))
 
 
 @adm.route('/ResenhasDelete/<int:resenha_id>')
@@ -32,8 +32,8 @@ def ResenhasDelete(resenha_id):
     return redirect(url_for('adm.adm_resenhas'))
 
 
-@adm.route('/UsersRegistry', methods=['POST', ])
-def users_registry():
+@adm.route('/adm_UsersRegistry', methods=['POST', ])
+def adm_users_registry():
     username = str(request.form['username']).strip().lower()
     name = str(request.form['name']).strip().title()
     surname = str(request.form['surname']).strip().title()
@@ -44,7 +44,7 @@ def users_registry():
         flash('Already registered, please check below', 'info')
     else:
         flash("Conta criada com sucesso. Utilize a senha 'pass' no primeiro login.", 'success')
-    return redirect(url_for('use.usuarios'))
+    return redirect(url_for('use._adm_usuarios'))
 
 @adm.route('/sobre')
 def sobre():

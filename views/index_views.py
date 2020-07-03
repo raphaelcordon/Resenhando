@@ -22,6 +22,7 @@ def __createSessionVariables():
     session['id'] = ''
     session['username'] = ''
     session['name'] = ''
+    session['surname'] = ''
     session['access_level'] = ''
     session['nome_review'] = ''
     session['nome_banda'] = ''

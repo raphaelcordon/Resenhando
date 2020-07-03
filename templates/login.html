@@ -6,7 +6,7 @@
         <div class="mainmenu_bodytext">
             <h1>Log in</h1><br>
         </div>
-        <!-- Nav Start -->
+        <!-- Login Start -->
         <div class="classynav">
             <!-- ##### Form Edit Start ##### -->
             <form method="POST" action="{{ url_for('log.authenticate') }}">
@@ -20,7 +20,17 @@
             </form>
             <!-- ##### Form Edit End ##### -->
         </div>
-        <!-- Nav End -->
+        <!-- login End -->
+
+        <div class="mainmenu_bodytext">
+            <p><a href="{{ url_for('log.reset_pass') }}">Esqueci minha senha</a></p>
+            <br>
+        </div>
+
+        <div class="mainmenu_bodytext">
+            <p><h5><a href="{{ url_for('log.nova_conta') }}">Cadastrar-se</a></h5></p>
+            <br>
+        </div>
     </div>
 </main>
 <!-- ##### Main Area End ##### -->

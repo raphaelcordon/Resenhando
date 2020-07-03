@@ -57,16 +57,15 @@
                     </div>
                     <!-- Login Area -->
                     <div class="col-12 col-sm-6">
-                         <div class="login">
-                            {% if session['id'] == '' %}
-                            <a href="{{ url_for('log.login') }}">
-                                <p>Cique aqui para logar</p>
-                            </a>
-                            {% else %}
+                        <div class="login">
+                        {% if session['id'] == '' %}
+                            <div class="btn" style="padding-right: 0;">
+                                <a href="{{ url_for('log.login') }}">Fazer login / Cadastrar-se</a></div>
+                        {% else %}
                             <div class="btn" style="padding-right: 0;"><b>{{ session['name'] }}</b> está logado</div>
                             <div class="btn" style="padding-right: 0;">|</div>
                             <a id="logout" href="{{ url_for('log.logout') }}" class="btn btn-link logout">Logout</a>
-                            {% endif %}
+                        {% endif %}
                         </div>
                     </div>
                 </div>
@@ -100,7 +99,7 @@
                                     <li><a href="{{ url_for('adm.sobre') }}">Sobre</a></li>
                                     {% if session.id != '' and session['username'] == 'cordon' or session['username'] == 'soria' %}
                                     <li style="background-color: #f2f2f2;"><a href="{{ url_for('adm.adm_resenhas') }}">*Resenhas</a></li>
-                                    <li style="background-color: #f2f2f2;"><a href="{{ url_for('use.usuarios') }}">*Usuarios</a></li>
+                                    <li style="background-color: #f2f2f2;"><a href="{{ url_for('adm.adm_usuarios') }}">*Usuarios</a></li>
                                     {% endif %}
                                 </ul>
                             </div>
