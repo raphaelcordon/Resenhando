@@ -61,6 +61,7 @@ class UsersRepository:
 
     # <- Delete an user on DB ->
     def Delete(self, user_id):
+        db = PostgreDB()
         try:
             db = PostgreDB()
             db.query(f"DELETE FROM public.users WHERE id='{user_id}'")

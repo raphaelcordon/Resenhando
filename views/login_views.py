@@ -66,6 +66,11 @@ def update_pass_db():
     return redirect(url_for('ind.home'))
 
 
+@log.route('/nova_conta')
+def nova_conta():
+    return render_template('nova_conta.html')
+
+
 def UpdateSession(user):
     session['id'] = user.id
     session['username'] = user.username
