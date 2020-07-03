@@ -7,6 +7,7 @@ class Users:
         self.surname = surname
         self.password = password
 
+
 class UsersPass:
     def __init__(self, id, password):
         self.id = id

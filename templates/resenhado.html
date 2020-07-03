@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <!-- ##### Main Area Start ##### -->
-<main class="main_results">
+<main class="container">
     <section class="poster_more_details">
         <div>
             <p class="resenha_titles">Resenha escrita em: {{ date }}</p>
@@ -57,7 +57,7 @@
 </main>
 <!-- ##### Main Area End ##### -->
 <section class="comments">
-    <section>
+    <section class="container">
         <p class="comments_text">Faça login para postar um comentário</p>
         {% if session.id %}
         <form action="{{ url_for('com.comentario') }}" method="post" enctype="multipart/form-data">
@@ -71,7 +71,7 @@
         </form>
         {% endif %}
     </section>
-    <section class="comments_result">
+    <section class="container comments_result">
         {% for comment in comments|sort(attribute='id', reverse=true) %}
         {% for user in comment_user %}
         {% if comment.user_id == user.id %}

@@ -9,8 +9,6 @@ from datetime import date
 res = Blueprint('res', __name__)
 
 
-# <--- 'Resenha' routes beginning --->
-
 @res.route('/nova_resenha', methods=['GET', 'POST'])
 def nova_resenha():
     CleanSession()
@@ -32,7 +30,8 @@ def criar_resenha():
     author_id = session['id']
     spotify_link = str(SpotifyLink(str(request.form['spotify_link'])))
 
-    KeepInSession(request.form['nome_review'], request.form['nome_banda'], request.form['review'])
+    KeepInSession(request.form['nome_review'],
+                  request.form['nome_banda'], request.form['review'])
 
     if '' == spotify_link:
         flash('Link do Spotify invalido', 'danger')
@@ -91,7 +90,7 @@ def resenhado(id):
     comment_user = UsersRepository().List()
 
     return render_template('resenhado.html', data=data, user_author=user_author,
-        date=date, comments=comments, comment_user=comment_user)
+                           date=date, comments=comments, comment_user=comment_user)
 
 
 @res.route('/home/<int:id>/')
@@ -107,6 +106,3 @@ def minhas_resenhas(id):
     else:
         flash('Essas são as resenhas criadas por você até o momento', 'info')
     return render_template('index.html', resenhas=resenhas)
-
-
-

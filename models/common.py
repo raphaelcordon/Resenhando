@@ -1,5 +1,6 @@
 from flask import session
 
+
 class DateConversion:
     def __init__(self, db_date):
         self.db_date = db_date

@@ -4,8 +4,6 @@ from repository.comments_repos import CommentsRepository
 
 com = Blueprint('com', __name__)
 
-# <--- 'Comentarios' routes beginning --->
-
 
 @com.route('/comentario', methods=['GET', 'POST'])
 def comentario():

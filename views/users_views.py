@@ -4,7 +4,10 @@ from repository.users_repos import UsersRepository
 use = Blueprint('use', __name__)
 
 
-# <--- Users routes beginning --->
+@use.route('/usuarios')
+def usuarios():
+    users_list = UsersRepository().List()
+    return render_template('_usuarios.html', users=users_list)
 
 
 @use.route('/UsersRegistry', methods=['POST', ])
@@ -18,6 +21,5 @@ def users_registry():
     elif UsersRepository().New(username, name, surname):
         flash('Already registered, please check below', 'info')
     else:
-        flash("Conta criada com sucesso. Utilize a senha 'pass' no primeiro login.", 'success')
-    return redirect(url_for('log.login'))
-
+        flash("Successfully created. User the password 'pass' to login for the first time.", 'success')
+    return redirect(url_for('use.usuarios'))

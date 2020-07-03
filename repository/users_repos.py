@@ -8,8 +8,8 @@ class UsersRepository:
     def New(self, username, name, surname):
         db = PostgreDB()
         try:
-            insert = f"INSERT INTO public.users (username, name, surname, password) VALUES ('{username}', '{name}', '{surname}', 'pass')"
-            db.query(insert)
+            insert = f"INSERT INTO public.users (username, name, surname, password) VALUES (%s, %s, %s, 'pass')"
+            db.queryParams(insert, (username, name, surname))
         except Exception as exp:
             print(exp)
         finally:
@@ -19,8 +19,8 @@ class UsersRepository:
     def UpdatePassword(self, id, new_password):
         db = PostgreDB()
         try:
-            updating_query = f"UPDATE public.users SET PASSWORD='{new_password}' WHERE id='{id}'"
-            db.query(updating_query)
+            updating_query = f"UPDATE public.users SET PASSWORD=%s WHERE id = {id}"
+            db.queryParams(updating_query, (new_password))
         except Exception as exp:
             print(exp)
         finally:
@@ -41,8 +41,9 @@ class UsersRepository:
     def Update(self, id, new_username, new_register, surname):
         db = PostgreDB()
         try:
-            updating_query = f"UPDATE public.users SET USERNAME='{new_username}', NAME='{new_register}', SURNAME='{surname}' WHERE id='{id}'"
-            db.query(updating_query)
+            updating_query = f"UPDATE public.users SET USERNAME=%s, NAME=%s, SURNAME=%s WHERE id = {id}"
+            db.queryParams(
+                updating_query, (new_username, new_register, surname))
         except Exception as exp:
             print(exp)
         finally:
@@ -64,7 +65,7 @@ class UsersRepository:
         db = PostgreDB()
         try:
             db = PostgreDB()
-            db.query(f"DELETE FROM public.users WHERE id='{user_id}'")
+            db.query(f"DELETE FROM public.users WHERE id = {user_id}")
         except Exception as exp:
             print(exp)
         finally:
