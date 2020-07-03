@@ -53,8 +53,11 @@ def criar_resenha():
 @res.route('/editar_resenha/<int:id>', methods=['GET', 'POST'])
 def editar_resenha(id):
     resenha = ResenhaRepository().FindById(id)
-    flash('!!!IMPORTANTE!!!   Sem um link do Spotify, sua resenha NÃO irá ao ar.', 'warning')
-    return render_template('editar_resenha.html', resenha=resenha)
+    if session['id'] != resenha.author_id:
+        return redirect(url_for('ind.home'))
+    else:
+        flash('!!!IMPORTANTE!!!   Sem um link do Spotify, sua resenha NÃO irá ao ar.', 'warning')
+        return render_template('editar_resenha.html', resenha=resenha)
 
 
 @res.route('/atualizar_resenha', methods=['GET', 'POST'])
