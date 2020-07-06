@@ -83,11 +83,11 @@ class UsersRepository:
             db.close()
 
     # <- Delete an user on DB ->
-    def Delete(self, user_id):
+    def Delete(self, id):
         db = PostgreDB()
         try:
             db = PostgreDB()
-            db.query(f"DELETE FROM public.users WHERE id = {user_id}")
+            db.query(f"DELETE FROM public.users WHERE id = {id}")
         except Exception as exp:
             print(exp)
         finally:

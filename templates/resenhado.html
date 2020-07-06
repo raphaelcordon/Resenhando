@@ -6,6 +6,31 @@
         <div>
             <p class="resenha_titles">Resenha escrita em: {{ date }}</p>
             <p class="resenha_titles">Autor: {{ user_author.name }} {{ user_author.surname }}</p>
+
+            <!-- ## like/deslike buttons ## -->
+            <table class="like">
+                <tr>
+                    <td>{% if PNG == 'unclick' %}
+                        <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
+                            <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt=""></a>
+                        {% else %}
+                        <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
+                            <img src="{{ url_for('static', filename='img/core-img/like_click.png') }}" alt=""></a>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if like == 0 %} Zero {% else %}{{ like }}{% endif %}
+                        {% if like == 1 %} pessoa curtiu essa resenha
+                        {% else %}pessoas curtiram essa resenha{% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>SHOW!</td>
+                    <td></td>
+                </tr>
+            </table>
+
             <div class="poster_image">
                 {% if data.image_file == None %}
                 <img src="/static/uploads/No-Image-Available.png" alt="">

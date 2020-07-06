@@ -2,6 +2,7 @@ from flask import render_template, session, redirect, request, url_for, flash, B
 from repository.users_repos import UsersRepository
 from repository.resenha_repos import ResenhaRepository
 from repository.comments_repos import CommentsRepository
+from repository.curtidas_repos import CurtidasRepository
 from models.common import DateConversion, KeepInSession, CleanSession
 from thirdparty.spotify import SpotifyLink, SpotifyImage, SpotifyTipoResenha
 from datetime import date
@@ -23,8 +24,8 @@ def nova_resenha():
 @res.route('/criar_resenha', methods=['GET', 'POST'])
 def criar_resenha():
     if session['username'] == '' or 'username' not in session:
-        flash('Você precisa logar para acessar essa área', 'danger')
-        return redirect(url_for('ind.home'))
+        flash('Você precisa logar para acessar essa área', 'info')
+        return redirect(url_for('log.login'))
 
     tipo_review = str(SpotifyTipoResenha(str(request.form['spotify_link'])))
     author_id = session['id']
@@ -89,19 +90,23 @@ def resenhado(id):
     user_author = UsersRepository().FindById(data.author_id)
     date = DateConversion(str(data.date_register))
 
+    like = CurtidasRepository().CountLikes(id).count
+
     comments = CommentsRepository().List(id)
     comment_user = UsersRepository().List()
 
+    if CurtidasRepository().FindById(session['id'], id):
+        PNG = 'unclick'
+    else:
+        PNG = 'click'
+
     return render_template('resenhado.html', data=data, user_author=user_author,
-                           date=date, comments=comments, comment_user=comment_user)
+                           date=date, comments=comments, comment_user=comment_user,
+                           like=like, PNG=PNG)
 
 
 @res.route('/home/<int:id>/')
 def minhas_resenhas(id):
-    CleanSession()
-    if session['username'] == '' or 'username' not in session:
-        flash('Você precisa logar para acessar essa área', 'danger')
-        return redirect(url_for('ind.home'))
 
     resenhas = ResenhaRepository().FindAuthorById(id)
     if not resenhas:

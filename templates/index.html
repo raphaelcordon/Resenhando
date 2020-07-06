@@ -3,10 +3,35 @@
 <!-- ##### 'Resenhas' Area Start ##### -->
 <section class="best-receipe-area">
     <div class="container">
-        <p>Um espaço pra você falar de musica, pode ser um album, uma playlist ou somente uma musica mesmo.<br>
-            Vai lá e faz uma resenha, compartilhe conosco!</p>
-        <p>Essas são as resenhas escritas até o momento:</p>
+        <div class="dropdown_position">
+            <p>Um espaço pra você falar de musica, pode ser um album, uma playlist ou somente uma musica mesmo.<br>
+                Vai lá e faz uma resenha, compartilhe conosco!</p>
+        </div>
+
+
+
+
+            <!-- Ordering by Author Area -->
+            {% if ordering == 'autor' %}
+                <p>Ordenado por Autor:</p>
+                {% set author_list = resenhas|map(attribute='author_id')|unique|list %}
+                {% for user in users|sort(attribute="name") %}
+                    {% for author in author_list %}
+                        {% if user.id == author %}
+                            <table>
+                                <tr><td>
+                                <a href="{{ url_for('res.minhas_resenhas', id=user.id) }}">
+                                    <h5>&nbsp; - &nbsp;{{ user.name }} {{ user.surname }}</h5></a>
+                                </td></tr>
+                            </table>
+                            <br>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+
+            {% else %}
         <div class="row">
+            <!-- Ordering by Most Recent Area -->
             {% for resenha in resenhas|sort(attribute='id', reverse=true) %}
             <!-- Single 'Resenhas' Area -->
             <div class="col-12 col-sm-6 col-lg-4">
@@ -31,6 +56,8 @@
                 </div>
             </div>
             {% endfor %}
+
+            {% endif %}
         </div>
     </div>
 </section>

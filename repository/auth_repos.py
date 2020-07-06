@@ -15,6 +15,20 @@ class AuthenticateRepository:
         finally:
             db.close()
 
+    # <- Check if the there are comments and/or likes since last login ->
+    def CompareDates(self, user_id):
+        db = PostgreDB()
+        try:
+            last_login = db.query(f"SELECT login_date FROM public.login_hist where user_id = {user_id}"
+                     f" ORDER BY login_date DESC LIMIT 1")
+            last_comment = db.query(f"SELECT login_date FROM public.login_hist where user_id = {user_id}"
+                     f" ORDER BY login_date DESC LIMIT 1")
+            return self.__toOne(db.fetchOne())
+        except Exception as exp:
+            print(exp)
+        finally:
+            db.close()
+
     # Private Methods
     def __toOne(self, item):
         try:

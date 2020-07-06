@@ -2,6 +2,7 @@ from passlib.hash import sha256_crypt
 from flask import render_template, session, redirect, request, url_for, flash, Blueprint
 from repository.users_repos import UsersRepository
 from repository.auth_repos import AuthenticateRepository
+from repository.login_hist_repos import LoginHistRepository
 from models.users_model import UsersPass
 
 log = Blueprint('log', __name__)
@@ -14,6 +15,7 @@ def login():
 
 @log.route('/authenticate', methods=['POST', ])
 def authenticate():
+    # <- Check Username ->
     session['username'] = request.form['username']
     if AuthenticateRepository().auth(
             str(request.form['username']).lower().strip()):
@@ -23,11 +25,14 @@ def authenticate():
         flash('Verifique usuário e/ou senha e tente novamente', 'danger')
         return redirect(url_for('log.login'))
 
+    # <- Check Password ->
     if user.password == 'pass':
         UpdateSession(user)
+        LoginHistRepository().New(str(session['id']))  # input Timestamp in db
         return redirect(url_for('log.change_pass'))
     elif sha256_crypt.verify(request.form['password'], user.password):
         UpdateSession(user)
+        LoginHistRepository().New(str(session['id']))  # input Timestamp in db
         flash(f'Bem vindo {user.name}', 'success')
         return redirect(url_for('ind.home'))
     else:
@@ -37,6 +42,9 @@ def authenticate():
 
 @log.route('/logout')
 def logout():
+    """
+    :return: Cleaning Session
+    """
     session['id'] = ''
     session['username'] = ''
     session['name'] = ''
@@ -51,6 +59,7 @@ def logout():
 @log.route('/nova_conta')
 def nova_conta():
     return render_template('nova_conta.html')
+
 
 #  <---- defs related to PASSWORD beginning ---->
 
@@ -80,6 +89,7 @@ def update_pass_db():
 def reset_pass():
     return render_template('reset_pass.html')
 
+
 @log.route('/reset_pass_db', methods=['POST', ])
 def reset_pass_db():
     if not UsersRepository().FindByUsername(request.form['username']):
@@ -95,6 +105,11 @@ def reset_pass_db():
 
 
 def UpdateSession(user):
+    """
+    :param user: list info from user from db
+    :return: Session populatd with current user's info
+    id / username / name / surname / password (encripted) or initial ('pass')
+    """
     session['id'] = user.id
     session['username'] = user.username
     session['name'] = user.name
