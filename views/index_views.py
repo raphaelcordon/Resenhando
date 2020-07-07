@@ -15,7 +15,7 @@ def index():
 
 @ind.route('/home/')
 def home():
-    review = ResenhaRepository().List()
+    review = ResenhaRepository().List(6)
     users = UsersRepository().List()
     return render_template('index.html', resenhas=review, users=users)
 
