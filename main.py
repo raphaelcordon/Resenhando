@@ -12,7 +12,6 @@ from flask import Flask
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-app.jinja_env.add_extension('jinja2.ext.do')
 
 
 app.register_blueprint(adm)
