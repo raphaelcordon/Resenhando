@@ -18,7 +18,7 @@ def nova_resenha():
         return redirect(url_for('ind.home'))
 
     flash('!!!IMPORTANTE!!! Sem um link do Spotify, sua resenha NÃO irá ao ar.', 'warning')
-    return render_template('nova_resenha.html')
+    return render_template('teste.html')
 
 
 @res.route('/criar_resenha', methods=['GET', 'POST'])
@@ -36,7 +36,7 @@ def criar_resenha():
 
     if '' == spotify_link:
         flash('Link do Spotify invalido', 'danger')
-        return render_template('nova_resenha.html')
+        return render_template('teste.html')
 
     nome_review = request.form['nome_review']
     nome_banda = request.form['nome_banda']
@@ -113,4 +113,4 @@ def minhas_resenhas(id):
         flash('Você ainda não criou nenhuma resenha', 'info')
     else:
         flash('Essas são as resenhas criadas por você até o momento', 'info')
-    return render_template('index.html', resenhas=resenhas)
+    return render_template('teste.html', resenhas=resenhas)

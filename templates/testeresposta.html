@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- ##### Main Area Start ##### -->
+<main class="container">
+
+    <!-- ##### Form Edit Start ##### -->
+    <div>
+        <form action="{{ url_for('tes.pesquisa') }}" method="post" enctype="multipart/form-data">
+            <fieldset class="resenha_smartphone">
+                <div class="classynav">
+                    <ul>
+                        <li><input id="artista" name="artista" class="form-control"
+                        placeholder="Pesquisar artista" required></li>
+                    </ul>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <!-- ##### Form Edit End ##### -->
+
+    <!-- ##### Artist info begining ##### -->
+    {% for artist in artists %}
+        <section class="poster_more_details">
+
+                <h1>{{ artist.name }}</h1>
+
+                <div class="poster_more_details">
+                    <div class="poster_image"><img src="{{ artist.image }}"></div>
+                </div>
+                <table class="table_poster">
+                        <tr>
+                            <td class="resenha_titles">Fazer uma resenha desse artista</td>
+                        </tr>
+                        <tr>
+                            <td class="resenha_titles">Fazer uma resenha de um album desse artista</td>
+
+                        </tr>
+                </table>
+            </div>
+        </section>
+        <hr/>
+    {% endfor %}
+    <!-- ##### Artist info end ##### -->
+
+</main>
+{% endblock %}

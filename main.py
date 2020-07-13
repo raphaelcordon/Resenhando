@@ -5,6 +5,7 @@ from views.index_views import ind
 from views.login_views import log
 from views.resenha_views import res
 from views.users_views import use
+from views.testSpotify import tes
 
 
 from flask import Flask
@@ -12,7 +13,6 @@ from flask import Flask
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-app.jinja_env.add_extension('jinja2.ext.do')
 
 
 app.register_blueprint(adm)
@@ -22,6 +22,7 @@ app.register_blueprint(ind)
 app.register_blueprint(log)
 app.register_blueprint(res)
 app.register_blueprint(use)
+app.register_blueprint(tes)
 
 
 if __name__ == '__main__':

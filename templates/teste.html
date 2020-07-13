@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- ##### Main Area Start ##### -->
+<main class="container">
+    <section>
+        <div class="container">
+        <div class="dropdown_position">
+            <h6>Para fazer uma resenha de:</h6>
+            <h6><br>&nbsp; - Artista/Banda, Album ou Música</h6>
+        </div>
+
+            <!-- ##### Form Edit Start ##### -->
+            <form action="{{ url_for('tes.pesquisa') }}" method="post" enctype="multipart/form-data">
+                <fieldset class="resenha_smartphone">
+                    <div class="classynav">
+                        <ul>
+                            <li><input id="artista" name="artista" class="form-control"
+                            placeholder="Pesquisar artista" required></li>
+
+                        </ul>
+                    </div>
+                </fieldset>
+            </form>
+            <!-- ##### Form Edit End ##### -->
+            <div class="dropdown_position">
+            <h6><br>&nbsp; - Playlists (Spotify)</h6>
+                 <!-- ##### Form Playlist Start ##### -->
+            <form action="{{ url_for('tes.pesquisa') }}" method="post" enctype="multipart/form-data">
+                <fieldset class="resenha_smartphone">
+                    <div class="classynav">
+                        <ul>
+                            <li><input id="playlist" name="playlist" class="form-control"
+                            placeholder="Link da Playlist" required></li>
+
+                        </ul>
+                    </div>
+                </fieldset>
+            </form>
+            <!-- ##### Form Playlist End ##### -->
+        </div>
+        <div>
+        </div>
+    </section>
+</main>
+<!-- ##### 'Resenha' Area End ##### -->
+{% endblock %}
