@@ -15,30 +15,39 @@
                 </div>
             </fieldset>
         </form>
+        <br>
+        <p>Artistas/Bandas encontrados:</p>
     </div>
     <!-- ##### Form Edit End ##### -->
 
     <!-- ##### Artist info begining ##### -->
     {% for artist in artists %}
-        <section class="poster_more_details">
+    
+    <h2>{{ artist.name }}</h2>
+    <section class="poster_more_details">
+    <div>
+        <div class="image_artist">
+            <img src="{{ artist.image }}">
+        </div>
 
-                <h1>{{ artist.name }}</h1>
-
-                <div class="poster_more_details">
-                    <div class="poster_image"><img src="{{ artist.image }}"></div>
-                </div>
-                <table class="table_poster">
-                        <tr>
-                            <td class="resenha_titles">Fazer uma resenha desse artista</td>
-                        </tr>
-                        <tr>
-                            <td class="resenha_titles">Fazer uma resenha de um album desse artista</td>
-
-                        </tr>
-                </table>
-            </div>
-        </section>
-        <hr/>
+        <table class="table_poster">
+                <tr>
+                    <td class="resenha_titles">Fazer uma resenha:</td>
+                </tr>
+                <tr>
+                    <td class="resenha_item">
+                        <a href="#" class="btn btn-link">Do artista</a></td>
+                </tr>
+                <tr>
+                    <td class="resenha_item"><a href="#" class="btn btn-link">Um album desse artista</a></td>
+                </tr>
+                <tr>
+                    <td class="resenha_item"><a href="#" class="btn btn-link">Uma música</a></td>
+                </tr>
+        </table>
+    </div>
+    </section>
+    <hr/>
     {% endfor %}
     <!-- ##### Artist info end ##### -->
 

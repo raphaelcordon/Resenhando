@@ -24,7 +24,7 @@
     flex-wrap:wrap;
 }
 
-.poster_image {
+.poster_image, .image_artist {
     padding-right: 2%;
     border-collapse: collapse;
     border-style: none;
@@ -32,6 +32,10 @@
     margin-bottom: 2%;
     max-width: 500px;
     max-height: 500px;
+}
+.image_artist {
+    max-width: 300px;
+    max-height: 300px;
 }
 
 .table_poster {
@@ -69,7 +73,6 @@
     color: grey;
     font-style: italic;
 }
-
 
 footer {
     width: 100;
@@ -186,6 +189,7 @@ footer {
   .dropdown:hover .dropdown-content {display: block;}
   
   .dropdown:hover .dropbtn {background-color: #ddd}
+  
 
 /* CSS for Smartphones */
 
