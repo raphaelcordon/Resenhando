@@ -21,13 +21,22 @@
     <!-- ##### Form Edit End ##### -->
 
     <!-- ##### Artist info begining ##### -->
+    {% if not artists %}
+    <h4>Nenhum artista ou banda encontrado.</h4>
+
+    {% else %}
+
     {% for artist in artists %}
-    
+
     <h2>{{ artist.name }}</h2>
     <section class="poster_more_details">
     <div>
         <div class="image_artist">
+            {% if artist.image == '' %}
+            <img src="{{ url_for('static', filename='img/bg-img/No-Image-Available.png') }}" alt="">
+            {% else %}
             <img src="{{ artist.image }}">
+            {% endif %}
         </div>
 
         <table class="table_poster">
@@ -49,6 +58,7 @@
     </section>
     <hr/>
     {% endfor %}
+    {% endif %}
     <!-- ##### Artist info end ##### -->
 
 </main>

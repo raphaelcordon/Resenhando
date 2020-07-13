@@ -34,8 +34,8 @@
     max-height: 500px;
 }
 .image_artist {
-    max-width: 300px;
     max-height: 300px;
+    max-width: 300px;
 }
 
 .table_poster {

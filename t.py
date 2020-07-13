@@ -15,17 +15,17 @@ class getFiveArtists:
         self.createList()
 
     def createList(self):
-        for list in spotify.search(q='artist:' + 'madonna', type='artist')['artists']['items'][:5]:
+        for list in spotify.search(q='artist:' + 'type', type='artist')['artists']['items'][:5]:
+            image = list['images'][0]['url'] if len(list['images']) > 0 else ''
             artist = {'id':     list['id'],
                       'name':   list['name'],
-                      'image': list['images'][0]['url'],
+                      'image':  list['images'],
                       'uri':    list['uri'],
                       'genres': list['genres']
                       }
             self.listArtists.append(artist)
         return self.listArtists
 
-print(spotify.search(q='artist:' + 'madonna', type='artist')['artists']['items'][:5])
 
 """
 class getTopSix:
