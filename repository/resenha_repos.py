@@ -4,10 +4,13 @@ from models.resenha_model import Resenha, ResenhaCapa
 
 class ResenhaRepository:
 
-    def List(self):
+    def List(self, top = 0):
         db = PostgreDB()
-        try:
-            db.query(f"SELECT * FROM public.resenha")
+        try:      
+            if top > 0:
+                db.query(f"SELECT * FROM public.resenha order by date_register desc limit {top}")          
+            else:                
+                db.query(f"SELECT * FROM public.resenha")
             return self.__toList(db.fetchAll())
         except Exception as exp:
             print(exp)
