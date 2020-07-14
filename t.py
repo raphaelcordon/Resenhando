@@ -47,16 +47,28 @@ class getAlbuns:
             if albumList['album_group'] == 'album':
                 image = albumList['images'][0]['url'] if len(albumList['images']) > 0 else ''
                 artist_name = albumList['artists'][0]['name'] if len(albumList['artists']) > 0 else ''
+                album_name = albumList['name']
 
                 album = {'id': albumList['id'],
-                         'album_name': albumList['name'],
+                         'album_name': album_name,
                          'image': image,
                          'artist_name': artist_name,
                          'uri': albumList['uri'],
                          'release_date': albumList['release_date'][:4]
                          }
-                self.listAlbums.append(album)
+
+                if not self.__contains(album_name):
+                    self.listAlbums.append(album)
+
         return self.listAlbums
+    
+    def __contains(self, album_name):
+        for item in self.listAlbums:
+            album_name = str.replace(album_name, "- ", "")
+            _album_name = str.replace(item["album_name"], "- ", "")
+            if _album_name == album_name:
+                return True
+        return False 
 
 
 get = getAlbuns()
