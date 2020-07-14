@@ -4,21 +4,35 @@ from repository.resenha_repos import ResenhaRepository
 from repository.comments_repos import CommentsRepository
 from repository.curtidas_repos import CurtidasRepository
 from models.common import DateConversion, KeepInSession, CleanSession
-from thirdparty.spotify import SpotifyLink, SpotifyImage, SpotifyTipoResenha
+from thirdparty.spotify import SpotifyLink, SpotifyImage, SpotifyTipoResenha, SpotifyGetFiveArtists, SpotifyGetAlbums
 from datetime import date
 
 res = Blueprint('res', __name__)
 
 
-@res.route('/nova_resenha', methods=['GET', 'POST'])
-def nova_resenha():
+@res.route('/resenhaIndex', methods=['GET', 'POST'])
+def resenhaIndex():
     CleanSession()
     if session['username'] == '' or 'username' not in session:
         flash('Você precisa logar para acessar essa área', 'danger')
         return redirect(url_for('ind.home'))
 
-    flash('!!!IMPORTANTE!!! Sem um link do Spotify, sua resenha NÃO irá ao ar.', 'warning')
-    return render_template('teste.html')
+    return render_template('resenha/resenhaIndex.html')
+
+
+@res.route('/resenha_listArtist', methods=['GET', 'POST'])
+def resenha_listArtist():
+    artists = SpotifyGetFiveArtists(request.form['artista']).listArtists
+
+    return render_template('resenha/resenhaListArtist.html', artists=artists)
+
+
+@res.route('/resenha_listAlbums/<artistId>/', methods=['GET', 'POST'])
+def resenha_listAlbums(artistId):
+
+    albums = SpotifyGetAlbums(artistId).createList()
+
+    return render_template('resenha/resenhaListAlbums.html', albums=albums)
 
 
 @res.route('/criar_resenha', methods=['GET', 'POST'])
@@ -36,7 +50,7 @@ def criar_resenha():
 
     if '' == spotify_link:
         flash('Link do Spotify invalido', 'danger')
-        return render_template('teste.html')
+        return render_template('resenhaIndex.html')
 
     nome_review = request.form['nome_review']
     nome_banda = request.form['nome_banda']
@@ -57,8 +71,7 @@ def editar_resenha(id):
     if session['id'] != resenha.author_id:
         return redirect(url_for('ind.home'))
     else:
-        flash('!!!IMPORTANTE!!!   Sem um link do Spotify, sua resenha NÃO irá ao ar.', 'warning')
-        return render_template('editar_resenha.html', resenha=resenha)
+        return render_template('resenha/resenhaEdit.html', resenha=resenha)
 
 
 @res.route('/atualizar_resenha', methods=['GET', 'POST'])
@@ -70,7 +83,7 @@ def atualizar_resenha():
     if '' == spotify_link:
         resenha = ResenhaRepository().FindById(id)
         flash('Link do Spotify inválido', 'danger')
-        return render_template('editar_resenha.html', resenha=resenha)
+        return render_template('resenha/resenhaEdit.html', resenha=resenha)
 
     nome_review = str(request.form['nome_review'])
     nome_banda = str(request.form['nome_banda'])
@@ -113,4 +126,4 @@ def minhas_resenhas(id):
         flash('Você ainda não criou nenhuma resenha', 'info')
     else:
         flash('Essas são as resenhas criadas por você até o momento', 'info')
-    return render_template('teste.html', resenhas=resenhas)
+    return render_template('index.html', resenhas=resenhas)

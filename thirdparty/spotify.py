@@ -5,6 +5,55 @@ import re
 CLIENT_ID = '458d767d30034a44828d668093119d4f'
 CLIENT_SECRET = '94362b7769f64dd298ae57852647527b'
 
+SPOTIFY = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(
+    client_id=CLIENT_ID, client_secret=CLIENT_SECRET))
+
+class SpotifyGetFiveArtists:
+    def __init__(self, name):
+        """
+        Returns the five first artists accordingly the user's search
+        :param name: User's search object
+        """
+        self.name = name
+        self.listArtists = []
+        self.createList()
+
+    def createList(self):
+        for list in SPOTIFY.search(q='artist:' + self.name, type='artist')['artists']['items'][:5]:
+            image = list['images'][0]['url'] if len(list['images']) > 0 else ''
+            artist = {'id':     list['id'],
+                      'name':   list['name'],
+                      'image':  image,
+                      'uri':    list['uri'],
+                      'genres': list['genres']
+                      }
+            self.listArtists.append(artist)
+        return self.listArtists
+
+
+class SpotifyGetAlbums:
+    def __init__(self, artistId):
+        self.artistId = artistId
+        self.listAlbums = []
+        self.createList()
+
+    def createList(self):
+        for list in SPOTIFY.artist_albums(self.artistId, limit=50)['items']:
+            if list['album_group'] == 'album':
+                if list['name'] not in self.listAlbums:
+                    image = list['images'][0]['url'] if len(list['images']) > 0 else ''
+                    artist_name = list['artists'][0]['name'] if len(list['artists']) > 0 else ''
+                    album = {'id': list['id'],
+                             'album_name': list['name'],
+                             'image': image,
+                             'artist_name': artist_name,
+                             'uri': list['uri'],
+                             'release_date': list['release_date'][:4]
+                             }
+                    self.listAlbums.append(album)
+        return self.listAlbums
+
+
 
 class SpotifyLink:
     def __init__(self, address: str):

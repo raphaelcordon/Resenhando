@@ -1,5 +1,4 @@
 from flask import url_for, render_template, request, redirect, Blueprint
-import sys
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import re
@@ -16,14 +15,14 @@ tes = Blueprint('tes', __name__)
 
 @tes.route('/spotify')
 def testeSpotify():
-    return render_template('teste.html')
+    return render_template('resenhaIndex.html')
 
 
 @tes.route('/pesquisa', methods=['GET', 'POST'])
 def pesquisa():
     artists = getFiveArtists(request.form['artista']).listArtists
 
-    return render_template('testeresposta.html', artists=artists)
+    return render_template('resenhaListArtist.html', artists=artists)
 
 
 class getFiveArtists:

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- ##### Main Area Start ##### -->
+<main class="container">
+
+    <!-- ##### Form Edit Start ##### -->
+    <div>
+        <!-- ## Search Artist ## -->
+        {% include 'resenha/resenhaForm.html' %}
+        <br>
+    </div>
+    <p>Artistas/Bandas encontrados:</p>
+
+
+
+    <!-- ##### (5) Artist info begining ##### -->
+    {% if not artists %}
+    <h4>Nenhum artista ou banda encontrado.</h4>
+
+    {% else %}
+
+    {% for artist in artists %}
+    <h2>{{ artist.name }}</h2>
+    <section class="poster_more_details">
+        <div>
+            <div class="image_artist">
+                {% if artist.image == '' %}
+                <img src="{{ url_for('static', filename='img/bg-img/No-Image-Available.png') }}" alt="">
+                {% else %}
+                <img src="{{ artist.image }}">
+                {% endif %}
+            </div>
+
+            <table class="table_poster">
+                    <tr>
+                        <td class="resenha_titles">Fazer uma resenha:</td>
+                    </tr>
+                    <tr>
+                        <td class="resenha_item">
+                            <a href="#" class="btn btn-link">Do artista</a></td>
+                    </tr>
+                    <tr>
+                        <td class="resenha_item"><a href="{{ url_for('res.resenha_listAlbums', artistId=artist.id) }}" class="btn btn-link">Um album desse artista</a></td>
+                    </tr>
+            </table>
+        </div>
+    </section>
+    <hr/>
+    {% endfor %}
+    {% endif %}
+    <!-- ##### Artist info end ##### -->
+
+</main>
+{% endblock %}

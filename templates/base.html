@@ -93,7 +93,7 @@
                                 <ul>
                                     <li><a href="{{ url_for('ind.home') }}">Home</a></li>
                                     {% if session.id != '' %}
-                                    <li><a href="{{ url_for('res.nova_resenha') }}">Nova resenha</a></li>
+                                    <li><a href="{{ url_for('res.resenhaIndex') }}">Nova resenha</a></li>
                                     <li><a href="{{ url_for('res.minhas_resenhas', id=session.id) }}">Minhas resenhas</a></li>
                                     {% endif %}
                                     {% if request.path == url_for('ind.home') or request.path == url_for('ind.home_ordering', ordering='autor') %}

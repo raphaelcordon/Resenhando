@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- ##### Main Area Start ##### -->
+<main class="container">
+
+    <!-- ##### Form Edit Start ##### -->
+    <div>
+        <!-- ## Search Artist ## -->
+        {% include 'resenha/resenhaForm.html' %}
+        <br>
+    </div>
+
+    <!-- ##### Albums info begining ##### -->
+    {% if not albums %}
+    <h4>Nenhum album encontrado para esse artista.</h4>
+
+    {% else %}
+
+    <h4>Albums encontrados para: {{ albums[0].artist_name }}</h4>
+    <p>&nbsp;</p>
+    <div class="row">
+    {% for album in albums %}
+
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="single-best-receipe-area mb-30">
+                <a href="#">
+                    {% if not album.image %}
+                    <img src="../static/img/bg-img/No-Image-Available.png" alt="" width="500px" height="500px">
+                    {% else %}
+                    <img src="{{ album.image }}" alt="" width="300px" height="300px">
+                    {% endif %}
+                </a>
+                <div class="receipe-content">
+                    <a href="#">
+                        <h5>{{ album.album_name }}</h5>
+                        <h5>{{ album.release_date }}</h5>
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% endif %}
+    </div>>
+    <!-- ##### Artist info end ##### -->
+
+</main>
+{% endblock %}

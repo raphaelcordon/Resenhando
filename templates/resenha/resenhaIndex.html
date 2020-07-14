@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<main class="container">
+    <section>
+        <div class="container">
+            <div class="dropdown_position">
+                <h6>Para fazer uma resenha de:</h6>
+                <h6><br>&nbsp; - Artista/Banda, Album ou Música</h6>
+                <p>{% include 'resenha/resenhaForm.html' %}</p>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
