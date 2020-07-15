@@ -14,6 +14,51 @@ SPOTIFY = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(
 logger = logging.getLogger('examples.artist_albums')
 logging.basicConfig(level='INFO')
 
+
+class getAlbuns:
+    def __init__(self):
+        self.listAlbums = []
+        self.createList()
+
+    def createList(self):
+        for albumList in SPOTIFY.artist_albums('6mdiAmATAx73kdxrNrnlao', limit=50)['items']:
+            try:
+                checkRegisters = list(map(itemgetter(albumList['name']), self.listAlbums))
+                print(checkRegisters)
+            except:
+                pass
+            if albumList['album_group'] == 'album':
+                image = albumList['images'][0]['url'] if len(albumList['images']) > 0 else ''
+                artist_name = albumList['artists'][0]['name'] if len(albumList['artists']) > 0 else ''
+                album_name = albumList['name']
+
+                album = {'id': albumList['id'],
+                         'album_name': album_name,
+                         'image': image,
+                         'artist_name': artist_name,
+                         'uri': albumList['uri'],
+                         'release_date': albumList['release_date'][:4]
+                         }
+
+                if not self.__contains(album_name):
+                    self.listAlbums.append(album)
+
+        return self.listAlbums
+    
+    def __contains(self, album_name):
+        for item in self.listAlbums:
+            album_name = str.replace(album_name, "- ", "")
+            _album_name = str.replace(item["album_name"], "- ", "")
+            if _album_name == album_name:
+                return True
+        return False 
+
+
+get = getAlbuns()
+for g in get.listAlbums:
+    print(g)
+
+
 """
 class getFiveArtists:
     def __init__(self):
