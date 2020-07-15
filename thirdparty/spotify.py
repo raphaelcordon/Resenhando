@@ -21,13 +21,14 @@ class SpotifyGetFiveArtists:
     def createList(self):
         for list in SPOTIFY.search(q='artist:' + self.name, type='artist')['artists']['items'][:5]:
             image = list['images'][0]['url'] if len(list['images']) > 0 else ''
-            artist = {'id':     list['id'],
-                      'name':   list['name'],
-                      'image':  image,
-                      'uri':    list['uri'],
-                      'genres': list['genres']
-                      }
-            self.listArtists.append(artist)
+            if image != '':
+                artist = {'id':     list['id'],
+                          'name':   list['name'],
+                          'image':  image,
+                          'uri':    list['uri'],
+                          'genres': list['genres']
+                          }
+                self.listArtists.append(artist)
         return self.listArtists
 
 
