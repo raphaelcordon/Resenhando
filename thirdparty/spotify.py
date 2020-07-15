@@ -34,26 +34,50 @@ class SpotifyGetFiveArtists:
 class SpotifyGetAlbums:
     def __init__(self, artistId):
         self.artistId = artistId
+        self.albums = []
         self.listAlbums = []
         self.createList()
 
     def createList(self):
-        for list in SPOTIFY.artist_albums(self.artistId, limit=50)['items']:
-            if list['album_group'] == 'album':
-                if list['name'] not in self.listAlbums:
-                    image = list['images'][0]['url'] if len(list['images']) > 0 else ''
-                    artist_name = list['artists'][0]['name'] if len(list['artists']) > 0 else ''
-                    album = {'id': list['id'],
-                             'album_name': list['name'],
+        results = SPOTIFY.artist_albums(self.artistId, album_type='album')
+        self.albums.extend(results['items'])
+        while results['next']:
+            results = SPOTIFY.next(results)
+            self.albums.extend(results['items'])
+
+        seen = set()  # to avoid dups
+        for sortingAlbum in self.albums:  # Clean list to send to the website
+            if sortingAlbum['name'] not in seen:
+                if CheckDuplicatedVersions(sortingAlbum) not in seen:
+                    seen.add(sortingAlbum['name'])
+
+                    image = sortingAlbum['images'][0]['url'] if len(sortingAlbum['images']) > 0 else ''
+                    artist_name = sortingAlbum['artists'][0]['name'] if len(sortingAlbum['artists']) > 0 else ''
+                    album = {'id': sortingAlbum['id'],
+                             'name': sortingAlbum['name'],
                              'image': image,
                              'artist_name': artist_name,
-                             'uri': list['uri'],
-                             'release_date': list['release_date'][:4]
+                             'uri': sortingAlbum['uri'],
+                             'release_date': sortingAlbum['release_date'][:4]
                              }
                     self.listAlbums.append(album)
         return self.listAlbums
 
-
+def CheckDuplicatedVersions(album):
+    duplicated = ''
+    items = [' Remixed', ' (Special Edition)', ' (Remastered)',
+             ' (Remastered Edition)', ' (Expanded Edition)',
+             ' (Deluxe)', ' [Deluxe]', 'Remaster']
+    itemsWithYear = [' Remastered)', ' Remixed)', ' Remasterizado)', ' Remixado)', ' Remaster)', ' - Remaster)']
+    for item in items:
+        if item in str(album).lower():
+            check = album.lower().find(item)
+            duplicated = item[0:check]
+    for item in itemsWithYear:
+        if (item in str(album).lower()):
+            check = album.lower().find(item)
+            duplicated = item[0:(check -6)]
+    return duplicated
 
 class SpotifyLink:
     def __init__(self, address: str):
