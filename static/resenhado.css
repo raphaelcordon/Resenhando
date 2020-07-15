@@ -38,6 +38,11 @@
     max-width: 300px;
 }
 
+.resenha_albuns {
+    width: 300px !important;
+    height: 300px !important;
+}
+
 .table_poster {
     padding: 0 2% 0 2%;
 }

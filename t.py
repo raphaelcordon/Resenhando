@@ -14,7 +14,7 @@ SPOTIFY = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(
 logger = logging.getLogger('examples.artist_albums')
 logging.basicConfig(level='INFO')
 
-
+"""
 class SpotifyGetAlbums:
     def __init__(self, artistId):
         self.artistId = artistId
@@ -61,6 +61,7 @@ class SpotifyGetAlbums:
 get = SpotifyGetAlbums('6mdiAmATAx73kdxrNrnlao')
 for g in get.listAlbums:
     print(g)
+"""
 
 class SpotifyGetFiveArtists:
     def __init__(self, name):
@@ -73,6 +74,7 @@ class SpotifyGetFiveArtists:
         self.createList()
 
     def createList(self):
+        print(SPOTIFY.search(q='artist:' + self.name, type='artist'))
         for list in SPOTIFY.search(q='artist:' + self.name, type='artist')['artists']['items'][:5]:
             image = list['images'][0]['url'] if len(list['images']) > 0 else ''
             if image != '':
@@ -85,6 +87,9 @@ class SpotifyGetFiveArtists:
                 self.listArtists.append(artist)
         return self.listArtists
 
-get = SpotifyGetFiveArtists('Lenine')
+
+
+
+get = SpotifyGetFiveArtists('5')
 for g in get.listArtists:
     print(g)
