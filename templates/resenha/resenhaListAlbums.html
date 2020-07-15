@@ -17,20 +17,21 @@
     {% else %}
 
     <h4>Albums encontrados para: {{ albums[0].artist_name }}</h4>
-    <p>&nbsp;</p>
+
     <div class="row">
     {% for album in albums %}
 
-        <div class="col-12 col-sm-6 col-lg-3">
-            <div class="single-best-receipe-area mb-30">
-                <a href="#">
-                    {% if not album.image %}
-                    <img src="../static/img/bg-img/No-Image-Available.png" alt="" class="resenha_albuns">
-                    {% else %}
-                    <img src="{{ album.image }}" alt="" class="resenha_albuns">
-                    {% endif %}
-                </a>
+        <div class="col-8 col-sm-3 col-lg-3">
+            <div class="single-best-receipe-area mb-10">
                 <div class="receipe-content">
+                    <a href="#">
+                        {% if not album.image %}
+                        <img src="../static/img/bg-img/No-Image-Available.png" alt="">
+                        {% else %}
+                        <img src="{{ album.image }}" alt="">
+                        {% endif %}
+                    </a>
+
                     <a href="#">
                         <h5>{{ album.name }}</h5>
                         <h5>Release: {{ album.release_date }}</h5>

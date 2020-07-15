@@ -69,11 +69,139 @@ class SpotifyGetAlbums:
         return self.listAlbums
 
     def __contains(self, album_name):
-        album_name = str.replace(album_name, "- ", "")
+        album_name1 = album_name
+        album_name1 = str.replace(album_name1, "- ", "")
         for item in self.listAlbums:
             name = str.replace(item['name'], "- ", "")
-            if album_name == name:
+            if album_name1 == name:
                 return True
+
+        album_name2 = album_name
+        album_name2 = str.replace(album_name2, " (Deluxe Edition)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (Deluxe Edition)", "")
+            if album_name2 == name:
+                return True
+
+        album_name3 = album_name
+        album_name3 = str.replace(album_name3, " (Deluxe Version)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (Deluxe Version)", "")
+            if album_name3 == name:
+                return True
+
+        album_name4 = album_name
+        album_name4 = str.replace(album_name4, " (Expanded Edition)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (Expanded Edition)", "")
+            if album_name4 == name:
+                return True
+
+        album_name5 = album_name
+        album_name5 = str.replace(album_name5, " (Deluxe)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (Deluxe)", "")
+            if album_name5 == name:
+                return True
+
+        album_name6 = album_name
+        album_name6 = str.replace(album_name6, " (Remastered)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (Remastered)", "")
+            if album_name6 == name:
+                return True
+
+        album_name7 = album_name
+        album_name7 = str.replace(album_name7, " (Bonus Track Edition)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (Bonus Track Edition)", "")
+            if album_name7 == name:
+                return True
+
+        album_name8 = album_name
+        album_name8 = str.replace(album_name8, " (2010 Remaster)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (2010 Remaster)", "")
+            if album_name8 == name:
+                return True
+
+        album_name9 = album_name
+        album_name9 = str.replace(album_name9, " (2011 Remaster)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (2011 Remaster)", "")
+            if album_name9 == name:
+                return True
+
+        album_name10 = album_name
+        album_name10 = str.replace(album_name10, " (2012 Remaster)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (2012 Remaster)", "")
+            if album_name10 == name:
+                return True
+
+        album_name11 = album_name
+        album_name11 = str.replace(album_name11, " (2013 Remaster)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (2013 Remaster)", "")
+            if album_name11 == name:
+                return True
+
+        album_name12 = album_name
+        album_name12 = str.replace(album_name12, " (2014 Remaster)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (2014 Remaster)", "")
+            if album_name12 == name:
+                return True
+
+        album_name13 = album_name
+        album_name13 = str.replace(album_name13, " (2015 Remaster)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (2015 Remaster)", "")
+            if album_name13 == name:
+                return True
+
+        album_name14 = album_name
+        album_name14 = str.replace(album_name14, " (2016 Remaster)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (2016 Remaster)", "")
+            if album_name14 == name:
+                return True
+
+        album_name15 = album_name
+        album_name15 = str.replace(album_name15, " (2017 Remaster)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (2017 Remaster)", "")
+            if album_name15 == name:
+                return True
+
+        album_name16 = album_name
+        album_name16 = str.replace(album_name16, " (2018 Remaster)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (2018 Remaster)", "")
+            if album_name16 == name:
+                return True
+
+        album_name17 = album_name
+        album_name17 = str.replace(album_name17, " (2019 Remaster)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (2019 Remaster)", "")
+            if album_name17 == name:
+                return True
+
+        album_name18 = album_name
+        album_name18 = str.replace(album_name18, " (2020 Remaster)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (2020 Remaster)", "")
+            if album_name18 == name:
+                return True
+
+        album_name19 = album_name
+        album_name19 = str.replace(album_name19, " (1994 Remaster)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (1994 Remaster)", "")
+            if album_name19 == name:
+                return True
+
         return False
 
 class SpotifyLink:

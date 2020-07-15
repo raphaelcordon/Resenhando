@@ -25,9 +25,9 @@
         <div>
             <div class="image_artist">
                 {% if artist.image == '' %}
-                <img src="{{ url_for('static', filename='img/bg-img/No-Image-Available.png') }}" alt="">
+                <img src="{{ url_for('static', filename='img/bg-img/No-Image-Available.png') }}" alt="" class="resenha_albuns">
                 {% else %}
-                <img src="{{ artist.image }}">
+                <img src="{{ artist.image }}" class="resenha_albuns">
                 {% endif %}
             </div>
 

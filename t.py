@@ -14,7 +14,7 @@ SPOTIFY = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(
 logger = logging.getLogger('examples.artist_albums')
 logging.basicConfig(level='INFO')
 
-"""
+
 class SpotifyGetAlbums:
     def __init__(self, artistId):
         self.artistId = artistId
@@ -51,22 +51,59 @@ class SpotifyGetAlbums:
         return self.listAlbums
 
     def __contains(self, album_name):
-        album_name = str.replace(album_name, "- ", "")
+        album_name1 = album_name
+        album_name1 = str.replace(album_name1, "- ", "")
         for item in self.listAlbums:
             name = str.replace(item['name'], "- ", "")
-            if album_name == name:
+            if album_name1 == name:
                 return True
+
+        album_name2 = album_name
+        album_name2 = str.replace(album_name2, " (Deluxe Edition)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (Deluxe Edition)", "")
+            if album_name2 == name:
+                return True
+
+        album_name3 = album_name
+        album_name3 = str.replace(album_name3, " (Deluxe Version)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (Deluxe Version)", "")
+            if album_name3 == name:
+                return True
+
+        album_name4 = album_name
+        album_name4 = str.replace(album_name4, " (Expanded Edition)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (Expanded Edition)", "")
+            if album_name4 == name:
+                return True
+
+        album_name5 = album_name
+        album_name5 = str.replace(album_name5, " (Deluxe)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (Deluxe)", "")
+            if album_name5 == name:
+                return True
+
+        album_name6 = album_name
+        album_name6 = str.replace(album_name6, " (Remastered)", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], " (Remastered)", "")
+            if album_name6 == name:
+                return True
+
         return False
 
-get = SpotifyGetAlbums('6mdiAmATAx73kdxrNrnlao')
+get = SpotifyGetAlbums('7AC976RDJzL2asmZuz7qil')
 for g in get.listAlbums:
     print(g)
-"""
+
 
 class SpotifyGetFiveArtists:
     def __init__(self, name):
         """
-        Returns the five first artists accordingly the user's search
+        SpotifyGetFiveArtists returns the five first artists accordingly the user's search
         :param name: User's search object
         """
         self.name = name
@@ -86,8 +123,6 @@ class SpotifyGetFiveArtists:
                           }
                 self.listArtists.append(artist)
         return self.listArtists
-
-
 
 
 get = SpotifyGetFiveArtists('5')
