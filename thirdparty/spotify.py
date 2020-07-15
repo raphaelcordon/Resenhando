@@ -46,38 +46,33 @@ class SpotifyGetAlbums:
             self.albums.extend(results['items'])
 
         seen = set()  # to avoid dups
-        for sortingAlbum in self.albums:  # Clean list to send to the website
-            if sortingAlbum['name'] not in seen:
-                if CheckDuplicatedVersions(sortingAlbum) not in seen:
-                    seen.add(sortingAlbum['name'])
+        for self.item in self.albums:  # Clean list to send to the website
+            if self.item['name'] not in seen:
+                image = self.item['images'][0]['url'] if len(self.item['images']) > 0 else ''
+                artist_name = self.item['artists'][0]['name'] if len(
+                    self.item['artists']) > 0 else ''
+                album_name = self.item['name']
 
-                    image = sortingAlbum['images'][0]['url'] if len(sortingAlbum['images']) > 0 else ''
-                    artist_name = sortingAlbum['artists'][0]['name'] if len(sortingAlbum['artists']) > 0 else ''
-                    album = {'id': sortingAlbum['id'],
-                             'name': sortingAlbum['name'],
-                             'image': image,
-                             'artist_name': artist_name,
-                             'uri': sortingAlbum['uri'],
-                             'release_date': sortingAlbum['release_date'][:4]
-                             }
+                album = {'id': self.item['id'],
+                         'name': self.item['name'],
+                         'image': image,
+                         'artist_name': artist_name,
+                         'uri': self.item['uri'],
+                         'release_date': self.item['release_date'][:4]
+                         }
+
+                if not self.__contains(album_name):
                     self.listAlbums.append(album)
+
         return self.listAlbums
 
-def CheckDuplicatedVersions(album):
-    duplicated = ''
-    items = [' Remixed', ' (Special Edition)', ' (Remastered)',
-             ' (Remastered Edition)', ' (Expanded Edition)',
-             ' (Deluxe)', ' [Deluxe]', 'Remaster']
-    itemsWithYear = [' Remastered)', ' Remixed)', ' Remasterizado)', ' Remixado)', ' Remaster)', ' - Remaster)']
-    for item in items:
-        if item in str(album).lower():
-            check = album.lower().find(item)
-            duplicated = item[0:check]
-    for item in itemsWithYear:
-        if (item in str(album).lower()):
-            check = album.lower().find(item)
-            duplicated = item[0:(check -6)]
-    return duplicated
+    def __contains(self, album_name):
+        album_name = str.replace(album_name, "- ", "")
+        for item in self.listAlbums:
+            name = str.replace(item['name'], "- ", "")
+            if album_name == name:
+                return True
+        return False
 
 class SpotifyLink:
     def __init__(self, address: str):
