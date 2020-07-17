@@ -10,6 +10,7 @@
         <div class="classynav">
             <!-- ##### Form Edit Start ##### -->
             <form method="POST" action="{{ url_for('log.authenticate') }}">
+                <input type="hidden" id="previous" name="previous" value="{{ previous }}">
                 <ul>
                     <li class="login_smartphone"><label>Usuário:</label> <input class="form-control" type="text"
                             id="username" name="username" value="{{ session.username }}" required></li>

@@ -5,32 +5,41 @@
     <section class="poster_more_details">
         <div>
             <!-- ##### Form Edit Start ##### -->
-            <form action="{{ url_for('res.atualizar_resenha') }}" method="post" enctype="multipart/form-data">
-                <fieldset>
-                    <div class="form-grup">
-                        <input type="hidden" name="id" value="{{ resenha.id }}">
-                        <label for="spotify_link">Link do Spotify</label>
-                        <input id="spotify_link" name="spotify_link" class="form-control"
-                            placeholder="Copie de seu spotify e cole aqui" value="{{ resenha.spotify_link }}" required>
-                        <p>Pode ser o Link ou URL, instruções abaixo :)</p>
-                        <label for="nome_review">Titulo da Review</label>
-                        <input id="nome_review" name="nome_review" class="form-control" required
-                            value="{{ resenha.nome_review }}">
-                        <br>
-                        <label for="nome_banda">Nome do Artista/Banda</label>
-                        <input id="nome_banda" name="nome_banda" class="form-control" placeholder="ex: Sexy Young Lady"
-                            required value="{{ resenha.nome_banda }}">
-                        <br>
-                        <label for="review">Resenha</label>
-                        <textarea id="review" name="review" class="form-control" rows="10" cols="50"
-                            placeholder="Sua resenha aqui:" required>{{ resenha.review }}</textarea>
-                        <br>
-                        <button type="submit" class="btn btn-primary btn-salvar">Atualizar resenha</button>
-                        <a class="btn btn-danger" href="{{ url_for('ind.home') }}">Voltar</a>
-                        <p>Intruções para o Spotify:</p>
-                        <img src="{{ url_for('static', filename='img/core-img/spotify_instructions.png') }}"></p>
-                        <br>
+            <form action="{{ url_for('res.updateResenha') }}" method="post" enctype="multipart/form-data"
+                onsubmit="return validateForm();">
+                <fieldset class="resenha_smartphone">
+                    <input type="hidden" id="id" name="id" value="{{ data.id }}">
+                    <div class="poster_image">
+                        {% if spotify.image == None %}
+                        <img src="/static/uploads/No-Image-Available.png" alt="">
+                        {% else %}
+                        <img src="{{ spotify.image }}" alt="">
+                        {% endif %}
                     </div>
+
+                    <table class="table_poster">
+                        <tr>
+                            <td class="resenha_titles"><label>Nome do Artista/Banda</label>
+                                <input id="name" name="name" class="form-control" value="{{ spotify.name }}" onkeydown="return false;" onmousedown="return false">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resenha_titles"><label for="nome_review">Titulo da Review</label>
+                            <input id="nome_review" name="nome_review" class="form-control" value="{{ data.nome_review }}" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resenha_titles"><label for="review">Resenha</label>
+                            <textarea id="review" name="review" class="form-control"
+                              rows="10" cols="50" required>{{ data.review }}</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resenha_titles"><button type="submit" class="btn btn-primary btn-salvar">Enviar resenha</button>
+                            <a class="btn btn-danger" href="{{ url_for('ind.home') }}">Voltar</a>
+                            </td>
+                        </tr>
+                    </table>
                 </fieldset>
             </form>
             <!-- ##### Form Edit End ##### -->

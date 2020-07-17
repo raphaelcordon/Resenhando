@@ -12,17 +12,15 @@
                 <tr>
                     <td>{% if PNG == 'unclick' %}
                         <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
-                            <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt=""></a>
+                            <img src="{{ url_for('static', filename='img/core-img/like_click.png') }}" alt=""></a>
                         {% else %}
                         <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
-                            <img src="{{ url_for('static', filename='img/core-img/like_click.png') }}" alt=""></a>
+                            <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt=""></a>
                         {% endif %}
                     </td>
 
                     <td>
-                        {% if like == 0 %} Zero {% else %}{{ like }}{% endif %}
-                        {% if like == 1 %} pessoa curtiu essa resenha
-                        {% else %}pessoas curtiram essa resenha{% endif %}
+                        {% if like == 0 %} Nenhuma curtida ainda {% else %}{{ like }}{% endif %}
                     </td>
                 </tr>
                 <tr>
@@ -31,28 +29,30 @@
             </table>
 
             <div class="poster_image">
-                {% if data.image_file == None %}
-                <img src="/static/uploads/No-Image-Available.png" alt="">
+                {% if spotify.image == None %}
+                    <img src="/static/img/bg-img/No-Image-Available.png" alt="">
                 {% else %}
-                <img src="{{ data.image_file }}" alt="">
+                    <img src="{{ spotify.image }}" alt="">
                 {% endif %}
             </div>
             <!-- ##### Table Resenha Start ##### -->
             <table class="table_poster">
                 <tr>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                    <td class="resenha_titles">{{ data.nome_review }}</td>
+                    <td colspan="2" class="resenha_titles">{{ data.nome_review }}</td>
+
                 </tr>
                 <tr>
                     <td class="resenha_titles">Banda / Artista:</td>
-                    <td class="resenha_item">{{ data.nome_banda }}</td>
+                    <td class="resenha_item">{{ spotify.name }}</td>
                 </tr>
                 <tr>
                     <td class="resenha_titles">Sobre:</td>
                     {% if data.tipo_review == 'album' %}
                     <td class="resenha_item">um ALBUM completo</td>
+                    {% elif data.tipo_review == 'artista' %}
+                    <td class="resenha_item">Um ARTISTA ou BANDA</td>
                     {% elif data.tipo_review == 'track' %}
-                    <td class="resenha_item">Uma MÚSICA de um album</td>
+                    <td class="resenha_item">Uma MÚSICA</td>
                     {% else %}
                     <td class="resenha_item">Uma PLAYLIST</td>
                     {% endif %}
@@ -64,25 +64,28 @@
                     {% endautoescape %}
                 </tr>
                 <tr>
-                    <td colspan="2" class="resenha_spotify"><iframe src="{{ data.spotify_link }}" width="300"
-                            height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></td>
+                    <td colspan="2" class="resenha_spotify"><iframe src="{{ spotify.radio }}" width="300" height="300" frameborder="0"
+                                    allowtransparency="true" allow="encrypted-media"></iframe></td>
                 </tr>
-                {% if session.id == user_author.id %}
-                <td class="resenha_titles"></td>
-                <td class="resenha_item"><a href="{{ url_for('res.resenhaEdit', id=data.id) }}">
-                        <button type="submit" class="btn btn-link" value="data.id">Editar</button></a>
-                </td>
+                <tr>
+                    {% if session.id == user_author.id %}
+                    <td class="resenha_titles"></td>
+                    <td class="resenha_item"><a href="{{ url_for('res.resenhaEdit', id=data.id) }}">
+                            <button type="submit" class="btn btn-link" value="data.id">Editar</button></a>
+                    </td>
                 </tr>
                 {% endif %}
             </table>
             <!-- ##### Table Resenha End ##### -->
+
         </div>
+
     </section>
 </main>
 <!-- ##### Main Area End ##### -->
 <section class="comments">
     <section class="container">
-        <p class="comments_text">Faça login para postar um comentário</p>
+        <p class="comments_text">Faça <a href="{{ url_for('log.login') }}">login</a> para postar um comentário</p>
         {% if session.id %}
         <form action="{{ url_for('com.comentario') }}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="{{ data.id }}">

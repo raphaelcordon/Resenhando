@@ -4,102 +4,150 @@ from repository.resenha_repos import ResenhaRepository
 from repository.comments_repos import CommentsRepository
 from repository.curtidas_repos import CurtidasRepository
 from models.common import DateConversion, KeepInSession, CleanSession
-from thirdparty.spotify import SpotifyLink, SpotifyImage, SpotifyTipoResenha, SpotifyGetFiveArtists, SpotifyGetAlbums
+from thirdparty.spotify import SpotifyGetFiveArtists, SpotifyGetAlbums, SpotifyGetOneArtist, SpotifyGetOneAlbum
 from datetime import date
 
 res = Blueprint('res', __name__)
 
 
-@res.route('/resenhaIndex', methods=['GET', 'POST'])
-def resenhaIndex():
-    CleanSession()
-    if session['username'] == '' or 'username' not in session:
-        flash('Você precisa logar para acessar essa área', 'danger')
-        return redirect(url_for('ind.home'))
+# <-- ## Artist routes beginning ## -->
 
-    return render_template('resenha/resenhaIndex.html')
-
-
-@res.route('/resenha_listArtist', methods=['GET', 'POST'])
-def resenha_listArtist():
-    artists = SpotifyGetFiveArtists(request.form['artista']).listArtists
+@res.route('/resenhaListArtist', methods=['GET', 'POST'])
+def resenhaListArtist():
+    artists = SpotifyGetFiveArtists(request.form['artist']).listArtists
 
     return render_template('resenha/resenhaListArtist.html', artists=artists)
 
 
-@res.route('/resenha_listAlbums/<artistId>/', methods=['GET', 'POST'])
-def resenha_listAlbums(artistId):
+@res.route('/resenhaNewArtist/<artistId>/', methods=['GET', 'POST'])
+def resenhaNewArtist(artistId):
+    if session['username'] == '' or 'username' not in session:
+        flash('Você precisa logar para acessar essa área', 'info')
+        return redirect(url_for('log.login'))
+
+    spotify = SpotifyGetOneArtist(artistId).createList()
+
+    return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='artista')
+
+
+@res.route('/createResenhaArtist', methods=['GET', 'POST'])
+def createResenhaArtist():
+    if session['username'] == '' or 'username' not in session:
+        flash('Você precisa logar para acessar essa área', 'info')
+        return redirect(url_for('log.login'))
+
+    tipo_review = 'artista'
+    author_id = session['id']
+    nome_review = request.form['nome_review']
+    spotify_id = request.form['spotify_id']
+    review = request.form['review']
+    date_register = date.today()
+
+    # In case of error, review will be in session
+    KeepInSession(request.form['spotify_id'], request.form['nome_review'], request.form['review'])
+
+    ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review, date_register)
+    CleanSession()
+    flash('Resenha criada com sucesso', 'success')
+    return redirect(url_for('ind.home'))
+
+
+# <-- ## Artists routes ending ## -->
+
+
+# <-- ## Albums routes beginning ## -->
+@res.route('/resenhalistAlbums/<artistId>/', methods=['GET', 'POST'])
+def resenhalistAlbums(artistId):
 
     albums = SpotifyGetAlbums(artistId).createList()
 
     return render_template('resenha/resenhaListAlbums.html', albums=albums)
 
 
-@res.route('/criar_resenha', methods=['GET', 'POST'])
-def criar_resenha():
+@res.route('/resenhaNewAlbum/<albumId>/', methods=['GET', 'POST'])
+def resenhaNewAlbum(albumId):
     if session['username'] == '' or 'username' not in session:
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('log.login'))
 
-    tipo_review = str(SpotifyTipoResenha(str(request.form['spotify_link'])))
+    spotify = SpotifyGetOneAlbum(albumId).createList()
+
+    return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='album')
+
+
+# <-- ## Albums routes ending ## -->
+
+
+# <-- ## Other routes beginning ## -->
+@res.route('/resenhaIndex', methods=['GET', 'POST'])
+def resenhaIndex():
+    CleanSession()
+    if session['username'] == '' or 'username' not in session:
+        session['previous'] = request.headers.get("Referer")
+        flash('Você precisa logar para acessar essa área', 'info')
+        return redirect(url_for('log.login'))
+    return render_template('resenha/resenhaIndex.html')
+
+
+@res.route('/createResenha', methods=['GET', 'POST'])
+def createResenha():
+    if session['username'] == '' or 'username' not in session:
+        flash('Você precisa logar para acessar essa área', 'info')
+        return redirect(url_for('log.login'))
+
+    tipo_review = request.form['tipo_review']
     author_id = session['id']
-    spotify_link = str(SpotifyLink(str(request.form['spotify_link'])))
-
-    KeepInSession(request.form['nome_review'],
-                  request.form['nome_banda'], request.form['review'])
-
-    if '' == spotify_link:
-        flash('Link do Spotify invalido', 'danger')
-        return render_template('resenhaIndex.html')
-
     nome_review = request.form['nome_review']
-    nome_banda = request.form['nome_banda']
+    spotify_id = request.form['spotify_id']
     review = request.form['review']
     date_register = date.today()
-    filename = str(SpotifyImage(str(request.form['spotify_link'])))
 
-    ResenhaRepository().New(tipo_review, author_id, spotify_link,
-                            nome_review, nome_banda, review, date_register, filename)
+    # In case of error, review will be in session
+    KeepInSession(request.form['spotify_id'], request.form['nome_review'], request.form['review'])
+
+    ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review, date_register)
     CleanSession()
     flash('Resenha criada com sucesso', 'success')
     return redirect(url_for('ind.home'))
 
 
-@res.route('/editar_resenha/<int:id>', methods=['GET', 'POST'])
-def editar_resenha(id):
-    resenha = ResenhaRepository().FindById(id)
-    if session['id'] != resenha.author_id:
+@res.route('/resenhaEdit/<int:id>', methods=['GET', 'POST'])
+def resenhaEdit(id):
+    data = ResenhaRepository().FindById(id)
+    spotifyId = data.spotify_id
+    if data.tipo_review == 'artista':
+        spotify = SpotifyGetOneArtist(spotifyId).oneArtist
+    else:
+        spotify = SpotifyGetOneAlbum(spotifyId).oneAlbum
+
+    if session['id'] != data.author_id:
         return redirect(url_for('ind.home'))
     else:
-        return render_template('resenha/resenhaEdit.html', resenha=resenha)
+        return render_template('resenha/resenhaEdit.html', data=data, spotify=spotify)
 
 
-@res.route('/atualizar_resenha', methods=['GET', 'POST'])
-def atualizar_resenha():
+@res.route('/updateResenha', methods=['GET', 'POST'])
+def updateResenha():
     id = request.form['id']
-    tipo_review = str(SpotifyTipoResenha(str(request.form['spotify_link'])))
-    spotify_link = str(SpotifyLink(str(request.form['spotify_link'])))
-
-    if '' == spotify_link:
-        resenha = ResenhaRepository().FindById(id)
-        flash('Link do Spotify inválido', 'danger')
-        return render_template('resenha/resenhaEdit.html', resenha=resenha)
-
     nome_review = str(request.form['nome_review'])
-    nome_banda = str(request.form['nome_banda'])
     review = request.form['review']
     date_register = date.today()
-    filename = str(SpotifyImage(str(request.form['spotify_link'])))
 
-    ResenhaRepository().Edit(id, tipo_review, spotify_link, nome_review,
-                             nome_banda, review, date_register, filename)
+    ResenhaRepository().Edit(id, nome_review, review, date_register)
     flash('Resenha atualizada com sucesso', 'success')
-    return redirect(url_for('res.minhas_resenhas', id=session['id']))
+
+    return redirect(url_for('res.resenhado', id=id))
 
 
 @res.route('/resenhado/<int:id>/')
 def resenhado(id):
     data = ResenhaRepository().FindById(id)
+    spotifyId = data.spotify_id
+    if data.tipo_review == 'artista':
+        spotify = SpotifyGetOneArtist(spotifyId).oneArtist
+    else:
+        spotify = SpotifyGetOneAlbum(spotifyId).oneAlbum
+
     user_author = UsersRepository().FindById(data.author_id)
     date = DateConversion(str(data.date_register))
 
@@ -113,9 +161,8 @@ def resenhado(id):
     else:
         PNG = 'click'
 
-    return render_template('resenhado.html', data=data, user_author=user_author,
-                           date=date, comments=comments, comment_user=comment_user,
-                           like=like, PNG=PNG)
+    return render_template('resenha/resenhado.html', data=data, spotify=spotify, user_author=user_author,
+                           date=date, comments=comments, comment_user=comment_user, like=like, PNG=PNG)
 
 
 @res.route('/home/<int:id>/')

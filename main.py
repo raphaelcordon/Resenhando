@@ -5,7 +5,6 @@ from views.index_views import ind
 from views.login_views import log
 from views.resenha_views import res
 from views.users_views import use
-from views.testSpotify import tes
 
 
 from flask import Flask
@@ -22,7 +21,6 @@ app.register_blueprint(ind)
 app.register_blueprint(log)
 app.register_blueprint(res)
 app.register_blueprint(use)
-app.register_blueprint(tes)
 
 
 if __name__ == '__main__':

@@ -1,7 +1,4 @@
 import spotipy
-import base64
-import urllib
-import argparse
 import logging
 from spotipy.oauth2 import SpotifyClientCredentials
 
@@ -41,7 +38,6 @@ class SpotifyGetAlbums:
                          'name': self.item['name'],
                          'image': image,
                          'artist_name': artist_name,
-                         'uri': self.item['uri'],
                          'release_date': self.item['release_date'][:4]
                          }
 
@@ -99,7 +95,7 @@ get = SpotifyGetAlbums('7AC976RDJzL2asmZuz7qil')
 for g in get.listAlbums:
     print(g)
 
-
+'''
 class SpotifyGetFiveArtists:
     def __init__(self, name):
         """
@@ -125,6 +121,96 @@ class SpotifyGetFiveArtists:
         return self.listArtists
 
 
-get = SpotifyGetFiveArtists('5')
+get = SpotifyGetFiveArtists('Iron Maiden')
 for g in get.listArtists:
     print(g)
+'''
+
+class SpotifyGetOneArtist:
+    def __init__(self, artistID):
+        """
+        Returns an artist accordingly the id
+        The id is selected from one of the 5 artists
+        from the class: SpotifyGetFiveArtists
+        :param artistID: id from selected artist
+        """
+        self.artistID = artistID
+        self.oneArtist = {}
+        self.oneArtistTopTrack = []
+        self.createList()
+
+    def createList(self):
+        print(SPOTIFY.artist(self.artistID))
+        artistSearch = SPOTIFY.artist(self.artistID)
+        image = artistSearch['images'][0]['url'] if len(artistSearch['images']) > 0 else ''
+        radio = str.replace(artistSearch['external_urls']['spotify'], "/artist/", "/embed/artist/")
+        self.oneArtist = {'id':     artistSearch['id'],
+                          'name':   artistSearch['name'],
+                          'image':  image,
+                          'uri':    artistSearch['uri'],
+                          'genres': artistSearch['genres'],
+                          'radio':  radio
+                          }
+        return self.oneArtist
+
+
+class SpotifyGetOneAlbum:
+    def __init__(self, albumID):
+        """
+        Returns an album accordingly the id
+        The id is selected from album list
+        from the class: SpotifyGetAlbums
+        :param albumID: id from selected album
+        """
+        self.albumID = albumID
+        self.oneAlbum = {}
+        self.createList()
+
+    def createList(self):
+        albumSearch = SPOTIFY.album(self.albumID)
+        image = albumSearch['images'][0]['url'] if len(albumSearch['images']) > 0 else ''
+        radio = str.replace(albumSearch['external_urls']['spotify'], "/album/", "/embed/album/")
+        self.oneAlbum = {'id':     albumSearch['id'],
+                         'name':   albumSearch['name'],
+                         'image':  image,
+                         'releaseDate': albumSearch['release_date'][:4],
+                         'genres': albumSearch['genres'],
+                         'radio':  radio
+                          }
+        return self.oneAlbum
+
+
+get = SpotifyGetOneAlbum('1sa1xqyXE6E7yTMtF2zijE').createList()
+print(get)
+
+"""
+
+{'album_type': 'album', 
+'artists': [{'external_urls': {'spotify': 'https://open.spotify.com/artist/6mdiAmATAx73kdxrNrnlao'}, 'href': 'https://api.spotify.com/v1/artists/6mdiAmATAx73kdxrNrnlao', 'id': '6mdiAmATAx73kdxrNrnlao', 'name': 'Iron Maiden', 'type': 'artist', 'uri': 'spotify:artist:6mdiAmATAx73kdxrNrnlao'}], 
+'external_urls': {'spotify': 'https://open.spotify.com/album/6iVSpex7UohpwPOYZEYmvm'}, 
+'href': 'https://api.spotify.com/v1/albums/6iVSpex7UohpwPOYZEYmvm', 'id': '6iVSpex7UohpwPOYZEYmvm', 
+'images': [{'height': 640, 'url': 'https://i.scdn.co/image/ab67616d0000b273291b0e8f1a74c2bc9f9d3110', 'width': 640}, {'height': 300, 'url': 'https://i.scdn.co/image/ab67616d00001e02291b0e8f1a74c2bc9f9d3110', 'width': 300}, {'height': 64, 'url': 'https://i.scdn.co/image/ab67616d00004851291b0e8f1a74c2bc9f9d3110', 'width': 64}], 
+'name': 'Piece of Mind (2015 - Remaster)', 
+'release_date': '1983-05-16', 
+'release_date_precision': 'day', 
+'total_tracks': 9, 
+'type': 'album', 
+'uri': 'spotify:album:6iVSpex7UohpwPOYZEYmvm'}, 
+'artists': [{'external_urls': {'spotify': 'https://open.spotify.com/artist/6mdiAmATAx73kdxrNrnlao'}, 'href': 'https://api.spotify.com/v1/artists/6mdiAmATAx73kdxrNrnlao', 'id': '6mdiAmATAx73kdxrNrnlao', 'name': 'Iron Maiden', 'type': 'artist', 'uri': 'spotify:artist:6mdiAmATAx73kdxrNrnlao'}], 
+'disc_number': 1, 
+'duration_ms': 252733, 
+'explicit': False, 
+'external_ids': {'isrc': 'GBCHB1800032'}, 
+'external_urls': {'spotify': 'https://open.spotify.com/track/1Ab3hhOw1TJWDgO10vlxNZ'}, 
+'href': 'https://api.spotify.com/v1/tracks/1Ab3hhOw1TJWDgO10vlxNZ', 
+'id': '1Ab3hhOw1TJWDgO10vlxNZ', 
+'is_local': False, 
+'is_playable': True, 
+'name': 'The Trooper - 2015 Remaster',
+ 'popularity': 60, 
+'preview_url': 'https://p.scdn.co/mp3-preview/0a88f3e6d8e5dfe20807b9a4ee1cf1f30fa871d2?cid=458d767d30034a44828d668093119d4f', 
+'track_number': 5, 
+'type': 'track', 
+'uri': 'spotify:track:1Ab3hhOw1TJWDgO10vlxNZ'
+    }
+"""

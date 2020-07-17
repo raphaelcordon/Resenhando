@@ -10,7 +10,8 @@ log = Blueprint('log', __name__)
 
 @log.route('/login')
 def login():
-    return render_template('login.html')
+    previous = request.headers.get("Referer")
+    return render_template('login.html', previous=previous)
 
 
 @log.route('/authenticate', methods=['POST', ])
@@ -34,7 +35,11 @@ def authenticate():
         UpdateSession(user)
         LoginHistRepository().New(str(session['id']))  # input Timestamp in db
         flash(f'Bem vindo {user.name}', 'success')
-        return redirect(url_for('ind.home'))
+        if request.form['previous'] != 'None':
+            print(request.form['previous'])
+            return redirect(request.form['previous'])
+        else:
+            return redirect(url_for('ind.home'))
     else:
         flash('Verifique usuário e/ou senha e tente novamente', 'danger')
         return redirect(url_for('log.login'))
@@ -107,7 +112,7 @@ def reset_pass_db():
 def UpdateSession(user):
     """
     :param user: list info from user from db
-    :return: Session populatd with current user's info
+    :return: Session populated with current user's info
     id / username / name / surname / password (encripted) or initial ('pass')
     """
     session['id'] = user.id
@@ -115,3 +120,5 @@ def UpdateSession(user):
     session['name'] = user.name
     session['surname'] = user.surname
     session['password'] = user.password
+
+

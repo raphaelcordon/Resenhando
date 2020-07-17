@@ -6,7 +6,7 @@
     <!-- ##### Form Edit Start ##### -->
     <div>
         <!-- ## Search Artist ## -->
-        {% include 'resenha/resenhaForm.html' %}
+        {% include 'partials/resenhaForm.html' %}
         <br>
     </div>
 
@@ -24,7 +24,7 @@
         <div class="col-8 col-sm-3 col-lg-3">
             <div class="single-best-receipe-area mb-10">
                 <div class="receipe-content">
-                    <a href="#">
+                    <a href="{{ url_for('res.resenhaNewAlbum', albumId=album.id) }}">
                         {% if not album.image %}
                         <img src="../static/img/bg-img/No-Image-Available.png" alt="">
                         {% else %}
@@ -32,7 +32,7 @@
                         {% endif %}
                     </a>
 
-                    <a href="#">
+                    <a href="{{ url_for('res.resenhaNewAlbum', albumId=album.id) }}">
                         <h5>{{ album.name }}</h5>
                         <h5>Release: {{ album.release_date }}</h5>
                     </a>

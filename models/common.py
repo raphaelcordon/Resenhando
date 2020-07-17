@@ -4,7 +4,7 @@ from flask import session
 class DateConversion:
     def __init__(self, db_date):
         self.db_date = db_date
-        self.day = self.db_date[-2:]
+        self.day = self.db_date[8:10]
         months = {'00': '', '01': 'Janeiro', '02': 'Fevereiro', '03': 'Março',
                   '04': 'Abril', '05': 'Maio', '06': 'Junho',
                   '07': 'Julho', '08': 'Agosto', '09': 'Setembro',
@@ -18,12 +18,12 @@ class DateConversion:
 
 
 class KeepInSession:
-    def __init__(self, nome_review, nome_banda, review):
+    def __init__(self, artistId, nome_review, review):
         """
         :return: Feed temporary data from "nova_resenha" to be re-filled in case of error.
         """
+        session['artistId'] = artistId
         session['nome_review'] = nome_review
-        session['nome_banda'] = nome_banda
         session['review'] = review
 
 

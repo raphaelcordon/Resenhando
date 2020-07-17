@@ -96,15 +96,6 @@
                                     <li><a href="{{ url_for('res.resenhaIndex') }}">Nova resenha</a></li>
                                     <li><a href="{{ url_for('res.minhas_resenhas', id=session.id) }}">Minhas resenhas</a></li>
                                     {% endif %}
-                                    {% if request.path == url_for('ind.home') or request.path == url_for('ind.home_ordering', ordering='autor') %}
-                                    <li class="dropdown"><button class="dropbtn"><a name="#">Ordenar lista por:</a></button>
-                                      <div class="dropdown-content">
-                                          <a href="{{ url_for('ind.home') }}">Mais recente</a>
-                                          <a href="{{ url_for('ind.home_ordering', ordering='autor') }} ">Autor</a>
-                                          <a href="#">Curtidas</a>
-                                      </div>
-                                    </li>
-                                    {% endif %}
                                     <li><a href="{{ url_for('adm.sobre') }}">Sobre</a></li>
                                     {% if session.id != '' and session['username'] == 'cordon' or session['username'] == 'soria' %}
                                     <li style="background-color: #f2f2f2;"><a href="{{ url_for('adm.adm_resenhas') }}">*Resenhas</a></li>
