@@ -4,7 +4,8 @@ from repository.resenha_repos import ResenhaRepository
 from repository.comments_repos import CommentsRepository
 from repository.curtidas_repos import CurtidasRepository
 from models.common import DateConversion, KeepInSession, CleanSession
-from thirdparty.spotify import SpotifyGetFiveArtists, SpotifyGetAlbums, SpotifyGetOneArtist, SpotifyGetOneAlbum
+from thirdparty.spotify import SpotifyGetFiveArtists, SpotifyGetAlbums, \
+    SpotifyGetOneArtist, SpotifyGetOneAlbum, SpotifyGetOneTrack, SpotifyGetOnePlaylist
 from datetime import date
 
 res = Blueprint('res', __name__)
@@ -117,8 +118,12 @@ def resenhaEdit(id):
     spotifyId = data.spotify_id
     if data.tipo_review == 'artista':
         spotify = SpotifyGetOneArtist(spotifyId).oneArtist
-    else:
+    elif data.tipo_review == 'album':
         spotify = SpotifyGetOneAlbum(spotifyId).oneAlbum
+    elif data.tipo_review == 'track':
+        spotify = SpotifyGetOneTrack(spotifyId).oneTrack
+    else:
+        spotify = SpotifyGetOnePlaylist(spotifyId).onePlaylist
 
     if session['id'] != data.author_id:
         return redirect(url_for('ind.home'))
@@ -145,8 +150,12 @@ def resenhado(id):
     spotifyId = data.spotify_id
     if data.tipo_review == 'artista':
         spotify = SpotifyGetOneArtist(spotifyId).oneArtist
-    else:
+    elif data.tipo_review == 'album':
         spotify = SpotifyGetOneAlbum(spotifyId).oneAlbum
+    elif data.tipo_review == 'track':
+        spotify = SpotifyGetOneTrack(spotifyId).oneTrack
+    else:
+        spotify = SpotifyGetOnePlaylist(spotifyId).onePlaylist
 
     user_author = UsersRepository().FindById(data.author_id)
     date = DateConversion(str(data.date_register))
@@ -168,9 +177,28 @@ def resenhado(id):
 @res.route('/home/<int:id>/')
 def minhas_resenhas(id):
 
-    resenhas = ResenhaRepository().FindAuthorById(id)
-    if not resenhas:
+    reviews = ResenhaRepository().FindAuthorById(id)
+    if not reviews:
         flash('Você ainda não criou nenhuma resenha', 'info')
     else:
         flash('Essas são as resenhas criadas por você até o momento', 'info')
-    return render_template('index.html', resenhas=resenhas)
+
+        spotifyArtist = []
+        spotifyAlbum = []
+        spotifyTrack = []
+        spotifyPlaylist = []
+
+        users = UsersRepository().List()
+        for item in reviews:
+            if item.tipo_review == 'artista':
+                spotifyArtist.append(SpotifyGetOneArtist(item.spotify_id).oneArtist)
+            elif item.tipo_review == 'album':
+                spotifyAlbum.append(SpotifyGetOneAlbum(item.spotify_id).oneAlbum)
+            elif item.tipo_review == 'track':
+                spotifyTrack.append(SpotifyGetOneTrack(item.spotify_id).oneTrack)
+            elif item.tipo_review == 'playlist':
+                spotifyPlaylist.append(SpotifyGetOnePlaylist(item.spotify_id).onePlaylist)
+
+        return render_template('index.html', reviews=reviews, users=users, spotifyArtist=spotifyArtist,
+                               spotifyAlbum=spotifyAlbum, spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist)
+

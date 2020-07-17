@@ -91,9 +91,9 @@ class SpotifyGetAlbums:
 
         return False
 
-get = SpotifyGetAlbums('7AC976RDJzL2asmZuz7qil')
-for g in get.listAlbums:
-    print(g)
+#get = SpotifyGetAlbums('7AC976RDJzL2asmZuz7qil')
+#for g in get.listAlbums:
+#    print(g)
 
 '''
 class SpotifyGetFiveArtists:
@@ -180,9 +180,6 @@ class SpotifyGetOneAlbum:
         return self.oneAlbum
 
 
-get = SpotifyGetOneAlbum('1sa1xqyXE6E7yTMtF2zijE').createList()
-print(get)
-
 """
 
 {'album_type': 'album', 
@@ -214,3 +211,59 @@ print(get)
 'uri': 'spotify:track:1Ab3hhOw1TJWDgO10vlxNZ'
     }
 """
+
+
+class SpotifyGetOnePlaylist:
+    def __init__(self, playlistID):
+        """
+        Returns an artist accordingly the id
+        The id is selected from one of the 5 artists
+        from the class: SpotifyGetFiveArtists
+        :param artistID: id from selected artist
+        """
+        self.playlistID = playlistID
+        self.onePlaylist = {}
+        self.createList()
+
+    def createList(self):
+        print(SPOTIFY.playlist(self.playlistID))
+        artistSearch = SPOTIFY.playlist(self.playlistID)
+        image = artistSearch['images'][0]['url'] if len(artistSearch['images']) > 0 else ''
+        radio = str.replace(artistSearch['external_urls']['spotify'], "/playlist/", "/embed/playlist/")
+        self.playlist = {'id':     artistSearch['id'],
+                          'name':   artistSearch['name'],
+                          'image':  image,
+                          'uri':    artistSearch['uri'],
+                          'radio':  radio
+                          }
+        return self.playlist
+
+
+
+class SpotifyGetOneTrack:
+    def __init__(self, trackId):
+        """
+        Returns an artist accordingly the id
+        The id is selected from one of the 5 artists
+        from the class: SpotifyGetFiveArtists
+        :param artistID: id from selected artist
+        """
+        self.trackId = trackId
+        self.oneTrack = {}
+        self.createList()
+
+    def createList(self):
+        artistSearch = SPOTIFY.track(self.trackId)
+        image = artistSearch['album']['images'][0]['url'] if len(artistSearch['album']['images']) > 0 else ''
+        radio = str.replace(artistSearch['external_urls']['spotify'], "/track/", "/embed/track/")
+        self.track = {'id':     artistSearch['id'],
+                         'name':   artistSearch['name'],
+                         'image':  image,
+                         'uri':    artistSearch['uri'],
+                         'radio':  radio
+                         }
+        return self.track
+
+
+get = SpotifyGetOneTrack('3tqv7xESjYRUjnBoJvfLhN').createList()
+print(get)

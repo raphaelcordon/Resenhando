@@ -6,77 +6,141 @@
         <div class="dropdown_position">
         </div>
 
-        <p>Resenhas mais recentes de Artistas ou Bandas</p>
+        <!-- Ordering by ARTIST Area Beginning-->
+        <p>Ultimas resenhas de Artistas ou Bandas</p>
         <div class="row">
-            <!-- Ordering by Artist Area Beginning-->
             {% for review in reviews|sort(attribute='id', reverse=true) %}
                 {% for spotify in spotifyArtist %}
                     {% if review.spotify_id == spotify.id %}
-                    <!-- Single 'Resenhas' Area -->
-                    <div class="col-10 col-sm-6 col-lg-2">
+                        <div class="col-12 col-sm-8 col-lg-2">
                         <div class="single-best-receipe-area mb-10">
-                            <a href="{{ url_for('res.resenhado', id=review.id) }}">
-                                {% if spotify.image == None %}
-                                <img src="../static/img/bg-img/No-Image-Available.png" alt="" width="500px" height="500px">
-                                {% else %}
-                                <img src="{{ spotify.image }}" alt="" width="200px" height="200px">
-                                {% endif %}
-                            </a>
                             <div class="receipe-content">
-                                <a href="{{ url_for('res.resenhado', id=review.id) }}">
-                                    <h5>{{ review.nome_review }}</h5>
-                                    <h5>{{ review.nome_banda }}</h5>
-                                    {% for user in users %}
-                                    {% if user.id == review.author_id %}
-                                    <h5>Autor: {{ user.name }} {{ user.surname }}</h5>
-                                    {% endif %} {% endfor %}
-                                </a>
+                                    <a href="{{ url_for('res.resenhado', id=review.id) }}">
+                                        {% if spotify.image == None %}
+                                        <img src="../static/img/bg-img/No-Image-Available.png" alt="" width="200px" height="200px">
+                                        {% else %}
+                                        <img src="{{ spotify.image }}" alt="" width="200px" height="200px">
+                                        {% endif %}
+                                    </a>
+                                    <a href="{{ url_for('res.resenhado', id=review.id) }}">
+                                        <h6>{{ spotify.name }}</h6>
+                                        {% for user in users %}
+                                        {% if user.id == review.author_id %}
+                                        <p>por: {{ user.name }} {{ user.surname }}</p>
+                                        {% endif %} {% endfor %}
+                                    </a>
+                                </div>
                             </div>
                         </div>
-
-                </div>
                     {% endif %}
                 {% endfor %}
             {% endfor %}
-                </div>
-            <!-- Ordering by Artist Area Ending-->
+        </div>
+            <!-- Ordering by ARTIST Area Ending-->
 
+        <hr/>
 
-       <p>Resenhas mais recentes de Albuns</p>
+        <!-- Ordering by ALBUM Area Beginning-->
+       <p>Ultimas resenhas de Albuns</p>
         <div class="row">
-            <!-- Ordering by Album Area Beginning-->
             {% for review in reviews|sort(attribute='id', reverse=true) %}
                 {% for spotify in spotifyAlbum %}
                     {% if review.spotify_id == spotify.id %}
-                    <!-- Single 'Resenhas' Area -->
-
-                    <div class="col-10 col-sm-6 col-lg-2">
+                    <div class="col-12 col-sm-8 col-lg-2">
                         <div class="single-best-receipe-area mb-10">
-                            <a href="{{ url_for('res.resenhado', id=review.id) }}">
-                                {% if spotify.image == None %}
-                                <img src="../static/img/bg-img/No-Image-Available.png" alt="" width="500px" height="500px">
-                                {% else %}
-                                <img src="{{ spotify.image }}" alt="" width="200px" height="200px">
-                                {% endif %}
-                            </a>
                             <div class="receipe-content">
                                 <a href="{{ url_for('res.resenhado', id=review.id) }}">
-                                    <h5>{{ review.nome_review }}</h5>
-                                    <h5>{{ review.nome_banda }}</h5>
+                                    {% if spotify.image == None %}
+                                    <img src="../static/img/bg-img/No-Image-Available.png" alt="" width="200px" height="200px">
+                                    {% else %}
+                                    <img src="{{ spotify.image }}" alt="" width="200px" height="200px">
+                                    {% endif %}
+                                </a>
+                                <a href="{{ url_for('res.resenhado', id=review.id) }}">
+                                    <h6>{{ spotify.name }}</h6>
                                     {% for user in users %}
                                     {% if user.id == review.author_id %}
-                                    <h5>Autor: {{ user.name }} {{ user.surname }}</h5>
+                                    <p>por: {{ user.name }} {{ user.surname }}</p>
                                     {% endif %} {% endfor %}
                                 </a>
                             </div>
                         </div>
-
-                </div>
+                    </div>
                     {% endif %}
                 {% endfor %}
             {% endfor %}
-            <!-- Ordering by Album Area Ending-->
         </div>
+        <!-- Ordering by ALBUM Area Ending-->
+
+        <hr/>
+
+        <!-- Ordering by TRACK Area Beginning-->
+       <p>Ultimas resenhas de Músicas</p>
+        <div class="row">
+            {% for review in reviews|sort(attribute='id', reverse=true) %}
+                {% for spotify in spotifyTrack %}
+                    {% if review.spotify_id == spotify.id %}
+                    <div class="col-12 col-sm-8 col-lg-2">
+                        <div class="single-best-receipe-area mb-10">
+                            <div class="receipe-content">
+                                <a href="{{ url_for('res.resenhado', id=review.id) }}">
+                                    {% if spotify.image == None %}
+                                    <img src="../static/img/bg-img/No-Image-Available.png" alt="" width="200px" height="200px">
+                                    {% else %}
+                                    <img src="{{ spotify.image }}" alt="" width="200px" height="200px">
+                                    {% endif %}
+                                </a>
+                                <a href="{{ url_for('res.resenhado', id=review.id) }}">
+                                    <h6>{{ spotify.name }}</h6>
+                                    {% for user in users %}
+                                    {% if user.id == review.author_id %}
+                                    <p>por: {{ user.name }} {{ user.surname }}</p>
+                                    {% endif %} {% endfor %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <!-- Ordering by TRACK Area Ending-->
+
+
+        <hr/>
+
+        <!-- Ordering by PLAYLIST Area Beginning-->
+       <p>Ultimas resenhas de Playlists</p>
+        <div class="row">
+            {% for review in reviews|sort(attribute='id', reverse=true) %}
+                {% for spotify in spotifyPlaylist %}
+                    {% if review.spotify_id == spotify.id %}
+                    <div class="col-12 col-sm-8 col-lg-2">
+                        <div class="single-best-receipe-area mb-10">
+                            <div class="receipe-content">
+                                <a href="{{ url_for('res.resenhado', id=review.id) }}">
+                                    {% if spotify.image == None %}
+                                    <img src="../static/img/bg-img/No-Image-Available.png" alt="" width="200px" height="200px">
+                                    {% else %}
+                                    <img src="{{ spotify.image }}" alt="" width="200px" height="200px">
+                                    {% endif %}
+                                </a>
+                                <a href="{{ url_for('res.resenhado', id=review.id) }}">
+                                    <h6>{{ spotify.name }}</h6>
+                                    {% for user in users %}
+                                    {% if user.id == review.author_id %}
+                                    <p>por: {{ user.name }} {{ user.surname }}</p>
+                                    {% endif %} {% endfor %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <!-- Ordering by PLAYLIST Area Ending-->
+
     </div>
 </section>
 <!-- ##### 'Resenhas' Area End ##### -->

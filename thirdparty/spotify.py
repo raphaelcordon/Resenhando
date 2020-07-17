@@ -254,3 +254,52 @@ class SpotifyGetOneAlbum:
                          'radio':  radio
                           }
         return self.oneAlbum
+
+
+class SpotifyGetOneTrack:
+    def __init__(self, trackId):
+        """
+        Returns a Track accordingly the id
+        The id is selected from one album
+        FUNCTIO TO BE CREATED IN THE WEBSITE
+        :param trackId: id from selected Track
+        """
+        self.trackId = trackId
+        self.oneTrack = {}
+        self.createList()
+
+    def createList(self):
+        artistSearch = SPOTIFY.track(self.trackId)
+        image = artistSearch['album']['images'][0]['url'] if len(artistSearch['album']['images']) > 0 else ''
+        radio = str.replace(artistSearch['external_urls']['spotify'], "/track/", "/embed/track/")
+        self.oneTrack = {'id':     artistSearch['id'],
+                         'name':   artistSearch['name'],
+                         'image':  image,
+                         'uri':    artistSearch['uri'],
+                         'radio':  radio
+                         }
+        return self.oneTrack
+
+
+class SpotifyGetOnePlaylist:
+    def __init__(self, playlistID):
+        """
+        Returns a playlist accordingly the id
+        FUNCTIO TO BE CREATED IN THE WEBSITE
+        :param playlistID: id from selected playlist
+        """
+        self.playlistID = playlistID
+        self.onePlaylist = {}
+        self.createList()
+
+    def createList(self):
+        artistSearch = SPOTIFY.playlist(self.playlistID)
+        image = artistSearch['images'][0]['url'] if len(artistSearch['images']) > 0 else ''
+        radio = str.replace(artistSearch['external_urls']['spotify'], "/playlist/", "/embed/playlist/")
+        self.onePlaylist = {'id':     artistSearch['id'],
+                          'name':   artistSearch['name'],
+                          'image':  image,
+                          'uri':    artistSearch['uri'],
+                          'radio':  radio
+                          }
+        return self.onePlaylist

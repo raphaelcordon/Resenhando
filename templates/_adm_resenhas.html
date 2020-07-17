@@ -12,9 +12,10 @@
                     <thead class="thead-dark">
                         <tr class="d-flex">
                             <th class="col-1">ID</th>
+                            <th class="col-1">Tipo_Review</th>
                             <th class="col-1">Author</th>
                             <th class="col-3">Nome Review</th>
-                            <th class="col-4">Nome Banda</th>
+                            <th class="col-4">Spotify_id</th>
                             <th class="col-2">Data Registro</th>
                             <th class="col-1"></th>
                         </tr>
@@ -23,9 +24,10 @@
                         {% for resenha in resenhas|sort(attribute='id', reverse=true) %}
                         <tr class="d-flex">
                             <td class="col-sm-1">{{ resenha.id }}</td>
+                            <td class="col-sm-1">{{ resenha.tipo_review }}</td>
                             <td class="col-sm-1">{{ resenha.author_id }}</td>
                             <td class="col-sm-3">{{ resenha.nome_review }}</td>
-                            <td class="col-sm-4">{{ resenha.nome_banda }}</td>
+                            <td class="col-sm-4">{{ resenha.spotify_id }}</td>
                             <td class="col-sm-2">{{ resenha.date_register }}</td>
                             <td class="col-sm-1"><a
                                     data-url="{{ url_for('adm.ResenhasDelete', resenha_id=resenha.id) }}"
