@@ -4,11 +4,13 @@ from models.resenha_model import Resenha
 
 class ResenhaRepository:
 
-    def List(self, top = 0):
+    def List(self, tipo_review='', top=0):
         db = PostgreDB()
         try:      
             if top > 0:
-                db.query(f"SELECT * FROM public.resenha order by date_register desc limit {top}")          
+                if tipo_review is not '':
+                    db.query(f"SELECT * FROM public.resenha where tipo_review = '{tipo_review}' "
+                             f"order by date_register desc limit {top}")
             else:                
                 db.query(f"SELECT * FROM public.resenha")
             return self.__toList(db.fetchAll())
@@ -18,12 +20,12 @@ class ResenhaRepository:
             db.close()
 
     # <- Register a new 'Resenha' in the table ->
-    def New(self, tipo_review, author_id, nome_review, spotify_id, review, date_register):
+    def New(self, tipo_review, author_id, nome_review, spotify_id, review):
         db = PostgreDB()
         try:
-            insert = f"INSERT INTO public.resenha (tipo_review, author_id, nome_review, spotify_id, review, date_register) " \
-                f"VALUES (%s, %s, %s, %s, %s, %s)"
-            db.queryParams(insert, (tipo_review, author_id, nome_review, spotify_id, review, date_register))
+            insert = f"INSERT INTO public.resenha (tipo_review, author_id, nome_review, spotify_id, review) " \
+                f"VALUES (%s, %s, %s, %s, %s)"
+            db.queryParams(insert, (tipo_review, author_id, nome_review, spotify_id, review))
         except Exception as exp:
             print(exp)
         finally:
@@ -52,12 +54,12 @@ class ResenhaRepository:
             db.close()
 
     # <- Edit an existent 'Resenha' in the table ->
-    def Edit(self, id, nome_review, review, date_register):
+    def Edit(self, id, nome_review, review):
         db = PostgreDB()
         try:
-            updating_query = f"update public.resenha set nome_review=%s, review=%s, " \
-                             f"date_register=%s where id = {id}"
-            db.queryParams(updating_query, (nome_review, review, date_register))
+            updating_query = f"update public.resenha set nome_review=%s, review=%s, date_register=CURRENT_TIMESTAMP" \
+                             f" where id = {id}"
+            db.queryParams(updating_query, (nome_review, review))
         except Exception as exp:
             print(exp)
         finally:

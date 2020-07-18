@@ -20,21 +20,23 @@ def home():
     spotifyPlaylist = []
 
     users = UsersRepository().List()
-    reviews = ResenhaRepository().List()
-    for item in reviews:
-        if item.tipo_review == 'artista':
-            spotifyArtist.append(SpotifyGetOneArtist(item.spotify_id).oneArtist)
-        elif item.tipo_review == 'album':
-            spotifyAlbum.append(SpotifyGetOneAlbum(item.spotify_id).oneAlbum)
-        elif item.tipo_review == 'track':
-            spotifyTrack.append(SpotifyGetOneTrack(item.spotify_id).oneTrack)
-        elif item.tipo_review == 'playlist':
-            spotifyPlaylist.append(SpotifyGetOnePlaylist(item.spotify_id).onePlaylist)
+    reviewsArtist =     ResenhaRepository().List('artista', 5)
+    reviewsAlbum =      ResenhaRepository().List('album', 5)
+    reviewsTrack =      ResenhaRepository().List('track', 5)
+    reviewsPlaylist =   ResenhaRepository().List('playlist', 5)
+    for item in reviewsArtist:
+        spotifyArtist.append(SpotifyGetOneArtist(item.spotify_id).oneArtist)
+    for item in reviewsAlbum:
+        spotifyAlbum.append(SpotifyGetOneAlbum(item.spotify_id).oneAlbum)
+    for item in reviewsTrack:
+        spotifyTrack.append(SpotifyGetOneTrack(item.spotify_id).oneTrack)
+    for item in reviewsPlaylist:
+        spotifyPlaylist.append(SpotifyGetOnePlaylist(item.spotify_id).onePlaylist)
 
-    return render_template('index.html', reviews=reviews, users=users, spotifyArtist=spotifyArtist,
-                           spotifyAlbum=spotifyAlbum, spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist)
-
-
+    return render_template('index.html', reviewsArtist=reviewsArtist,reviewsAlbum=reviewsAlbum,
+                           reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
+                           users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
+                           spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist)
 
 
 def __createSessionVariables():

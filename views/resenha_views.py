@@ -42,12 +42,11 @@ def createResenhaArtist():
     nome_review = request.form['nome_review']
     spotify_id = request.form['spotify_id']
     review = request.form['review']
-    date_register = date.today()
 
     # In case of error, review will be in session
     KeepInSession(request.form['spotify_id'], request.form['nome_review'], request.form['review'])
 
-    ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review, date_register)
+    ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review)
     CleanSession()
     flash('Resenha criada com sucesso', 'success')
     return redirect(url_for('ind.home'))
@@ -101,12 +100,11 @@ def createResenha():
     nome_review = request.form['nome_review']
     spotify_id = request.form['spotify_id']
     review = request.form['review']
-    date_register = date.today()
 
     # In case of error, review will be in session
     KeepInSession(request.form['spotify_id'], request.form['nome_review'], request.form['review'])
 
-    ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review, date_register)
+    ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review)
     CleanSession()
     flash('Resenha criada com sucesso', 'success')
     return redirect(url_for('ind.home'))
@@ -136,9 +134,8 @@ def updateResenha():
     id = request.form['id']
     nome_review = str(request.form['nome_review'])
     review = request.form['review']
-    date_register = date.today()
 
-    ResenhaRepository().Edit(id, nome_review, review, date_register)
+    ResenhaRepository().Edit(id, nome_review, review)
     flash('Resenha atualizada com sucesso', 'success')
 
     return redirect(url_for('res.resenhado', id=id))
@@ -192,6 +189,10 @@ def minhas_resenhas(id):
         spotifyPlaylist = []
 
         users = UsersRepository().List()
+        reviewsArtist = ResenhaRepository().List('artista')
+        reviewsAlbum = ResenhaRepository().List('album')
+        reviewsTrack = ResenhaRepository().List('track')
+        reviewsPlaylist = ResenhaRepository().List('playlist')
         for item in reviews:
             if item.tipo_review == 'artista':
                 spotifyArtist.append(SpotifyGetOneArtist(item.spotify_id).oneArtist)
@@ -202,6 +203,8 @@ def minhas_resenhas(id):
             elif item.tipo_review == 'playlist':
                 spotifyPlaylist.append(SpotifyGetOnePlaylist(item.spotify_id).onePlaylist)
 
-        return render_template('index.html', reviews=reviews, users=users, spotifyArtist=spotifyArtist,
-                               spotifyAlbum=spotifyAlbum, spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist)
+        return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
+                               reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
+                               users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
+                               spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist)
 
