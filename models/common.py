@@ -35,6 +35,7 @@ class CleanSession:
         session['nome_review'] = ''
         session['nome_banda'] = ''
         session['review'] = ''
+        session['review'] = ''
 
 
 class CleanLoginItens:

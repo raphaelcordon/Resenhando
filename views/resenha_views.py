@@ -83,8 +83,8 @@ def resenhaNewAlbum(albumId):
 @res.route('/resenhaIndex', methods=['GET', 'POST'])
 def resenhaIndex():
     CleanSession()
+    session['previous'] = 'res.resenhaIndex'
     if session['username'] == '' or 'username' not in session:
-        session['previous'] = request.headers.get("Referer")
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('log.login'))
     return render_template('resenha/resenhaIndex.html')
@@ -176,6 +176,9 @@ def resenhado(id):
 
 @res.route('/home/<int:id>/')
 def minhas_resenhas(id):
+    if session['username'] == '' or 'username' not in session:
+        flash('Você precisa logar para acessar essa área', 'info')
+        return redirect(url_for('log.login'))
 
     reviews = ResenhaRepository().FindAuthorById(id)
     if not reviews:

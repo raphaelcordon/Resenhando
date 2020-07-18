@@ -85,8 +85,9 @@
 <!-- ##### Main Area End ##### -->
 <section class="comments">
     <section class="container">
+        {% if not session.id %}
         <p class="comments_text">Faça <a href="{{ url_for('log.login') }}">login</a> para postar um comentário</p>
-        {% if session.id %}
+        {% else %}
         <form action="{{ url_for('com.comentario') }}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="{{ data.id }}">
             <div class="comments_writing">

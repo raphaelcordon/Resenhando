@@ -10,7 +10,7 @@ log = Blueprint('log', __name__)
 
 @log.route('/login')
 def login():
-    previous = request.headers.get("Referer")
+    previous = session['previous']
     return render_template('login.html', previous=previous)
 
 
@@ -35,9 +35,8 @@ def authenticate():
         UpdateSession(user)
         LoginHistRepository().New(str(session['id']))  # input Timestamp in db
         flash(f'Bem vindo {user.name}', 'success')
-        if request.form['previous'] != 'None':
-            print(request.form['previous'])
-            return redirect(request.form['previous'])
+        if request.form['previous'] != 'None' or request.form['previous'] != '':
+            return redirect(url_for(request.form['previous']))
         else:
             return redirect(url_for('ind.home'))
     else:
@@ -50,6 +49,7 @@ def logout():
     """
     :return: Cleaning Session
     """
+    previous = request.headers.get("Referer")
     session['id'] = ''
     session['username'] = ''
     session['name'] = ''
@@ -58,7 +58,8 @@ def logout():
     session['nome_review'] = ''
     session['nome_banda'] = ''
     session['review'] = ''
-    return redirect(url_for('ind.home'))
+
+    return redirect(previous)
 
 
 @log.route('/nova_conta')
