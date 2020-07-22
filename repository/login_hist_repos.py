@@ -1,5 +1,5 @@
 from .base_repos import PostgreDB
-from models.login_hist_model import LoginHist
+
 
 
 class LoginHistRepository:
