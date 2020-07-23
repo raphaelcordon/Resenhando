@@ -143,6 +143,10 @@ def updateResenha():
 
 @res.route('/resenhado/<int:id>/')
 def resenhado(id):
+
+    if 'id' not in session:
+        session['id'] = ''
+
     data = ResenhaRepository().FindById(id)
     spotifyId = data.spotify_id
     if data.tipo_review == 'artista':
@@ -162,9 +166,12 @@ def resenhado(id):
     comments = CommentsRepository().List(id)
     comment_user = UsersRepository().List()
 
-    if CurtidasRepository().FindById(session['id'], id):
-        PNG = 'unclick'
-    else:
+    try:
+        if CurtidasRepository().FindById(session['id'], id):
+            PNG = 'unclick'
+        else:
+            PNG = 'click'
+    except:
         PNG = 'click'
 
     return render_template('resenha/resenhado.html', data=data, spotify=spotify, user_author=user_author,
@@ -173,7 +180,7 @@ def resenhado(id):
 
 @res.route('/home/<int:id>/')
 def minhas_resenhas(id):
-    if session['username'] == '' or 'username' not in session:
+    if session['username'] == '' or 'username' not in session or session['id'] == '':
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('log.login'))
 
@@ -207,4 +214,3 @@ def minhas_resenhas(id):
                                reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
                                users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
                                spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist)
-

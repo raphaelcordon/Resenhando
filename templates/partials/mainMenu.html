@@ -1,0 +1,19 @@
+<!-- Menu -->
+<div class="classy-menu">
+    <!-- Nav Start -->
+    <div class="classynav">
+        <ul>
+            <li><a href="{{ url_for('ind.home') }}">Home</a></li>
+            <li><a href="{{ url_for('res.resenhaIndex') }}">Nova resenha</a></li>
+            {% if session.id != '' %}
+            <li><a href="{{ url_for('res.minhas_resenhas', id=session.id) }}">Minhas resenhas</a></li>
+            {% endif %}
+            <li><a href="{{ url_for('adm.sobre') }}">Sobre</a></li>
+            {% if session.id != '' and session['username'] == 'cordon' or session['username'] == 'soria' %}
+            <li style="background-color: #f2f2f2;"><a href="{{ url_for('adm.adm_resenhas') }}">*Resenhas</a></li>
+            <li style="background-color: #f2f2f2;"><a href="{{ url_for('adm.adm_usuarios') }}">*Usuarios</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <!-- Nav End -->
+</div>
