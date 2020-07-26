@@ -9,6 +9,7 @@ log = Blueprint('log', __name__)
 
 @log.route('/login')
 def login():
+    session['previous'] = request.headers.get("Referer")
     if session['previous'] == '':
         previous = 'ind.home'
         session['previous'] = 'ind.home'
@@ -43,8 +44,10 @@ def authenticate():
             # input Timestamp in db
             LoginHistRepository().New(str(session['id']))
             flash(f'Bem vindo {user.name}', 'success')
-        if request.form['previous'] != 'None' or request.form['previous'] != '':
-            return redirect(url_for(request.form['previous']))
+        
+        _redirect = request.form['previous']
+        if _redirect != '':
+            return redirect(_redirect)
         else:
             return redirect(url_for('ind.home'))
     else:
