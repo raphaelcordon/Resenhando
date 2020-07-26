@@ -6,7 +6,6 @@
         <div>
             <p class="resenha_titles">Resenha escrita em: {{ date }}</p>
             <p class="resenha_titles">Autor: {{ user_author.name }} {{ user_author.surname }}</p>
-
             <!-- ## like/deslike buttons ## -->
             <table class="like">
                 <tr>
@@ -14,13 +13,12 @@
                         <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
                             <img src="{{ url_for('static', filename='img/core-img/like_click.png') }}" alt=""></a>
                         {% elif user_author.id == data.author_id %}
-                            <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt="">
+                        <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt="">
                         {% else %}
                         <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
                             <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt=""></a>
                         {% endif %}
                     </td>
-
                     <td>
                         {% if like == 0 %} Nenhuma curtida ainda {% else %}{{ like }}{% endif %}
                     </td>
@@ -29,19 +27,17 @@
                     <td></td>
                 </tr>
             </table>
-
             <div class="poster_image">
                 {% if spotify.image == None %}
-                    <img src="/static/img/bg-img/No-Image-Available.png" alt="">
+                <img src="/static/img/bg-img/No-Image-Available.png" alt="">
                 {% else %}
-                    <img src="{{ spotify.image }}" alt="">
+                <img src="{{ spotify.image }}" alt="">
                 {% endif %}
             </div>
             <!-- ##### Table Resenha Start ##### -->
             <table class="table_poster">
                 <tr>
                     <td colspan="2" class="resenha_titles">{{ data.nome_review }}</td>
-
                 </tr>
                 <tr>
                     <td class="resenha_titles">Banda / Artista:</td>
@@ -66,24 +62,22 @@
                     {% endautoescape %}
                 </tr>
                 <tr>
-                    <td colspan="2" class="resenha_spotify"><iframe src="{{ spotify.radio }}" width="300" height="300" frameborder="0"
-                                    allowtransparency="true" allow="encrypted-media"></iframe></td>
+                    <td colspan="2" class="resenha_spotify"><iframe src="{{ spotify.radio }}" width="300" height="300"
+                            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></td>
                 </tr>
                 <tr>
                     {% if session.id == user_author.id %}
                     <td class="resenha_titles"></td>
                     <td class="resenha_item"><a href="{{ url_for('res.resenhaEdit', id=data.id) }}">
                             <button type="submit" class="btn btn-primary btn-salvar" value="data.id">Editar</button></a>
-                            <button type="button" class="btn btn-danger" onclick="window.history.go(-1); return false;">Voltar</button>
-
+                        <button type="button" class="btn btn-danger"
+                            onclick="window.history.go(-1); return false;">Voltar</button>
                     </td>
                 </tr>
                 {% endif %}
             </table>
             <!-- ##### Table Resenha End ##### -->
-
         </div>
-
     </section>
 </main>
 <!-- ##### Main Area End ##### -->
@@ -115,7 +109,8 @@
                 <td>{{ comment.review }}</td>
                 {% if comment.user_id == session.id %}
                 <td class="buttons">
-                    <a data-url="{{ url_for('com.CommentDelete', comment_id=comment.id, resenha_id=data.id) }}" class="delete">
+                    <a data-url="{{ url_for('com.CommentDelete', comment_id=comment.id, resenha_id=data.id) }}"
+                        class="delete">
                         <button type="submit" class="btn btn-link">deletar</button></a></td>
                 {% endif %}
             </tr>

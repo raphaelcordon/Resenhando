@@ -19,7 +19,8 @@ class CurtidasRepository:
     def FindById(self, user_id, resenha_id):
         db = PostgreDB()
         try:
-            db.query(f"SELECT * FROM public.curtidas_hist where user_id = {user_id} and resenha_id = {resenha_id}")
+            db.query(
+                f"SELECT * FROM public.curtidas_hist where user_id = {user_id} and resenha_id = {resenha_id}")
             return self.__toList(db.fetchAll())
         except Exception as exp:
             print(exp)
@@ -29,7 +30,8 @@ class CurtidasRepository:
     def CountLikes(self, resenha_id):
         db = PostgreDB()
         try:
-            db.query(f"SELECT COUNT(resenha_id) FROM public.curtidas_hist where resenha_id = {resenha_id}")
+            db.query(
+                f"SELECT COUNT(resenha_id) FROM public.curtidas_hist where resenha_id = {resenha_id}")
             return self.__toCount(db.fetchOne())
         except Exception as exp:
             print(exp)
@@ -40,7 +42,8 @@ class CurtidasRepository:
     def Delete(self, user_id, resenha_id):
         db = PostgreDB()
         try:
-            db.query(f"DELETE FROM public.curtidas_hist where user_id = {user_id} and resenha_id = {resenha_id}")
+            db.query(
+                f"DELETE FROM public.curtidas_hist where user_id = {user_id} and resenha_id = {resenha_id}")
         except Exception as exp:
             print(exp)
         finally:

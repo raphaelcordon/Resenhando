@@ -76,7 +76,8 @@ class UsersRepository:
     def FindByUsername(self, username):
         db = PostgreDB()
         try:
-            db.query(f"SELECT * FROM public.users where username = '{username}'")
+            db.query(
+                f"SELECT * FROM public.users where username = '{username}'")
             return self.__toOne(db.fetchOne())
         except Exception as exp:
             print(exp)
@@ -96,7 +97,8 @@ class UsersRepository:
     def FindByUserNameAndEmail(self, username, email):
         db = PostgreDB()
         try:
-            db.query(f"SELECT * FROM public.users where username = '{username}' and email = '{email}'")
+            db.query(
+                f"SELECT * FROM public.users where username = '{username}' and email = '{email}'")
             return self.__toOne(db.fetchOne())
         except Exception as exp:
             print(exp)

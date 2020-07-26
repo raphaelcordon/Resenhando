@@ -1,7 +1,6 @@
 from .base_repos import PostgreDB
 
 
-
 class LoginHistRepository:
 
     # <- Register the time of the login in the table ->

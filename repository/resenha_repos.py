@@ -6,12 +6,12 @@ class ResenhaRepository:
 
     def List(self, tipo_review='', top=0):
         db = PostgreDB()
-        try:      
+        try:
             if top > 0:
                 if tipo_review is not '':
                     db.query(f"SELECT * FROM public.resenha where tipo_review = '{tipo_review}' "
                              f"order by date_register desc limit {top}")
-            else:                
+            else:
                 db.query(f"SELECT * FROM public.resenha")
             return self.__toList(db.fetchAll())
         except Exception as exp:
@@ -25,7 +25,8 @@ class ResenhaRepository:
         try:
             insert = f"INSERT INTO public.resenha (tipo_review, author_id, nome_review, spotify_id, review) " \
                 f"VALUES (%s, %s, %s, %s, %s)"
-            db.queryParams(insert, (tipo_review, author_id, nome_review, spotify_id, review))
+            db.queryParams(insert, (tipo_review, author_id,
+                                    nome_review, spotify_id, review))
         except Exception as exp:
             print(exp)
         finally:

@@ -11,6 +11,7 @@ def adm_resenhas():
     resenhas = ResenhaRepository().List()
     return render_template('_adm_resenhas.html', resenhas=resenhas)
 
+
 @adm.route('/adm_usuarios')
 def adm_usuarios():
     users_list = UsersRepository().List()
@@ -35,16 +36,19 @@ def ResenhasDelete(resenha_id):
 @adm.route('/adm_UsersRegistry', methods=['POST', ])
 def adm_users_registry():
     username = str(request.form['username']).strip().lower()
+    email = str(request.form['email']).strip().lower()
     name = str(request.form['name']).strip().title()
     surname = str(request.form['surname']).strip().title()
 
-    if username == '' or name == '' or surname == '':
+    if username == '' or email == '' or name == '' or surname == '':
         flash('Blank field not accepted', 'info')
-    elif UsersRepository().New(username, name, surname):
+    elif UsersRepository().New(username, name, surname, 'pass', email):
         flash('Already registered, please check below', 'info')
     else:
-        flash("Conta criada com sucesso. Utilize a senha 'pass' no primeiro login.", 'success')
+        flash(
+            "Conta criada com sucesso. Utilize a senha 'pass' no primeiro login.", 'success')
     return redirect(url_for('use._adm_usuarios'))
+
 
 @adm.route('/sobre')
 def sobre():

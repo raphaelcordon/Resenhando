@@ -29,7 +29,8 @@ class SpotifyGetAlbums:
         seen = set()  # to avoid dups
         for self.item in self.albums:  # Clean list to send to the website
             if self.item['name'] not in seen:
-                image = self.item['images'][0]['url'] if len(self.item['images']) > 0 else ''
+                image = self.item['images'][0]['url'] if len(
+                    self.item['images']) > 0 else ''
                 artist_name = self.item['artists'][0]['name'] if len(
                     self.item['artists']) > 0 else ''
                 album_name = self.item['name']
@@ -92,8 +93,9 @@ class SpotifyGetAlbums:
         return False
 
 #get = SpotifyGetAlbums('7AC976RDJzL2asmZuz7qil')
-#for g in get.listAlbums:
+# for g in get.listAlbums:
 #    print(g)
+
 
 '''
 class SpotifyGetFiveArtists:
@@ -126,6 +128,7 @@ for g in get.listArtists:
     print(g)
 '''
 
+
 class SpotifyGetOneArtist:
     def __init__(self, artistID):
         """
@@ -142,8 +145,10 @@ class SpotifyGetOneArtist:
     def createList(self):
         print(SPOTIFY.artist(self.artistID))
         artistSearch = SPOTIFY.artist(self.artistID)
-        image = artistSearch['images'][0]['url'] if len(artistSearch['images']) > 0 else ''
-        radio = str.replace(artistSearch['external_urls']['spotify'], "/artist/", "/embed/artist/")
+        image = artistSearch['images'][0]['url'] if len(
+            artistSearch['images']) > 0 else ''
+        radio = str.replace(
+            artistSearch['external_urls']['spotify'], "/artist/", "/embed/artist/")
         self.oneArtist = {'id':     artistSearch['id'],
                           'name':   artistSearch['name'],
                           'image':  image,
@@ -168,15 +173,17 @@ class SpotifyGetOneAlbum:
 
     def createList(self):
         albumSearch = SPOTIFY.album(self.albumID)
-        image = albumSearch['images'][0]['url'] if len(albumSearch['images']) > 0 else ''
-        radio = str.replace(albumSearch['external_urls']['spotify'], "/album/", "/embed/album/")
+        image = albumSearch['images'][0]['url'] if len(
+            albumSearch['images']) > 0 else ''
+        radio = str.replace(
+            albumSearch['external_urls']['spotify'], "/album/", "/embed/album/")
         self.oneAlbum = {'id':     albumSearch['id'],
                          'name':   albumSearch['name'],
                          'image':  image,
                          'releaseDate': albumSearch['release_date'][:4],
                          'genres': albumSearch['genres'],
                          'radio':  radio
-                          }
+                         }
         return self.oneAlbum
 
 
@@ -228,16 +235,17 @@ class SpotifyGetOnePlaylist:
     def createList(self):
         print(SPOTIFY.playlist(self.playlistID))
         artistSearch = SPOTIFY.playlist(self.playlistID)
-        image = artistSearch['images'][0]['url'] if len(artistSearch['images']) > 0 else ''
-        radio = str.replace(artistSearch['external_urls']['spotify'], "/playlist/", "/embed/playlist/")
+        image = artistSearch['images'][0]['url'] if len(
+            artistSearch['images']) > 0 else ''
+        radio = str.replace(
+            artistSearch['external_urls']['spotify'], "/playlist/", "/embed/playlist/")
         self.playlist = {'id':     artistSearch['id'],
-                          'name':   artistSearch['name'],
-                          'image':  image,
-                          'uri':    artistSearch['uri'],
-                          'radio':  radio
-                          }
+                         'name':   artistSearch['name'],
+                         'image':  image,
+                         'uri':    artistSearch['uri'],
+                         'radio':  radio
+                         }
         return self.playlist
-
 
 
 class SpotifyGetOneTrack:
@@ -254,14 +262,16 @@ class SpotifyGetOneTrack:
 
     def createList(self):
         artistSearch = SPOTIFY.track(self.trackId)
-        image = artistSearch['album']['images'][0]['url'] if len(artistSearch['album']['images']) > 0 else ''
-        radio = str.replace(artistSearch['external_urls']['spotify'], "/track/", "/embed/track/")
+        image = artistSearch['album']['images'][0]['url'] if len(
+            artistSearch['album']['images']) > 0 else ''
+        radio = str.replace(
+            artistSearch['external_urls']['spotify'], "/track/", "/embed/track/")
         self.track = {'id':     artistSearch['id'],
-                         'name':   artistSearch['name'],
-                         'image':  image,
-                         'uri':    artistSearch['uri'],
-                         'radio':  radio
-                         }
+                      'name':   artistSearch['name'],
+                      'image':  image,
+                      'uri':    artistSearch['uri'],
+                      'radio':  radio
+                      }
         return self.track
 
 

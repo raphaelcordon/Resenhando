@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <main>
     <div class="container">
         <div class="card">
@@ -10,9 +9,17 @@
             <div class="card-body">
                 <div class="alert-{{category}}">
                     <form action="{{ url_for('adm.adm_users_registry') }}" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" name="username">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" name="username">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="email">E-Mail</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    value="{{ session.email }}" required maxlength="50"
+                                    placeholder="email@provedor.com">
+                            </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -24,7 +31,7 @@
                                 <input type="text" class="form-control" id="surname" name="surname">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
                     </form>
                 </div>
             </div>
@@ -38,18 +45,22 @@
                 <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr class="d-flex">
+                            <th class="col-1">#</th>
                             <th class="col-2">Username</th>
+                            <th class="col-3">Email</th>
                             <th class="col-2">Nome</th>
-                            <th class="col-7">Sobrenome</th>
+                            <th class="col-3">Sobrenome</th>
                             <th class="col-1"></th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for user in users %}
                         <tr class="d-flex">
+                            <td class="col-sm-1">{{user.id}}</td>
                             <td class="col-sm-2">{{user.username}}</td>
+                            <td class="col-sm-3">{{user.email}}</td>
                             <td class="col-sm-2">{{user.name}}</td>
-                            <td class="col-sm-7">{{user.surname}}</td>
+                            <td class="col-sm-3">{{user.surname}}</td>
                             <td class="col-sm-1"><a data-url="{{ url_for('adm.UsuariosDelete', user_id=user.id) }}"
                                     class="btn btn-danger btn-sm white delete">Delete</a></td>
                         </tr>

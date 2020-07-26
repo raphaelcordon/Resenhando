@@ -16,27 +16,30 @@
                         <img src="{{ spotify.image }}" alt="">
                         {% endif %}
                     </div>
-
                     <table class="table_poster">
                         <tr>
                             <td class="resenha_titles"><label>Nome do Artista/Banda</label>
-                                <input id="name" name="name" class="form-control" value="{{ spotify.name }}" onkeydown="return false;" onmousedown="return false">
+                                <input id="name" name="name" class="form-control" value="{{ spotify.name }}"
+                                    onkeydown="return false;" onmousedown="return false">
                             </td>
                         </tr>
                         <tr>
                             <td class="resenha_titles"><label for="nome_review">Titulo da Review</label>
-                            <input id="nome_review" name="nome_review" class="form-control" value="{{ data.nome_review }}" required autofocus>
+                                <input id="nome_review" name="nome_review" class="form-control"
+                                    value="{{ data.nome_review }}" required autofocus>
                             </td>
                         </tr>
                         <tr>
                             <td class="resenha_titles"><label for="review">Resenha</label>
-                            <textarea id="review" name="review" class="form-control"
-                              rows="10" cols="50" required>{{ data.review }}</textarea>
+                                <textarea id="review" name="review" class="form-control" rows="10" cols="50"
+                                    required>{{ data.review }}</textarea>
                             </td>
                         </tr>
                         <tr>
-                            <td class="resenha_titles"><button type="submit" class="btn btn-primary btn-salvar">Enviar resenha</button>
-                                <a href="{{ voltarButton }}"><button type="button" class="btn btn-danger">Voltar</button></a>
+                            <td class="resenha_titles"><button type="submit" class="btn btn-primary btn-salvar">Enviar
+                                    resenha</button>
+                                <a href="{{ voltarButton }}"><button type="button"
+                                        class="btn btn-danger">Voltar</button></a>
                             </td>
                         </tr>
                     </table>

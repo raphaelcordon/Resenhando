@@ -32,7 +32,7 @@ def authenticate():
     # <- Check Password ->
     password = request.form['password']
     isValidPass = sha256_crypt.verify(password, user.password)
-    
+
     print(isValidPass)
 
     if isValidPass == True:
@@ -40,7 +40,8 @@ def authenticate():
             return redirect(url_for('use.changePass'))
         else:
             UpdateSession(user)
-            LoginHistRepository().New(str(session['id']))  # input Timestamp in db
+            # input Timestamp in db
+            LoginHistRepository().New(str(session['id']))
             flash(f'Bem vindo {user.name}', 'success')
         if request.form['previous'] != 'None' or request.form['previous'] != '':
             return redirect(url_for(request.form['previous']))
@@ -56,7 +57,6 @@ def logout():
     """
     :return: Cleaning Session
     """
-    #previous = request.headers.get("Referer")
     session['id'] = ''
     session['username'] = ''
     session['name'] = ''
@@ -67,7 +67,6 @@ def logout():
     session['review'] = ''
     session['previous'] = ''
 
-    #return redirect(previous)
     return redirect(url_for('ind.home'))
 
 

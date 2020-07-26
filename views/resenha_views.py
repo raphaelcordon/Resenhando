@@ -44,7 +44,8 @@ def createResenhaArtist():
     review = request.form['review']
 
     # In case of error, review will be in session
-    KeepInSession(request.form['spotify_id'], request.form['nome_review'], request.form['review'])
+    KeepInSession(request.form['spotify_id'],
+                  request.form['nome_review'], request.form['review'])
 
     ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review)
     CleanSession()
@@ -101,7 +102,8 @@ def createResenha():
     review = request.form['review']
 
     # In case of error, review will be in session
-    KeepInSession(request.form['spotify_id'], request.form['nome_review'], request.form['review'])
+    KeepInSession(request.form['spotify_id'],
+                  request.form['nome_review'], request.form['review'])
 
     ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review)
     CleanSession()
@@ -121,7 +123,6 @@ def resenhaEdit(id):
         spotify = SpotifyGetOneTrack(spotifyId).oneTrack
     else:
         spotify = SpotifyGetOnePlaylist(spotifyId).onePlaylist
-
 
     if session['id'] != data.author_id:
         return redirect(url_for('ind.home'))
@@ -204,13 +205,17 @@ def minhas_resenhas(id):
         reviewsPlaylist = ResenhaRepository().List('playlist')
         for item in reviews:
             if item.tipo_review == 'artista':
-                spotifyArtist.append(SpotifyGetOneArtist(item.spotify_id).oneArtist)
+                spotifyArtist.append(
+                    SpotifyGetOneArtist(item.spotify_id).oneArtist)
             elif item.tipo_review == 'album':
-                spotifyAlbum.append(SpotifyGetOneAlbum(item.spotify_id).oneAlbum)
+                spotifyAlbum.append(
+                    SpotifyGetOneAlbum(item.spotify_id).oneAlbum)
             elif item.tipo_review == 'track':
-                spotifyTrack.append(SpotifyGetOneTrack(item.spotify_id).oneTrack)
+                spotifyTrack.append(
+                    SpotifyGetOneTrack(item.spotify_id).oneTrack)
             elif item.tipo_review == 'playlist':
-                spotifyPlaylist.append(SpotifyGetOnePlaylist(item.spotify_id).onePlaylist)
+                spotifyPlaylist.append(
+                    SpotifyGetOnePlaylist(item.spotify_id).onePlaylist)
 
         return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
                                reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,

@@ -8,7 +8,7 @@ class EmailPassword:
         msg['Subject'] = 'Resenhando, reset de senha'
         msg['From'] = 'Resenhando'
         msg['To'] = email_address
-        msg.set_content(f"Olá {name}, aqui é do time da Resenhando.\n\n" 
+        msg.set_content(f"Olá {name}, aqui é do time da Resenhando.\n\n"
                         f"Sua nova senha é '{password}'.\n "
                         f"Ao se logar no site você será redirecionado para alterá-la.\n\n"
                         f"Esperamos vê-lo em breve para novas resenhas. :)\n\n"

@@ -21,10 +21,10 @@ def home():
     spotifyPlaylist = []
 
     users = UsersRepository().List()
-    reviewsArtist =     ResenhaRepository().List('artista', 5)
-    reviewsAlbum =      ResenhaRepository().List('album', 5)
-    reviewsTrack =      ResenhaRepository().List('track', 5)
-    reviewsPlaylist =   ResenhaRepository().List('playlist', 5)
+    reviewsArtist = ResenhaRepository().List('artista', 5)
+    reviewsAlbum = ResenhaRepository().List('album', 5)
+    reviewsTrack = ResenhaRepository().List('track', 5)
+    reviewsPlaylist = ResenhaRepository().List('playlist', 5)
     for item in reviewsArtist:
         spotifyArtist.append(SpotifyGetOneArtist(item.spotify_id).oneArtist)
     for item in reviewsAlbum:
@@ -32,7 +32,8 @@ def home():
     for item in reviewsTrack:
         spotifyTrack.append(SpotifyGetOneTrack(item.spotify_id).oneTrack)
     for item in reviewsPlaylist:
-        spotifyPlaylist.append(SpotifyGetOnePlaylist(item.spotify_id).onePlaylist)
+        spotifyPlaylist.append(
+            SpotifyGetOnePlaylist(item.spotify_id).onePlaylist)
 
     return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
                            reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,

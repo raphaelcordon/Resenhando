@@ -19,9 +19,7 @@ class AuthenticateRepository:
     def CompareDates(self, user_id):
         db = PostgreDB()
         try:
-            last_login = db.query(f"SELECT login_date FROM public.login_hist where user_id = {user_id}"
-                     f" ORDER BY login_date DESC LIMIT 1")
-            last_comment = db.query(f"SELECT login_date FROM public.login_hist where user_id = {user_id}"
+            db.query(f"SELECT login_date FROM public.login_hist where user_id = {user_id}"
                      f" ORDER BY login_date DESC LIMIT 1")
             return self.__toOne(db.fetchOne())
         except Exception as exp:

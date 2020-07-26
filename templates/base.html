@@ -16,14 +16,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='resenhado.css') }}">
 </head>
 
-
 <body>
     <!-- Preloader -->
     <div id="preloader">
         <i class="circle-preloader"></i>
         <img src="{{ url_for('static', filename='img/core-img/pencil.png') }}" alt="">
     </div>
-
     <!-- ##### Header Area Start ##### -->
     <header class="header-area">
         <!-- Top Header Area -->
@@ -45,14 +43,15 @@
                     <!-- Login Area -->
                     <div class="col-12 col-sm-6">
                         <div class="login">
-                        {% if session['id'] == '' %}
+                            {% if session['id'] == '' %}
                             <div class="btn" style="padding-right: 0;">
                                 <a href="{{ url_for('log.login') }}">Fazer login / Cadastrar-se</a></div>
-                        {% else %}
-                            <div class="btn" style="padding-right: 0;"><a id="editAccount" href="{{ url_for('use.editAccount') }}"> {{ session['name'] }}</a> está logado</div>
+                            {% else %}
+                            <div class="btn" style="padding-right: 0;"><a id="editAccount"
+                                    href="{{ url_for('use.editAccount') }}"> {{ session['name'] }}</a> está logado</div>
                             <div class="btn" style="padding-right: 0;">|</div>
                             <a id="logout" href="{{ url_for('log.logout') }}" class="btn btn-link logout">Logout</a>
-                        {% endif %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -97,7 +96,6 @@
     <!-- Python Block -->
     {% block content %} {% endblock %}
     <!-- ##### All Javascript Files ##### -->
-
     <!-- jQuery-2.2.4 js -->
     <script src="{{ url_for('static', filename='js/jquery/jquery-2.2.4.min.js') }}"></script>
     <!-- Popper js -->

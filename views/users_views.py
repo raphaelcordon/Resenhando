@@ -119,7 +119,8 @@ def resetEmailPass():
         flash('Nome de usuário ou email não encontrado', 'info')
         return redirect(url_for('log.resetPass'))
     else:
-        user = UsersRepository().FindByUserNameAndEmail(request.form['username'], request.form['email'])
+        user = UsersRepository().FindByUserNameAndEmail(
+            request.form['username'], request.form['email'])
         tempPass = str(get_random_string())
         UsersRepository().ResetPassword(user.username, sha256_crypt.hash(str(tempPass)))
         EmailPassword(user.email, user.name, tempPass)

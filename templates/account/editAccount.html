@@ -20,7 +20,7 @@
                     <div class="form-group col-md-6">
                         <label for="email">E-Mail</label>
                         <input type="email" class="form-control" id="email" name="email"
-                               value="{{ user.email }}" required maxlength="50" placeholder="xxx@xxx.xx">
+                               value="{{ user.email }}" required maxlength="50" placeholder="email@provedor.com">
                     </div>
                 </div>
                 <div class="form-row">
@@ -35,11 +35,9 @@
                                value="{{ user.surname }}" required maxlength="30">
                     </div>
                 </div>
-
                 <div>
                     <button type="submit" class="btn btn-info">Atualizar dados</button>
                     <a  href="{{ url_for('use.changePass') }}"><button type="button" class="btn btn-danger">Alterar senha</button></a>
-
                 </div>
             </form>
             <!-- ##### Form Edit End ##### -->
