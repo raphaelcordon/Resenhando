@@ -121,6 +121,7 @@ def resetEmailPass():
     else:
         user = UsersRepository().FindByEmail(request.form['email'])
         tempPass = str(get_random_string())
+        UsersRepository().ResetPassword(user.username, sha256_crypt.hash(str(tempPass)))
         EmailPassword(user.email, user.name, tempPass)
         flash("Senha enviada para email cadastrado", 'success')
         return redirect(url_for('log.login'))
