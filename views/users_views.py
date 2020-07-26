@@ -3,7 +3,6 @@ from repository.users_repos import UsersRepository
 from views.login_views import UpdateSession
 from models.common import CleanLoginItens
 from passlib.hash import sha256_crypt
-from models.users_model import UsersPass
 from thirdparty.gmail import EmailPassword
 import random
 import string
@@ -31,6 +30,9 @@ def UsersRegistry():
 
     if UsersRepository().FindByUsername(username):
         flash('Nome de usuário já cadastrado, tente outro', 'info')
+        return redirect(url_for('log.newAccount'))
+    elif UsersRepository().FindByEmail(email):
+        flash('E-Mail já cadastrado, tente outro', 'info')
         return redirect(url_for('log.newAccount'))
     else:
         UsersRepository().New(username, name, surname, password, email)
