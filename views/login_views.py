@@ -30,22 +30,19 @@ def authenticate():
         return redirect(url_for('log.login'))
 
     # <- Check Password ->
-    try:
-        if sha256_crypt.verify(request.form['password'], user.password):
-            if user.changepass:
-                return redirect(url_for('use.changePass'))
-            else:
-                UpdateSession(user)
-                LoginHistRepository().New(str(session['id']))  # input Timestamp in db
-                flash(f'Bem vindo {user.name}', 'success')
-            if request.form['previous'] != 'None' or request.form['previous'] != '':
-                return redirect(url_for(request.form['previous']))
-            else:
-                return redirect(url_for('ind.home'))
+    print(sha256_crypt.verify(request.form['password'], user.password))
+    if sha256_crypt.verify(request.form['password'], user.password):
+        if user.changepass:
+            return redirect(url_for('use.changePass'))
         else:
-            flash('Verifique usuário e/ou senha e tente novamente', 'danger')
-            return redirect(url_for('log.login'))
-    except:
+            UpdateSession(user)
+            LoginHistRepository().New(str(session['id']))  # input Timestamp in db
+            flash(f'Bem vindo {user.name}', 'success')
+        if request.form['previous'] != 'None' or request.form['previous'] != '':
+            return redirect(url_for(request.form['previous']))
+        else:
+            return redirect(url_for('ind.home'))
+    else:
         flash('Verifique usuário e/ou senha e tente novamente', 'danger')
         return redirect(url_for('log.login'))
 
