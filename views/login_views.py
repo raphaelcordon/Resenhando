@@ -30,8 +30,12 @@ def authenticate():
         return redirect(url_for('log.login'))
 
     # <- Check Password ->
-    print(sha256_crypt.verify(request.form['password'], user.password))
-    if sha256_crypt.verify(request.form['password'], user.password):
+    password = request.form['password']
+    isValidPass = sha256_crypt.verify(password, user.password)
+    
+    print(isValidPass)
+
+    if isValidPass == True:
         if user.changepass:
             return redirect(url_for('use.changePass'))
         else:
