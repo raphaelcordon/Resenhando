@@ -9,7 +9,6 @@ log = Blueprint('log', __name__)
 
 @log.route('/login')
 def login():
-    print(session['previous'])
     if session['previous'] == '':
         previous = 'ind.home'
         session['previous'] = 'ind.home'
@@ -32,17 +31,20 @@ def authenticate():
 
     # <- Check Password ->
     try:
-        sha256_crypt.verify(str(request.form['password']), user.password)
-        if user.changepass:
-            return redirect(url_for('use.changePass'))
+        if sha256_crypt.verify(request.form['password'], user.password):
+            if user.changepass:
+                return redirect(url_for('use.changePass'))
+            else:
+                UpdateSession(user)
+                LoginHistRepository().New(str(session['id']))  # input Timestamp in db
+                flash(f'Bem vindo {user.name}', 'success')
+            if request.form['previous'] != 'None' or request.form['previous'] != '':
+                return redirect(url_for(request.form['previous']))
+            else:
+                return redirect(url_for('ind.home'))
         else:
-            UpdateSession(user)
-            LoginHistRepository().New(str(session['id']))  # input Timestamp in db
-            flash(f'Bem vindo {user.name}', 'success')
-        if request.form['previous'] != 'None' or request.form['previous'] != '':
-            return redirect(url_for(request.form['previous']))
-        else:
-            return redirect(url_for('ind.home'))
+            flash('Verifique usuário e/ou senha e tente novamente', 'danger')
+            return redirect(url_for('log.login'))
     except:
         flash('Verifique usuário e/ou senha e tente novamente', 'danger')
         return redirect(url_for('log.login'))
