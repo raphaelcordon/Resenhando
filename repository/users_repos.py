@@ -93,6 +93,16 @@ class UsersRepository:
         finally:
             db.close()
 
+    def FindByUserNameAndEmail(self, username, email):
+        db = PostgreDB()
+        try:
+            db.query(f"SELECT * FROM public.users where username = '{username}' and email = '{email}'")
+            return self.__toOne(db.fetchOne())
+        except Exception as exp:
+            print(exp)
+        finally:
+            db.close()
+
     # <- Delete an user on DB ->
     def Delete(self, id):
         db = PostgreDB()
