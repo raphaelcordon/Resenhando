@@ -12,8 +12,6 @@
                     <td>{% if PNG == 'unclick' %}
                         <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
                             <img src="{{ url_for('static', filename='img/core-img/like_click.png') }}" alt=""></a>
-                        {% elif user_author.id == data.author_id %}
-                        <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt="">
                         {% else %}
                         <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
                             <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt=""></a>
