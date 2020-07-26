@@ -37,10 +37,12 @@
                     </tr>
                     <tr>
                         <td class="resenha_item">
-                            <a href="{{ url_for('res.resenhaNewArtist', artistId=artist.id) }}" class="btn btn-link">Do artista</a></td>
+                            <a href="{{ url_for('res.resenhaNewArtist', artistId=artist.id) }}">
+                                <button type="button" class="btn btn-link">Do artista</button></a></td>
                     </tr>
                     <tr>
-                        <td class="resenha_item"><a href="{{ url_for('res.resenhalistAlbums', artistId=artist.id) }}" class="btn btn-link">Um album desse artista</a></td>
+                        <td class="resenha_item"><a href="{{ url_for('res.resenhalistAlbums', artistId=artist.id) }}">
+                            <button type="button" class="btn btn-link">Um album desse artista</button></a></td>
                     </tr>
             </table>
         </div>

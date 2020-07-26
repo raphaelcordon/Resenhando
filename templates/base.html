@@ -49,7 +49,7 @@
                             <div class="btn" style="padding-right: 0;">
                                 <a href="{{ url_for('log.login') }}">Fazer login / Cadastrar-se</a></div>
                         {% else %}
-                            <div class="btn" style="padding-right: 0;"><b>{{ session['name'] }}</b> está logado</div>
+                            <div class="btn" style="padding-right: 0;"><a id="editAccount" href="{{ url_for('use.editAccount') }}"> {{ session['name'] }}</a> está logado</div>
                             <div class="btn" style="padding-right: 0;">|</div>
                             <a id="logout" href="{{ url_for('log.logout') }}" class="btn btn-link logout">Logout</a>
                         {% endif %}
@@ -93,7 +93,7 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
-    <!-- ##### Flask Messages start ##### -->    
+    <!-- ##### Flask Messages end ##### -->
     <!-- Python Block -->
     {% block content %} {% endblock %}
     <!-- ##### All Javascript Files ##### -->

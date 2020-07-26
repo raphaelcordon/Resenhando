@@ -6,6 +6,10 @@ cur = Blueprint('cur', __name__)
 
 @cur.route('/curtida/<int:resenha_id>', methods=['GET', 'POST'])
 def curtida(resenha_id):
+
+    if 'username' not in session:
+        session['username'] = ''
+
     if session['username'] == '' or 'username' not in session:
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('log.login'))

@@ -71,7 +71,9 @@
                     {% if session.id == user_author.id %}
                     <td class="resenha_titles"></td>
                     <td class="resenha_item"><a href="{{ url_for('res.resenhaEdit', id=data.id) }}">
-                            <button type="submit" class="btn btn-link" value="data.id">Editar</button></a>
+                            <button type="submit" class="btn btn-primary btn-salvar" value="data.id">Editar</button></a>
+                            <a href="{{ voltarButton }}"><button type="button" class="btn btn-danger">Voltar</button></a>
+
                     </td>
                 </tr>
                 {% endif %}

@@ -26,7 +26,7 @@
                         </tr>
                         <tr>
                             <td class="resenha_titles"><label for="nome_review">Titulo da Review</label>
-                            <input id="nome_review" name="nome_review" class="form-control" value="{{ session.nome_review }}" required>
+                            <input id="nome_review" name="nome_review" class="form-control" value="{{ session.nome_review }}" required autofocus>
                             </td>
                         </tr>
                         <tr>
@@ -37,7 +37,7 @@
                         </tr>
                         <tr>
                             <td class="resenha_titles"><button type="submit" class="btn btn-primary btn-salvar">Enviar resenha</button>
-                            <a class="btn btn-danger" href="{{ url_for('ind.home') }}">Voltar</a>
+                                <a href="{{ url_for('ind.home') }}"><button type="button" class="btn btn-danger">Voltar</button></a>
                             </td>
                         </tr>
                     </table>

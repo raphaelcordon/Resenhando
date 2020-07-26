@@ -13,7 +13,7 @@
                 <input type="hidden" id="previous" name="previous" value="{{ previous }}">
                 <ul>
                     <li class="login_smartphone"><label>Usuário:</label> <input class="form-control" type="text"
-                            id="username" name="username" value="{{ session.username }}" required></li>
+                            id="username" name="username" value="{{ session.username }}" required autofocus></li>
                     <li class="login_smartphone"><label>Senha:</label> <input class="form-control" type="password"
                             id="password" name="password" required></li>
                     <li><button type="submit" class="btn btn-info">Logar</button></li>
@@ -24,12 +24,12 @@
         <!-- login End -->
 
         <div class="mainmenu_bodytext">
-            <p><a href="{{ url_for('log.reset_pass') }}">Esqueci minha senha</a></p>
+            <p><a href="{{ url_for('use.resetPass') }}">Esqueci minha senha</a></p>
             <br>
         </div>
 
         <div class="mainmenu_bodytext">
-            <p><h5><a href="{{ url_for('log.nova_conta') }}">Cadastrar-se</a></h5></p>
+            <h5><a href="{{ url_for('log.newAccount') }}">Cadastrar-se</a></h5>
             <br>
         </div>
     </div>

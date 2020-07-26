@@ -5,11 +5,12 @@ from models.users_model import Users
 class UsersRepository:
 
     # <- Register a new 'User' in the table ->
-    def New(self, username, name, surname):
+    def New(self, username, name, surname, password, email):
         db = PostgreDB()
         try:
-            insert = f"INSERT INTO public.users (username, name, surname, password) VALUES (%s, %s, %s, 'pass')"
-            db.queryParams(insert, (username, name, surname))
+            insert = f"INSERT INTO public.users (username, name, surname, password, email, changepass)" \
+                     f"VALUES (%s, %s, %s, %s, %s, 'false')"
+            db.queryParams(insert, (username, name, surname, password, email))
         except Exception as exp:
             print(exp)
         finally:
@@ -19,19 +20,19 @@ class UsersRepository:
     def UpdatePassword(self, id, new_password):
         db = PostgreDB()
         try:
-            updating_query = f"UPDATE public.users SET PASSWORD=%s WHERE id = {id}"
-            db.queryParams(updating_query, (new_password))
+            updating_query = f"UPDATE public.users SET PASSWORD=%s, CHANGEPASS=%s WHERE id = {id}"
+            db.queryParams(updating_query, (new_password, 'false'))
         except Exception as exp:
             print(exp)
         finally:
             db.close()
 
     # <- Reset User's password ->
-    def ResetPassword(self, username):
+    def ResetPassword(self, username, password):
         db = PostgreDB()
         try:
-            updating_query = f"UPDATE public.users SET PASSWORD=%s WHERE USERNAME = {username}"
-            db.queryParams(updating_query, ('pass'))
+            updating_query = f"UPDATE public.users SET PASSWORD=%s, CHANGEPASS=%s WHERE USERNAME = '{username}'"
+            db.queryParams(updating_query, (password, 'true'))
         except Exception as exp:
             print(exp)
         finally:
@@ -49,12 +50,12 @@ class UsersRepository:
             db.close()
 
     # <- Update an existent User ->
-    def Update(self, id, new_username, new_register, surname):
+    def Update(self, id, new_username, new_register, surname, email):
         db = PostgreDB()
         try:
-            updating_query = f"UPDATE public.users SET USERNAME=%s, NAME=%s, SURNAME=%s WHERE id = {id}"
+            updating_query = f"UPDATE public.users SET USERNAME=%s, NAME=%s, SURNAME=%s, EMAIL=%s WHERE id = {id}"
             db.queryParams(
-                updating_query, (new_username, new_register, surname))
+                updating_query, (new_username, new_register, surname, email))
         except Exception as exp:
             print(exp)
         finally:
@@ -76,6 +77,16 @@ class UsersRepository:
         db = PostgreDB()
         try:
             db.query(f"SELECT * FROM public.users where username = '{username}'")
+            return self.__toOne(db.fetchOne())
+        except Exception as exp:
+            print(exp)
+        finally:
+            db.close()
+
+    def FindByEmail(self, email):
+        db = PostgreDB()
+        try:
+            db.query(f"SELECT * FROM public.users where email = '{email}'")
             return self.__toOne(db.fetchOne())
         except Exception as exp:
             print(exp)
@@ -107,6 +118,6 @@ class UsersRepository:
 
     def __toOne(self, item):
         try:
-            return Users(item[0], item[1], item[2], item[3], item[4])
+            return Users(item[0], item[1], item[2], item[3], item[4], item[5], item[6])
         except Exception as exp:
             print(exp)

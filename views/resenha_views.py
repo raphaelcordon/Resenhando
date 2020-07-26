@@ -6,7 +6,7 @@ from repository.curtidas_repos import CurtidasRepository
 from models.common import DateConversion, KeepInSession, CleanSession
 from thirdparty.spotify import SpotifyGetFiveArtists, SpotifyGetAlbums, \
     SpotifyGetOneArtist, SpotifyGetOneAlbum, SpotifyGetOneTrack, SpotifyGetOnePlaylist
-from datetime import date
+from passlib.hash import sha1_crypt
 
 res = Blueprint('res', __name__)
 
@@ -82,8 +82,8 @@ def resenhaNewAlbum(albumId):
 @res.route('/resenhaIndex', methods=['GET', 'POST'])
 def resenhaIndex():
     CleanSession()
-    session['previous'] = 'res.resenhaIndex'
     if session['username'] == '' or 'username' not in session:
+        session['previous'] = 'res.resenhaIndex'
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('log.login'))
     return render_template('resenha/resenhaIndex.html')
@@ -123,10 +123,12 @@ def resenhaEdit(id):
     else:
         spotify = SpotifyGetOnePlaylist(spotifyId).onePlaylist
 
+
     if session['id'] != data.author_id:
         return redirect(url_for('ind.home'))
     else:
-        return render_template('resenha/resenhaEdit.html', data=data, spotify=spotify)
+        voltarButton = request.headers.get("Referer")
+        return render_template('resenha/resenhaEdit.html', data=data, spotify=spotify, voltarButton=voltarButton)
 
 
 @res.route('/updateResenha', methods=['GET', 'POST'])
@@ -141,7 +143,7 @@ def updateResenha():
     return redirect(url_for('res.resenhado', id=id))
 
 
-@res.route('/resenhado/<int:id>/')
+@res.route('/resenhado/<id>/')
 def resenhado(id):
 
     if 'id' not in session:
@@ -174,8 +176,10 @@ def resenhado(id):
     except:
         PNG = 'click'
 
-    return render_template('resenha/resenhado.html', data=data, spotify=spotify, user_author=user_author,
-                           date=date, comments=comments, comment_user=comment_user, like=like, PNG=PNG)
+    voltarButton = request.headers.get("Referer")
+    return render_template('resenha/resenhado.html', data=data, spotify=spotify, like=like,
+                           user_author=user_author, date=date, comments=comments, PNG=PNG,
+                           comment_user=comment_user, voltarButton=voltarButton)
 
 
 @res.route('/home/<int:id>/')
