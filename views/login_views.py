@@ -56,7 +56,7 @@ def logout():
     """
     :return: Cleaning Session
     """
-    previous = request.headers.get("Referer")
+    #previous = request.headers.get("Referer")
     session['id'] = ''
     session['username'] = ''
     session['name'] = ''
@@ -67,7 +67,8 @@ def logout():
     session['review'] = ''
     session['previous'] = ''
 
-    return redirect(previous)
+    #return redirect(previous)
+    return redirect(url_for('ind.home'))
 
 
 @log.route('/newAccount')
