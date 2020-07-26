@@ -71,7 +71,6 @@ def resenhaNewAlbum(albumId):
         return redirect(url_for('log.login'))
 
     spotify = SpotifyGetOneAlbum(albumId).createList()
-
     return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='album')
 
 
@@ -176,10 +175,9 @@ def resenhado(id):
     except:
         PNG = 'click'
 
-    voltarButton = request.headers.get("Referer")
-    return render_template('resenha/resenhado.html', data=data, spotify=spotify, like=like,
-                           user_author=user_author, date=date, comments=comments, PNG=PNG,
-                           comment_user=comment_user, voltarButton=voltarButton)
+    return render_template('resenha/resenhado.html', data=data, spotify=spotify,
+                           user_author=user_author, date=date, comments=comments,
+                           comment_user=comment_user, like=like, PNG=PNG)
 
 
 @res.route('/home/<int:id>/')

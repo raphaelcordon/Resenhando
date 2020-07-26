@@ -13,6 +13,8 @@
                     <td>{% if PNG == 'unclick' %}
                         <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
                             <img src="{{ url_for('static', filename='img/core-img/like_click.png') }}" alt=""></a>
+                        {% elif user_author.id == data.author_id %}
+                            <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt="">
                         {% else %}
                         <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
                             <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt=""></a>
@@ -72,7 +74,7 @@
                     <td class="resenha_titles"></td>
                     <td class="resenha_item"><a href="{{ url_for('res.resenhaEdit', id=data.id) }}">
                             <button type="submit" class="btn btn-primary btn-salvar" value="data.id">Editar</button></a>
-                            <a href="{{ voltarButton }}"><button type="button" class="btn btn-danger">Voltar</button></a>
+                            <button type="button" class="btn btn-danger" onclick="window.history.go(-1); return false;">Voltar</button>
 
                     </td>
                 </tr>

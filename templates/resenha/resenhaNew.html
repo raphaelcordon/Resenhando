@@ -36,8 +36,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="resenha_titles"><button type="submit" class="btn btn-primary btn-salvar">Enviar resenha</button>
-                                <a href="{{ url_for('ind.home') }}"><button type="button" class="btn btn-danger">Voltar</button></a>
+                            <td class="resenha_titles">
+                                <button type="submit" class="btn btn-primary btn-salvar">Enviar resenha</button>
+                                <button type="button" class="btn btn-danger" onclick="window.history.go(-1); return false;">Voltar</button>
                             </td>
                         </tr>
                     </table>
