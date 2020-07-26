@@ -83,14 +83,12 @@ def changePass():
 
 @use.route('/updatePassDb', methods=['POST', 'GET'])
 def updatePassDb():
-    id = session['id']
     try:
         user = UsersRepository().FindByUsername(request.form['username'])
         if user.username and sha256_crypt.verify(request.form['passwordOld'], user.password):
             if request.form['password1'] == request.form['password2']:
                 password = sha256_crypt.hash(str(request.form['password1']))
-                new_pass = UsersPass(id, password)
-                UsersRepository().UpdatePassword(new_pass.id, new_pass.password)
+                UsersRepository().UpdatePassword(user.id, password)
                 UpdateSession(user)
                 flash('Senha alterada com sucesso', 'success')
                 return redirect(url_for('ind.home'))
@@ -122,8 +120,8 @@ def resetEmailPass():
         return redirect(url_for('log.resetPass'))
     else:
         user = UsersRepository().FindByEmail(request.form['email'])
-        tempPass = get_random_string()
-        UsersRepository().ResetPassword(user.username, sha256_crypt.hash(str(tempPass)))
+        tempPass = str(get_random_string())
+        UsersRepository().ResetPassword(user.username, sha256_crypt.hash(tempPass))
         EmailPassword(user.email, user.name, tempPass)
         flash("Senha enviada para email cadastrado", 'success')
         return redirect(url_for('log.login'))
