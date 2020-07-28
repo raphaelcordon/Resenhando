@@ -1,8 +1,7 @@
 
 class Users:
-    def __init__(self, id, username, name, surname, password, email, changepass):
+    def __init__(self, id, name, surname, password, email, changepass):
         self.id = id
-        self.username = username
         self.name = name
         self.surname = surname
         self.password = password

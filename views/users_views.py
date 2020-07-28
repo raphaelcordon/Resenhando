@@ -12,12 +12,10 @@ use = Blueprint('use', __name__)
 
 @use.route('/UsersRegistry', methods=['POST', ])
 def UsersRegistry():
-    username = str(request.form['username']).strip().lower()
     name = str(request.form['name']).strip().title()
     surname = str(request.form['surname']).strip().title()
     email = str(request.form['email']).strip().lower()
 
-    session['username'] = username
     session['name'] = name
     session['surname'] = surname
     session['email'] = email
@@ -28,15 +26,12 @@ def UsersRegistry():
         flash("Os critérios para criação de senha não foram respeitados.", 'warning')
         return redirect(url_for('log.newAccount'))
 
-    if UsersRepository().FindByUsername(username):
-        flash('Nome de usuário já cadastrado, tente outro', 'info')
-        return redirect(url_for('log.newAccount'))
-    elif UsersRepository().FindByEmail(email):
+    if UsersRepository().FindByEmail(email):
         flash('E-Mail já cadastrado, tente outro', 'info')
         return redirect(url_for('log.newAccount'))
     else:
-        UsersRepository().New(username, name, surname, password, email)
-        if UsersRepository().FindByUsername(username):
+        UsersRepository().New(name, surname, password, email)
+        if UsersRepository().FindByEmail(email):
             flash("Usuário criado com sucesso.", 'success')
         else:
             flash("Algo deu errado, por favor, tente novamente", 'danger')
@@ -46,7 +41,7 @@ def UsersRegistry():
 
 @use.route('/editAccount')
 def editAccount():
-    if session['username'] == '' or 'username' not in session:
+    if session['email'] == '' or 'email' not in session:
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('ind.home'))
     else:
@@ -57,7 +52,6 @@ def editAccount():
 def updateAccountDb():
     UsersRepository().Update(
         request.form['id'],
-        request.form['username'],
         request.form['name'],
         request.form['surname'],
         request.form['email']
@@ -75,19 +69,19 @@ def updateAccountDb():
 
 @use.route('/changePass')
 def changePass():
-    if session['username'] == '' or 'username' not in session:
+    if session['email'] == '' or 'email' not in session:
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('log.login'))
-
-    id = session['id']
-    return render_template('account/changePass.html', data=id)
+    else:
+        id = session['id']
+        return render_template('account/changePass.html', data=id)
 
 
 @use.route('/updatePassDb', methods=['POST', 'GET'])
 def updatePassDb():
     try:
-        user = UsersRepository().FindByUsername(request.form['username'])
-        if user.username and sha256_crypt.verify(request.form['passwordOld'], user.password):
+        user = UsersRepository().FindByEmail(request.form['email'])
+        if user.email and sha256_crypt.verify(request.form['passwordOld'], user.password):
             if request.form['password1'] == request.form['password2']:
                 password = sha256_crypt.hash(str(request.form['password1']))
                 UsersRepository().UpdatePassword(user.id, password)
@@ -98,10 +92,10 @@ def updatePassDb():
                 flash('As novas senhas não são identicas, tente novamente', 'danger')
                 return redirect(url_for('use.changePass'))
         else:
-            flash('Usuário e/ou senha atual incorretos', 'danger')
+            flash('e-Mail e/ou senha atual incorretos', 'danger')
             return redirect(url_for('use.changePass'))
     except:
-        flash('Usuário e/ou senha atual incorretos', 'danger')
+        flash('e-Mail e/ou senha atual incorretos', 'danger')
         return redirect(url_for('use.changePass'))
 
 
@@ -114,17 +108,14 @@ def resetPass():
 
 @use.route('/resetEmailPass', methods=['POST', 'GET'])
 def resetEmailPass():
-    if not UsersRepository().FindByUsername(request.form['username']) and \
-            not UsersRepository().FindByEmail(request.form['email']):
-        session['username'] = request.form['username']
+    if not UsersRepository().FindByEmail(request.form['email']):
         session['email'] = request.form['email']
-        flash('Nome de usuário ou email não encontrado', 'info')
-        return redirect(url_for('log.resetPass'))
+        flash('e-Mail não encontrado', 'info')
+        return redirect(url_for('use.resetPass'))
     else:
-        user = UsersRepository().FindByUserNameAndEmail(
-            request.form['username'], request.form['email'])
+        user = UsersRepository().FindByEmail(request.form['email'])
         tempPass = str(get_random_string())
-        UsersRepository().ResetPassword(user.username, sha256_crypt.hash(str(tempPass)))
+        UsersRepository().ResetPassword(user.email, sha256_crypt.hash(str(tempPass)))
         EmailPassword(user.email, user.name, tempPass)
         flash("Senha enviada para email cadastrado", 'success')
         return redirect(url_for('log.login'))

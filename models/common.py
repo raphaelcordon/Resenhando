@@ -44,7 +44,6 @@ class CleanLoginItens:
         :return: Cleaning the data in Session.
         """
         session['id'] = ''
-        session['username'] = ''
         session['name'] = ''
         session['surname'] = ''
         session['access_level'] = ''

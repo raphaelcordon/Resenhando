@@ -13,14 +13,11 @@
                 <input type="hidden" id="id" name="id" value="{{ user.id }}">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                    <label for="username">Nome de usuário (não pode ser alterado)</label>
-                    <input type="text" class="form-control" id="username" name="username"
-                           value="{{ user.username }}"  onkeydown="return false;" onmousedown="return false">
-                    </div>
-                    <div class="form-group col-md-6">
                         <label for="email">E-Mail</label>
                         <input type="email" class="form-control" id="email" name="email"
                                value="{{ user.email }}" required maxlength="50" placeholder="email@provedor.com">
+                    </div>
+                    <div class="form-group col-md-6">
                     </div>
                 </div>
                 <div class="form-row">

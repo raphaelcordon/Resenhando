@@ -12,8 +12,9 @@
             <form method="POST" action="{{ url_for('log.authenticate') }}">
                 <input type="hidden" id="previous" name="previous" value="{{ previous }}">
                 <ul>
-                    <li class="login_smartphone"><label>Usuário:</label> <input class="form-control" type="text"
-                            id="username" name="username" value="{{ session.username }}" required autofocus></li>
+                    <li class="login_smartphone"><label>e-Mail:</label> <input class="form-control" type="email"
+                            id="email" name="email" value="{{ session.email }}"
+                            placeholder="email@provedor.com" required autofocus></li>
                     <li class="login_smartphone"><label>Senha:</label> <input class="form-control" type="password"
                             id="password" name="password" required></li>
                     <li><button type="submit" class="btn btn-info">Logar</button></li>

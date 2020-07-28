@@ -47,10 +47,11 @@
                             <div class="btn" style="padding-right: 0;">
                                 <a href="{{ url_for('log.login') }}">Fazer login / Cadastrar-se</a></div>
                             {% else %}
-                            <div class="btn" style="padding-right: 0;"><a id="editAccount"
-                                    href="{{ url_for('use.editAccount') }}"> {{ session['name'] }}</a> está logado</div>
-                            <div class="btn" style="padding-right: 0;">|</div>
-                            <a id="logout" href="{{ url_for('log.logout') }}" class="btn btn-link logout">Logout</a>
+                            <div class="btn" style="padding-right: 0;">
+                                <a id="editAccount" href="{{ url_for('use.editAccount') }}">
+                                    <button type="button" class="btn btn-link logout">{{ session['name'] }} {{ session['surname'] }}</button></a></div>
+                            <div class="btn" style="padding-right: 0;">| <a id="logout" href="{{ url_for('log.logout') }}">
+                                <button type="button" class="btn btn-link logout">Logout</button></a></div>
                             {% endif %}
                         </div>
                     </div>

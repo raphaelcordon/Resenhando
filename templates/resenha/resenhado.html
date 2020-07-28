@@ -9,12 +9,17 @@
             <!-- ## like/deslike buttons ## -->
             <table class="like">
                 <tr>
-                    <td>{% if PNG == 'unclick' %}
-                        <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
-                            <img src="{{ url_for('static', filename='img/core-img/like_click.png') }}" alt=""></a>
+                    <td>
+                        {% if session.id == data.author_id %}
+                            <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt="Você não pode curtir a sua própria resenha">
                         {% else %}
-                        <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
-                            <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt=""></a>
+                            {% if PNG == 'unclick' %}
+                            <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
+                                <img src="{{ url_for('static', filename='img/core-img/like_click.png') }}" alt=""></a>
+                            {% else %}
+                            <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
+                                <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt=""></a>
+                            {% endif %}
                         {% endif %}
                     </td>
                     <td>

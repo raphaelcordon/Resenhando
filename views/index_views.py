@@ -43,7 +43,6 @@ def home():
 
 def __createSessionVariables():
     session['id'] = ''
-    session['username'] = ''
     session['name'] = ''
     session['surname'] = ''
     session['email'] = ''

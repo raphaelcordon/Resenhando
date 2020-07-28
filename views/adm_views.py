@@ -35,14 +35,13 @@ def ResenhasDelete(resenha_id):
 
 @adm.route('/adm_UsersRegistry', methods=['POST', ])
 def adm_users_registry():
-    username = str(request.form['username']).strip().lower()
     email = str(request.form['email']).strip().lower()
     name = str(request.form['name']).strip().title()
     surname = str(request.form['surname']).strip().title()
 
-    if username == '' or email == '' or name == '' or surname == '':
+    if email == '' or name == '' or surname == '':
         flash('Blank field not accepted', 'info')
-    elif UsersRepository().New(username, name, surname, 'pass', email):
+    elif UsersRepository().New(name, surname, 'pass', email):
         flash('Already registered, please check below', 'info')
     else:
         flash(

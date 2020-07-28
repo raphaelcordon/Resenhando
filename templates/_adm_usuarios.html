@@ -3,39 +3,60 @@
 <main>
     <div class="container">
         <div class="card">
-            <h5 class="card-header">
-                Novo usuario
-            </h5>
-            <div class="card-body">
-                <div class="alert-{{category}}">
-                    <form action="{{ url_for('adm.adm_users_registry') }}" method="post" enctype="multipart/form-data">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" name="username">
+                <h5 class="card-header">
+                    Novo usuario
+                </h5>
+                <div class="card-body">
+                    <div class="alert-{{category}}">
+                        <form action="{{ url_for('use.UsersRegistry') }}" method="post" enctype="multipart/form-data">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="email">E-Mail</label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        value="{{ session.email }}" required maxlength="50"
+                                        placeholder="email@provedor.com">
+                                </div>
+                                <div class="form-group col-md-6">
+
+                                </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="email">E-Mail</label>
-                                <input type="email" class="form-control" id="email" name="email"
-                                    value="{{ session.email }}" required maxlength="50"
-                                    placeholder="email@provedor.com">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="name">Nome</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        value="{{ session.name }}" required maxlength="30">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="surname">Sobrenome</label>
+                                    <input type="text" class="form-control" id="surname" name="surname"
+                                        value="{{ session.surname }}" required maxlength="30">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="name">Nome</label>
-                                <input type="text" class="form-control" id="name" name="name">
+                            <!-- Password -->
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="password1">Senha</label>
+                                    <input type="password" class="form-control" id="password1" name="password1" required
+                                        minlength="5" maxlength="30">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="password2">Repita a senha</label>
+                                    <input type="password" class="form-control" id="password2" name="password2" required
+                                        minlength="5" maxlength="30">
+                                </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="surname">Sobrenome</label>
-                                <input type="text" class="form-control" id="surname" name="surname">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <p>Senhas devem ter ao menos 5 caracteres.</p>
+                                </div>
                             </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Salvar</button>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
         <br>
         <div class="card">
             <h5 class="card-header">
@@ -45,8 +66,7 @@
                 <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr class="d-flex">
-                            <th class="col-1">#</th>
-                            <th class="col-2">Username</th>
+                            <th class="col-1">ID</th>
                             <th class="col-3">Email</th>
                             <th class="col-2">Nome</th>
                             <th class="col-3">Sobrenome</th>
@@ -57,7 +77,6 @@
                         {% for user in users %}
                         <tr class="d-flex">
                             <td class="col-sm-1">{{user.id}}</td>
-                            <td class="col-sm-2">{{user.username}}</td>
                             <td class="col-sm-3">{{user.email}}</td>
                             <td class="col-sm-2">{{user.name}}</td>
                             <td class="col-sm-3">{{user.surname}}</td>

@@ -6,7 +6,6 @@ from repository.curtidas_repos import CurtidasRepository
 from models.common import DateConversion, KeepInSession, CleanSession
 from thirdparty.spotify import SpotifyGetFiveArtists, SpotifyGetAlbums, \
     SpotifyGetOneArtist, SpotifyGetOneAlbum, SpotifyGetOneTrack, SpotifyGetOnePlaylist
-from passlib.hash import sha1_crypt
 
 res = Blueprint('res', __name__)
 
@@ -22,7 +21,7 @@ def resenhaListArtist():
 
 @res.route('/resenhaNewArtist/<artistId>/', methods=['GET', 'POST'])
 def resenhaNewArtist(artistId):
-    if session['username'] == '' or 'username' not in session:
+    if session['email'] == '' or 'email' not in session:
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('log.login'))
 
@@ -33,7 +32,7 @@ def resenhaNewArtist(artistId):
 
 @res.route('/createResenhaArtist', methods=['GET', 'POST'])
 def createResenhaArtist():
-    if session['username'] == '' or 'username' not in session:
+    if session['email'] == '' or 'email' not in session:
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('log.login'))
 
@@ -67,7 +66,7 @@ def resenhalistAlbums(artistId):
 
 @res.route('/resenhaNewAlbum/<albumId>/', methods=['GET', 'POST'])
 def resenhaNewAlbum(albumId):
-    if session['username'] == '' or 'username' not in session:
+    if session['email'] == '' or 'email' not in session:
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('log.login'))
 
@@ -82,7 +81,7 @@ def resenhaNewAlbum(albumId):
 @res.route('/resenhaIndex', methods=['GET', 'POST'])
 def resenhaIndex():
     CleanSession()
-    if session['username'] == '' or 'username' not in session:
+    if session['email'] == '' or 'email' not in session:
         session['previous'] = 'res.resenhaIndex'
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('log.login'))
@@ -91,7 +90,7 @@ def resenhaIndex():
 
 @res.route('/createResenha', methods=['GET', 'POST'])
 def createResenha():
-    if session['username'] == '' or 'username' not in session:
+    if session['email'] == '' or 'email' not in session:
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('log.login'))
 
@@ -183,13 +182,15 @@ def resenhado(id):
 
 @res.route('/home/<int:id>/')
 def minhas_resenhas(id):
-    if session['username'] == '' or 'username' not in session or session['id'] == '':
+    if session['email'] == '' or 'email' not in session or session['id'] == '':
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('log.login'))
 
     reviews = ResenhaRepository().FindAuthorById(id)
     if not reviews:
+
         flash('Você ainda não criou nenhuma resenha', 'info')
+        return redirect(url_for('ind.home'))
     else:
         flash('Essas são as resenhas criadas por você até o momento', 'info')
 

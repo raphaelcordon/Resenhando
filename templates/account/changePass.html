@@ -12,9 +12,9 @@
             <form action="{{ url_for('use.updatePassDb') }}" method="post" enctype="multipart/form-data">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="username">Nome de usuário</label>
-                        <input type="text" class="form-control" id="username" name="username"
-                            value="{{ session.username }}" required autofocus maxlength="30">
+                        <label for="email">e-Mail</label>
+                        <input type="email" class="form-control" id="email" name="email"
+                            value="{{ session.email }}" required autofocus maxlength="50">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="passwordOld">Senha atual</label>
@@ -35,10 +35,13 @@
                             minlength="5" maxlength="30">
                     </div>
                 </div>
-                <div>
-                    <ul>
-                        <li><button type="submit" class="btn btn-info">Alterar senha</button></li>
-                    </ul>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <button type="submit" class="btn btn-primary">Alterar senha</button>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <p>Senhas devem ter ao menos 5 caracteres.</p>
+                    </div>
                 </div>
             </form>
             <!-- ##### Form Edit End ##### -->

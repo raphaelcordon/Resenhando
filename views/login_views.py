@@ -20,21 +20,19 @@ def login():
 
 @log.route('/authenticate', methods=['POST', 'GET'])
 def authenticate():
-    # <- Check Username ->
-    session['username'] = request.form['username']
+    # <- Check Email ->
+    session['email'] = request.form['email']
     if AuthenticateRepository().auth(
-            str(request.form['username']).lower().strip()):
+            str(request.form['email']).lower().strip()):
         user = AuthenticateRepository().auth(
-            str(request.form['username']).lower().strip())
+            str(request.form['email']).lower().strip())
     else:
-        flash('Verifique usuário e/ou senha e tente novamente', 'danger')
+        flash('Verifique e-Mail e/ou senha e tente novamente', 'danger')
         return redirect(url_for('log.login'))
 
     # <- Check Password ->
     password = request.form['password']
     isValidPass = sha256_crypt.verify(password, user.password)
-
-    print(isValidPass)
 
     if isValidPass == True:
         if user.changepass:
@@ -61,7 +59,6 @@ def logout():
     :return: Cleaning Session
     """
     session['id'] = ''
-    session['username'] = ''
     session['name'] = ''
     session['surname'] = ''
     session['access_level'] = ''
@@ -82,10 +79,10 @@ def UpdateSession(user):
     """
     :param user: list info from user from db
     :return: Session populated with current user's info
-    id / username / name / surname / password (encripted)
+    id / name / surname / password (encripted)
     """
     session['id'] = user.id
-    session['username'] = user.username
+    session['email'] = user.email
     session['name'] = user.name
     session['surname'] = user.surname
     session['password'] = user.password
