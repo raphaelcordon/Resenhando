@@ -18,8 +18,12 @@
                     </div>
                     <table class="table_poster">
                         <tr>
-                            <td class="resenha_titles"><label>Nome do Artista/Banda</label>
-                                <input id="name" name="name" class="form-control" value="{{ spotify.name }}"
+                            <td class="resenha_titles">
+                                {% if tipo_review == 'artista' %}
+                                    <label>Nome do Artista/Banda</label>
+                                {% else %}
+                                    <label>Nome do Album</label>
+                                {% endif %}                                <input id="name" name="name" class="form-control" value="{{ spotify.name }}"
                                     onkeydown="return false;" onmousedown="return false">
                             </td>
                         </tr>

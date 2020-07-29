@@ -20,7 +20,7 @@ class CurtidasRepository:
         db = PostgreDB()
         try:
             db.query(
-                f"SELECT * FROM public.curtidas_hist where user_id = {user_id} and resenha_id = {resenha_id}")
+                f"SELECT * FROM public.curtidas_hist where USER_ID = {user_id} and RESENHA_ID = {resenha_id}")
             return self.__toList(db.fetchAll())
         except Exception as exp:
             print(exp)

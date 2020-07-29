@@ -182,10 +182,12 @@ class SpotifyGetOneAlbum:
                          'image':  image,
                          'releaseDate': albumSearch['release_date'][:4],
                          'genres': albumSearch['genres'],
-                         'radio':  radio
+                         'radio':  radio,
+                         'artistName': albumSearch['artists'][0]['name']
                          }
         return self.oneAlbum
 
+print(SpotifyGetOneAlbum('7JPsPwLr67TEfChdr86yIU').createList())
 
 """
 

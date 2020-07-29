@@ -42,9 +42,24 @@
                 <tr>
                     <td colspan="2" class="resenha_titles">{{ data.nome_review }}</td>
                 </tr>
+                {% if data.tipo_review == 'album' %}
+                <tr>
+                    <td class="resenha_titles">Banda / Artista:</td>
+                    <td class="resenha_item">{{ spotify.artistName }}</td>
+                </tr>
+                <tr>
+                    <td class="resenha_titles">Album:</td>
+                    <td class="resenha_item">{{ spotify.name }}</td>
+                </tr>
+                {% else %}
                 <tr>
                     <td class="resenha_titles">Banda / Artista:</td>
                     <td class="resenha_item">{{ spotify.name }}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td class="resenha_titles">Release:</td>
+                    <td class="resenha_item">{{ spotify.releaseDate }}</td>
                 </tr>
                 <tr>
                     <td class="resenha_titles">Sobre:</td>
