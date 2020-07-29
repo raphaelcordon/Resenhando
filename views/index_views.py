@@ -9,12 +9,8 @@ ind = Blueprint('ind', __name__, url_prefix='')
 
 @ind.route('/')
 def index():
-    __createSessionVariables()
-    return redirect(url_for('ind.home'))
-
-
-@ind.route('/home/')
-def home():
+    if not session['id']:
+        __createSessionVariables()
     spotifyArtist = []
     spotifyAlbum = []
     spotifyTrack = []
@@ -39,6 +35,12 @@ def home():
                            reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
                            users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
                            spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist)
+
+
+@ind.route('/home/')
+def home():
+
+    return redirect(url_for('ind.index'))
 
 
 def __createSessionVariables():
