@@ -9,7 +9,7 @@ ind = Blueprint('ind', __name__, url_prefix='')
 
 @ind.route('/')
 def index():
-    if not session['id']:
+    if 'id' not in session:
         __createSessionVariables()
     spotifyArtist = []
     spotifyAlbum = []
