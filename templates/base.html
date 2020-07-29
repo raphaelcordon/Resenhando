@@ -14,6 +14,7 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='resenhado.css') }}">
+    <script data-ad-client="ca-pub-3957752655307381" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 <body>
@@ -33,9 +34,10 @@
                         <div class="breaking-news">
                             <div id="breakingNewsTicker" class="ticker">
                                 <ul>
-                                    <li><a href="">Resenha de musicas</a></li>
-                                    <li><a href="">Faça a sua resenha</a></li>
-                                    <li><a href="">Ouça a playlist baseada nas resenhas!</a></li>
+                                    <li><font color="grey">Resenhas de musicas</font></li>
+                                    <li><font color="grey">Escreva uma resenha</font></li>
+                                    <li><font color="grey">Ouça a playlist baseada nas resenhas!</font></li>
+                                    <li><font color="grey">Comenta e curta as resenhas</font></li>
                                 </ul>
                             </div>
                         </div>
@@ -70,9 +72,7 @@
                                 class="logo_smartphone">
                         </a>
                         <!-- Navbar Toggler -->
-                        <div class="classy-navbar-toggler">
-                            <span class="navbarToggler"><span></span><span></span><span></span></span>
-                        </div>
+
                         {% include 'partials/mainMenu.html' %}
                     </nav>
                 </div>
