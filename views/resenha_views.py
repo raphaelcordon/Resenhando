@@ -1,11 +1,12 @@
-from flask import render_template, session, redirect, request, url_for, flash, Blueprint
+from flask import render_template, session, redirect, request, url_for, flash, Blueprint, abort
 from repository.users_repos import UsersRepository
 from repository.resenha_repos import ResenhaRepository
 from repository.comments_repos import CommentsRepository
 from repository.curtidas_repos import CurtidasRepository
 from models.common import DateConversion, KeepInSession, CleanSession
 from thirdparty.spotify import SpotifyGetFiveArtists, SpotifyGetAlbums, \
-    SpotifyGetOneArtist, SpotifyGetOneAlbum, SpotifyGetOneTrack, SpotifyGetOnePlaylist
+    SpotifyGetOneArtist, SpotifyGetOneAlbum, SpotifyGetOneTrack, SpotifyGetOnePlaylist, \
+    SpotifyGetPlaylists, SpotifyCheckUser
 
 res = Blueprint('res', __name__)
 
@@ -75,6 +76,55 @@ def resenhaNewAlbum(albumId):
 
 
 # <-- ## Albums routes ending ## -->
+
+
+# <-- ## Playlists routes beginning ## -->
+
+@res.route('/resenhaListPlaylists', methods=['GET', 'POST'])
+def resenhaListPlaylists():
+        try:
+            SpotifyCheckUser(request.form['spotifyUsername'])
+            playlists = SpotifyGetPlaylists(request.form['spotifyUsername']).createList()
+            return render_template('resenha/resenhaListPlaylists.html', playlists=playlists)
+        except:
+            flash('Nome de usuário não encontrado', 'danger')
+            return redirect(url_for('res.resenhaIndex'))
+
+
+@res.route('/resenhaNewPlaylist/<playlistId>/', methods=['GET', 'POST'])
+def resenhaNewPlaylist(playlistId):
+    if session['email'] == '' or 'email' not in session:
+        flash('Você precisa logar para acessar essa área', 'info')
+        return redirect(url_for('log.login'))
+
+    spotify = SpotifyGetOnePlaylist(playlistId).createList()
+
+    return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='playlist')
+
+
+@res.route('/createResenhaPlaylist', methods=['GET', 'POST'])
+def createResenhaPlaylist():
+    if session['email'] == '' or 'email' not in session:
+        flash('Você precisa logar para acessar essa área', 'info')
+        return redirect(url_for('log.login'))
+
+    tipo_review = 'playlist'
+    author_id = session['id']
+    nome_review = request.form['nome_review']
+    spotify_id = request.form['spotify_id']
+    review = request.form['review']
+
+    # In case of error, review will be in session
+    KeepInSession(request.form['spotify_id'],
+                  request.form['nome_review'], request.form['review'])
+
+    ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review)
+    CleanSession()
+    flash('Resenha criada com sucesso', 'success')
+    return redirect(url_for('ind.home'))
+
+
+# <-- ## Playlists routes ending ## -->
 
 
 # <-- ## Other routes beginning ## -->

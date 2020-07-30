@@ -4,30 +4,29 @@
 <main class="container">
     <!-- ##### Form Edit Start ##### -->
     <div>
-        <!-- ## Search Artist ## -->
-        {% include 'partials/resenhaArtistForm.html' %}
+        <!-- ## Search Playlist ## -->
+        {% include 'partials/resenhaPlaylistForm.html' %}
         <br>
     </div>
-    <!-- ##### Albums info begining ##### -->
-    {% if not albums %}
-    <h4>Nenhum album encontrado para esse artista.</h4>
+    <!-- ##### Playlists info begining ##### -->
+    {% if not playlists %}
+    <h4>Nenhuma Playlist encontrada para esse usuário no Spotify.</h4>
     {% else %}
-    <h4>Albums encontrados para: {{ albums[0].artist_name }}</h4>
+    <h4>Playlists encontradas no Spotify para o usuário pesquisado:</h4>
     <div class="row">
-        {% for album in albums %}
+        {% for item in playlists %}
         <div class="col-12 col-sm-8 col-lg-2">
             <div class="single-best-receipe-area mb-10">
                 <div class="receipe-content">
-                    <a href="{{ url_for('res.resenhaNewAlbum', albumId=album.id) }}">
-                        {% if not album.image %}
+                    <a href="{{ url_for('res.resenhaNewPlaylist', playlistId=item.id) }}">
+                        {% if not item.image %}
                         <img src="../static/img/bg-img/No-Image-Available.png" alt="">
                         {% else %}
-                        <img src="{{ album.image }}" alt="">
+                        <img src="{{ item.image }}" alt="">
                         {% endif %}
                     </a>
-                    <a href="{{ url_for('res.resenhaNewAlbum', albumId=album.id) }}">
-                        <h5>{{ album.name }}</h5>
-                        <h5>Release: {{ album.release_date }}</h5>
+                    <a href="{{ url_for('res.resenhaNewPlaylist', playlistId=item.id) }}">
+                        <h5>{{ item.name }}</h5>
                     </a>
                 </div>
             </div>

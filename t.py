@@ -187,7 +187,7 @@ class SpotifyGetOneAlbum:
                          }
         return self.oneAlbum
 
-print(SpotifyGetOneAlbum('7JPsPwLr67TEfChdr86yIU').createList())
+#print(SpotifyGetOneAlbum('7JPsPwLr67TEfChdr86yIU').createList())
 
 """
 
@@ -249,15 +249,10 @@ class SpotifyGetOnePlaylist:
                          }
         return self.playlist
 
-
+"""
 class SpotifyGetOneTrack:
     def __init__(self, trackId):
-        """
-        Returns an artist accordingly the id
-        The id is selected from one of the 5 artists
-        from the class: SpotifyGetFiveArtists
-        :param artistID: id from selected artist
-        """
+
         self.trackId = trackId
         self.oneTrack = {}
         self.createList()
@@ -279,3 +274,53 @@ class SpotifyGetOneTrack:
 
 get = SpotifyGetOneTrack('3tqv7xESjYRUjnBoJvfLhN').createList()
 print(get)
+
+"""
+
+class SpotifyGetPlaylists:
+    def __init__(self, spotifyUser):
+        """
+        Returns playlists accordingly to Spotify's username
+        :param spotifyUser: from user's typing
+        """
+        self.spotifyUser = spotifyUser
+        self.playlist = {}
+        self.playlists = []
+        self.createList()
+
+    def createList(self):
+            for item in SPOTIFY.user_playlists(self.spotifyUser)['items']:
+                image = item['images'][0]['url'] if len(
+                    item['images']) > 0 else ''
+                radio = str.replace(
+                    item['external_urls']['spotify'], "/playlist/", "/embed/playlist/")
+                self.playlist = {'id':     item['id'],
+                              'name':   item['name'],
+                              'image':  image,
+                              'tracks': item['tracks']['total'],
+                              'radio':  radio
+                              }
+                self.playlists.append(self.playlist)
+            return self.playlists
+
+
+#SpotifyGetPlaylists('raphaelcordon').createList()
+from werkzeug.exceptions import BadRequest
+
+class SpotifyCheckUser:
+    def __init__(self, spotifyUser):
+        """
+        Returns True/False accordingly to Spotify's username
+        :param spotifyUser: from user's typing
+        """
+        self.spotifyUser = spotifyUser
+    def checkUser(self):
+        try:
+            if SPOTIFY.user(self.spotifyUser):
+                return True
+        except:
+            pass
+
+
+
+print(SpotifyCheckUser('raphaelcord').checkUser())
