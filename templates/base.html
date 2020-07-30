@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!-- Title -->
-    <title>Resenha de música</title>
+    <title>Resenhando.co</title>
     <!-- Favicon -->
     <link rel="icon" href="{{ url_for('static', filename='img/core-img/icon.ico') }}">
     <!-- Stylesheet -->
@@ -35,7 +35,7 @@
                         <div class="breaking-news">
                             <div id="breakingNewsTicker" class="ticker">
                                 <ul>
-                                    <li><font color="grey">Resenhas de musicas</font></li>
+                                    <li><font color="grey">Resenhas de músicas</font></li>
                                     <li><font color="grey">Escreva uma resenha</font></li>
                                     <li><font color="grey">Ouça a playlist baseada nas resenhas!</font></li>
                                     <li><font color="grey">Comenta e curta as resenhas</font></li>
@@ -48,7 +48,7 @@
                         <div class="login">
                             {% if session['id'] == '' %}
                             <div class="btn" style="padding-right: 0;">
-                                <a href="{{ url_for('log.login') }}">Fazer login / Cadastrar-se</a></div>
+                                <a href="{{ url_for('log.login') }}">Fazer login | Cadastrar-se</a></div>
                             {% else %}
                             <div class="btn" style="padding-right: 0;">
                                 <a id="editAccount" href="{{ url_for('use.editAccount') }}">

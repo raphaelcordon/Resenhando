@@ -5,7 +5,7 @@
     <div class="container">
 
         <!-- Ordering by ARTIST Area Beginning-->
-        Ultimas resenhas de Artistas ou Bandas
+        Últimas resenhas de Artistas ou Bandas
         <div class="row">
             {% for review in reviewsArtist|sort(attribute='date_register', reverse=true) %}
             {% for spotify in spotifyArtist %}
@@ -37,7 +37,7 @@
         <!-- Ordering by ARTIST Area Ending-->
         <hr>
         <!-- Ordering by ALBUM Area Beginning-->
-        Ultimas resenhas de Albuns
+        Últimas resenhas de Álbuns
         <div class="row">
             {% for review in reviewsAlbum|sort(attribute='date_register', reverse=true) %}
             {% for spotify in spotifyAlbum %}
@@ -73,7 +73,7 @@
         <!-- Ordering by ALBUM Area Ending-->
         <hr>
         <!-- Ordering by TRACK Area Beginning-->
-        Ultimas resenhas de Músicas
+        Últimas resenhas de Músicas
         <div class="row">
             {% for review in reviewsTrack|sort(attribute='date_register', reverse=true) %}
             {% for spotify in spotifyTrack %}
@@ -105,7 +105,7 @@
         <!-- Ordering by TRACK Area Ending-->
         <hr>
         <!-- Ordering by PLAYLIST Area Beginning-->
-        Ultimas resenhas de Playlists
+        Últimas resenhas de Playlists
         <div class="row">
             {% for review in reviewsPlaylist|sort(attribute='date_register', reverse=true) %}
             {% for spotify in spotifyPlaylist %}
