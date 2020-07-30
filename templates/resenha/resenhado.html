@@ -44,23 +44,30 @@
                 </tr>
                 {% if data.tipo_review == 'album' %}
                 <tr>
-                    <td class="resenha_titles">Banda / Artista:</td>
+                    <td class="resenha_titles">Artista:</td>
                     <td class="resenha_item">{{ spotify.artistName }}</td>
                 </tr>
                 <tr>
                     <td class="resenha_titles">Album:</td>
                     <td class="resenha_item">{{ spotify.name }}</td>
                 </tr>
+                {% elif data.tipo_review == 'playlist' %}
+                    <tr>
+                        <td class="resenha_titles">Nome:</td>
+                        <td class="resenha_item">{{ spotify.name }}</td>
+                    </tr>
                 {% else %}
-                <tr>
-                    <td class="resenha_titles">Banda / Artista:</td>
-                    <td class="resenha_item">{{ spotify.name }}</td>
-                </tr>
+                    <tr>
+                        <td class="resenha_titles">Banda / Artista:</td>
+                        <td class="resenha_item">{{ spotify.name }}</td>
+                    </tr>
                 {% endif %}
-                <tr>
-                    <td class="resenha_titles">Release:</td>
-                    <td class="resenha_item">{{ spotify.releaseDate }}</td>
-                </tr>
+                {% if data.tipo_review == 'album' %}
+                    <tr>
+                        <td class="resenha_titles">Release:</td>
+                        <td class="resenha_item">{{ spotify.releaseDate }}</td>
+                    </tr>
+                {% endif %}
                 <tr>
                     <td class="resenha_titles">Sobre:</td>
                     {% if data.tipo_review == 'album' %}
@@ -93,6 +100,16 @@
                     </td>
                 </tr>
                 {% endif %}
+                <tr>
+                    {% if spotify.genres|length > 0 %}
+                    <td class="resenha_titles">Gêneros:</td>
+                    <td class="resenha_item">
+                    {% for item in spotify.genres %}
+                        {{ item }} |
+                    {% endfor %}
+                    {% endif %}
+                    </td>
+                </tr>
             </table>
             <!-- ##### Table Resenha End ##### -->
         </div>

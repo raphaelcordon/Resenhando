@@ -143,7 +143,6 @@ class SpotifyGetOneArtist:
         self.createList()
 
     def createList(self):
-        print(SPOTIFY.artist(self.artistID))
         artistSearch = SPOTIFY.artist(self.artistID)
         image = artistSearch['images'][0]['url'] if len(
             artistSearch['images']) > 0 else ''
@@ -177,17 +176,18 @@ class SpotifyGetOneAlbum:
             albumSearch['images']) > 0 else ''
         radio = str.replace(
             albumSearch['external_urls']['spotify'], "/album/", "/embed/album/")
+        genres = SPOTIFY.artist(albumSearch['artists'][0]['id'])['genres']
         self.oneAlbum = {'id':     albumSearch['id'],
                          'name':   albumSearch['name'],
                          'image':  image,
                          'releaseDate': albumSearch['release_date'][:4],
-                         'genres': albumSearch['genres'],
+                         'genres': genres,
                          'radio':  radio,
                          'artistName': albumSearch['artists'][0]['name']
                          }
         return self.oneAlbum
 
-#print(SpotifyGetOneAlbum('7JPsPwLr67TEfChdr86yIU').createList())
+print(SpotifyGetOneAlbum('7JPsPwLr67TEfChdr86yIU').createList())
 
 """
 
@@ -323,4 +323,4 @@ class SpotifyCheckUser:
 
 
 
-print(SpotifyCheckUser('raphaelcord').checkUser())
+#print(SpotifyCheckUser('raphaelcord').checkUser())

@@ -253,11 +253,12 @@ class SpotifyGetOneAlbum:
             albumSearch['images']) > 0 else ''
         radio = str.replace(
             albumSearch['external_urls']['spotify'], "/album/", "/embed/album/")
+        genres = SPOTIFY.artist(albumSearch['artists'][0]['id'])['genres']
         self.oneAlbum = {'id':     albumSearch['id'],
                          'name':   albumSearch['name'],
                          'image':  image,
                          'releaseDate': albumSearch['release_date'][:4],
-                         'genres': albumSearch['genres'],
+                         'genres': genres,
                          'radio':  radio,
                          'artistName': albumSearch['artists'][0]['name']
                          }
@@ -313,12 +314,12 @@ class SpotifyGetPlaylists:
                     item['images']) > 0 else ''
                 radio = str.replace(
                     item['external_urls']['spotify'], "/playlist/", "/embed/playlist/")
-                self.playlist = {'id':     item['id'],
-                              'name':   item['name'],
-                              'image':  image,
-                              'tracks': item['tracks']['total'],
-                              'radio':  radio
-                              }
+                self.playlist = {
+                    'id':     item['id'],
+                    'name':   item['name'],
+                    'image':  image,
+                    'radio':  radio
+                }
                 self.playlists.append(self.playlist)
             return self.playlists
 
@@ -344,6 +345,7 @@ class SpotifyGetOnePlaylist:
                             'name':   artistSearch['name'],
                             'image':  image,
                             'uri':    artistSearch['uri'],
+                            'tracks': artistSearch['tracks']['total'],
                             'radio':  radio
                             }
         return self.onePlaylist

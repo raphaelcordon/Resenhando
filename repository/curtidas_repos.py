@@ -16,7 +16,7 @@ class CurtidasRepository:
             db.close()
 
     # <- Check if the 'Resenha' has a 'Like from the current user in the table ->
-    def FindById(self, user_id, resenha_id):
+    def FindById(self, user_id=None, resenha_id=None):
         db = PostgreDB()
         try:
             db.query(
