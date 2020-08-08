@@ -37,18 +37,58 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for resenha in resenhas|sort(attribute='id', reverse=true) %}
+                        {% for item in reviewsArtist|sort(attribute='id', reverse=true) %}
                         <tr class="d-flex">
-                            <td class="col-sm-1">{{ resenha.id }}</td>
-                            <td class="col-sm-1">{{ resenha.author_id }}</td>
-                            <td class="col-sm-2">{{ resenha.tipo_review }}</td>
-                            <td class="col-sm-5">{{ resenha.nome_review }}</td>
-                            <td class="col-sm-2">{{ resenha.date_register }}</td>
+                            <td class="col-sm-1">{{ item.id }}</td>
+                            <td class="col-sm-1">{{ item.author_id }}</td>
+                            <td class="col-sm-2">{{ item.tipo_review }}</td>
+                            <td class="col-sm-5">{{ item.nome_review }}</td>
+                            <td class="col-sm-2">{{ item.date_register }}</td>
                             <td class="col-sm-1"><a
-                                    data-url="{{ url_for('adm.ResenhasDelete', resenha_id=resenha.id) }}"
+                                    data-url="{{ url_for('adm.ResenhasDelete', resenha_id=item.id) }}"
                                     class="btn btn-danger white delete">Delete</a></td>
                         </tr>
                         {% endfor %}
+
+                    {% for item in reviewsAlbum|sort(attribute='id', reverse=true) %}
+                        <tr class="d-flex">
+                            <td class="col-sm-1">{{ item.id }}</td>
+                            <td class="col-sm-1">{{ item.author_id }}</td>
+                            <td class="col-sm-2">{{ item.tipo_review }}</td>
+                            <td class="col-sm-5">{{ item.nome_review }}</td>
+                            <td class="col-sm-2">{{ item.date_register }}</td>
+                            <td class="col-sm-1"><a
+                                    data-url="{{ url_for('adm.ResenhasDelete', resenha_id=item.id) }}"
+                                    class="btn btn-danger white delete">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+
+                    {% for item in reviewsTrack|sort(attribute='id', reverse=true) %}
+                        <tr class="d-flex">
+                            <td class="col-sm-1">{{ item.id }}</td>
+                            <td class="col-sm-1">{{ item.author_id }}</td>
+                            <td class="col-sm-2">{{ item.tipo_review }}</td>
+                            <td class="col-sm-5">{{ item.nome_review }}</td>
+                            <td class="col-sm-2">{{ item.date_register }}</td>
+                            <td class="col-sm-1"><a
+                                    data-url="{{ url_for('adm.ResenhasDelete', resenha_id=item.id) }}"
+                                    class="btn btn-danger white delete">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+
+                    {% for item in reviewsPlaylist|sort(attribute='id', reverse=true) %}
+                        <tr class="d-flex">
+                            <td class="col-sm-1">{{ item.id }}</td>
+                            <td class="col-sm-1">{{ item.author_id }}</td>
+                            <td class="col-sm-2">{{ item.tipo_review }}</td>
+                            <td class="col-sm-5">{{ item.nome_review }}</td>
+                            <td class="col-sm-2">{{ item.date_register }}</td>
+                            <td class="col-sm-1"><a
+                                    data-url="{{ url_for('adm.ResenhasDelete', resenha_id=item.id) }}"
+                                    class="btn btn-danger white delete">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+
                     </tbody>
                 </table>
             </div>

@@ -13,8 +13,12 @@ def _adm():
 
 @adm.route('/adm_resenhas')
 def adm_resenhas():
-    resenhas = ResenhaRepository().List()
-    return render_template('_adm_resenhas.html', resenhas=resenhas)
+    reviewsArtist = ResenhaRepository().List('artista')
+    reviewsAlbum = ResenhaRepository().List('album')
+    reviewsTrack = ResenhaRepository().List('track')
+    reviewsPlaylist = ResenhaRepository().List('playlist')
+    return render_template('_adm_resenhas.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
+                           reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist)
 
 
 @adm.route('/adm_usuarios')
