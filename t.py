@@ -187,7 +187,7 @@ class SpotifyGetOneAlbum:
                          }
         return self.oneAlbum
 
-print(SpotifyGetOneAlbum('7JPsPwLr67TEfChdr86yIU').createList())
+#print(SpotifyGetOneAlbum('7JPsPwLr67TEfChdr86yIU').createList())
 
 """
 
@@ -295,17 +295,18 @@ class SpotifyGetPlaylists:
                 radio = str.replace(
                     item['external_urls']['spotify'], "/playlist/", "/embed/playlist/")
                 self.playlist = {'id':     item['id'],
-                              'name':   item['name'],
-                              'image':  image,
-                              'tracks': item['tracks']['total'],
-                              'radio':  radio
-                              }
+                                 'name':   item['name'],
+                                 'image':  image,
+                                 'tracks': item['tracks']['total'],
+                                 'radio':  radio
+                                 }
                 self.playlists.append(self.playlist)
             return self.playlists
 
 
-#SpotifyGetPlaylists('raphaelcordon').createList()
-from werkzeug.exceptions import BadRequest
+for f in SpotifyGetPlaylists('raphaelcordon').createList():
+    print(f)
+
 
 class SpotifyCheckUser:
     def __init__(self, spotifyUser):
@@ -323,4 +324,4 @@ class SpotifyCheckUser:
 
 
 
-#print(SpotifyCheckUser('raphaelcord').checkUser())
+#print(SpotifyCheckUser('raphaelcordon').checkUser())

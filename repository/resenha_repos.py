@@ -12,7 +12,8 @@ class ResenhaRepository:
                     db.query(f"SELECT * FROM public.resenha where tipo_review = '{tipo_review}' "
                              f"order by date_register desc limit {top}")
             else:
-                db.query(f"SELECT * FROM public.resenha")
+                db.query(f"SELECT * FROM public.resenha where tipo_review = '{tipo_review}' "
+                         f"order by date_register")
             return self.__toList(db.fetchAll())
         except Exception as exp:
             print(exp)

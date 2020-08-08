@@ -6,6 +6,11 @@ from repository.comments_repos import CommentsRepository
 adm = Blueprint('adm', __name__)
 
 
+@adm.route('/_adm')
+def _adm():
+    return render_template('_adm.html')
+
+
 @adm.route('/adm_resenhas')
 def adm_resenhas():
     resenhas = ResenhaRepository().List()

@@ -100,6 +100,9 @@
     <!-- ##### Flask Messages end ##### -->
     <!-- Python Block -->
     {% block content %} {% endblock %}
+
+    {% include 'partials/footer.html' %}
+
     <!-- ##### All Javascript Files ##### -->
     <!-- jQuery-2.2.4 js -->
     <script src="{{ url_for('static', filename='js/jquery/jquery-2.2.4.min.js') }}"></script>
@@ -113,8 +116,6 @@
     <script src="{{ url_for('static', filename='js/plugins/plugins.js') }}"></script>
     <!-- Active js -->
     <script src="{{ url_for('static', filename='js/active.js') }}"></script>
-    <!-- responsive 'capa' js -->
-    <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
 
 </html>

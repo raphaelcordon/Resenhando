@@ -43,6 +43,34 @@ def home():
     return redirect(url_for('ind.index'))
 
 
+@ind.route('/everything')
+def everything():
+    spotifyArtist = []
+    spotifyAlbum = []
+    spotifyTrack = []
+    spotifyPlaylist = []
+
+    users = UsersRepository().List()
+    reviewsArtist = ResenhaRepository().List('artista')
+    reviewsAlbum = ResenhaRepository().List('album')
+    reviewsTrack = ResenhaRepository().List('track')
+    reviewsPlaylist = ResenhaRepository().List('playlist')
+    for item in reviewsArtist:
+        spotifyArtist.append(SpotifyGetOneArtist(item.spotify_id).oneArtist)
+    for item in reviewsAlbum:
+        spotifyAlbum.append(SpotifyGetOneAlbum(item.spotify_id).oneAlbum)
+    for item in reviewsTrack:
+        spotifyTrack.append(SpotifyGetOneTrack(item.spotify_id).oneTrack)
+    for item in reviewsPlaylist:
+        spotifyPlaylist.append(
+            SpotifyGetOnePlaylist(item.spotify_id).onePlaylist)
+
+    return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
+                           reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
+                           users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
+                           spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist)
+
+
 def __createSessionVariables():
     session['id'] = ''
     session['name'] = ''

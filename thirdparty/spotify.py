@@ -328,7 +328,7 @@ class SpotifyGetOnePlaylist:
     def __init__(self, playlistID):
         """
         Returns a playlist accordingly the id
-        FUNCTIO TO BE CREATED IN THE WEBSITE
+        FUNCTION TO BE CREATED IN THE WEBSITE
         :param playlistID: id from selected playlist
         """
         self.playlistID = playlistID

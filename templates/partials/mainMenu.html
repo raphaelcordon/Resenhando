@@ -5,13 +5,12 @@
         <ul>
             <li><a href="{{ url_for('ind.home') }}">Home</a></li>
             <li><a href="{{ url_for('res.resenhaIndex') }}">Nova resenha</a></li>
+            <li><a href="{{ url_for('ind.everything') }}">Todas as resenhas</a></li>
             {% if session.id != '' %}
             <li><a href="{{ url_for('res.minhas_resenhas', id=session.id) }}">Minhas resenhas</a></li>
             {% endif %}
-            <li><a href="{{ url_for('adm.sobre') }}">Sobre</a></li>
             {% if session.id != '' and session['id'] == 1 or session['4'] == 'soria' %}
-            <li style="background-color: #f2f2f2;"><a href="{{ url_for('adm.adm_resenhas') }}">*Resenhas</a></li>
-            <li style="background-color: #f2f2f2;"><a href="{{ url_for('adm.adm_usuarios') }}">*Usuarios</a></li>
+            <li style="background-color: #f2f2f2;"><a href="{{ url_for('adm._adm') }}">*ADM</a></li>
             {% endif %}
         </ul>
     </div>

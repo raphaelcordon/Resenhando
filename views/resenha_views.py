@@ -1,4 +1,4 @@
-from flask import render_template, session, redirect, request, url_for, flash, Blueprint, abort
+from flask import render_template, session, redirect, request, url_for, flash, Blueprint
 from repository.users_repos import UsersRepository
 from repository.resenha_repos import ResenhaRepository
 from repository.comments_repos import CommentsRepository
