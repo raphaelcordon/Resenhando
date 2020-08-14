@@ -15,10 +15,10 @@ $('.delete').click(function () {
 $(document).ready(function(){
   $("#buttonArtist").click(function(){
 
-    $("#formAlbum").hide(1000);
-    $("#formTrack").hide(1000);
-    $("#formPlaylist").hide(1000);
-    $("#formArtist").toggle(1000);
+    $("#formAlbum").hide(10);
+    $("#formTrack").hide(10);
+    $("#formPlaylist").hide(10);
+    $("#formArtist").toggle(200);
   });
 });
 
@@ -26,10 +26,10 @@ $(document).ready(function(){
 $(document).ready(function(){
   $("#buttonAlbum").click(function(){
 
-      $("#formArtist").hide(1000);
-      $("#formTrack").hide(1000);
-      $("#formPlaylist").hide(1000);
-    $("#formAlbum").toggle(1000);
+      $("#formArtist").hide(10);
+      $("#formTrack").hide(10);
+      $("#formPlaylist").hide(10);
+    $("#formAlbum").toggle(200);
   });
 });
 
@@ -37,10 +37,10 @@ $(document).ready(function(){
 $(document).ready(function(){
   $("#buttonTrack").click(function(){
 
-    $("#formArtist").hide(1000);
-    $("#formAlbum").hide(1000);
-    $("#formPlaylist").hide(1000);
-    $("#formTrack").toggle(1000);
+    $("#formArtist").hide(10);
+    $("#formAlbum").hide(10);
+    $("#formPlaylist").hide(10);
+    $("#formTrack").toggle(200);
   });
 });
 
@@ -48,9 +48,9 @@ $(document).ready(function(){
 $(document).ready(function(){
   $("#buttonPlaylist").click(function(){
 
-    $("#formArtist").hide(1000);
-    $("#formAlbum").hide(1000);
-    $("#formTrack").hide(1000);
-    $("#formPlaylist").toggle(1000);
+    $("#formArtist").hide(10);
+    $("#formAlbum").hide(10);
+    $("#formTrack").hide(10);
+    $("#formPlaylist").toggle(200);
   });
 });
