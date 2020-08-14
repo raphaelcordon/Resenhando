@@ -273,7 +273,6 @@ class SpotifyGetPlaylists:
         :param spotifyUser: from user's typing
         """
         self.spotifyUser = spotifyUser
-        self.playlist = {}
         self.playlists = []
         self.createList()
 
@@ -282,8 +281,7 @@ class SpotifyGetPlaylists:
             return False
         else:
             for item in SPOTIFY.user_playlists(self.spotifyUser)['items']:
-                image = item['images'][0]['url'] if len(
-                    item['images']) > 0 else ''
+                image = item['images'][0]['url'] if len(item['images']) > 0 else ''
                 radio = str.replace(
                     item['external_urls']['spotify'], "/playlist/", "/embed/playlist/")
                 playlist = {
