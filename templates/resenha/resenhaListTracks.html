@@ -15,27 +15,41 @@
         {% for track in tracks %}
         <div class="col-10 col-sm-5 col-lg-3">
             <div class="single-best-receipe-area mb-10">
-                <div class="receipe-content">
-                    {% if track.name|length > 25 %}
-                        <h6>{{ track.name[0:25] }}...</h6>
+                <table>
+                    <tr>
+                        <td>
+                            <iframe src="{{ track.radio }}" width="80" height="80" frameborder="0"
+                        allowtransparency="true" allow="encrypted-media">
+                    </iframe>
+                        </td>
+                        <td>
+
+                        {% if track.name|length > 18 %}
+                        <h6>&nbsp;{{ track.name[0:18] }}...</h6>
                     {% else %}
-                        <h6>{{ track.name }}</h6>
+                        <h6>&nbsp;{{ track.name }}</h6>
                     {% endif %}
 
-                    {% if track.artistName|length > 20 %}
-                    <h6>Artista: {{ track.artistName[0:20] }}...</h6>
+                    {% if track.artistName|length > 18 %}
+                    <p>&nbsp;Artista: <b>{{ track.artistName[0:18] }}</b>...</p>
                     {% else %}
-                        <h6>Artista: {{ track.artistName }}</h6>
+                        <p>&nbsp;Artista: <b>{{ track.artistName }}</b></p>
                     {% endif %}
-                        <iframe src="{{ track.radio }}" width="250" height="80"
-                                frameborder="0" allowtransparency="true" allow="encrypted-media">
-                        </iframe>
-                    <a href="{{ url_for('res.resenhaNewTrack', trackId=track.id) }}">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <a href="{{ url_for('res.resenhaNewTrack', trackId=track.id) }}">
                     <button type="button" class="btn btn-link">
                         Resenhar essa música
                     </button></a>
+                        </td>
+                    </tr>
+                </table>
+
                     <hr/>
-                </div>
+
             </div>
         </div>
         {% endfor %}
