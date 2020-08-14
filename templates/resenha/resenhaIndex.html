@@ -7,24 +7,54 @@
             <div class="container">
                 <div class="dropdown_position">
                     <h6>Escrever sobre</h6>
-                </div>
-                    <p>{% include 'partials/resenhaArtistForm.html' %}</p>
+                    <button type="button" class="btn btn-primary btn-salvar" id="buttonArtist">Artista</button>
 
+                    <button type="button" class="btn btn-primary btn-salvar" id="buttonAlbum">Álbum</button>
+
+                    <button type="button" class="btn btn-primary btn-salvar" id="buttonTrack">Música</button>
+
+                    <button type="button" class="btn btn-primary btn-salvar" id="buttonPlaylist">Playlist</button>
+                </div>
             </div>
 
-            <div class="container">
-                <div class="dropdown_position">
-                    <h6><br>Playlist</h6><p>Uma de suas playlists do Spotify</p>
+            <section class="initiallyHidden" id="formArtist">
+                <div class="container">
+                    <div class="dropdown_position">
+                        <h6><br>Artista</h6><p>Digite o nome do artista abaixo:</p>
+                    </div>
+                        <p>{% include 'partials/resenhaArtistForm.html' %}</p>
                 </div>
-                    <p>{% include 'partials/resenhaPlaylistForm.html' %}</p>
-            </div>
+            </section>
 
-            <div class="container">
-                <div class="dropdown_position">
-                    <h6><br>Música</h6><p>Uma música</p>
+            <section class="initiallyHidden" id="formAlbum">
+                <div class="container">
+                    <div class="dropdown_position">
+                        <h6><br>Álbum</h6><p>Digite o nome do artista para pesquisar o álbum:</p>
+                    </div>
+                        <p>{% include 'partials/resenhaArtistForm.html' %}</p>
                 </div>
-                    <p>{% include 'partials/resenhaTrackForm.html' %}</p>
-            </div>
+            </section>
+
+
+            <section class="initiallyHidden" id="formTrack">
+                <div class="container">
+                    <div class="dropdown_position">
+                        <h6><br>Música</h6><p>Uma música</p>
+                    </div>
+                        <p>{% include 'partials/resenhaTrackForm.html' %}</p>
+                </div>
+            </section>
+
+            <section class="initiallyHidden" id="formPlaylist">
+                <div class="container">
+                    <div class="dropdown_position">
+                        <h6><br>Playlist</h6><p>Uma de suas playlists do Spotify<br>
+                    É necessário digitar o seu 'nome do usuário' do Spotify</p>
+                    </div>
+                        <p>{% include 'partials/resenhaPlaylistForm.html' %}</p>
+                </div>
+            </section>
+
         </div>
     </section>
 </main>

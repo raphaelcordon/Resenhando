@@ -194,7 +194,9 @@ footer {
   .dropdown:hover .dropdown-content {display: block;}
   
   .dropdown:hover .dropbtn {background-color: #ddd}
-  
+
+.initiallyHidden { display: none; }
+
 
 /* CSS for Smartphones */
 
