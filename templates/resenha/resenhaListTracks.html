@@ -30,8 +30,8 @@
                         <h6>&nbsp;{{ track.name }}</h6>
                     {% endif %}
 
-                    {% if track.artistName|length > 18 %}
-                    <p>&nbsp;Artista: <b>{{ track.artistName[0:18] }}</b>...</p>
+                    {% if track.artistName|length > 15 %}
+                    <p>&nbsp;Artista: <b>{{ track.artistName[0:15] }}</b>...</p>
                     {% else %}
                         <p>&nbsp;Artista: <b>{{ track.artistName }}</b></p>
                     {% endif %}
