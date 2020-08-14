@@ -289,23 +289,50 @@ class SpotifyGetPlaylists:
         self.createList()
 
     def createList(self):
-            for item in SPOTIFY.user_playlists(self.spotifyUser)['items']:
-                image = item['images'][0]['url'] if len(
-                    item['images']) > 0 else ''
-                radio = str.replace(
-                    item['external_urls']['spotify'], "/playlist/", "/embed/playlist/")
-                self.playlist = {'id':     item['id'],
-                                 'name':   item['name'],
-                                 'image':  image,
-                                 'tracks': item['tracks']['total'],
-                                 'radio':  radio
-                                 }
-                self.playlists.append(self.playlist)
-            return self.playlists
+        for item in SPOTIFY.user_playlists(self.spotifyUser)['items']:
+            image = item['images'][0]['url'] if len(item['images']) > 0 else ''
+            radio = str.replace(item['external_urls']['spotify'], "/playlist/", "/embed/playlist/")
+            playlist = {
+                'id':     item['id'],
+                'name':   item['name'],
+                'image':  image,
+                'radio':  radio
+            }
+            if playlist not in self.playlists:
+                self.playlists.append(playlist)
+        return self.playlists
 
 
 for f in SpotifyGetPlaylists('raphaelcordon').createList():
     print(f)
+
+#for f in SPOTIFY.user_playlists('raphaelcordon')['items']:
+#    print(f)
+
+
+
+"""
+{'href': 'https://api.spotify.com/v1/users/raphaelcordon/playlists?offset=0&limit=50', 
+ 'items': [
+     {'collaborative': False, 
+      'description': '', 
+      'external_urls': {'spotify': 'https://open.spotify.com/playlist/6KEiQ9Ehr325Ue66PsMxDX'}, 
+      'href': 'https://api.spotify.com/v1/playlists/6KEiQ9Ehr325Ue66PsMxDX', 
+      'id': '6KEiQ9Ehr325Ue66PsMxDX', 
+      'images': [{'height': 640, 'url': 'https://mosaic.scdn.co/640/ab67616d0000b27324f01aae2352e0a1122af658ab67616d0000b2733da79014d89a8e58650c8292ab67616d0000b2739ce3670bb54ff6b1a0452dafab67616d0000b273e94f9420e4b721f2c9a78377', 'width': 640} 
+      'name': 'Bruce', 
+      'owner': {'display_name': 'raphaelcordon', 'external_urls': {'spotify': 'https://open.spotify.com/user/raphaelcordon'}, 'href': 'https://api.spotify.com/v1/users/raphaelcordon', 'id': 'raphaelcordon', 'type': 'user', 'uri': 'spotify:user:raphaelcordon'}, 
+      'primary_color': None, 
+      'public': True, 
+      'snapshot_id': 'MTksZTc4OTgyOTk3ZjAxNTE0NTE4OTQ0NWVkZjlkNzMzNDJiNWRhOTVmOA==', 
+      'tracks': {'href': 'https://api.spotify.com/v1/playlists/6KEiQ9Ehr325Ue66PsMxDX/tracks', 'total': 17}, 
+      'type': 'playlist', 
+      'uri': 'spotify:playlist:6KEiQ9Ehr325Ue66PsMxDX'
+      }], 
+     'limit': 50, 'next': None, 'offset': 0, 'previous': None, 'total': 2}
+
+"""
+
 
 
 class SpotifyCheckUser:
@@ -323,5 +350,36 @@ class SpotifyCheckUser:
             pass
 
 
+class SpotifyGetTracks:
+    def __init__(self, spotifyTracks):
+        """
+        Returns playlists accordingly to Spotify's username
+        :param spotifyUser: from user's typing
+        """
+        self.spotifyTracks = spotifyTracks
+        self.track = {}
+        self.tracks = []
+        self.createList()
 
-#print(SpotifyCheckUser('raphaelcordon').checkUser())
+    def createList(self):
+        print(SPOTIFY.search('Breakthru', type='track')['tracks']['items'])
+        for item in SPOTIFY.search(self.spotifyTracks, type='track')['tracks']['items']:
+            image = item['album']['images'][0]['url'] if len(
+                item['album']['images']) > 0 else ''
+            radio = str.replace(
+                item['external_urls']['spotify'], "/track/", "/embed/track/")
+            self.track = {'id':     item['id'],
+                          'name':   item['name'],
+                          'image':  image,
+                          'radio':  radio,
+                          'releaseDate': item['album']['release_date'][:4],
+                          'artistName': item['artists'][0]['name'],
+                          'albumName': item['album']['name']
+
+                             }
+            self.tracks.append(self.track)
+        return self.tracks
+
+
+#for f in SpotifyGetTracks('Breakthru').createList():
+#    print(f)

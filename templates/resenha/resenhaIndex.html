@@ -3,19 +3,27 @@
 <main class="container">
     <section>
         <div class="container">
-            <h5>Inicie sua resenha:</h5>
+            <h5>Iniciar resenha:</h5>
             <div class="container">
                 <div class="dropdown_position">
-                    <h6>Artista, Banda ou Álbum</h6>
+                    <h6>Escrever sobre</h6>
                 </div>
                     <p>{% include 'partials/resenhaArtistForm.html' %}</p>
 
             </div>
+
             <div class="container">
                 <div class="dropdown_position">
                     <h6><br>Playlist</h6><p>Uma de suas playlists do Spotify</p>
                 </div>
                     <p>{% include 'partials/resenhaPlaylistForm.html' %}</p>
+            </div>
+
+            <div class="container">
+                <div class="dropdown_position">
+                    <h6><br>Música</h6><p>Uma música</p>
+                </div>
+                    <p>{% include 'partials/resenhaTrackForm.html' %}</p>
             </div>
         </div>
     </section>

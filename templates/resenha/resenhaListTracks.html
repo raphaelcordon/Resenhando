@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- ##### Main Area Start ##### -->
+<main class="container">
+
+    <p>Músicas encontradas:</p>
+
+    <!-- ##### (5) Artist info begining ##### -->
+    {% if not tracks %}
+    <h4>Nenhuma música encontrada.</h4>
+
+    {% else %}
+
+    <div class="row">
+        {% for track in tracks %}
+        <div class="col-10 col-sm-5 col-lg-3">
+            <div class="single-best-receipe-area mb-10">
+                <div class="receipe-content">
+                    {% if track.name|length > 25 %}
+                        <h6>{{ track.name[0:25] }}...</h6>
+                    {% else %}
+                        <h6>{{ track.name }}</h6>
+                    {% endif %}
+
+                    {% if track.artistName|length > 20 %}
+                    <h6>Artista: {{ track.artistName[0:20] }}...</h6>
+                    {% else %}
+                        <h6>Artista: {{ track.artistName }}</h6>
+                    {% endif %}
+                        <iframe src="{{ track.radio }}" width="250" height="80"
+                                frameborder="0" allowtransparency="true" allow="encrypted-media">
+                        </iframe>
+                    <a href="{{ url_for('res.resenhaNewTrack', trackId=track.id) }}">
+                    <button type="button" class="btn btn-link">
+                        Resenhar essa música
+                    </button></a>
+                    <hr/>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <!-- ##### Artist info end ##### -->
+
+</main>
+{% endblock %}

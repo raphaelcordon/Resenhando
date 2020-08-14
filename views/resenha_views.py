@@ -6,7 +6,7 @@ from repository.curtidas_repos import CurtidasRepository
 from models.common import DateConversion, KeepInSession, CleanSession
 from thirdparty.spotify import SpotifyGetFiveArtists, SpotifyGetAlbums, \
     SpotifyGetOneArtist, SpotifyGetOneAlbum, SpotifyGetOneTrack, SpotifyGetOnePlaylist, \
-    SpotifyGetPlaylists, SpotifyCheckUser
+    SpotifyGetPlaylists, SpotifyCheckUser, SpotifyGetTracks
 
 res = Blueprint('res', __name__)
 
@@ -76,6 +76,26 @@ def resenhaNewAlbum(albumId):
 
 
 # <-- ## Albums routes ending ## -->
+
+
+# <-- ## Tracks routes beginning ## -->
+
+@res.route('/resenhaListTracks', methods=['GET', 'POST'])
+def resenhaListTracks():
+        tracks = SpotifyGetTracks(request.form['spotifyTracks']).createList()
+
+        return render_template('resenha/resenhaListTracks.html', tracks=tracks)
+
+
+@res.route('/resenhaNewTrack/<trackId>/', methods=['GET', 'POST'])
+def resenhaNewTrack(trackId):
+    if session['email'] == '' or 'email' not in session:
+        flash('Você precisa logar para acessar essa área', 'info')
+        return redirect(url_for('log.login'))
+
+    spotify = SpotifyGetOneTrack(trackId).createList()
+
+    return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='track')
 
 
 # <-- ## Playlists routes beginning ## -->

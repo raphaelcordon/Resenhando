@@ -35,4 +35,3 @@ $('.delete').click(function () {
     }
   })
 });
-
