@@ -15,10 +15,8 @@ $('.delete').click(function () {
 $(document).ready(function(){
   $("#buttonArtist").click(function(){
 
-    $("#formAlbum").hide(10);
-    $("#formTrack").hide(10);
-    $("#formPlaylist").hide(10);
-    $("#formArtist").toggle(200);
+    $(".initiallyHidden").hide(20);
+    $("#formArtist").toggle(400);
   });
 });
 
@@ -26,10 +24,8 @@ $(document).ready(function(){
 $(document).ready(function(){
   $("#buttonAlbum").click(function(){
 
-      $("#formArtist").hide(10);
-      $("#formTrack").hide(10);
-      $("#formPlaylist").hide(10);
-    $("#formAlbum").toggle(200);
+    $(".initiallyHidden").hide(20);
+    $("#formAlbum").toggle(400);
   });
 });
 
@@ -37,10 +33,8 @@ $(document).ready(function(){
 $(document).ready(function(){
   $("#buttonTrack").click(function(){
 
-    $("#formArtist").hide(10);
-    $("#formAlbum").hide(10);
-    $("#formPlaylist").hide(10);
-    $("#formTrack").toggle(200);
+    $(".initiallyHidden").hide(20);
+    $("#formTrack").toggle(400);
   });
 });
 
@@ -48,9 +42,7 @@ $(document).ready(function(){
 $(document).ready(function(){
   $("#buttonPlaylist").click(function(){
 
-    $("#formArtist").hide(10);
-    $("#formAlbum").hide(10);
-    $("#formTrack").hide(10);
-    $("#formPlaylist").toggle(200);
+    $(".initiallyHidden").hide(20);
+    $("#formPlaylist").toggle(400);
   });
 });
