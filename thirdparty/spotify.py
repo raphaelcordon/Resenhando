@@ -265,34 +265,6 @@ class SpotifyGetOneAlbum:
         return self.oneAlbum
 
 
-#  <-- Track Spotify searches -->
-class SpotifyGetOneTrack:
-    def __init__(self, trackId):
-        """
-        Returns a Track accordingly the id
-        The id is selected from one album
-        FUNCTIO TO BE CREATED IN THE WEBSITE
-        :param trackId: id from selected Track
-        """
-        self.trackId = trackId
-        self.oneTrack = {}
-        self.createList()
-
-    def createList(self):
-        artistSearch = SPOTIFY.track(self.trackId)
-        image = artistSearch['album']['images'][0]['url'] if len(
-            artistSearch['album']['images']) > 0 else ''
-        radio = str.replace(
-            artistSearch['external_urls']['spotify'], "/track/", "/embed/track/")
-        self.oneTrack = {'id':     artistSearch['id'],
-                         'name':   artistSearch['name'],
-                         'image':  image,
-                         'uri':    artistSearch['uri'],
-                         'radio':  radio
-                         }
-        return self.oneTrack
-
-
 #  <-- Playlist Spotify searches -->
 class SpotifyGetPlaylists:
     def __init__(self, spotifyUser):
@@ -314,13 +286,14 @@ class SpotifyGetPlaylists:
                     item['images']) > 0 else ''
                 radio = str.replace(
                     item['external_urls']['spotify'], "/playlist/", "/embed/playlist/")
-                self.playlist = {
-                    'id':     item['id'],
-                    'name':   item['name'],
-                    'image':  image,
-                    'radio':  radio
+                playlist = {
+                    'id': item['id'],
+                    'name': item['name'],
+                    'image': image,
+                    'radio': radio
                 }
-                self.playlists.append(self.playlist)
+                if playlist not in self.playlists:
+                    self.playlists.append(playlist)
             return self.playlists
 
 
@@ -365,3 +338,60 @@ class SpotifyCheckUser:
                 return True
         except:
             pass
+
+
+#  <-- Track Spotify searches -->
+class SpotifyGetOneTrack:
+    def __init__(self, trackId):
+        """
+        Returns a Track accordingly the id
+        The id is selected from one album
+        FUNCTIO TO BE CREATED IN THE WEBSITE
+        :param trackId: id from selected Track
+        """
+        self.trackId = trackId
+        self.oneTrack = {}
+        self.createList()
+
+    def createList(self):
+        track = SPOTIFY.track(self.trackId)
+        image = track['album']['images'][0]['url'] if len(
+            track['album']['images']) > 0 else ''
+        radio = str.replace(
+            track['external_urls']['spotify'], "/track/", "/embed/track/")
+        self.oneTrack = {'id':     track['id'],
+                         'name':   track['name'],
+                         'image':  image,
+                         'radio':  radio,
+                         'releaseDate': track['album']['release_date'][:4],
+                         'artistName': track['artists'][0]['name'],
+                         'albumName': track['album']['name']
+                         }
+        return self.oneTrack
+
+
+class SpotifyGetTracks:
+    def __init__(self, spotifyTracks):
+        """
+        Returns tracks accordingly to the search
+        :param spotifyTracks: from user's typing
+        """
+        self.spotifyTracks = spotifyTracks
+        self.track = {}
+        self.tracks = []
+        self.createList()
+
+    def createList(self):
+        for item in SPOTIFY.search(self.spotifyTracks, type='track')['tracks']['items']:
+            image = item['album']['images'][0]['url'] if len(
+                item['album']['images']) > 0 else ''
+            radio = str.replace(
+                item['external_urls']['spotify'], "/track/", "/embed/track/")
+            self.track = {'id':     item['id'],
+                          'name':   item['name'],
+                          'image':  image,
+                          'radio':  radio,
+                          'artistName': item['artists'][0]['name']
+                          }
+            self.tracks.append(self.track)
+        return self.tracks
