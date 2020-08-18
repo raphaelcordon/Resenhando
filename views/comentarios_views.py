@@ -19,5 +19,5 @@ def comentario():
 @com.route('/CommentDelete/<int:comment_id>/<int:resenha_id>')
 def CommentDelete(comment_id, resenha_id):
     CommentsRepository().Delete(comment_id)
-    flash('Comment Successfully removed', 'info')
+    flash('Comentário removido com sucesso', 'info')
     return redirect(url_for('res.resenhado', id=resenha_id))

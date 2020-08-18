@@ -21,7 +21,11 @@
                             {% endif %}
                         </a>
                         <a href="{{ url_for('res.resenhado', id=review.id) }}">
-                            <h6>{{ spotify.name }}</h6>
+                            {% if spotify.name|length > 26 %}
+                                <h6>{{ spotify.name[0:26] }}...</h6>
+                            {% else %}
+                                <h6>{{ spotify.name }}</h6>
+                            {% endif %}
                             {% for user in users %}
                             {% if user.id == review.author_id %}
                             <p>por: {{ user.name }} {{ user.surname }}</p>
@@ -53,8 +57,8 @@
                             {% endif %}
                         </a>
                         <a href="{{ url_for('res.resenhado', id=review.id) }}">
-                            {% if spotify.name|length > 29 %}
-                                <h6>{{ spotify.name[0:28] }}...</h6>
+                            {% if spotify.name|length > 26 %}
+                                <h6>{{ spotify.name[0:26] }}...</h6>
                             {% else %}
                                 <h6>{{ spotify.name }}</h6>
                             {% endif %}
@@ -89,7 +93,11 @@
                             {% endif %}
                         </a>
                         <a href="{{ url_for('res.resenhado', id=review.id) }}">
-                            <h6>{{ spotify.name }}</h6>
+                            {% if spotify.name|length > 26 %}
+                                <h6>{{ spotify.name[0:26] }}...</h6>
+                            {% else %}
+                                <h6>{{ spotify.name }}</h6>
+                            {% endif %}
                             {% for user in users %}
                             {% if user.id == review.author_id %}
                             <p>por: {{ user.name }} {{ user.surname }}</p>
@@ -121,7 +129,11 @@
                             {% endif %}
                         </a>
                         <a href="{{ url_for('res.resenhado', id=review.id) }}">
-                            <h6>{{ spotify.name }}</h6>
+                            {% if spotify.name|length > 26 %}
+                                <h6>{{ spotify.name[0:26] }}...</h6>
+                            {% else %}
+                                <h6>{{ spotify.name }}</h6>
+                            {% endif %}
                             {% for user in users %}
                             {% if user.id == review.author_id %}
                             <p>por: {{ user.name }} {{ user.surname }}</p>
