@@ -26,14 +26,19 @@
     <meta property="fb:app_id"        content="667696240514491" />
     <meta property="og:url"           content="http://www.resenhando.co" />
     <meta property="og:type"          content="website" />
-    <meta property="og:description"   content="Resenhas de artistas e albums" />
-    <meta property="og:title"         content="resenhando.co" />
-    <meta property="og:image"         content="http://www.resenhando.co{{ url_for('static', filename='img/core-img/socialMedia.png') }}" />
 
+    {% if 'resenhado' not in request.path %}
+    <meta property="og:title"         content="resenhando.co" />
+    <meta property="og:description"   content="Resenhas de artistas e albums" />
+    <meta property="og:image"         content="http://www.resenhando.co{{ url_for('static', filename='img/core-img/socialMedia.png') }}" />
+    {% else %}
+    <meta property="og:title"         content="{{ data.nome_review }}" />
+    <meta property="og:description"   content="data.review[0:26]" />
+    <meta property="og:image"         content="{{ spotify.image }}" />
+    {% endif %}
 </head>
 
 <body>
-
     <!-- Load Facebook SDK for JavaScript -->
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
