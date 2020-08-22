@@ -22,13 +22,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='resenhado.css') }}">
 
+    <!-- Metas for Facebook -->
+    <meta property="og:url"           content="https://www.resenhando.co" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="Teste teste" />
+    <meta property="og:description"   content="Acesse resenhando.co" />
+    <meta property="og:image"         content="{{ url_for('static', filename='img/core-img/logo.png') }}" />
+
 </head>
 
 <body>
+
     <!-- Preloader -->
     <div id="preloader">
         <i class="circle-preloader"></i>
-        <img src="{{ url_for('static', filename='img/core-img/pencil.png') }}" alt="">
+        <img src="{{ url_for('static', filename='img/core-img/pencil.png') }}" alt="resenhando.co">
     </div>
     <!-- ##### Header Area Start ##### -->
     <header class="header-area">
@@ -75,7 +83,7 @@
                     <nav class="classy-navbar justify-content-between" id="deliciousNav">
                         <!-- Logo -->
                         <a class="nav-brand" href="{{ url_for('ind.home') }}">
-                            <img src="{{ url_for('static', filename='img/core-img/logo.png') }}" alt=""
+                            <img src="{{ url_for('static', filename='img/core-img/logo.png') }}" alt="Resenhando"
                                 class="logo_smartphone">
                         </a>
                         <!-- Navbar Toggler -->
@@ -90,6 +98,14 @@
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
+
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+            src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v8.0" nonce="hCHOzu9j">
+    </script>
+
+
     <!-- ##### Flask Messages start ##### -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
@@ -104,6 +120,7 @@
     {% endif %}
     {% endwith %}
     <!-- ##### Flask Messages end ##### -->
+
     <!-- Python Block -->
     {% block content %} {% endblock %}
 
