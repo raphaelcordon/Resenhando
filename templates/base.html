@@ -34,7 +34,7 @@
     {% else %}
     <meta property="og:url"           content="http://www.resenhando.co{{ request.path }}" />
     <meta property="og:title"         content="{{ data.nome_review }}" />
-    <meta property="og:description"   content="{{ data.review[0:30] }}..." />
+    <meta property="og:description"   content="{{ data.review[0:50] }}..." />
     <meta property="og:image"         content="{{ spotify.image }}" />
     {% endif %}
 </head>
