@@ -256,6 +256,9 @@ def minhas_resenhas(id):
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('log.login'))
 
+    if 'id' not in session:
+        session['id'] = ''
+
     reviews = ResenhaRepository().FindAuthorById(id)
     if not reviews:
 

@@ -45,6 +45,10 @@ def home():
 
 @ind.route('/everything')
 def everything():
+
+    if 'id' not in session:
+        session['id'] = ''
+
     spotifyArtist = []
     spotifyAlbum = []
     spotifyTrack = []
