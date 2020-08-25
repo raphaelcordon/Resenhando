@@ -74,6 +74,14 @@
     vertical-align: top;
 }
 
+.socialMediaResenhado {
+
+}
+
+.socialMediaResenhado:hover {
+    color: rgb(1, 104, 1)
+}
+
 .sobre_list {
     color: grey;
     font-style: italic;
