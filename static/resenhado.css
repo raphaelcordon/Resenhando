@@ -197,12 +197,12 @@ footer {
 
 .initiallyHidden { display: none; }
 
-.tooltip {
+.custom-tooltip {
   position: relative;
   display: inline-block;
 }
 
-.tooltip .tooltiptext {
+.custom-tooltip .custom-tooltiptext {
   visibility: hidden;
   width: 140px;
   background-color: #555;
@@ -219,7 +219,7 @@ footer {
   transition: opacity 0.3s;
 }
 
-.tooltip .tooltiptext::after {
+.custom-tooltip .custom-tooltiptext::after {
   content: "";
   position: absolute;
   top: 100%;
@@ -230,7 +230,7 @@ footer {
   border-color: #555 transparent transparent transparent;
 }
 
-.tooltip:hover .tooltiptext {
+.custom-tooltip:hover .custom-tooltiptext {
   visibility: visible;
   opacity: 1;
 }

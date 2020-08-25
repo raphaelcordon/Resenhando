@@ -11,15 +11,16 @@
                 <tr>
                     <td>
                         {% if session.id == data.author_id %}
-                            <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt="Você não pode curtir a sua própria resenha">
+                        <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}"
+                            alt="Você não pode curtir a sua própria resenha">
                         {% else %}
-                            {% if PNG == 'unclick' %}
-                            <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
-                                <img src="{{ url_for('static', filename='img/core-img/like_click.png') }}" alt=""></a>
-                            {% else %}
-                            <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
-                                <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt=""></a>
-                            {% endif %}
+                        {% if PNG == 'unclick' %}
+                        <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
+                            <img src="{{ url_for('static', filename='img/core-img/like_click.png') }}" alt=""></a>
+                        {% else %}
+                        <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
+                            <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt=""></a>
+                        {% endif %}
                         {% endif %}
                     </td>
                     <td>
@@ -58,27 +59,27 @@
                     {% endif %}
                 </tr>
                 {% elif data.tipo_review == 'playlist' %}
-                    <tr>
-                        <td class="resenha_titles">Nome:</td>
-                        <td class="resenha_item">{{ spotify.name }}</td>
-                    </tr>
+                <tr>
+                    <td class="resenha_titles">Nome:</td>
+                    <td class="resenha_item">{{ spotify.name }}</td>
+                </tr>
                 {% else %}
-                    <tr>
-                        <td class="resenha_titles">Banda / Artista:</td>
-                        <td class="resenha_item">{{ spotify.name }}</td>
-                    </tr>
+                <tr>
+                    <td class="resenha_titles">Banda / Artista:</td>
+                    <td class="resenha_item">{{ spotify.name }}</td>
+                </tr>
                 {% endif %}
                 {% if data.tipo_review == 'track' %}
-                    <tr>
-                        <td class="resenha_titles">Música:</td>
-                        <td class="resenha_item">{{ spotify.name }}</td>
-                    </tr>
+                <tr>
+                    <td class="resenha_titles">Música:</td>
+                    <td class="resenha_item">{{ spotify.name }}</td>
+                </tr>
                 {% endif %}
                 {% if data.tipo_review == 'album' or data.tipo_review == 'track' %}
-                    <tr>
-                        <td class="resenha_titles">Release:</td>
-                        <td class="resenha_item">{{ spotify.releaseDate }}</td>
-                    </tr>
+                <tr>
+                    <td class="resenha_titles">Release:</td>
+                    <td class="resenha_item">{{ spotify.releaseDate }}</td>
+                </tr>
                 {% endif %}
                 <tr>
                     <td class="resenha_titles">Sobre:</td>
@@ -116,10 +117,10 @@
                     {% if spotify.genres|length > 0 %}
                     <td class="resenha_titles">Gêneros:</td>
                     <td class="resenha_item">
-                    {% for item in spotify.genres %}
+                        {% for item in spotify.genres %}
                         {{ item }} |
-                    {% endfor %}
-                    {% endif %}
+                        {% endfor %}
+                        {% endif %}
                     </td>
                 </tr>
 
@@ -127,24 +128,26 @@
                     <td colspan="2">
                         <!-- FB share button code -->
                         <div class="fb-share-button" data-href="http://www.resenhando.co/resenhado/{{ data.id }}/"
-                             data-layout="button" data-size="small">
+                            data-layout="button" data-size="small">
                             <a target="_blank"
-                               href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.resenhando.co%2Fresenhado%2F{{ data.id }}%2F&amp;src=sdkpreparse"
-                               class="fb-xfbml-parse-ignore">Compartilhar</a>
-                        </div>
+                                href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.resenhando.co%2Fresenhado%2F{{ data.id }}%2F&amp;src=sdkpreparse"
+                                class="fb-xfbml-parse-ignore">Compartilhar</a>
+                        </div>&nbsp;<b>|</b>&nbsp;
 
                         <!-- WhatsApp Share Button -->
-                        <a href="whatsapp://send?text=http://www.resenhando.co/resenhado/{{ data.id }}/" data-action="share/whatsapp/share">Whatsapp</a>
+                        <a href="whatsapp://send?text=http://www.resenhando.co/resenhado/{{ data.id }}/"
+                            data-action="share/whatsapp/share">Whatsapp</a>&nbsp;<b>|</b>&nbsp;
 
                         <!-- Copy to clipboard -->
                         <input type="hidden" value="http://www.resenhando.co/resenhado/{{ data.id }}/" id="myInput">
 
-                        <div>
-                            <span onclick="myFunction()" onmouseover="outFunc()">
-                                <a id="popoverData" href="#" data-content="Copiar link da resenha"
-                                rel="popover" data-placement="bottom" data-trigger="hover">Copiar link</a>
-                            </span>
+                        <div class="custom-tooltip">
+                            <a href="javascript:void(0);" id="btnCopyLink">
+                                <span class="custom-tooltiptext" id="myTooltip">Copiar link da resenha</span>
+                                Copiar Link
+                            </a>
                         </div>
+
                     </td>
                 </tr>
             </table>

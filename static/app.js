@@ -12,8 +12,8 @@ $('.delete').click(function () {
 });
 
 // Artist
-$(document).ready(function(){
-  $("#buttonArtist").click(function(){
+$(document).ready(function () {
+  $("#buttonArtist").click(function () {
 
     $(".initiallyHidden").hide(20);
     $("#formArtist").toggle(400);
@@ -21,8 +21,8 @@ $(document).ready(function(){
 });
 
 // Album
-$(document).ready(function(){
-  $("#buttonAlbum").click(function(){
+$(document).ready(function () {
+  $("#buttonAlbum").click(function () {
 
     $(".initiallyHidden").hide(20);
     $("#formAlbum").toggle(400);
@@ -30,8 +30,8 @@ $(document).ready(function(){
 });
 
 // Track
-$(document).ready(function(){
-  $("#buttonTrack").click(function(){
+$(document).ready(function () {
+  $("#buttonTrack").click(function () {
 
     $(".initiallyHidden").hide(20);
     $("#formTrack").toggle(400);
@@ -39,8 +39,8 @@ $(document).ready(function(){
 });
 
 // Playlist
-$(document).ready(function(){
-  $("#buttonPlaylist").click(function(){
+$(document).ready(function () {
+  $("#buttonPlaylist").click(function () {
 
     $(".initiallyHidden").hide(20);
     $("#formPlaylist").toggle(400);
@@ -48,18 +48,22 @@ $(document).ready(function(){
 });
 
 
-// Copy Address
-function myFunction() {
- var tempInput = document.createElement("input");
+// Copy URL
+$(document).ready(function () {
+
+  $("#btnCopyLink").click(function () {
+    var tempInput = document.createElement("input");
     tempInput.style = "position: absolute; left: -1000px; top: -1000px";
-    tempInput.value = document.getElementById("myInput").value;
+    tempInput.value = $("#myInput").val();
     document.body.appendChild(tempInput);
     tempInput.select();
     document.execCommand("copy");
     document.body.removeChild(tempInput);
-}
+    $("#myTooltip").html("Link copiado");
+  });
 
-function outFunc(){
-    $('#popoverData').popover();
-    $('#popoverOption').popover({ trigger: "hover" });
-}
+  $("#btnCopyLink").mouseover(function () {
+    $("#myTooltip").html("Copiar Link");
+  });
+
+});
