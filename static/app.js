@@ -46,3 +46,20 @@ $(document).ready(function(){
     $("#formPlaylist").toggle(400);
   });
 });
+
+
+// Copy Address
+function myFunction() {
+ var tempInput = document.createElement("input");
+    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+    tempInput.value = document.getElementById("myInput").value;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+}
+
+function outFunc(){
+    $('#popoverData').popover();
+    $('#popoverOption').popover({ trigger: "hover" });
+}

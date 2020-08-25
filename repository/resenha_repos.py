@@ -44,6 +44,16 @@ class ResenhaRepository:
         finally:
             db.close()
 
+
+    def FindAuthorByNameSurname(self, name, surname):
+        db = PostgreDB()
+        try:
+            return db.query(f"SELECT id FROM public.users where name = '{name}' and surname = '{surname}'")
+        except Exception as exp:
+            print(exp)
+        finally:
+            db.close()
+
     # <- ID finder to redirect to Edit page ->
     def FindAuthorById(self, id):
         db = PostgreDB()

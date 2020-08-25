@@ -132,6 +132,19 @@
                                href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.resenhando.co%2Fresenhado%2F{{ data.id }}%2F&amp;src=sdkpreparse"
                                class="fb-xfbml-parse-ignore">Compartilhar</a>
                         </div>
+
+                        <!-- WhatsApp Share Button -->
+                        <a href="whatsapp://send?text=http://www.resenhando.co/resenhado/{{ data.id }}/" data-action="share/whatsapp/share">Whatsapp</a>
+
+                        <!-- Copy to clipboard -->
+                        <input type="hidden" value="http://www.resenhando.co/resenhado/{{ data.id }}/" id="myInput">
+
+                        <div>
+                            <span onclick="myFunction()" onmouseover="outFunc()">
+                                <a id="popoverData" href="#" data-content="Copiar link da resenha"
+                                rel="popover" data-placement="bottom" data-trigger="hover">Copiar link</a>
+                            </span>
+                        </div>
                     </td>
                 </tr>
             </table>
