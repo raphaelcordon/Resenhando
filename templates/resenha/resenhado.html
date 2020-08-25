@@ -127,24 +127,24 @@
                 <tr>
                     <td colspan="2">
                         <!-- FB share button code -->
-                        <div class="fb-share-button" data-href="http://www.resenhando.co/resenhado/{{ data.id }}/"
-                            data-layout="button" data-size="small">
-                            <a target="_blank"
-                                href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.resenhando.co%2Fresenhado%2F{{ data.id }}%2F&amp;src=sdkpreparse"
-                                class="fb-xfbml-parse-ignore">Compartilhar</a>
-                        </div>&nbsp;<b>|</b>&nbsp;
+                       <i class="fab fa-facebook"></i><a target="_blank"
+                         href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.resenhando.co%2Fresenhado%2F{{ data.id }}%2F&amp;src=sdkpreparse"
+                         class="fb-xfbml-parse-ignore"> Facebook</a>
+                        &nbsp;<b>|</b>&nbsp;
 
                         <!-- WhatsApp Share Button -->
-                        <a href="whatsapp://send?text=http://www.resenhando.co/resenhado/{{ data.id }}/"
-                            data-action="share/whatsapp/share">Whatsapp</a>&nbsp;<b>|</b>&nbsp;
+                        <i class="fab fa-whatsapp"> </i><a href="whatsapp://send?text=http://www.resenhando.co/resenhado/{{ data.id }}/"
+                            data-action="share/whatsapp/share"> Whatsapp</a>&nbsp;<b>|</b>&nbsp;
 
                         <!-- Copy to clipboard -->
                         <input type="hidden" value="http://www.resenhando.co/resenhado/{{ data.id }}/" id="myInput">
 
                         <div class="custom-tooltip">
+                            <span class="glyphicon glyphicon-link"></span>
                             <a href="javascript:void(0);" id="btnCopyLink">
-                                <span class="custom-tooltiptext" id="myTooltip">Copiar link da resenha</span>
-                                Copiar Link
+                                <span class="custom-tooltiptext" id="myTooltip">
+                                    Copiar link</span>
+                                <i class="fas fa-link"></i> Copiar Link
                             </a>
                         </div>
 

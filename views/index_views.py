@@ -17,10 +17,10 @@ def index():
     spotifyPlaylist = []
 
     users = UsersRepository().List()
-    reviewsArtist = ResenhaRepository().List('artista', 5)
-    reviewsAlbum = ResenhaRepository().List('album', 5)
-    reviewsTrack = ResenhaRepository().List('track', 5)
-    reviewsPlaylist = ResenhaRepository().List('playlist', 5)
+    reviewsArtist = ResenhaRepository().List('artista', 6)
+    reviewsAlbum = ResenhaRepository().List('album', 6)
+    reviewsTrack = ResenhaRepository().List('track', 6)
+    reviewsPlaylist = ResenhaRepository().List('playlist', 6)
     for item in reviewsArtist:
         spotifyArtist.append(SpotifyGetOneArtist(item.spotify_id).oneArtist)
     for item in reviewsAlbum:
