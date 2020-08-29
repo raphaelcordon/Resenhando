@@ -11,6 +11,8 @@
     padding: 1.5%
 }
 
+.modal { background: rgba(000, 000, 000, 0.8); min-height:1000000px; }
+
 .login button {
     padding: 0.8% 2%;
     margin: 0 1%;
@@ -57,7 +59,6 @@
     -ms-flex-wrap:nowrap;
     flex-wrap:nowrap;
     min-width: 20%;
-
 }
 
 .resenha_item {
@@ -75,7 +76,6 @@
 }
 
 .socialMediaResenhado {
-
 }
 
 .socialMediaResenhado:hover {
@@ -167,41 +167,41 @@ footer {
     border: none;
   }
   
-  .dropdown_rightalign {
+    .dropdown_rightalign {
     right: 7%;
     position: absolute;
     display: inline-block;
-  }
+    }
 
-  .dropdown_position {
+    .dropdown_position {
     display: inline-block;
-  }
+    }
 
-  .dropdown {
+    .dropdown {
     display: inline-block;
-  }
-  
-  .dropdown-content {
+    }
+
+    .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
     min-width: 125px;
     box-shadow: 0px 8px 10px 0px rgba(0,0,0,0.2);
     z-index: 1;
-  }
-  
-  .dropdown-content a {
+    }
+
+    .dropdown-content a {
     color: rgb(29, 29, 29);
     padding: 5px 5px;
     text-decoration: none;
     display: block;
-  }
-  
-  .dropdown-content a:hover {background-color: #ddd;}
-  
-  .dropdown:hover .dropdown-content {display: block;}
-  
-  .dropdown:hover .dropbtn {background-color: #ddd}
+    }
+
+    .dropdown-content a:hover {background-color: #ddd;}
+
+    .dropdown:hover .dropdown-content {display: block;}
+
+    .dropdown:hover .dropbtn {background-color: #ddd}
 
 .initiallyHidden { display: none; }
 
@@ -283,6 +283,10 @@ footer {
     .resenha_smartphone {
         padding: 5%;
         display: inline;
+    }
+    .logo_smartphone {
+        width: 65% !important;
+        height: 65% !important;
     }
 
 }

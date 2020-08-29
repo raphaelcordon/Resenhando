@@ -59,61 +59,9 @@
     </div>
     <!-- ##### Header Area Start ##### -->
     <header class="header-area">
-        <!-- Top Header Area -->
-        <div class="top-header-area">
-            <div class="container h-100">
-                <div class="row h-100 align-items-center justify-content-between">
-                    <!-- Breaking News -->
-                    <div class="col-12 col-sm-6">
-                        <div class="breaking-news">
-                            <div id="breakingNewsTicker" class="ticker">
-                                <ul>
-                                    <li><font color="grey">Resenhas de músicas</font></li>
-                                    <li><font color="grey">Escreva uma resenha</font></li>
-                                    <li><font color="grey">Ouça a playlist baseada nas resenhas!</font></li>
-                                    <li><font color="grey">Comenta e curta as resenhas</font></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Login Area -->
-                    <div class="col-12 col-sm-6">
-                        <div class="login">
-                            {% if session['id'] == '' %}
-                            <div class="btn" style="padding-right: 0;">
-                                <a href="{{ url_for('log.login') }}">Fazer login | Cadastrar-se</a></div>
-                            {% else %}
-                            <div class="btn" style="padding-right: 0;">
-                                <a id="editAccount" href="{{ url_for('use.editAccount') }}">
-                                    <button type="button" class="btn btn-link logout">{{ session['name'] }} {{ session['surname'] }}</button></a></div>
-                            <div class="btn" style="padding-right: 0;">| <a id="logout" href="{{ url_for('log.logout') }}">
-                                <button type="button" class="btn btn-link logout">Logout</button></a></div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Navbar Area -->
         <div class="delicious-main-menu">
-            <div class="classy-nav-container breakpoint-off">
-                <div class="container">
-                    <!-- Menu -->
-                    <nav class="classy-navbar justify-content-between" id="deliciousNav">
-                        <!-- Logo -->
-                        <a class="nav-brand" href="{{ url_for('ind.home') }}">
-                            <img src="{{ url_for('static', filename='img/core-img/logo.png') }}" alt="Resenhando"
-                                class="logo_smartphone">
-                        </a>
-                        <!-- Navbar Toggler -->
-                         <div class="classy-navbar-toggler">
-                            <span class="navbarToggler"><span></span><span></span><span></span></span>
-                        </div>
-
-                        {% include 'partials/mainMenu.html' %}
-                    </nav>
-                </div>
-            </div>
+            <!-- Main Menu -->
+            {% include 'partials/mainMenu.html' %}
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
@@ -144,7 +92,7 @@
     <script src="{{ url_for('static', filename='js/jquery/jquery-2.2.4.min.js') }}"></script>
     <!-- Popper js -->
     <script src="{{ url_for('static', filename='js/bootstrap/popper.min.js') }}"></script>
-    <!-- Bootstrap js -->
+    <!-- Bootstrap js 4.5.2 -->
     <script src="{{ url_for('static', filename='js/bootstrap/bootstrap.min.js') }}"></script>
     <!-- Bootbox -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
