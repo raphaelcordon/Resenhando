@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 <!-- ##### Main Area Start ##### -->
-<main class="container">
+<main class="container reShapeIndex">
     <section class="poster_more_details">
         <div>
-            <p class="resenha_titles">Resenha escrita em: {{ date }}</p>
-            <p class="resenha_titles">Autor: {{ user_author.name }} {{ user_author.surname }}</p>
+            <p class="resenha_titles pl-1">Resenha escrita em: {{ date }}</p>
+            <p class="resenha_titles pl-1">Autor: {{ user_author.name }} {{ user_author.surname }}</p>
             <!-- ## like/deslike buttons ## -->
             <table class="like">
                 <tr>
@@ -31,27 +31,26 @@
                     <td></td>
                 </tr>
             </table>
+
+            <p class="font-weight-bolder bg-secondary text-white pt-1 pb-1 text-center">{{ data.nome_review }}</p>
+
             <div class="poster_image">
                 {% if spotify.image == None %}
-                <img src="/static/img/bg-img/No-Image-Available.png" alt="">
+                <img class="imageResenhadoSmartphone" src="/static/img/bg-img/No-Image-Available.png" alt="">
                 {% else %}
-                <img src="{{ spotify.image }}" alt="">
+                <img class="imageResenhadoSmartphone" src="{{ spotify.image }}" alt="{{ spotify.name }}">
                 {% endif %}
             </div>
             <!-- ##### Table Resenha Start ##### -->
             <table class="table_poster">
-                <tr>
-                    <td colspan="2" class="resenha_titles">{{ data.nome_review }}</td>
-                </tr>
-
                 <!-- # Defining name by the type of review # -->
                 {% if data.tipo_review == 'album' or data.tipo_review == 'track' %}
                 <tr>
-                    <td class="resenha_titles">Artista:</td>
+                    <td class="resenha_titles pl-1">Artista:</td>
                     <td class="resenha_item">{{ spotify.artistName }}</td>
                 </tr>
                 <tr>
-                    <td class="resenha_titles">Album:</td>
+                    <td class="resenha_titles pl-1">Album:</td>
                     {% if data.tipo_review == 'track' %}
                     <td class="resenha_item">{{ spotify.albumName }}</td>
                     {% else %}
@@ -60,29 +59,29 @@
                 </tr>
                 {% elif data.tipo_review == 'playlist' %}
                 <tr>
-                    <td class="resenha_titles">Nome:</td>
+                    <td class="resenha_titles pl-1">Nome:</td>
                     <td class="resenha_item">{{ spotify.name }}</td>
                 </tr>
                 {% else %}
                 <tr>
-                    <td class="resenha_titles">Banda / Artista:</td>
+                    <td class="resenha_titles pl-1">Banda / Artista:</td>
                     <td class="resenha_item">{{ spotify.name }}</td>
                 </tr>
                 {% endif %}
                 {% if data.tipo_review == 'track' %}
                 <tr>
-                    <td class="resenha_titles">Música:</td>
+                    <td class="resenha_titles pl-1">Música:</td>
                     <td class="resenha_item">{{ spotify.name }}</td>
                 </tr>
                 {% endif %}
                 {% if data.tipo_review == 'album' or data.tipo_review == 'track' %}
                 <tr>
-                    <td class="resenha_titles">Release:</td>
+                    <td class="resenha_titles pl-1">Release:</td>
                     <td class="resenha_item">{{ spotify.releaseDate }}</td>
                 </tr>
                 {% endif %}
                 <tr>
-                    <td class="resenha_titles">Sobre:</td>
+                    <td class="resenha_titles pl-1">Sobre:</td>
                     {% if data.tipo_review == 'album' %}
                     <td class="resenha_item">um ALBUM completo</td>
                     {% elif data.tipo_review == 'artista' %}
@@ -94,7 +93,7 @@
                     {% endif %}
                 </tr>
                 <tr>
-                    <td class="resenha_titles">Resenha:</td>
+                    <td class="resenha_titles pl-1">Resenha:</td>
                     {% autoescape false %}
                     <td class="resenha_item">{{ data.review|replace('\n', "<br>") }}</td>
                     {% endautoescape %}
@@ -115,7 +114,7 @@
                 {% endif %}
                 <tr>
                     {% if spotify.genres|length > 0 %}
-                    <td class="resenha_titles">Gêneros:</td>
+                    <td class="resenha_titles pl-1">Gêneros:</td>
                     <td class="resenha_item">
                         {% for item in spotify.genres %}
                         {{ item }} |
@@ -125,7 +124,7 @@
                 </tr>
 
                 <tr>
-                    <td colspan="2">
+                    <td colspan="2" class="pl-2">
                         <!-- FB share button code -->
                        <i class="fab fa-facebook"></i><a target="_blank"
                          href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.resenhando.co%2Fresenhado%2F{{ data.id }}%2F&amp;src=sdkpreparse"
@@ -153,11 +152,7 @@
             </table>
             <!-- ##### Table Resenha End ##### -->
         </div>
-
     </section>
-
-
-
 </main>
 <!-- ##### Main Area End ##### -->
 <section class="comments">
