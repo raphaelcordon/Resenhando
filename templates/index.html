@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 <!-- ##### 'Resenhas' Area Start ##### -->
-<section class="pt-5">
-    <div class="container">
+<section class="pt-4">
+    <div class="container reShapeIndex">
 
         <!-- Ordering by ARTIST Area Beginning-->
         <p class="text-secondary">Últimas resenhas de Artistas ou Bandas</p>
@@ -10,14 +10,14 @@
             {% for review in reviewsArtist|sort(attribute='date_register', reverse=true) %}
             {% for spotify in spotifyArtist %}
             {% if review.spotify_id == spotify.id %}
-            <div class="col-12 col-sm-12 col-lg-2">
+            <div class="col-12 col-sm-4 col-lg-2">
                 <div class="single-best-receipe-area pb-2">
                     <div class="receipe-content mb-0 p-0">
                         <a href="{{ url_for('res.resenhado', id=review.id) }}">
                             {% if spotify.image == None %}
-                            <img src="../static/img/bg-img/No-Image-Available.png" alt="" width="150px" height="150px">
+                            <img class="imagesIndex" src="../static/img/bg-img/No-Image-Available.png" alt="">
                             {% else %}
-                            <img src="{{ spotify.image }}" alt="" width="150px" height="150px">
+                            <img class="imagesIndex" src="{{ spotify.image }}" alt="{{ spotify.name }}">
                             {% endif %}
                         </a>
                         <a href="{{ url_for('res.resenhado', id=review.id) }}">
@@ -46,14 +46,14 @@
             {% for review in reviewsAlbum|sort(attribute='date_register', reverse=true) %}
             {% for spotify in spotifyAlbum %}
             {% if review.spotify_id == spotify.id %}
-            <div class="col-12 col-sm-12 col-lg-2">
+            <div class="col-12 col-sm-4 col-lg-2">
                 <div class="single-best-receipe-area pb-2">
                     <div class="receipe-content mb-0 p-0">
                         <a href="{{ url_for('res.resenhado', id=review.id) }}">
                             {% if spotify.image == None %}
-                            <img src="../static/img/bg-img/No-Image-Available.png" alt="" width="150px" height="150px">
+                            <img src="../static/img/bg-img/No-Image-Available.png" alt="">
                             {% else %}
-                            <img src="{{ spotify.image }}" alt="" width="150px" height="150px">
+                            <img src="{{ spotify.image }}" alt="{{ spotify.name }}">
                             {% endif %}
                         </a>
                         <a href="{{ url_for('res.resenhado', id=review.id) }}">
@@ -82,14 +82,14 @@
             {% for review in reviewsTrack|sort(attribute='date_register', reverse=true) %}
             {% for spotify in spotifyTrack %}
             {% if review.spotify_id == spotify.id %}
-            <div class="col-12 col-sm-12 col-lg-2">
+            <div class="col-12 col-sm-4 col-lg-2">
                 <div class="single-best-receipe-area pb-2">
                     <div class="receipe-content mb-0 p-0">
                         <a href="{{ url_for('res.resenhado', id=review.id) }}">
                             {% if spotify.image == None %}
-                            <img src="../static/img/bg-img/No-Image-Available.png" alt="" width="150px" height="150px">
+                            <img src="../static/img/bg-img/No-Image-Available.png" alt="">
                             {% else %}
-                            <img src="{{ spotify.image }}" alt="" width="150px" height="150px">
+                            <img src="{{ spotify.image }}" alt="{{ spotify.name }}">
                             {% endif %}
                         </a>
                         <a href="{{ url_for('res.resenhado', id=review.id) }}">
@@ -118,14 +118,14 @@
             {% for review in reviewsPlaylist|sort(attribute='date_register', reverse=true) %}
             {% for spotify in spotifyPlaylist %}
             {% if review.spotify_id == spotify.id %}
-            <div class="col-12 col-sm-12 col-lg-2">
+            <div class="col-12 col-sm-4 col-lg-2">
                 <div class="single-best-receipe-area pb-2">
                     <div class="receipe-content mb-0 p-0">
                         <a href="{{ url_for('res.resenhado', id=review.id) }}">
                             {% if spotify.image == None %}
-                            <img src="../static/img/bg-img/No-Image-Available.png" alt="" width="150px" height="150px">
+                            <img src="../static/img/bg-img/No-Image-Available.png" alt="">
                             {% else %}
-                            <img src="{{ spotify.image }}" alt="" width="150px" height="150px">
+                            <img src="{{ spotify.image }}" alt="{{ spotify.name }}">
                             {% endif %}
                         </a>
                         <a href="{{ url_for('res.resenhado', id=review.id) }}">

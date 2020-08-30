@@ -11,6 +11,11 @@
     padding: 1.5%
 }
 
+.imagesIndex {
+    width: 150px;
+    height: 150px;
+}
+
 .modal { background: rgba(000, 000, 000, 0.8); min-height:1000000px; }
 
 .login button {
@@ -281,8 +286,23 @@ footer {
         display: inline;
     }
     .logo_smartphone {
-        width: 65% !important;
-        height: 65% !important;
+        width: 60% !important;
+        height: 60% !important;
+    }
+
+    .reShapeIndex {
+        all: unset;
+        width: 100% !important; 
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-left: auto !important;
+        padding-right: auto !important;
+    }
+    .imagesIndex {
+        all: unset;
+        object-fit:cover;
+        width: 100%;
+        height: auto;
     }
 
 }
