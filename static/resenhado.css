@@ -18,6 +18,14 @@
 
 .modal { background: rgba(000, 000, 000, 0.8); min-height:1000000px; }
 
+.navbarBackground:hover {
+    background-color: rgb(143, 143, 143);
+    color: rgb(255, 255, 255) !important;
+}
+.navbarSubMenuBackground:hover {
+    background-color: rgb(221, 221, 221)
+}
+
 .login button {
     padding: 0.8% 2%;
     margin: 0 1%;
@@ -80,10 +88,7 @@
     vertical-align: top;
 }
 
-.socialMediaResenhado {
-}
-
-.socialMediaResenhado:hover {
+.linkColor:hover{
     color: rgb(1, 104, 1)
 }
 
