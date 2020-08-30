@@ -12,8 +12,8 @@
 }
 
 .imagesIndex {
-    width: 150px;
-    height: 150px;
+    width: 150px !important;
+    height: 150px !important;
 }
 
 .modal { background: rgba(000, 000, 000, 0.8); min-height:1000000px; }
