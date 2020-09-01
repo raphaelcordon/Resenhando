@@ -34,7 +34,7 @@ def authenticate():
     password = request.form['password']
     isValidPass = sha256_crypt.verify(password, user.password)
 
-    if isValidPass == True:
+    if isValidPass:
         if user.changepass:
             return redirect(url_for('use.changePass'))
         else:
@@ -60,6 +60,7 @@ def logout():
     """
     session['id'] = ''
     session['name'] = ''
+    session['email'] = ''
     session['surname'] = ''
     session['access_level'] = ''
     session['nome_review'] = ''
