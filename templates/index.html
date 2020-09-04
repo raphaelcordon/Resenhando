@@ -9,19 +9,31 @@
 
         <!-- Main Filter -->
         {% if mainFilter == 'artist' or mainFilter == 'index' %}
+        <p class="text-secondary pl-1">Últimas resenhas de Bandas e Artistas</p>
 
-        <p class="text-secondary pl-1">Últimas resenhas de Artistas ou Bandas</p>
-        <div class="row">
-            {% for review in reviewsArtist|sort(attribute='date_register', reverse=true) %}
-            {% for spotify in spotifyArtist %}
+        <div class="index-menu-wrapper">
+            <ul class="index-menu">
+                {% for review in reviewsArtist|sort(attribute='date_register', reverse=true) %}
+                    <li class="index-item">
+                        {% for spotify in spotifyArtist %}
 
-            <!-- partials indexTiles.html -->
-            {% include 'partials/indexTiles.html' %}
+                        <!-- partials indexTiles.html -->
+                        {% include 'partials/indexTiles.html' %}
 
-            {% endfor %}
-            {% endfor %}
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="paddles">
+                <button class="left-paddle paddle hidden bg-secondary border-0">
+                    <h3 class=" text-white"><i class="fas fa-arrow-circle-left"></i></h3>
+                </button>
+                <button class="right-paddle paddle bg-secondary border-0">
+                    <h3 class=" text-white"><i class="fas fa-arrow-circle-right"></i></h3>
+                </button>
+            </div>
         </div>
-
 
         <hr>
         {% endif %}
@@ -34,16 +46,29 @@
         {% if mainFilter == 'album' or mainFilter == 'index' %}
 
         <p class="text-secondary pl-1">Últimas resenhas de Álbuns</p>
-        <div class="row">
-            {% for review in reviewsAlbum|sort(attribute='date_register', reverse=true) %}
-            {% for spotify in spotifyAlbum %}
+        <div class="index-menu-wrapper">
+            <ul class="index-menu">
+                {% for review in reviewsAlbum|sort(attribute='date_register', reverse=true) %}
+                    <li class="index-item">
+                        {% for spotify in spotifyAlbum %}
 
-            <!-- partials indexTiles.html -->
-            {% include 'partials/indexTiles.html' %}
+                        <!-- partials indexTiles.html -->
+                        {% include 'partials/indexTiles.html' %}
 
-            {% endfor %}
-            {% endfor %}
-        </div>
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="paddles">
+                <button class="left-paddle paddle hidden bg-secondary border-0">
+                    <h3 class=" text-white"><i class="fas fa-arrow-circle-left"></i></h3>
+                </button>
+                <button class="right-paddle paddle bg-secondary border-0">
+                    <h3 class=" text-white"><i class="fas fa-arrow-circle-right"></i></h3>
+                </button>
+            </div>
+            </div>
 
         <hr>
         {% endif %}
@@ -56,15 +81,28 @@
         {% if mainFilter == 'track' or mainFilter == 'index' %}
 
         <p class="text-secondary pl-1">Últimas resenhas de Músicas</p>
-        <div class="row">
-            {% for review in reviewsTrack|sort(attribute='date_register', reverse=true) %}
-            {% for spotify in spotifyTrack %}
+        <div class="index-menu-wrapper">
+            <ul class="index-menu">
+                {% for review in reviewsTrack|sort(attribute='date_register', reverse=true) %}
+                    <li class="index-item">
+                        {% for spotify in spotifyTrack %}
 
-            <!-- partials indexTiles.html -->
-            {% include 'partials/indexTiles.html' %}
+                        <!-- partials indexTiles.html -->
+                        {% include 'partials/indexTiles.html' %}
 
-            {% endfor %}
-            {% endfor %}
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="paddles">
+                <button class="left-paddle paddle hidden bg-secondary border-0">
+                    <h3 class=" text-white"><i class="fas fa-arrow-circle-left"></i></h3>
+                </button>
+                <button class="right-paddle paddle bg-secondary border-0">
+                    <h3 class=" text-white"><i class="fas fa-arrow-circle-right"></i></h3>
+                </button>
+            </div>
         </div>
 
         <hr>
@@ -77,16 +115,31 @@
         {% if mainFilter == 'playlist' or mainFilter == 'index' %}
 
         <p class="text-secondary pl-1">Últimas resenhas de Playlists</p>
-        <div class="row">
-            {% for review in reviewsPlaylist|sort(attribute='date_register', reverse=true) %}
-            {% for spotify in spotifyPlaylist %}
+        <div class="index-menu-wrapper">
+            <ul class="index-menu">
+                {% for review in reviewsPlaylist|sort(attribute='date_register', reverse=true) %}
+                    <li class="index-item">
+                        {% for spotify in spotifyPlaylist %}
 
-            <!-- partials indexTiles.html -->
-            {% include 'partials/indexTiles.html' %}
+                        <!-- partials indexTiles.html -->
+                        {% include 'partials/indexTiles.html' %}
 
-            {% endfor %}
-            {% endfor %}
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="paddles">
+                <button class="left-paddle paddle hidden bg-secondary border-0">
+                    <h3 class=" text-white"><i class="fas fa-arrow-circle-left"></i></h3>
+                </button>
+                <button class="right-paddle paddle bg-secondary border-0">
+                    <h3 class=" text-white"><i class="fas fa-arrow-circle-right"></i></h3>
+                </button>
+            </div>
         </div>
+
+        <hr>
         {% endif %}
         <!-- Ordering by PLAYLIST Area Ending-->
 

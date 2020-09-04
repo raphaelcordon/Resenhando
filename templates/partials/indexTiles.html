@@ -1,26 +1,31 @@
 {% if review.spotify_id == spotify.id %}
-    <div class="col-12 col-sm-4 col-lg-2">
-        <div class="single-best-receipe-area pb-2">
+
+        <div class="single-best-receipe-area pb-0">
             <div class="receipe-content mb-0 p-0">
                 <a href="{{ url_for('res.resenhado', id=review.id) }}">
                     {% if spotify.image == None %}
-                    <img src="../static/img/bg-img/No-Image-Available.png" alt="">
+                    <img class="indexImage border-0" src="../static/img/bg-img/No-Image-Available.png" alt="">
                     {% else %}
-                    <img src="{{ spotify.image }}" alt="{{ spotify.name }}">
+                    <img class="indexImage border-0" src="{{ spotify.image }}" alt="{{ spotify.name }}">
                     {% endif %}
                 </a>
                 <a href="{{ url_for('res.resenhado', id=review.id) }}">
                     {% if spotify.name|length > 26 %}
-                        <h6>{{ spotify.name[0:26] }}...</h6>
+                        <div class="indexReviewTitle bg-secondary text-white">{{ spotify.name[0:26] }}...</div>
                     {% else %}
-                        <h6>{{ spotify.name }}</h6>
+                        <div class="indexReviewTitle bg-secondary text-white">{{ spotify.name }}</div>
                     {% endif %}
                     {% for user in users %}
                     {% if user.id == review.author_id %}
-                    <p>por: {{ user.name }} {{ user.surname }}</p>
-                    {% endif %} {% endfor %}
                 </a>
+                    <div class="indexReviewName">&nbsp;&nbsp;por: {{ user.name }} {{ user.surname }}</div>
+
+                        {% if review.review|length > 100 %}
+                            <div class="indexReviewText">{{ review.review[0:80] }}...</div>
+                        {% else %}
+                            <div class="indexReviewText">{{ review.review }}</div>
+                        {% endif %}
+                    {% endif %} {% endfor %}
             </div>
         </div>
-    </div>
 {% endif %}

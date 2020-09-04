@@ -254,6 +254,97 @@ footer {
   opacity: 1;
 }
 
+
+/* ------------------------------------- */
+/* Horizontal Index Scrollbar Beginning */
+
+body {
+	margin: 0;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+.index-menu-wrapper {
+	position: relative;
+	max-width: 1200px;
+	height: 100%; /* hide the scroll bar */
+	margin: 0;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+.index-menu	{
+    width: 100%;
+    vertical-align: top;
+	height: auto; /* hide the scroll bar */
+	white-space: nowrap;
+	overflow-x: auto;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.index-item {
+    display: inline-block;
+    vertical-align: top;
+    width: 20%;
+    height: 100%;
+}
+
+.paddles {
+    left: 0;
+}
+.paddle {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+    width: 2em;
+    opacity: 70%;
+}
+.left-paddle {
+    left: 0;
+    z-index: 9;
+}
+.right-paddle {
+    right: 0;
+    margin: 0;
+    padding: 0;
+    z-index: 9;
+}
+.hidden {
+	display: none;
+}
+
+.indexReviewText {
+    padding: 0;
+    margin: 0;
+    font-size: 10px;
+    font-style: italic;
+    overflow-wrap: break-word;
+    white-space: normal;
+    color: rgb(150, 150, 150);
+}
+
+.indexReviewName {
+    padding: 0;
+    margin: 0;
+    overflow-wrap: break-word;
+    white-space: normal;
+    color: rgb(150, 150, 150);
+}
+
+.indexReviewTitle {
+    margin-bottom: 0 !important;
+}
+
+
+/* Horizontal Index Scrollbar Ending */
+/* --------------------------------- */
+
+
+
 /* CSS for Smartphones */
 
 @media screen and (max-width: 480px) {
@@ -315,6 +406,26 @@ footer {
     }
     .justify-content-left{
         padding-left: 12%;
+    }
+
+    /* ------------------------------------- */
+    /* Horizontal Index Scrollbar Beginning */
+
+    .index-item {
+        width: 70%;
+    }
+
+}
+
+/* CSS for Tablets */
+
+@media screen and (min-width: 481px) and (max-width: 780px) {
+
+        /* ------------------------------------- */
+    /* Horizontal Index Scrollbar Beginning */
+
+    .index-item {
+        width: 40%;
     }
 
 }
