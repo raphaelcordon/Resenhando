@@ -1,208 +1,175 @@
-// -----------------------------------------------------------------
-// Horizontal Index Scrollbar Beginning
 
-// duration of scroll animation
-var scrollDuration = 1200;
-// paddles ARTIST
-var artistLeftPaddle = document.getElementById('artistLeftPaddle');
-var artistRightPaddle = document.getElementById('artistRightPaddle');
+// --------------------------------------------------------------------------------------------------------------------
+// Common functions
+// --------------------------------------------------------------------------------------------------------------------
 
-// paddles ALBUM
-var albumLeftPaddle = document.getElementById('albumLeftPaddle');
-var albumRightPaddle = document.getElementById('albumRightPaddle');
-
-// paddles TRACK
-var trackLeftPaddle = document.getElementById('trackLeftPaddle');
-var trackRightPaddle = document.getElementById('trackRightPaddle');
-
-// paddles PLAYLIST
-var playlistLeftPaddle = document.getElementById('playlistLeftPaddle');
-var playlistRightPaddle = document.getElementById('playlistRightPaddle');
-
-
-// get items dimensions
-var itemsLength = $('.index-item').length;
-var itemSize = $('.index-item').outerWidth(true);
-// get some relevant size for the paddle triggering point
 var paddleMargin = 20;
+var scrollDuration = 1200;
 
-// get wrapper width
-var getMenuWrapperSize = function() {
-	return $('.index-menu-wrapper').outerWidth();
+var getMenuWrapperSize = function (id) {
+	return $(id).outerWidth();
 }
-var menuWrapperSize = getMenuWrapperSize();
-// the wrapper is responsive
-$(window).on('resize', function() {
-	menuWrapperSize = getMenuWrapperSize();
-});
-// size of the visible part of the menu is equal as the wrapper size
-var menuVisibleSize = menuWrapperSize;
 
-// get total width of all menu items
-var getMenuSize = function() {
-	return itemsLength * itemSize;
-};
-var menuSize = getMenuSize();
-// get how much of menu is invisible
-var menuInvisibleSize = menuSize - menuWrapperSize;
-
-// get how much have we scrolled to the left
-var getMenuPosition = function() {
-	return $('.index-menu').scrollLeft();
+var getMenuPosition = function (id) {
+	return $(id).scrollLeft();
 };
 
+var getItemsLength = function (id) {
+	return $(id).length;
+};
 
+var getItemsSize = function (id) {
+	return $(id).outerWidth(true);
+};
 
-// ----- ARTIST -----
-// finally, what happens when we are actually scrolling the menu
-$('.index-menu').on('scroll', function() {
-
-	// get how much of menu is invisible
-	menuInvisibleSize = menuSize - menuWrapperSize;
-	// get how much have we scrolled so far
-	var menuPosition = getMenuPosition();
-
-	var menuEndOffset = menuInvisibleSize - paddleMargin;
-
-	// show & hide the paddles
-	// depending on scroll position
+var showHidePaddles = function (leftPaddle, rightPaddle, menuPosition, menuEndOffset) {
 	if (menuPosition <= paddleMargin) {
-		$(artistLeftPaddle).addClass('hidden');
-		$(artistRightPaddle).removeClass('hidden');
+		leftPaddle.addClass('hidden');
+		rightPaddle.removeClass('hidden');
 	} else if (menuPosition < menuEndOffset) {
-		// show both paddles in the middle
-		$(artistLeftPaddle).removeClass('hidden');
-		$(artistRightPaddle).removeClass('hidden');
+		leftPaddle.removeClass('hidden');
+		rightPaddle.removeClass('hidden');
 	} else if (menuPosition >= menuEndOffset) {
-		$(artistLeftPaddle).removeClass('hidden');
-		$(artistRightPaddle).addClass('hidden');
+		leftPaddle.removeClass('hidden');
+		rightPaddle.addClass('hidden');
+	}
+};
+
+// --------------------------------------------------------------------------------------------------------------------
+// Artists
+// --------------------------------------------------------------------------------------------------------------------
+
+var getArtistMenuSize = function () {
+	return getItemsLength('li[id=artist-index-item]') * getItemsSize('li[id=artist-index-item]');
+};
+var artist_menu = $('#artist-index-menu');
+var artist_leftPaddle = $('#artist-left-paddle');
+var artist_rightPaddle = $('#artist-right-paddle');
+var artist_menuWrapperSize = getMenuWrapperSize('#artist-index-menu-wrapper');
+var artist_menuInvisibleSize = getArtistMenuSize() - artist_menuWrapperSize;
+
+artist_menu.on('scroll', function () {
+	artist_menuInvisibleSize = getArtistMenuSize() - artist_menuWrapperSize;
+	var menuEndOffset = artist_menuInvisibleSize - paddleMargin;
+	showHidePaddles(artist_leftPaddle, artist_rightPaddle, getMenuPosition(this), menuEndOffset);
+});
+
+artist_leftPaddle.on('click', function () {
+	artist_menu.animate({ scrollLeft: '0' }, scrollDuration);
+});
+
+artist_rightPaddle.on('click', function () {
+	artist_menu.animate({ scrollLeft: artist_menuInvisibleSize }, scrollDuration);
+});
+
+if (getItemsLength('li[id=artist-index-item]') <= 4) {
+	artist_leftPaddle.addClass('hidden');
+	artist_rightPaddle.addClass('hidden');
 }
 
+// --------------------------------------------------------------------------------------------------------------------
+// Albums
+// --------------------------------------------------------------------------------------------------------------------
+
+var getAlbumMenuSize = function () {
+	return getItemsLength('li[id=album-index-item]') * getItemsSize('li[id=album-index-item]');
+};
+var album_menu = $('#album-index-menu');
+var album_leftPaddle = $('#album-left-paddle');
+var album_rightPaddle = $('#album-right-paddle');
+var album_menuWrapperSize = getMenuWrapperSize('#album-index-menu-wrapper');
+var album_menuInvisibleSize = getAlbumMenuSize() - album_menuWrapperSize;
+
+album_menu.on('scroll', function () {
+	album_menuInvisibleSize = getAlbumMenuSize() - album_menuWrapperSize;
+	var menuEndOffset = album_menuInvisibleSize - paddleMargin;
+	showHidePaddles(album_leftPaddle, album_rightPaddle, getMenuPosition(this), menuEndOffset);
 });
 
-// scroll to left
-$(artistRightPaddle).on('click', function() {
-    $('#artist-index-menu').animate( { scrollLeft: menuInvisibleSize}, scrollDuration);
+album_leftPaddle.on('click', function () {
+	album_menu.animate({ scrollLeft: '0' }, scrollDuration);
 });
 
-// scroll to right
-$(artistLeftPaddle).on('click', function() {
-	$('#artist-index-menu').animate( { scrollLeft: '0' }, scrollDuration);
+album_rightPaddle.on('click', function () {
+	album_menu.animate({ scrollLeft: album_menuInvisibleSize }, scrollDuration);
 });
 
-
-// ----- ALBUM -----
-// finally, what happens when we are actually scrolling the menu
-$('.index-menu').on('scroll', function() {
-
-	// get how much of menu is invisible
-	menuInvisibleSize = menuSize - menuWrapperSize;
-	// get how much have we scrolled so far
-	var menuPosition = getMenuPosition();
-
-	var menuEndOffset = menuInvisibleSize - paddleMargin;
-
-	// show & hide the paddles
-	// depending on scroll position
-	if (menuPosition <= paddleMargin) {
-		$(albumLeftPaddle).addClass('hidden');
-		$(albumRightPaddle).removeClass('hidden');
-	} else if (menuPosition < menuEndOffset) {
-		// show both paddles in the middle
-		$(albumLeftPaddle).removeClass('hidden');
-		$(albumRightPaddle).removeClass('hidden');
-	} else if (menuPosition >= menuEndOffset) {
-		$(albumLeftPaddle).removeClass('hidden');
-		$(albumRightPaddle).addClass('hidden');
+if (getItemsLength('li[id=album-index-item]') <= 4) {
+	album_leftPaddle.addClass('hidden');
+	album_rightPaddle.addClass('hidden');
 }
 
+// --------------------------------------------------------------------------------------------------------------------
+// Tracks
+// --------------------------------------------------------------------------------------------------------------------
+
+var getTrackMenuSize = function () {
+	return getItemsLength('li[id=track-index-item]') * getItemsSize('li[id=track-index-item]');
+};
+var track_menu = $('#track-index-menu');
+var track_leftPaddle = $('#track-left-paddle');
+var track_rightPaddle = $('#track-right-paddle');
+var track_menuWrapperSize = getMenuWrapperSize('#track-index-menu-wrapper');
+var track_menuInvisibleSize = getTrackMenuSize() - track_menuWrapperSize;
+
+track_menu.on('scroll', function () {
+	track_menuInvisibleSize = getTrackMenuSize() - track_menuWrapperSize;
+	var menuEndOffset = track_menuInvisibleSize - paddleMargin;
+	showHidePaddles(track_leftPaddle, track_rightPaddle, getMenuPosition(this), menuEndOffset);
 });
 
-
-// scroll to left
-$(albumRightPaddle).on('click', function() {
-    $('#album-index-menu').animate( { scrollLeft: menuInvisibleSize}, scrollDuration);
+track_leftPaddle.on('click', function () {
+	track_menu.animate({ scrollLeft: '0' }, scrollDuration);
 });
 
-// scroll to right
-$(albumLeftPaddle).on('click', function() {
-	$('#album-index-menu').animate( { scrollLeft: '0' }, scrollDuration);
+track_rightPaddle.on('click', function () {
+	track_menu.animate({ scrollLeft: track_menuInvisibleSize }, scrollDuration);
 });
 
-
-// ----- TRACK -----
-// finally, what happens when we are actually scrolling the menu
-$('.index-menu').on('scroll', function() {
-
-	// get how much of menu is invisible
-	menuInvisibleSize = menuSize - menuWrapperSize;
-	// get how much have we scrolled so far
-	var menuPosition = getMenuPosition();
-
-	var menuEndOffset = menuInvisibleSize - paddleMargin;
-
-	// show & hide the paddles
-	// depending on scroll position
-	if (menuPosition <= paddleMargin) {
-		$(trackLeftPaddle).addClass('hidden');
-		$(trackRightPaddle).removeClass('hidden');
-	} else if (menuPosition < menuEndOffset) {
-		// show both paddles in the middle
-		$(trackLeftPaddle).removeClass('hidden');
-		$(trackRightPaddle).removeClass('hidden');
-	} else if (menuPosition >= menuEndOffset) {
-		$(trackLeftPaddle).removeClass('hidden');
-		$(trackRightPaddle).addClass('hidden');
+if (getItemsLength('li[id=track-index-item]') <= 4) {
+	track_leftPaddle.addClass('hidden');
+	track_rightPaddle.addClass('hidden');
 }
 
+// --------------------------------------------------------------------------------------------------------------------
+// Playlist
+// --------------------------------------------------------------------------------------------------------------------
+
+var getPlaylistMenuSize = function () {
+	return getItemsLength('li[id=playlist-index-item]') * getItemsSize('li[id=playlist-index-item]');
+};
+var playlist_menu = $('#playlist-index-menu');
+var playlist_leftPaddle = $('#playlist-left-paddle');
+var playlist_rightPaddle = $('#playlist-right-paddle');
+var playlist_menuWrapperSize = getMenuWrapperSize('#playlist-index-menu-wrapper');
+var playlist_menuInvisibleSize = getPlaylistMenuSize() - playlist_menuWrapperSize;
+
+playlist_menu.on('scroll', function () {
+	playlist_menuInvisibleSize = getPlaylistMenuSize() - playlist_menuWrapperSize;
+	var menuEndOffset = playlist_menuInvisibleSize - paddleMargin;
+	showHidePaddles(playlist_leftPaddle, playlist_rightPaddle, getMenuPosition(this), menuEndOffset);
 });
 
-
-// scroll to left
-$(trackRightPaddle).on('click', function() {
-    $('#track-index-menu').animate( { scrollLeft: menuInvisibleSize}, scrollDuration);
+playlist_leftPaddle.on('click', function () {
+	playlist_menu.animate({ scrollLeft: '0' }, scrollDuration);
 });
 
-// scroll to right
-$(trackLeftPaddle).on('click', function() {
-	$('#track-index-menu').animate( { scrollLeft: '0' }, scrollDuration);
+playlist_rightPaddle.on('click', function () {
+	playlist_menu.animate({ scrollLeft: playlist_menuInvisibleSize }, scrollDuration);
 });
 
-
-// ----- PLAYLIST -----
-// finally, what happens when we are actually scrolling the menu
-$('.index-menu').on('scroll', function() {
-
-	// get how much of menu is invisible
-	menuInvisibleSize = menuSize - menuWrapperSize;
-	// get how much have we scrolled so far
-	var menuPosition = getMenuPosition();
-
-	var menuEndOffset = menuInvisibleSize - paddleMargin;
-
-	// show & hide the paddles
-	// depending on scroll position
-	if (menuPosition <= paddleMargin) {
-		$(playlistLeftPaddle).addClass('hidden');
-		$(playlistRightPaddle).removeClass('hidden');
-	} else if (menuPosition < menuEndOffset) {
-		// show both paddles in the middle
-		$(playlistLeftPaddle).removeClass('hidden');
-		$(playlistRightPaddle).removeClass('hidden');
-	} else if (menuPosition >= menuEndOffset) {
-		$(playlistLeftPaddle).removeClass('hidden');
-		$(playlistRightPaddle).addClass('hidden');
+if (getItemsLength('li[id=playlist-index-item]') <= 4) {
+	playlist_leftPaddle.addClass('hidden');
+	playlist_rightPaddle.addClass('hidden');
 }
 
-});
+// --------------------------------------------------------------------------------------------------------------------
+// On Resize 
+// --------------------------------------------------------------------------------------------------------------------
 
-
-// scroll to left
-$(playlistRightPaddle).on('click', function() {
-    $('#playlist-index-menu').animate( { scrollLeft: menuInvisibleSize}, scrollDuration);
-});
-
-// scroll to right
-$(playlistLeftPaddle).on('click', function() {
-	$('#playlist-index-menu').animate( { scrollLeft: '0' }, scrollDuration);
+$(window).on('resize', function () {
+	artist_menuWrapperSize = getMenuWrapperSize('#artist-index-menu-wrapper');
+	album_menuWrapperSize = getMenuWrapperSize('#album-index-menu-wrapper');
+	track_menuWrapperSize = getMenuWrapperSize('#track-index-menu-wrapper');
+	playlist_menuWrapperSize = getMenuWrapperSize('#playlist-index-menu-wrapper');
 });

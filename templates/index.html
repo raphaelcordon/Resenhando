@@ -24,10 +24,10 @@
                 </ul>
 
                 <div class="paddles">
-                    <button class="left-paddle paddle hidden bg-secondary border-0" id="artistLeftPaddle">
+                    <button class="left-paddle paddle hidden bg-secondary border-0" id="artist-left-paddle">
                         <h3 class=" text-white"><i class="fas fa-arrow-circle-left"></i></h3>
                     </button>
-                    <button class="right-paddle paddle bg-secondary border-0" id="artistRightPaddle">
+                    <button class="right-paddle paddle bg-secondary border-0" id="artist-right-paddle">
                         <h3 class=" text-white"><i class="fas fa-arrow-circle-right"></i></h3>
                     </button>
                 </div>
@@ -44,7 +44,7 @@
         {% if mainFilter == 'album' or mainFilter == 'index' %}
 
         <p class="text-secondary pl-1">Últimas resenhas de Álbuns</p>
-        <div class="index-menu-wrapper">
+        <div class="index-menu-wrapper" id="album-index-menu-wrapper">
             <ul class="index-menu" id="album-index-menu">
                 {% for review in reviewsAlbum|sort(attribute='date_register', reverse=true) %}
                     <li class="index-item" id="album-index-item">
@@ -59,10 +59,10 @@
             </ul>
 
             <div class="paddles">
-                <button class="left-paddle paddle hidden bg-secondary border-0" id="albumLeftPaddle">
+                <button class="left-paddle paddle hidden bg-secondary border-0" id="album-left-paddle">
                     <h3 class=" text-white"><i class="fas fa-arrow-circle-left"></i></h3>
                 </button>
-                <button class="right-paddle paddle bg-secondary border-0" id="albumRightPaddle">
+                <button class="right-paddle paddle bg-secondary border-0" id="album-right-paddle">
                     <h3 class=" text-white"><i class="fas fa-arrow-circle-right"></i></h3>
                 </button>
             </div>
@@ -79,7 +79,7 @@
         {% if mainFilter == 'track' or mainFilter == 'index' %}
 
         <p class="text-secondary pl-1">Últimas resenhas de Músicas</p>
-        <div class="index-menu-wrapper">
+        <div class="index-menu-wrapper" id="track-index-menu-wrapper">
             <ul class="index-menu" id="track-index-menu">
                 {% for review in reviewsTrack|sort(attribute='date_register', reverse=true) %}
                     <li class="index-item" id="track-index-item">
@@ -94,10 +94,10 @@
             </ul>
 
             <div class="paddles">
-                <button class="left-paddle paddle hidden bg-secondary border-0" id="trackLeftPaddle">
+                <button class="left-paddle paddle hidden bg-secondary border-0" id="track-left-paddle">
                     <h3 class=" text-white"><i class="fas fa-arrow-circle-left"></i></h3>
                 </button>
-                <button class="right-paddle paddle bg-secondary border-0" id="trackRightPaddle">
+                <button class="right-paddle paddle bg-secondary border-0" id="track-right-paddle">
                     <h3 class=" text-white"><i class="fas fa-arrow-circle-right"></i></h3>
                 </button>
             </div>
@@ -113,7 +113,7 @@
         {% if mainFilter == 'playlist' or mainFilter == 'index' %}
 
         <p class="text-secondary pl-1">Últimas resenhas de Playlists</p>
-        <div class="index-menu-wrapper">
+        <div class="index-menu-wrapper" id="playlist-index-menu-wrapper">
             <ul class="index-menu" id="playlist-index-menu">
                 {% for review in reviewsPlaylist|sort(attribute='date_register', reverse=true) %}
                     <li class="index-item" id="playlist-index-item">
@@ -128,10 +128,10 @@
             </ul>
 
             <div class="paddles">
-                <button class="left-paddle paddle hidden bg-secondary border-0" id="playlistLeftPaddle">
+                <button class="left-paddle paddle hidden bg-secondary border-0" id="playlist-left-paddle">
                     <h3 class=" text-white"><i class="fas fa-arrow-circle-left"></i></h3>
                 </button>
-                <button class="right-paddle paddle bg-secondary border-0" id="playlistRightPaddle">
+                <button class="right-paddle paddle bg-secondary border-0" id="playlist-right-paddle">
                     <h3 class=" text-white"><i class="fas fa-arrow-circle-right"></i></h3>
                 </button>
             </div>
