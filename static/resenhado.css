@@ -293,15 +293,12 @@ body {
     height: 100%;
 }
 
-.paddles {
-    left: 0;
-}
 .paddle {
 	position: absolute;
 	top: 0;
 	bottom: 0;
     width: 2em;
-    opacity: 70%;
+    opacity: 40%;
 }
 .left-paddle {
     left: 0;

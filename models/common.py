@@ -45,6 +45,7 @@ class CleanLoginItens:
         """
         session['id'] = ''
         session['name'] = ''
+        session['email'] = ''
         session['surname'] = ''
         session['access_level'] = ''
         session['nome_review'] = ''
