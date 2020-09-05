@@ -17,7 +17,7 @@
                 {% for user in users %}
                 {% if user.id == review.author_id %}
             </a>
-                <div class="indexReviewName">&nbsp;&nbsp;por: {{ user.name }} {{ user.surname }}</div>
+                <div class="indexReviewName">por: {{ user.name }} {{ user.surname }}</div>
                     {% if review.review|length > 100 %}
                         <div class="indexReviewText">{{ review.review[0:80] }}...</div>
                     {% else %}
