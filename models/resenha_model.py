@@ -8,3 +8,8 @@ class Resenha:
         self.spotify_id = spotify_id
         self.review = review
         self.date_register = date_register
+
+
+class ResenhaAuthorId:
+    def __init__(self, id):
+        self.id = id

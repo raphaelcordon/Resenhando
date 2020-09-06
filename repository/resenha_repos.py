@@ -1,5 +1,5 @@
 from .base_repos import PostgreDB
-from models.resenha_model import Resenha
+from models.resenha_model import Resenha, ResenhaAuthorId
 
 
 class ResenhaRepository:
@@ -8,7 +8,7 @@ class ResenhaRepository:
         db = PostgreDB()
         try:
             if top > 0:
-                if tipo_review is not '':
+                if tipo_review != '':
                     db.query(f"SELECT * FROM public.resenha where tipo_review = '{tipo_review}' "
                              f"order by date_register desc limit {top}")
             else:
@@ -44,11 +44,11 @@ class ResenhaRepository:
         finally:
             db.close()
 
-
     def FindAuthorByNameSurname(self, name, surname):
         db = PostgreDB()
         try:
-            return db.query(f"SELECT id FROM public.users where name = '{name}' and surname = '{surname}'")
+            db.query(f"SELECT id FROM public.users where name = '{name}' and surname = '{surname}'")
+            return self.__toOneID(db.fetchOne())
         except Exception as exp:
             print(exp)
         finally:
@@ -104,5 +104,11 @@ class ResenhaRepository:
     def __toOne(self, item):
         try:
             return Resenha(item[0], item[1], item[2], item[3], item[4], item[5], item[6])
+        except Exception as exp:
+            print(exp)
+
+    def __toOneID(self, item):
+        try:
+            return ResenhaAuthorId(item[0])
         except Exception as exp:
             print(exp)

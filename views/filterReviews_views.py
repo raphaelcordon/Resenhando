@@ -64,7 +64,6 @@ def filterAlbum():
 
     spotifyAlbum = []
 
-
     users = UsersRepository().List()
     reviewsAlbum = ResenhaRepository().List('album')
     for item in reviewsAlbum:
@@ -109,7 +108,7 @@ def filterPlaylist():
                            users=users, mainFilter='playlist')
 
 
-@filter.route('/home/<int:id>/')
+@filter.route('/<int:id>/')
 def minhas_resenhas(id):
     if session['email'] == '' or 'email' not in session or session['id'] == '':
         flash('Você precisa logar para acessar essa área', 'info')
@@ -119,23 +118,53 @@ def minhas_resenhas(id):
         session['id'] = ''
 
     reviews = ResenhaRepository().FindAuthorById(id)
-    if not reviews:
+    user = UsersRepository().FindById(id)
 
+    if not reviews:
         flash('Você ainda não criou nenhuma resenha', 'info')
         return redirect(url_for('ind.home'))
     else:
-        flash('Essas são as resenhas criadas por você até o momento', 'info')
+        return redirect(url_for('filter.myPage', name=user.name, surname=user.surname))
+
+
+@filter.route('/<name>.<surname>/')
+def myPage(name, surname):
+    if 'id' not in session:
+        session['id'] = ''
+
+    authorID = ResenhaRepository().FindAuthorByNameSurname(str(name).title(), str(surname).title()).id
+    if not authorID:
+        flash('Usuário não identificado', 'danger')
+        return redirect(url_for('ind.home'))
+
+    reviews = ResenhaRepository().FindAuthorById(authorID)
+    if not reviews:
+
+        flash(f'{str(name).title()} {str(surname).title()} ainda não criou resenhas', 'info')
+        return redirect(url_for('ind.home'))
+    else:
+        flash(f'Resenhas criadas por {str(name).title()} {str(surname).title()}', 'info')
 
         spotifyArtist = []
         spotifyAlbum = []
         spotifyTrack = []
         spotifyPlaylist = []
+        reviewsArtist = []
+        reviewsAlbum = []
+        reviewsTrack = []
+        reviewsPlaylist = []
 
         users = UsersRepository().List()
-        reviewsArtist = ResenhaRepository().List('artista')
-        reviewsAlbum = ResenhaRepository().List('album')
-        reviewsTrack = ResenhaRepository().List('track')
-        reviewsPlaylist = ResenhaRepository().List('playlist')
+        for item in reviews:
+            if item.tipo_review == 'artista':
+                reviewsArtist.append(item)
+            elif item.tipo_review == 'album':
+                reviewsAlbum.append(item)
+            elif item.tipo_review == 'track':
+                reviewsTrack.append(item)
+            elif item.tipo_review == 'playlist':
+                reviewsPlaylist.append(item)
+
         for item in reviews:
             if item.tipo_review == 'artista':
                 spotifyArtist.append(
@@ -152,8 +181,8 @@ def minhas_resenhas(id):
 
         return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
                                reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
-                               spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
-                               spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, users=users, mainFilter='index')
+                               users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
+                               spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='index')
 
 
 def __createSessionVariables():
