@@ -124,7 +124,7 @@ def minhas_resenhas(id):
         flash('Você ainda não criou nenhuma resenha', 'info')
         return redirect(url_for('ind.home'))
     else:
-        return redirect(url_for('filter.myPage', name=user.name, surname=user.surname))
+        return redirect(url_for('filter.myPage', name=str(user.name).lower(), surname=str(user.surname).lower()))
 
 
 @filter.route('/<name>.<surname>/')
