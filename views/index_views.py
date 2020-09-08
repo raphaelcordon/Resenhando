@@ -2,7 +2,8 @@ from flask import render_template, session, redirect, url_for, Blueprint
 from thirdparty.spotify import SpotifyGetOneAlbum, SpotifyGetOneArtist, SpotifyGetOneTrack, SpotifyGetOnePlaylist
 from repository.users_repos import UsersRepository
 from repository.resenha_repos import ResenhaRepository
-from passlib.hash import sha1_crypt
+from repository.comments_repos import CommentsRepository
+from repository.curtidas_repos import CurtidasRepository
 
 ind = Blueprint('ind', __name__, url_prefix='')
 
@@ -31,7 +32,20 @@ def index():
         spotifyPlaylist.append(
             SpotifyGetOnePlaylist(item.spotify_id).onePlaylist)
 
-    return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
+    if session['id'] != '':
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
+
+        return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
+                               reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
+                               users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
+                               spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='index',
+                               comments=comments, usersNotifications=usersNotifications,
+                               likeNotifications=likeNotifications, resenhasListAll=resenhasListAll)
+    else:
+        return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
                            reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
                            users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
                            spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='index')

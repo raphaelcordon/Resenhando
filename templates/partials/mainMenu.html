@@ -16,6 +16,12 @@
     <!-- Nav Start -->
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
         <ul class="navbar-nav">
+            {% if session['id'] != '' %}
+            <li class="nav-item d-flex justify-content-left" data-toggle="modal" data-target="#notificationsModal">
+                    <a class="nav-link navbarBackground" href="#"><i class="fas fa-inbox"></i> Notificações</a>
+            </li>
+            {% endif %}
+
             <li class="nav-item d-flex justify-content-left">
                 <a class="nav-link navbarBackground" href="{{ url_for('res.resenhaIndex') }}">
                     <i class="fas fa-pencil-alt fa-lg"></i> Nova Resenha</a>
@@ -72,3 +78,6 @@
 
 <!-- Modal for authentication -->
 {% include 'partials/modalLogin.html' %}
+
+<!-- Modal for notifications -->
+{% include 'partials/modalNotifications.html' %}

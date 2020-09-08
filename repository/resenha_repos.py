@@ -20,6 +20,16 @@ class ResenhaRepository:
         finally:
             db.close()
 
+    def ListAll(self):
+        db = PostgreDB()
+        try:
+            db.query(f"SELECT * FROM public.resenha")
+            return self.__toList(db.fetchAll())
+        except Exception as exp:
+            print(exp)
+        finally:
+            db.close()
+
     # <- Register a new 'Resenha' in the table ->
     def New(self, tipo_review, author_id, nome_review, spotify_id, review):
         db = PostgreDB()

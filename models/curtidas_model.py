@@ -1,6 +1,6 @@
 
 class Curtidas:
-    def __init__(self, id, resenha_id, user_id, login_date):
+    def __init__(self, id, user_id, resenha_id, login_date):
         self.id = id
         self.user_id = user_id
         self.resenha_id = resenha_id

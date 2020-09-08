@@ -11,7 +11,7 @@ def comentario():
     id_user = session['id']
     review = request.form['comentario']
     comment_date = date.today()
-    CommentsRepository().New(id_resenha, id_user, review, comment_date)
+    CommentsRepository().New(id_resenha, id_user, review)
     id = int(id_resenha)
     return redirect(url_for('res.resenhado', id=id))
 

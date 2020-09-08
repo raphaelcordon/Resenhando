@@ -37,33 +37,27 @@
 }
 
 .poster_more_details {
-    width: 95%;
+    width: 100%;
     display:-ms-flexbox;
     display:flex;
-    -ms-flex-wrap:wrap;
-    flex-wrap:wrap;
 }
 
 .poster_image, .image_artist {
-    padding-right: 2%;
     border-collapse: collapse;
     border-style: none;
     float: left;
-    margin-bottom: 2%;
+    margin-bottom: 1%;
     max-width: 500px;
     max-height: 500px;
 }
-.image_artist {
-    max-height: 300px;
-    max-width: 300px;
-}
 
 .resenha_albuns {
-    width: 300px !important;
-    height: 300px !important;
+    width: 300px;
+    height: 300px;
 }
 
 .table_poster {
+    max-width: 100%;
     padding: 0 2% 0 2%;
 }
 
@@ -76,12 +70,12 @@
     font-weight: bold;
     -ms-flex-wrap:nowrap;
     flex-wrap:nowrap;
-    min-width: 20%;
+    min-width: 30%;
 }
 
 .resenha_item {
     vertical-align: top;
-    width: 80%;
+    width: 100%;
 }
 
 .resenha_spotify {
@@ -359,6 +353,8 @@ body {
 
     .poster_more_details {
         width: 100%;
+        -ms-flex-wrap:wrap;
+        flex-wrap:wrap;
     }
     
     .poster_image {
@@ -378,6 +374,10 @@ body {
         padding-bottom: 1%;
     }
 
+    .newReviewSmartphone {
+        width: 100%;
+    }
+
     .resenha_smartphone {
         padding: 5%;
         display: inline;
@@ -395,7 +395,7 @@ body {
         padding-left: auto !important;
         padding-right: auto !important;
     }
-    .imagesIndex .imageResenhadoSmartphone {
+    .imagesIndex .imageResenhadoSmartphone .image_artist .resenha_albuns {
         all: unset;
         object-fit:cover;
         width: 100%;
@@ -423,6 +423,16 @@ body {
 
     .index-item {
         width: 40%;
+    }
+
+    .poster_more_details {
+    width: 100%;
+    -ms-flex-wrap:wrap;
+    flex-wrap:wrap;
+    }
+
+    .newReviewSmartphone {
+        width: 100%;
     }
 
 }

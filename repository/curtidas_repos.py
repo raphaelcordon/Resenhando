@@ -38,6 +38,20 @@ class CurtidasRepository:
         finally:
             db.close()
 
+    # <- List Likes registered accordingly to the 'Author_id' ->
+    def listAuthorId(self, authorID):
+        db = PostgreDB()
+        try:
+            db.query(
+                f"SELECT * FROM public.curtidas_hist WHERE resenha_id IN (SELECT id FROM public.resenha WHERE"
+                f" author_id = { authorID }) AND login_date > current_timestamp - interval '30 day'"
+                f" ORDER BY login_date DESC")
+            return self.__toList(db.fetchAll())
+        except Exception as exp:
+            print(exp)
+        finally:
+            db.close()
+
     # <- Delete an user on DB ->
     def Delete(self, user_id, resenha_id):
         db = PostgreDB()

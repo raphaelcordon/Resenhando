@@ -1,14 +1,25 @@
-from flask import render_template, redirect, url_for, flash, Blueprint, request
+from flask import render_template, redirect, url_for, flash, Blueprint, request, session
 from repository.users_repos import UsersRepository
 from repository.resenha_repos import ResenhaRepository
 from repository.comments_repos import CommentsRepository
+from repository.curtidas_repos import CurtidasRepository
 
 adm = Blueprint('adm', __name__)
 
 
 @adm.route('/_adm')
 def _adm():
-    return render_template('_adm.html')
+
+    if session['id'] != '':
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
+
+        return render_template('_adm.html', comments=comments, usersNotifications=usersNotifications,
+                           likeNotifications=likeNotifications, resenhasListAll=resenhasListAll)
+    else:
+        return render_template('_adm.html')
 
 
 @adm.route('/adm_resenhas')
@@ -17,8 +28,9 @@ def adm_resenhas():
     reviewsAlbum = ResenhaRepository().List('album')
     reviewsTrack = ResenhaRepository().List('track')
     reviewsPlaylist = ResenhaRepository().List('playlist')
+
     return render_template('_adm_resenhas.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
-                           reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist)
+                       reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist)
 
 
 @adm.route('/adm_usuarios')
@@ -60,4 +72,15 @@ def adm_users_registry():
 
 @adm.route('/sobre')
 def sobre():
-    return render_template('sobre.html')
+
+    if session['id'] != '':
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
+
+        return render_template('sobre.html', comments=comments, usersNotifications=usersNotifications,
+                           likeNotifications=likeNotifications, resenhasListAll=resenhasListAll)
+    else:
+
+        return render_template('sobre.html')

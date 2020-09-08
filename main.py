@@ -4,6 +4,7 @@ from views.curtidas_views import cur
 from views.filterReviews_views import filter
 from views.index_views import ind
 from views.login_views import log
+from views.notifications_views import notify
 from views.resenha_views import res
 from views.users_views import use
 
@@ -19,6 +20,7 @@ app.register_blueprint(cur)
 app.register_blueprint(filter)
 app.register_blueprint(ind)
 app.register_blueprint(log)
+app.register_blueprint(notify)
 app.register_blueprint(res)
 app.register_blueprint(use)
 

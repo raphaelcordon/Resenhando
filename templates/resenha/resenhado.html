@@ -172,7 +172,7 @@
         {% endif %}
     </section>
     <section class="container comments_result">
-        {% for comment in comments|sort(attribute='id', reverse=true) %}
+        {% for comment in commentsList|sort(attribute='id', reverse=true) %}
         {% for user in comment_user %}
         {% if comment.user_id == user.id %}
         {{ user.name }} {{ user.surname }}

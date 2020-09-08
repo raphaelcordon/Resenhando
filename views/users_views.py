@@ -1,11 +1,15 @@
 from flask import redirect, request, url_for, flash, Blueprint, session, render_template
-from repository.users_repos import UsersRepository
 from views.login_views import UpdateSession
 from models.common import CleanLoginItens
 from passlib.hash import sha256_crypt
 from thirdparty.gmail import EmailPassword
 import random
 import string
+
+from repository.users_repos import UsersRepository
+from repository.comments_repos import CommentsRepository
+from repository.curtidas_repos import CurtidasRepository
+from repository.resenha_repos import ResenhaRepository
 
 use = Blueprint('use', __name__)
 
@@ -45,7 +49,17 @@ def editAccount():
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('ind.home'))
     else:
-        return render_template('account/editAccount.html', user=UsersRepository().FindById(session['id']))
+        if session['id'] != '':
+            comments = CommentsRepository().listAuthorId(session['id'])
+            likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+            usersNotifications = UsersRepository().List()
+            resenhasListAll = ResenhaRepository().ListAll()
+
+            return render_template('account/editAccount.html', user=UsersRepository().FindById(session['id']),
+                                   comments=comments, usersNotifications=usersNotifications,
+                               likeNotifications=likeNotifications, resenhasListAll=resenhasListAll)
+        else:
+            return render_template('account/editAccount.html', user=UsersRepository().FindById(session['id']))
 
 
 @use.route('/updateAccountDb', methods=['POST', 'GET'])
@@ -74,7 +88,14 @@ def changePass():
         return redirect(url_for('log.login'))
     else:
         id = session['id']
-        return render_template('account/changePass.html', data=id)
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
+
+        return render_template('account/changePass.html', data=id, comments=comments,
+                               usersNotifications=usersNotifications,
+                               likeNotifications=likeNotifications, resenhasListAll=resenhasListAll)
 
 
 @use.route('/updatePassDb', methods=['POST', 'GET'])
@@ -103,8 +124,17 @@ def updatePassDb():
 
 @use.route('/resetPass')
 def resetPass():
-    return render_template('account/resetPass.html')
 
+    if session['id'] != '':
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
+
+        return render_template('account/resetPass.html', comments=comments, usersNotifications=usersNotifications,
+                                   likeNotifications=likeNotifications, resenhasListAll=resenhasListAll)
+    else:
+        return render_template('account/resetPass.html')
 
 @use.route('/resetEmailPass', methods=['POST', 'GET'])
 def resetEmailPass():

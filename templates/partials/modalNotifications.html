@@ -1,0 +1,94 @@
+<!-- Modal for Notifications -->
+<div class="modal fade" id="notificationsModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Notificações</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+            <!-- list comments -->
+            <div class="classynav">
+
+                <div class="dropdown_position">
+                    <a href="#" class="navbarBackground" id="linkComments"><i class="fas fa-comments"></i> Comentários </a>
+
+                    &nbsp;  &nbsp;
+
+                    <a href="#" class="navbarBackground" id="linkLikes"><i class="fas fa-hand-pointer"></i> Curtidas</a>
+                </div>
+
+                <hr/>
+
+                <section class="initiallyHidden" id="listComments">
+                    <div class="container">
+                        <div class="dropdown_position">
+                            <h6>Comentários<br></h6>
+                        </div>
+                        <div class="">
+                            {% for item in comments %}
+                                {% for resenha in resenhasListAll %}
+                                {% if resenha.id == item.resenha_id %}
+
+                                    {% for user in usersNotifications %}
+                                    {% if item.user_id == user.id %}
+                                        {% if item.user_id == session.id %}
+                                            Você comentou na resenha
+                            "<a href="{{ url_for('res.resenhado', id=resenha.id) }}" class="linkColor">{{ resenha.nome_review }}</a>"
+                            em {{ item.comment_date.strftime('%d/%m/%Y %H:%M hs') }}<br>
+                                        <hr/>
+                                        {% else %}
+                                            <a href="{{ url_for('filter.myPage', name=user.name, surname=user.surname) }}" class="linkColor">
+                                                {{ user.name }} {{ user.surname }}</a> comentou na resenha
+                                            "<a href="{{ url_for('res.resenhado', id=resenha.id) }}" class="linkColor">{{ resenha.nome_review }}</a>"
+                                            em {{ item.comment_date.strftime('%d/%m/%Y %H:%M hs') }}<br>
+                                            <hr/>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+
+                                {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </section>
+
+
+                <section class="initiallyHidden" id="listLikes">
+                    <div class="container">
+                        <div class="dropdown_position">
+                            <h6>Comentários<br></h6>
+                        </div>
+                        <div class="">
+                            {% for item in likeNotifications %}
+                                {% for resenha in resenhasListAll %}
+                                {% if resenha.id == item.resenha_id %}
+
+                                    {% for user in usersNotifications %}
+                                    {% if item.user_id == user.id %}
+                                        <a href="{{ url_for('filter.myPage', name=user.name, surname=user.surname) }}" class="linkColor">
+                                            {{ user.name }} {{ user.surname }}</a> curtiu a resenha
+                                            "<a href="{{ url_for('res.resenhado', id=resenha.id) }}" class="linkColor">{{ resenha.nome_review }}</a>"
+                                            em {{ item.login_date.strftime('%d/%m/%Y %H:%M hs') }}<br>
+                                            <hr/>
+                                    {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

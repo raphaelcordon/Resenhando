@@ -17,7 +17,17 @@ res = Blueprint('res', __name__)
 def resenhaListArtist():
     artists = SpotifyGetFiveArtists(request.form['artist']).listArtists
 
-    return render_template('resenha/resenhaListArtist.html', artists=artists)
+    if session['id'] != '':
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
+
+        return render_template('resenha/resenhaListArtist.html', artists=artists, comments=comments,
+                               usersNotifications=usersNotifications, likeNotifications=likeNotifications,
+                               resenhasListAll=resenhasListAll)
+    else:
+        return render_template('resenha/resenhaListArtist.html', artists=artists)
 
 
 @res.route('/resenhaNewArtist/<artistId>/', methods=['GET', 'POST'])
@@ -28,7 +38,17 @@ def resenhaNewArtist(artistId):
 
     spotify = SpotifyGetOneArtist(artistId).createList()
 
-    return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='artista')
+    if session['id'] != '':
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
+
+        return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='artista', comments=comments,
+                               usersNotifications=usersNotifications, likeNotifications=likeNotifications,
+                               resenhasListAll=resenhasListAll)
+    else:
+        return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='artista')
 
 
 @res.route('/createResenhaArtist', methods=['GET', 'POST'])
@@ -62,7 +82,17 @@ def resenhalistAlbums(artistId):
 
     albums = SpotifyGetAlbums(artistId).createList()
 
-    return render_template('resenha/resenhaListAlbums.html', albums=albums)
+    if session['id'] != '':
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
+
+        return render_template('resenha/resenhaListAlbums.html', albums=albums, comments=comments,
+                               usersNotifications=usersNotifications, likeNotifications=likeNotifications,
+                               resenhasListAll=resenhasListAll)
+    else:
+        return render_template('resenha/resenhaListAlbums.html', albums=albums)
 
 
 @res.route('/resenhaNewAlbum/<albumId>/', methods=['GET', 'POST'])
@@ -72,7 +102,19 @@ def resenhaNewAlbum(albumId):
         return redirect(url_for('log.login'))
 
     spotify = SpotifyGetOneAlbum(albumId).createList()
-    return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='album')
+
+    if session['id'] != '':
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
+
+        return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='album', comments=comments,
+                               usersNotifications=usersNotifications, likeNotifications=likeNotifications,
+                               resenhasListAll=resenhasListAll)
+
+    else:
+        return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='album')
 
 
 # <-- ## Albums routes ending ## -->
@@ -82,8 +124,18 @@ def resenhaNewAlbum(albumId):
 
 @res.route('/resenhaListTracks', methods=['GET', 'POST'])
 def resenhaListTracks():
-        tracks = SpotifyGetTracks(request.form['spotifyTracks']).createList()
+    tracks = SpotifyGetTracks(request.form['spotifyTracks']).createList()
 
+    if session['id'] != '':
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
+
+        return render_template('resenha/resenhaListTracks.html', tracks=tracks, comments=comments,
+                               usersNotifications=usersNotifications, likeNotifications=likeNotifications,
+                               resenhasListAll=resenhasListAll)
+    else:
         return render_template('resenha/resenhaListTracks.html', tracks=tracks)
 
 
@@ -95,7 +147,17 @@ def resenhaNewTrack(trackId):
 
     spotify = SpotifyGetOneTrack(trackId).createList()
 
-    return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='track')
+    if session['id'] != '':
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
+
+        return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='track', comments=comments,
+                               usersNotifications=usersNotifications, likeNotifications=likeNotifications,
+                               resenhasListAll=resenhasListAll)
+    else:
+        return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='track')
 
 
 # <-- ## Playlists routes beginning ## -->
@@ -105,7 +167,17 @@ def resenhaListPlaylists():
         try:
             SpotifyCheckUser(request.form['spotifyUsername'])
             playlists = SpotifyGetPlaylists(request.form['spotifyUsername']).createList()
-            return render_template('resenha/resenhaListPlaylists.html', playlists=playlists)
+
+            if session['id'] != '':
+                comments = CommentsRepository().listAuthorId(session['id'])
+                likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+                usersNotifications = UsersRepository().List()
+                resenhasListAll = ResenhaRepository().ListAll()
+                return render_template('resenha/resenhaListPlaylists.html', playlists=playlists, comments=comments,
+                               usersNotifications=usersNotifications, likeNotifications=likeNotifications,
+                               resenhasListAll=resenhasListAll)
+            else:
+                return render_template('resenha/resenhaListPlaylists.html', playlists=playlists)
         except:
             flash('Nome de usuário não encontrado', 'danger')
             return redirect(url_for('res.resenhaIndex'))
@@ -119,7 +191,17 @@ def resenhaNewPlaylist(playlistId):
 
     spotify = SpotifyGetOnePlaylist(playlistId).createList()
 
-    return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='playlist')
+    if session['id'] != '':
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
+
+        return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='playlist', comments=comments,
+                               usersNotifications=usersNotifications, likeNotifications=likeNotifications,
+                               resenhasListAll=resenhasListAll)
+    else:
+        return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='playlist')
 
 
 @res.route('/createResenhaPlaylist', methods=['GET', 'POST'])
@@ -155,7 +237,17 @@ def resenhaIndex():
         session['previous'] = 'res.resenhaIndex'
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('log.login'))
-    return render_template('resenha/resenhaIndex.html')
+
+    if session['id'] != '':
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
+
+        return render_template('resenha/resenhaIndex.html', comments=comments, usersNotifications=usersNotifications,
+                               likeNotifications=likeNotifications, resenhasListAll=resenhasListAll)
+    else:
+        return render_template('resenha/resenhaIndex.html')
 
 
 @res.route('/createResenha', methods=['GET', 'POST'])
@@ -197,7 +289,18 @@ def resenhaEdit(id):
         return redirect(url_for('ind.home'))
     else:
         voltarButton = request.headers.get("Referer")
-        return render_template('resenha/resenhaEdit.html', data=data, spotify=spotify, voltarButton=voltarButton)
+
+        if session['id'] != '':
+            comments = CommentsRepository().listAuthorId(session['id'])
+            likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+            usersNotifications = UsersRepository().List()
+            resenhasListAll = ResenhaRepository().ListAll()
+
+            return render_template('resenha/resenhaEdit.html', data=data, spotify=spotify, voltarButton=voltarButton,
+                                   comments=comments, usersNotifications=usersNotifications,
+                               likeNotifications=likeNotifications, resenhasListAll=resenhasListAll)
+        else:
+            return render_template('resenha/resenhaEdit.html', data=data, spotify=spotify, voltarButton=voltarButton)
 
 
 @res.route('/updateResenha', methods=['GET', 'POST'])
@@ -234,7 +337,7 @@ def resenhado(id):
 
     like = CurtidasRepository().CountLikes(id).count
 
-    comments = CommentsRepository().List(id)
+    commentsList = CommentsRepository().List(id)
     comment_user = UsersRepository().List()
 
     try:
@@ -245,6 +348,17 @@ def resenhado(id):
     except:
         PNG = 'click'
 
-    return render_template('resenha/resenhado.html', data=data, spotify=spotify,
-                           user_author=user_author, date=date, comments=comments,
-                           comment_user=comment_user, like=like, PNG=PNG)
+    if session['id'] != '':
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
+
+        return render_template('resenha/resenhado.html', data=data, spotify=spotify, user_author=user_author, date=date,
+                               commentsList=commentsList, comment_user=comment_user, like=like, PNG=PNG,
+                               comments=comments, usersNotifications=usersNotifications,
+                               likeNotifications=likeNotifications, resenhasListAll=resenhasListAll)
+
+    else:
+        return render_template('resenha/resenhado.html', data=data, spotify=spotify, user_author=user_author, date=date,
+                               commentsList=commentsList, comment_user=comment_user, like=like, PNG=PNG)

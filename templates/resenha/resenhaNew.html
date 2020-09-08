@@ -19,7 +19,7 @@
                     </div>
                     <table class="table_poster">
                         <tr>
-                            <td class="resenha_titles">
+                            <td class="resenha_titles newReviewSmartphone" >
                                 {% if tipo_review == 'artista' %}
                                     <label>Nome do Artista/Banda</label>
                                 {% elif tipo_review == 'album' %}
@@ -34,19 +34,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="resenha_titles"><label for="nome_review">Titulo da Review</label>
+                            <td class="resenha_titles newReviewSmartphone"><label for="nome_review">Titulo da Review</label>
                                 <input id="nome_review" name="nome_review" class="form-control"
                                     value="{{ session.nome_review }}" required autofocus>
                             </td>
                         </tr>
                         <tr>
-                            <td class="resenha_titles"><label for="review">Resenha (aceita HTML)</label>
+                            <td class="resenha_titles newReviewSmartphone"><label for="review">Resenha (aceita HTML)</label>
                                 <textarea id="review" name="review" class="form-control" rows="10" cols="50"
                                     required>{{ session.review }}</textarea>
                             </td>
                         </tr>
                         <tr>
-                            <td class="resenha_titles">
+                            <td class="resenha_titles newReviewSmartphone">
                                 <button type="submit" class="btn btn-primary btn-salvar">Enviar resenha</button>
                                 <button type="button" class="btn btn-danger"
                                     onclick="window.history.go(-1); return false;">Voltar</button>
