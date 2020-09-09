@@ -169,6 +169,16 @@ footer {
     padding-left: 5px;
 }
 
+.adjustNotificationsButton{
+    position: relative;
+}
+.notificationsButton {
+    position: absolute;
+    left: 0;
+    top: 0px;
+    z-index: -1;
+}
+
 .dropbtn {
     background-color: #f1f1f1;
     color: rgb(29, 29, 29);
@@ -408,6 +418,10 @@ body {
     }
     .justify-content-left{
         padding-left: 12%;
+    }
+
+    .notificationsButton {
+        left: 8%;
     }
 
     /* ------------------------------------- */

@@ -18,7 +18,9 @@ def notifications():
         likeNotifications = CurtidasRepository().listAuthorId(session['id'])
         usersNotifications = UsersRepository().List()
         resenhasListAll = ResenhaRepository().ListAll()
+        notifyComment = UsersRepository().FindById(session['id']).read_comment
+        notifyLike = UsersRepository().FindById(session['id']).read_like
 
         return render_template('partials/modalNotifications.html', comments=comments,
                            usersNotifications=usersNotifications, likeNotifications=likeNotifications,
-                               resenhasListAll=resenhasListAll)
+                               resenhasListAll=resenhasListAll, notifyComment=notifyComment, notifyLike=notifyLike)

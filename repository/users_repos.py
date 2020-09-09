@@ -107,6 +107,6 @@ class UsersRepository:
 
     def __toOne(self, item):
         try:
-            return Users(item[0], item[1], item[2], item[3], item[4], item[5])
+            return Users(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7])
         except Exception as exp:
             print(exp)

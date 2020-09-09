@@ -1,5 +1,6 @@
 from flask import session, redirect, url_for, Blueprint, flash
 from repository.curtidas_repos import CurtidasRepository
+from repository.resenha_repos import ResenhaRepository
 
 cur = Blueprint('cur', __name__)
 
@@ -18,4 +19,11 @@ def curtida(resenha_id):
         CurtidasRepository().Delete(session['id'], resenha_id)
     else:
         CurtidasRepository().New(session['id'], resenha_id)
+        authorID = ResenhaRepository().FindById(resenha_id).author_id
+        CurtidasRepository().LikeNew(authorID)
     return redirect(url_for('res.resenhado', id=resenha_id))
+
+
+@cur.route('/likeRead/')
+def commentRead():
+    CurtidasRepository().LikeRead(session['id'])

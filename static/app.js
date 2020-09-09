@@ -67,3 +67,25 @@ $(document).ready(function () {
   });
 
 });
+
+// Update Comments as read in Notifications
+$(function() {
+  $('#linkComments').bind('click', function() {
+    $.getJSON('/commentRead',
+        function(data) {
+      //do nothing
+    });
+    return false;
+  });
+});
+
+// Update Likes as read in Notifications
+$(function() {
+  $('#linkLikes').bind('click', function() {
+    $.getJSON('/likeRead',
+        function(data) {
+      //do nothing
+    });
+    return false;
+  });
+});

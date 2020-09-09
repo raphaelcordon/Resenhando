@@ -14,11 +14,21 @@
             <div class="classynav">
 
                 <div class="dropdown_position">
-                    <a href="#" class="navbarBackground" id="linkComments"><i class="fas fa-comments"></i> Comentários </a>
+                    <a href="#" class="navbarBackground" id="linkComments">
+                        {% if notifyComment==true %}<i class="fas fa-comments" style="color: #eb0000"></i>
+                        {% else %}<i class="fas fa-comments"></i>
+                        {% endif %}
+                        Comentários
+                    </a>
 
                     &nbsp;  &nbsp;
 
-                    <a href="#" class="navbarBackground" id="linkLikes"><i class="fas fa-hand-pointer"></i> Curtidas</a>
+                    <a href="#" class="navbarBackground" id="linkLikes">
+                        {% if notifyLike==true %}<i class="fas fa-hand-pointer" style="color: #eb0000"></i>
+                        {% else %}<i class="fas fa-hand-pointer"></i>
+                        {% endif %}
+                         Curtidas
+                    </a>
                 </div>
 
                 <hr/>

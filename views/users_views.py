@@ -54,10 +54,13 @@ def editAccount():
             likeNotifications = CurtidasRepository().listAuthorId(session['id'])
             usersNotifications = UsersRepository().List()
             resenhasListAll = ResenhaRepository().ListAll()
+            notifyComment = UsersRepository().FindById(session['id']).read_comment
+            notifyLike = UsersRepository().FindById(session['id']).read_like
 
             return render_template('account/editAccount.html', user=UsersRepository().FindById(session['id']),
                                    comments=comments, usersNotifications=usersNotifications,
-                               likeNotifications=likeNotifications, resenhasListAll=resenhasListAll)
+                               likeNotifications=likeNotifications, resenhasListAll=resenhasListAll,
+                                   notifyComment=notifyComment, notifyLike=notifyLike)
         else:
             return render_template('account/editAccount.html', user=UsersRepository().FindById(session['id']))
 
@@ -87,15 +90,7 @@ def changePass():
         flash('Você precisa logar para acessar essa área', 'info')
         return redirect(url_for('log.login'))
     else:
-        id = session['id']
-        comments = CommentsRepository().listAuthorId(session['id'])
-        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
-        usersNotifications = UsersRepository().List()
-        resenhasListAll = ResenhaRepository().ListAll()
-
-        return render_template('account/changePass.html', data=id, comments=comments,
-                               usersNotifications=usersNotifications,
-                               likeNotifications=likeNotifications, resenhasListAll=resenhasListAll)
+        return render_template('account/changePass.html', data=id)
 
 
 @use.route('/updatePassDb', methods=['POST', 'GET'])
@@ -130,11 +125,15 @@ def resetPass():
         likeNotifications = CurtidasRepository().listAuthorId(session['id'])
         usersNotifications = UsersRepository().List()
         resenhasListAll = ResenhaRepository().ListAll()
+        notifyComment = UsersRepository().FindById(session['id']).read_comment
+        notifyLike = UsersRepository().FindById(session['id']).read_like
 
         return render_template('account/resetPass.html', comments=comments, usersNotifications=usersNotifications,
-                                   likeNotifications=likeNotifications, resenhasListAll=resenhasListAll)
+                                   likeNotifications=likeNotifications, resenhasListAll=resenhasListAll,
+                               notifyComment=notifyComment, notifyLike=notifyLike)
     else:
         return render_template('account/resetPass.html')
+
 
 @use.route('/resetEmailPass', methods=['POST', 'GET'])
 def resetEmailPass():

@@ -15,9 +15,12 @@ def _adm():
         likeNotifications = CurtidasRepository().listAuthorId(session['id'])
         usersNotifications = UsersRepository().List()
         resenhasListAll = ResenhaRepository().ListAll()
+        notifyComment = UsersRepository().FindById(session['id']).read_comment
+        notifyLike = UsersRepository().FindById(session['id']).read_like
 
         return render_template('_adm.html', comments=comments, usersNotifications=usersNotifications,
-                           likeNotifications=likeNotifications, resenhasListAll=resenhasListAll)
+                           likeNotifications=likeNotifications, resenhasListAll=resenhasListAll,
+                               notifyComment=notifyComment, notifyLike=notifyLike)
     else:
         return render_template('_adm.html')
 
@@ -78,9 +81,12 @@ def sobre():
         likeNotifications = CurtidasRepository().listAuthorId(session['id'])
         usersNotifications = UsersRepository().List()
         resenhasListAll = ResenhaRepository().ListAll()
+        notifyComment = UsersRepository().FindById(session['id']).read_comment
+        notifyLike = UsersRepository().FindById(session['id']).read_like
 
         return render_template('sobre.html', comments=comments, usersNotifications=usersNotifications,
-                           likeNotifications=likeNotifications, resenhasListAll=resenhasListAll)
+                           likeNotifications=likeNotifications, resenhasListAll=resenhasListAll,
+                               notifyComment=notifyComment, notifyLike=notifyLike)
     else:
 
         return render_template('sobre.html')

@@ -40,6 +40,26 @@ class CommentsRepository:
         finally:
             db.close()
 
+    # <- Update an User of a new comment ->
+    def CommentNew(self, id):
+        db = PostgreDB()
+        try:
+            db.query(f"UPDATE public.users SET read_comment='true' WHERE id = {id}")
+        except Exception as exp:
+            print(exp)
+        finally:
+            db.close()
+
+    # <- Update an User of a comment read ->
+    def CommentRead(self, id):
+        db = PostgreDB()
+        try:
+            db.query(f"UPDATE public.users SET read_comment='false' WHERE id = {id}")
+        except Exception as exp:
+            print(exp)
+        finally:
+            db.close()
+
     # <- Delete a comment on DB ->
     def Delete(self, comment_id):
         db = PostgreDB()

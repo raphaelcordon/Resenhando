@@ -18,8 +18,12 @@
         <ul class="navbar-nav">
 
             {% if session['id'] != '' %}
-            <li class="nav-item d-flex justify-content-left" data-toggle="modal" data-target="#notificationsModal">
-                    <a class="nav-link navbarBackground" href="#"><i class="fas fa-inbox fa-lg"></i> Notificações</a>
+            <li class="nav-item d-flex justify-content-left adjustNotificationsButton" data-toggle="modal" data-target="#notificationsModal">
+                    <a class="nav-link navbarBackground" href="#"><i class="fas fa-inbox fa-lg"></i> Notificações
+                    {% if notifyComment==true or notifyLike==true %}
+                    <img src="{{ url_for('static', filename='img/core-img/notifyButtons/notify.png') }}" class="notificationsButton">
+                    {% endif %}
+                    </a>
             </li>
             {% endif %}
 

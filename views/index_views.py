@@ -37,13 +37,16 @@ def index():
         likeNotifications = CurtidasRepository().listAuthorId(session['id'])
         usersNotifications = UsersRepository().List()
         resenhasListAll = ResenhaRepository().ListAll()
+        notifyComment = UsersRepository().FindById(session['id']).read_comment
+        notifyLike = UsersRepository().FindById(session['id']).read_like
 
         return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
                                reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
                                users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
                                spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='index',
                                comments=comments, usersNotifications=usersNotifications,
-                               likeNotifications=likeNotifications, resenhasListAll=resenhasListAll)
+                               likeNotifications=likeNotifications, resenhasListAll=resenhasListAll,
+                               notifyComment=notifyComment, notifyLike=notifyLike)
     else:
         return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
                            reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,

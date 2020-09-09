@@ -52,6 +52,26 @@ class CurtidasRepository:
         finally:
             db.close()
 
+    # <- Update an User of a like ->
+    def LikeNew(self, id):
+        db = PostgreDB()
+        try:
+            db.query(f"UPDATE public.users SET read_like='true' WHERE id = {id}")
+        except Exception as exp:
+            print(exp)
+        finally:
+            db.close()
+
+    # <- Update an User of like read ->
+    def LikeRead(self, id):
+        db = PostgreDB()
+        try:
+            db.query(f"UPDATE public.users SET read_like='false' WHERE id = {id}")
+        except Exception as exp:
+            print(exp)
+        finally:
+            db.close()
+
     # <- Delete an user on DB ->
     def Delete(self, user_id, resenha_id):
         db = PostgreDB()

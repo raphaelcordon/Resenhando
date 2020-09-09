@@ -40,7 +40,7 @@ def authenticate():
         else:
             UpdateSession(user)
             # input Timestamp in db
-            LoginHistRepository().New(str(session['id']))
+            LoginHistRepository().New(session['id'])
             flash(f'Bem vindo {user.name}', 'success')
         
         _redirect = request.form['previous']
