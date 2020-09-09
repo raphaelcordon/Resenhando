@@ -16,9 +16,10 @@
     <!-- Nav Start -->
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
         <ul class="navbar-nav">
+
             {% if session['id'] != '' %}
             <li class="nav-item d-flex justify-content-left" data-toggle="modal" data-target="#notificationsModal">
-                    <a class="nav-link navbarBackground" href="#"><i class="fas fa-inbox"></i> Notificações</a>
+                    <a class="nav-link navbarBackground" href="#"><i class="fas fa-inbox fa-lg"></i> Notificações</a>
             </li>
             {% endif %}
 

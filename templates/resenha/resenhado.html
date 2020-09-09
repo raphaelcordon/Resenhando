@@ -5,26 +5,30 @@
     <section class="poster_more_details">
         <div>
             <p class="resenha_titles pl-1">Resenha escrita em: {{ date }}</p>
-            <p class="resenha_titles pl-1">Autor: {{ user_author.name }} {{ user_author.surname }}</p>
+            <p class="resenha_titles pl-1">Autor: <a href="{{ url_for('filter.myPage', name=user_author.name,
+            surname=user_author.surname) }}" class="linkColor">{{ user_author.name }} {{ user_author.surname }}</a></p>
             <!-- ## like/deslike buttons ## -->
             <table class="like">
                 <tr>
                     <td>
                         {% if session.id == data.author_id %}
-                        <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}"
-                            alt="Você não pode curtir a sua própria resenha">
+                        <i class="far fa-hand-pointer fa-2x" style="color: #d2d2d2"></i>
+                        {% if like == 0 %} <i style="color: #d2d2d2">
+                        Nenhuma curtida ainda</i> {% else %}<i style="color: #d2d2d2">{{ like }} Curtida(s)</i>
+                        {% endif %}
                         {% else %}
                         {% if PNG == 'unclick' %}
-                        <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
-                            <img src="{{ url_for('static', filename='img/core-img/like_click.png') }}" alt=""></a>
+                        <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}" style="color: #51cf66">
+                            <i class="fas fa-hand-pointer fa-2x" ></i>
+                        {% if like == 0 %} Nenhuma curtida ainda {% else %}{{ like }} Curtida(s)<br>Você Curtiu!
+                            {% endif %}</a>
                         {% else %}
-                        <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}">
-                            <img src="{{ url_for('static', filename='img/core-img/like_unclick.png') }}" alt=""></a>
+                        <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}" style="color: #676767">
+                            <span class="linkColor"><i class="far fa-hand-pointer fa-2x"></i>
+                        {% if like == 0 %}Nenhuma curtida ainda {% else %}{{ like }} Curtida(s)
+                            {% endif %}</span></a>
                         {% endif %}
                         {% endif %}
-                    </td>
-                    <td>
-                        {% if like == 0 %} Nenhuma curtida ainda {% else %}{{ like }}{% endif %}
                     </td>
                 </tr>
                 <tr>
