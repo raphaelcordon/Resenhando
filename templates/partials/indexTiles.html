@@ -3,9 +3,9 @@
         <div class="receipe-content mb-0 p-0">
             <a href="{{ url_for('res.resenhado', id=review.id) }}">
                 {% if spotify.image == None %}
-                <img class="indexImage border-0" src="../static/img/bg-img/No-Image-Available.png" alt="">
+                <img class="border-0 indexTileImage" src="../static/img/bg-img/No-Image-Available.png" alt="">
                 {% else %}
-                <img class="indexImage border-0" src="{{ spotify.image }}" alt="{{ spotify.name }}">
+                <img class="border-0 indexTileImage" src="{{ spotify.image }}" alt="{{ spotify.name }}">
                 {% endif %}
             </a>
             <a href="{{ url_for('res.resenhado', id=review.id) }}">

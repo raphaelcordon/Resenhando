@@ -15,9 +15,8 @@
     padding: 1.5%
 }
 
-.imagesIndex {
-    width: 150px !important;
-    height: 150px !important;
+.indexTileImage {
+    max-height: 280px;
 }
 
 .modal { background: rgba(000, 000, 000, 0.8); min-height:1000000px; }
@@ -410,9 +409,9 @@ body {
         padding-left: auto !important;
         padding-right: auto !important;
     }
-    .imagesIndex .imageResenhadoSmartphone .image_artist .resenha_albuns {
-        all: unset;
-        object-fit:cover;
+.imageResenhadoSmartphone .image_artist .resenha_albuns {
+        all: unset !important; 
+        object-fit:cover !important;
         width: 100%;
         height: auto;
     }
@@ -435,7 +434,7 @@ body {
 
 /* CSS for Tablets */
 
-@media screen and (min-width: 481px) and (max-width: 780px) {
+@media screen and (min-width: 481px) and (max-width: 800px) {
 
         /* ------------------------------------- */
     /* Horizontal Index Scrollbar Beginning */
@@ -450,8 +449,36 @@ body {
     flex-wrap:wrap;
     }
 
+    .poster_image {
+        all: unset;
+    }
+
+    .reShapeIndex {
+        all: unset;
+        width: 100% !important; 
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-left: auto !important;
+        padding-right: auto !important;
+    }
+    .imageResenhadoSmartphone {
+        all: unset !important; 
+        object-fit:cover !important;
+        width: 100%;
+        height: auto;
+    }
+
+    
+
     .newReviewSmartphone {
         width: 100%;
     }
 
+}
+
+@media screen and (min-width: 801px) and (max-width: 999px) {
+    .imageResenhado {
+        max-width: 400px;
+        max-height: 400px;
+    }
 }
