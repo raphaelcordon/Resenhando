@@ -7,6 +7,7 @@ from models.common import DateConversion, KeepInSession, CleanSession
 from thirdparty.spotify import SpotifyGetFiveArtists, SpotifyGetAlbums, \
     SpotifyGetOneArtist, SpotifyGetOneAlbum, SpotifyGetOneTrack, SpotifyGetOnePlaylist, \
     SpotifyGetPlaylists, SpotifyCheckUser, SpotifyGetTracks
+from views.index_views import __createSessionVariables
 
 res = Blueprint('res', __name__)
 
@@ -387,3 +388,49 @@ def resenhado(id):
     else:
         return render_template('resenha/resenhado.html', data=data, spotify=spotify, user_author=user_author, date=date,
                                commentsList=commentsList, comment_user=comment_user, like=like, PNG=PNG)
+
+
+@res.route('/resenhaViews')
+def resenhaViews():
+    if 'id' not in session:
+        __createSessionVariables()
+    spotifyArtist = []
+    spotifyAlbum = []
+    spotifyTrack = []
+    spotifyPlaylist = []
+
+    users = UsersRepository().List()
+    reviewsArtist = ResenhaRepository().List('artista')
+    reviewsAlbum = ResenhaRepository().List('album')
+    reviewsTrack = ResenhaRepository().List('track')
+    reviewsPlaylist = ResenhaRepository().List('playlist')
+    for item in reviewsArtist:
+        spotifyArtist.append(SpotifyGetOneArtist(item.spotify_id).oneArtist)
+    for item in reviewsAlbum:
+        spotifyAlbum.append(SpotifyGetOneAlbum(item.spotify_id).oneAlbum)
+    for item in reviewsTrack:
+        spotifyTrack.append(SpotifyGetOneTrack(item.spotify_id).oneTrack)
+    for item in reviewsPlaylist:
+        spotifyPlaylist.append(
+            SpotifyGetOnePlaylist(item.spotify_id).onePlaylist)
+
+    if session['id'] != '':
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
+        notifyComment = UsersRepository().FindById(session['id']).read_comment
+        notifyLike = UsersRepository().FindById(session['id']).read_like
+
+        return render_template('resenha/resenhaViews.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
+                               reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
+                               users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
+                               spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='index',
+                               comments=comments, usersNotifications=usersNotifications,
+                               likeNotifications=likeNotifications, resenhasListAll=resenhasListAll,
+                               notifyComment=notifyComment, notifyLike=notifyLike)
+    else:
+        return render_template('resenha/resenhaViews.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
+                           reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
+                           users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
+                           spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='index')

@@ -42,7 +42,7 @@ def everything():
         notifyComment = UsersRepository().FindById(session['id']).read_comment
         notifyLike = UsersRepository().FindById(session['id']).read_like
 
-        return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
+        return render_template('resenha/resenhaViews.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
                                reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
                                users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
                                spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='index',
@@ -50,7 +50,7 @@ def everything():
                                likeNotifications=likeNotifications, resenhasListAll=resenhasListAll,
                                notifyComment=notifyComment, notifyLike=notifyLike)
     else:
-        return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
+        return render_template('resenha/resenhaViews.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
                                reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
                                users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
                                spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='index')
@@ -78,13 +78,13 @@ def filterArtist():
         notifyComment = UsersRepository().FindById(session['id']).read_comment
         notifyLike = UsersRepository().FindById(session['id']).read_like
 
-        return render_template('index.html', reviewsArtist=reviewsArtist, spotifyArtist=spotifyArtist,
+        return render_template('resenha/resenhaViews.html', reviewsArtist=reviewsArtist, spotifyArtist=spotifyArtist,
                                users=users, mainFilter='artist', comments=comments,
                                usersNotifications=usersNotifications, likeNotifications=likeNotifications,
                                resenhasListAll=resenhasListAll, notifyComment=notifyComment, notifyLike=notifyLike)
 
     else:
-        return render_template('index.html', reviewsArtist=reviewsArtist, spotifyArtist=spotifyArtist, users=users,
+        return render_template('resenha/resenhaViews.html', reviewsArtist=reviewsArtist, spotifyArtist=spotifyArtist, users=users,
                                mainFilter='artist')
 
 
@@ -109,12 +109,12 @@ def filterAlbum():
         notifyComment = UsersRepository().FindById(session['id']).read_comment
         notifyLike = UsersRepository().FindById(session['id']).read_like
 
-        return render_template('index.html', reviewsAlbum=reviewsAlbum, spotifyAlbum=spotifyAlbum,
+        return render_template('resenha/resenhaViews.html', reviewsAlbum=reviewsAlbum, spotifyAlbum=spotifyAlbum,
                                users=users, mainFilter='album', comments=comments,
                                usersNotifications=usersNotifications, likeNotifications=likeNotifications,
                                resenhasListAll=resenhasListAll, notifyComment=notifyComment, notifyLike=notifyLike)
     else:
-        return render_template('index.html', reviewsAlbum=reviewsAlbum, spotifyAlbum=spotifyAlbum,
+        return render_template('resenha/resenhaViews.html', reviewsAlbum=reviewsAlbum, spotifyAlbum=spotifyAlbum,
                                users=users, mainFilter='album')
 
 
@@ -139,13 +139,13 @@ def filterTrack():
         notifyComment = UsersRepository().FindById(session['id']).read_comment
         notifyLike = UsersRepository().FindById(session['id']).read_like
 
-        return render_template('index.html', reviewsTrack=reviewsTrack, spotifyTrack=spotifyTrack,
+        return render_template('resenha/resenhaViews.html', reviewsTrack=reviewsTrack, spotifyTrack=spotifyTrack,
                                users=users, mainFilter='track', comments=comments,
                                usersNotifications=usersNotifications, likeNotifications=likeNotifications,
                                resenhasListAll=resenhasListAll, notifyComment=notifyComment, notifyLike=notifyLike)
 
     else:
-        return render_template('index.html', reviewsTrack=reviewsTrack, spotifyTrack=spotifyTrack,
+        return render_template('resenha/resenhaViews.html', reviewsTrack=reviewsTrack, spotifyTrack=spotifyTrack,
                                users=users, mainFilter='track')
 
 
@@ -171,13 +171,13 @@ def filterPlaylist():
         notifyComment = UsersRepository().FindById(session['id']).read_comment
         notifyLike = UsersRepository().FindById(session['id']).read_like
 
-        return render_template('index.html', reviewsPlaylist=reviewsPlaylist, spotifyPlaylist=spotifyPlaylist,
+        return render_template('resenha/resenhaViews.html', reviewsPlaylist=reviewsPlaylist, spotifyPlaylist=spotifyPlaylist,
                                users=users, mainFilter='playlist', comments=comments,
                                usersNotifications=usersNotifications, likeNotifications=likeNotifications,
                                resenhasListAll=resenhasListAll, notifyComment=notifyComment, notifyLike=notifyLike)
 
     else:
-        return render_template('index.html', reviewsPlaylist=reviewsPlaylist, spotifyPlaylist=spotifyPlaylist,
+        return render_template('resenha/resenhaViews.html', reviewsPlaylist=reviewsPlaylist, spotifyPlaylist=spotifyPlaylist,
                                users=users, mainFilter='playlist')
 
 
@@ -260,7 +260,7 @@ def myPage(name, surname):
                 notifyComment = UsersRepository().FindById(session['id']).read_comment
                 notifyLike = UsersRepository().FindById(session['id']).read_like
 
-                return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
+                return render_template('resenha/resenhaViews.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
                                        reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
                                        users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
                                        spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='myPage',
