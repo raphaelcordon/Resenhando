@@ -103,11 +103,10 @@
 footer {
     width: 100;
     margin: 0 auto 0 auto;
-    margin-top: 5%;
     text-align: center;
     background: black;
     color:#ffffff;
-    padding: 5% 0;
+    padding: 3% 0;
     font-family: 'Roboto', sans-serif;
 }
 
