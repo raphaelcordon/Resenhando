@@ -43,6 +43,8 @@ além da opção de rádios e imagens dos Artistas e Álbuns">
 </head>
 
 <body>
+    {% do session.update({'lastURL': request.url}) %}
+
     <!-- Preloader -->
     <div id="preloader">
         <i class="circle-preloader"></i>
@@ -75,8 +77,10 @@ além da opção de rádios e imagens dos Artistas e Álbuns">
 
     <!-- Python Block -->
     {% block content %} {% endblock %}
-
     {% include 'partials/footer.html' %}
+
+    <!-- Modal for authentication -->
+    {% include 'partials/modalLogin.html' %}
 
     <!-- ##### All Javascript Files ##### -->
     <!-- jQuery-2.2.4 js -->

@@ -10,13 +10,12 @@
         <div class="classynav">
             <!-- ##### Form Edit Start ##### -->
             <form method="POST" action="{{ url_for('log.authenticate') }}">
-                <input type="hidden" id="previous" name="previous" value="{{ previous }}">
                 <ul>
                     <li class="login_smartphone"><label>e-Mail:</label> <input class="form-control" type="email"
                             id="email" name="email" value="{{ session.email }}"
-                            placeholder="email@provedor.com" required autofocus></li>
+                            placeholder="e-Mail" required autofocus></li>
                     <li class="login_smartphone"><label>Senha:</label> <input class="form-control" type="password"
-                            id="password" name="password" required></li>
+                            id="password" name="password" placeholder="Senha" required></li>
                     <li><button type="submit" class="btn btn-info">Logar</button></li>
                 </ul>
             </form>

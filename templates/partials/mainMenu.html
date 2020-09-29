@@ -27,10 +27,16 @@
             </li>
             {% endif %}
 
+            {% if session['email'] == '' or 'email' not in session %}
+            <li class="nav-item d-flex justify-content-left" data-toggle="modal" data-target="#loginModal">
+                    <a class="nav-link navbarBackground" href="#"><i class="fas fa-pencil-alt fa-lg"></i> Nova Resenha</a>
+            </li>
+            {% else %}
             <li class="nav-item d-flex justify-content-left">
                 <a class="nav-link navbarBackground" href="{{ url_for('res.resenhaIndex') }}">
                     <i class="fas fa-pencil-alt fa-lg"></i> Nova Resenha</a>
             </li>
+            {% endif %}
 
             <li class="nav-item dropdown d-flex justify-content-left">
                 <a class="nav-link navbarBackground dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"

@@ -43,11 +43,12 @@ def authenticate():
             LoginHistRepository().New(session['id'])
             flash(f'Bem vindo {user.name}', 'success')
         
-        _redirect = request.form['previous']
-        if _redirect != '':
-            return redirect(_redirect)
-        else:
-            return redirect(url_for('ind.home'))
+        if session['lastURL'] != '':
+            _redirect = session['lastURL']
+            if _redirect != '':
+                return redirect(_redirect)
+            else:
+                return redirect(url_for('ind.home'))
     else:
         flash('Verifique usuário e/ou senha e tente novamente', 'danger')
         return redirect(url_for('log.login'))

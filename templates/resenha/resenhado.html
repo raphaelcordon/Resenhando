@@ -12,27 +12,32 @@
                 <tr>
                     <td>
                         {% if session.id == data.author_id %}
-                        <i class="far fa-hand-pointer fa-2x" style="color: #d2d2d2"></i>
-                        {% if like == 0 %} <i style="color: #d2d2d2">
-                        Nenhuma curtida ainda</i> {% else %}<i style="color: #d2d2d2">{{ like }} Curtida(s)</i>
-                        {% endif %}
+                            <!-- ## Users can't like its own reviews ## -->
+                            <i class="far fa-hand-pointer fa-2x" style="color: #d2d2d2"></i>
+                            {% if like == 0 %} <i style="color: #d2d2d2">
+                            Nenhuma curtida ainda</i> {% else %}<i style="color: #d2d2d2">{{ like }} Curtida(s)</i>
+                            {% endif %}
                         {% else %}
-                        {% if PNG == 'unclick' %}
-                        <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}" style="color: #51cf66">
-                            <i class="fas fa-hand-pointer fa-2x" ></i>
-                        {% if like == 0 %} Nenhuma curtida ainda {% else %}{{ like }} Curtida(s)<br>Você Curtiu!
-                            {% endif %}</a>
-                        {% else %}
-                        <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}" style="color: #676767">
-                            <span class="linkColor"><i class="far fa-hand-pointer fa-2x"></i>
-                        {% if like == 0 %}Nenhuma curtida ainda {% else %}{{ like }} Curtida(s)
-                            {% endif %}</span></a>
-                        {% endif %}
+                            {% if not session.id %}
+                                <!-- ## calling Login Modal ## -->
+                                <a data-toggle="modal" data-target="#loginModal" href="#" style="color: #676767">
+                                    <span class="linkColor"><i class="far fa-hand-pointer fa-2x"></i>
+                                    {% if like == 0 %}Nenhuma curtida ainda {% else %}{{ like }} Curtida(s){% endif %}</span></a>
+                            {% else %}
+                                {% if PNG == 'unclick' %}
+                                    <!-- ## setting Like / Not Liked status ## -->
+                                    <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}" style="color: #51cf66">
+                                        <i class="fas fa-hand-pointer fa-2x" ></i>
+                                    {% if like == 0 %} Nenhuma curtida ainda {% else %}{{ like }} Curtida(s)<br>Você Curtiu!
+                                    {% endif %}</a>
+                                {% else %}
+                                    <a href="{{ url_for('cur.curtida', resenha_id=data.id) }}"  style="color: #676767">
+                                    <span class="linkColor"><i class="far fa-hand-pointer fa-2x"></i>
+                                    {% if like == 0 %}Nenhuma curtida ainda {% else %}{{ like }} Curtida(s){% endif %}</span></a>
+                                {% endif %}
+                            {% endif %}
                         {% endif %}
                     </td>
-                </tr>
-                <tr>
-                    <td></td>
                 </tr>
             </table>
 
@@ -198,7 +203,5 @@
     </section>
 </section>
 
-<!-- Modal for authentication -->
-{% include 'partials/modalLogin.html' %}
 
 {% endblock %}

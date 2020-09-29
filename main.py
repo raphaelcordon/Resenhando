@@ -11,6 +11,7 @@ from views.users_views import use
 from flask import Flask
 
 app = Flask(__name__)
+app.jinja_options['extensions'].append('jinja2.ext.do')
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 

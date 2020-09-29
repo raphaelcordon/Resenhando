@@ -101,8 +101,7 @@
 }
 
 footer {
-    width: 100;
-    margin: 0 auto 0 auto;
+    width: 100%;
     text-align: center;
     background: black;
     color:#ffffff;

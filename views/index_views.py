@@ -70,3 +70,4 @@ def __createSessionVariables():
     session['nome_banda'] = ''
     session['review'] = ''
     session['previous'] = ''
+    session['lastURL'] = ''
