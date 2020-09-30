@@ -1,4 +1,4 @@
-from flask import render_template, session, redirect, url_for, Blueprint, flash, Response
+from flask import render_template, session, redirect, url_for, Blueprint, flash
 from thirdparty.spotify import SpotifyGetOneAlbum, SpotifyGetOneArtist, SpotifyGetOneTrack, SpotifyGetOnePlaylist
 from repository.users_repos import UsersRepository
 from repository.resenha_repos import ResenhaRepository
@@ -200,92 +200,85 @@ def minhas_resenhas(id):
         return redirect(url_for('filter.myPage', name=str(user.name).lower(), surname=str(user.surname).lower()))
 
 
-@filter.route('/<name>.<surname>/')
+@filter.route('/<name>-<surname>/')
 def myPage(name, surname):
 
     if 'id' not in session:
         session['id'] = ''
 
-    if name == 'ads' and surname == 'txt':
-        print('teste')
-        with open("ads.txt", "r") as f:
-            content = f.read()
-        return Response(content, mimetype='text/plain')
-    else:
-
-        try:
-            authorID = ResenhaRepository().FindAuthorByNameSurname(str(name).title(), str(surname).title()).id
-            if not authorID:
-                return redirect(url_for('ind.home'))
-
-            reviews = ResenhaRepository().FindAuthorById(authorID)
-            if not reviews:
-
-                flash(f'{str(name).title()} {str(surname).title()} ainda não criou resenhas', 'info')
-                return redirect(url_for('ind.home'))
-            else:
-                flash(f'Resenhas de {str(name).title()} {str(surname).title()}: '
-                      f"   resenhando.co/{str(name).lower()}.{str(surname).lower()}   ", 'info')
-
-                spotifyArtist = []
-                spotifyAlbum = []
-                spotifyTrack = []
-                spotifyPlaylist = []
-                reviewsArtist = []
-                reviewsAlbum = []
-                reviewsTrack = []
-                reviewsPlaylist = []
-
-                users = UsersRepository().List()
-                for item in reviews:
-                    if item.tipo_review == 'artista':
-                        reviewsArtist.append(item)
-                    elif item.tipo_review == 'album':
-                        reviewsAlbum.append(item)
-                    elif item.tipo_review == 'track':
-                        reviewsTrack.append(item)
-                    elif item.tipo_review == 'playlist':
-                        reviewsPlaylist.append(item)
-
-                for item in reviews:
-                    if item.tipo_review == 'artista':
-                        spotifyArtist.append(
-                            SpotifyGetOneArtist(item.spotify_id).oneArtist)
-                    elif item.tipo_review == 'album':
-                        spotifyAlbum.append(
-                            SpotifyGetOneAlbum(item.spotify_id).oneAlbum)
-                    elif item.tipo_review == 'track':
-                        spotifyTrack.append(
-                            SpotifyGetOneTrack(item.spotify_id).oneTrack)
-                    elif item.tipo_review == 'playlist':
-                        spotifyPlaylist.append(
-                            SpotifyGetOnePlaylist(item.spotify_id).onePlaylist)
-
-                if session['id'] != '':
-                    comments = CommentsRepository().listAuthorId(session['id'])
-                    likeNotifications = CurtidasRepository().listAuthorId(session['id'])
-                    usersNotifications = UsersRepository().List()
-                    resenhasListAll = ResenhaRepository().ListAll()
-                    notifyComment = UsersRepository().FindById(session['id']).read_comment
-                    notifyLike = UsersRepository().FindById(session['id']).read_like
-
-                    return render_template('resenha/resenhaViews.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
-                                           reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
-                                           users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
-                                           spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='myPage',
-                                           comments=comments, usersNotifications=usersNotifications,
-                                           likeNotifications=likeNotifications, resenhasListAll=resenhasListAll,
-                                           notifyComment=notifyComment, notifyLike=notifyLike)
-
-                else:
-                    return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
-                                           reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
-                                           users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
-                                           spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='myPage')
-
-        except:
-            flash('Usuário não identificado', 'danger')
+    try:
+        authorID = ResenhaRepository().FindAuthorByNameSurname(str(name).title(), str(surname).title()).id
+        if not authorID:
             return redirect(url_for('ind.home'))
+
+        reviews = ResenhaRepository().FindAuthorById(authorID)
+        if not reviews:
+
+            flash(f'{str(name).title()} {str(surname).title()} ainda não criou resenhas', 'info')
+            return redirect(url_for('ind.home'))
+        else:
+            flash(f'Resenhas de {str(name).title()} {str(surname).title()}: '
+                  f"   resenhando.co/{str(name).lower()}-{str(surname).lower()}   ", 'info')
+
+            spotifyArtist = []
+            spotifyAlbum = []
+            spotifyTrack = []
+            spotifyPlaylist = []
+            reviewsArtist = []
+            reviewsAlbum = []
+            reviewsTrack = []
+            reviewsPlaylist = []
+
+            users = UsersRepository().List()
+            for item in reviews:
+                if item.tipo_review == 'artista':
+                    reviewsArtist.append(item)
+                elif item.tipo_review == 'album':
+                    reviewsAlbum.append(item)
+                elif item.tipo_review == 'track':
+                    reviewsTrack.append(item)
+                elif item.tipo_review == 'playlist':
+                    reviewsPlaylist.append(item)
+
+            for item in reviews:
+                if item.tipo_review == 'artista':
+                    spotifyArtist.append(
+                        SpotifyGetOneArtist(item.spotify_id).oneArtist)
+                elif item.tipo_review == 'album':
+                    spotifyAlbum.append(
+                        SpotifyGetOneAlbum(item.spotify_id).oneAlbum)
+                elif item.tipo_review == 'track':
+                    spotifyTrack.append(
+                        SpotifyGetOneTrack(item.spotify_id).oneTrack)
+                elif item.tipo_review == 'playlist':
+                    spotifyPlaylist.append(
+                        SpotifyGetOnePlaylist(item.spotify_id).onePlaylist)
+
+            if session['id'] != '':
+                comments = CommentsRepository().listAuthorId(session['id'])
+                likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+                usersNotifications = UsersRepository().List()
+                resenhasListAll = ResenhaRepository().ListAll()
+                notifyComment = UsersRepository().FindById(session['id']).read_comment
+                notifyLike = UsersRepository().FindById(session['id']).read_like
+
+                return render_template('resenha/resenhaViews.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
+                                       reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
+                                       users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
+                                       spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='myPage',
+                                       comments=comments, usersNotifications=usersNotifications,
+                                       likeNotifications=likeNotifications, resenhasListAll=resenhasListAll,
+                                       notifyComment=notifyComment, notifyLike=notifyLike)
+
+            else:
+                return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
+                                       reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
+                                       users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
+                                       spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='myPage')
+
+    except:
+        flash('Usuário não identificado', 'danger')
+        return redirect(url_for('ind.home'))
 
 
 def __createSessionVariables():

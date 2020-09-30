@@ -1,4 +1,4 @@
-from flask import render_template, session, redirect, url_for, Blueprint
+from flask import render_template, session, redirect, url_for, Blueprint, Response
 from thirdparty.spotify import SpotifyGetOneAlbum, SpotifyGetOneArtist, SpotifyGetOneTrack, SpotifyGetOnePlaylist
 from repository.users_repos import UsersRepository
 from repository.resenha_repos import ResenhaRepository
@@ -58,6 +58,16 @@ def index():
 def home():
 
     return redirect(url_for('ind.index'))
+
+
+@ind.route('/<ads>.<txt>')
+def myPage(ads, txt):
+    if ads == 'ads' and txt == 'txt':
+        with open("ads.txt", "r") as f:
+            content = f.read()
+        return Response(content, mimetype='text/plain')
+    else:
+        return redirect(url_for('ind.index'))
 
 
 def __createSessionVariables():
