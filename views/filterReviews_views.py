@@ -45,7 +45,7 @@ def everything():
         return render_template('resenha/resenhaViews.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
                                reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
                                users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
-                               spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='index',
+                               spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='everything',
                                comments=comments, usersNotifications=usersNotifications,
                                likeNotifications=likeNotifications, resenhasListAll=resenhasListAll,
                                notifyComment=notifyComment, notifyLike=notifyLike)
@@ -53,7 +53,7 @@ def everything():
         return render_template('resenha/resenhaViews.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
                                reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
                                users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
-                               spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='index')
+                               spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='everything')
 
 
 @filter.route('/filterArtist')
@@ -224,7 +224,8 @@ def myPage(name, surname):
                 flash(f'{str(name).title()} {str(surname).title()} ainda não criou resenhas', 'info')
                 return redirect(url_for('ind.home'))
             else:
-                flash(f'Resenhas criadas por {str(name).title()} {str(surname).title()}', 'info')
+                flash(f'Resenhas de {str(name).title()} {str(surname).title()}: '
+                      f"   resenhando.co/{str(name).lower()}.{str(surname).lower()}   ", 'info')
 
                 spotifyArtist = []
                 spotifyAlbum = []

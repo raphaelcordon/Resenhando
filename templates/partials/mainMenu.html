@@ -1,94 +1,90 @@
 <!-- Menu -->
-<main class="container">
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-white">
-    <!-- Logo Start -->
-      <a class="navbar-brand logo_smartphone" href="{{ url_for('ind.home') }}">
-          <img src="{{ url_for('static', filename='img/core-img/logo.png') }}" alt="Resenhando">
-      </a>
-    <!-- Logo End -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-white my-0 py-0">
+<!-- Logo Start -->
+  <a class="navbar-brand logo_smartphone my-0 py-0" href="{{ url_for('ind.home') }}">
+      <img src="{{ url_for('static', filename='img/core-img/logo.png') }}" alt="Resenhando">
+  </a>
+<!-- Logo End -->
 
-    <!-- Toggler -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-              aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<!-- Toggler -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-    <!-- Nav Start -->
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-
-            {% if session['id'] != '' %}
-            <li class="nav-item d-flex justify-content-left adjustNotificationsButton" data-toggle="modal" data-target="#notificationsModal">
-                    <a class="nav-link navbarBackground" href="#"><i class="fas fa-inbox fa-lg"></i> Notificações
+<!-- Nav Start -->
+<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+        {% if session['id'] != '' %}
+            <li class="nav-item d-flex justify-content-left adjustNotificationsButton text-nowrap" data-toggle="modal"
+                data-target="#notificationsModal"><a class="nav-link navbarBackground" href="#">
+                <i class="fas fa-inbox fa-lg"></i> Notificações
                     {% if notifyComment==true or notifyLike==true %}
-                    <img src="{{ url_for('static', filename='img/core-img/notifyButtons/notify.png') }}" class="notificationsButton">
+                    <img src="{{ url_for('static', filename='img/core-img/notifyButtons/notify.png') }}"
+                         class="notificationsButton">
                     {% endif %}
                     </a>
             </li>
-            {% endif %}
+        {% endif %}
 
-            {% if session['email'] == '' or 'email' not in session %}
-            <li class="nav-item d-flex justify-content-left" data-toggle="modal" data-target="#loginModal">
+        {% if session['email'] == '' or 'email' not in session %}
+            <li class="nav-item d-flex justify-content-left text-nowrap" data-toggle="modal" data-target="#loginModal">
                     <a class="nav-link navbarBackground" href="#"><i class="fas fa-pencil-alt fa-lg"></i> Nova Resenha</a>
             </li>
-            {% else %}
-            <li class="nav-item d-flex justify-content-left">
+        {% else %}
+            <li class="nav-item d-flex justify-content-left text-nowrap">
                 <a class="nav-link navbarBackground" href="{{ url_for('res.resenhaIndex') }}">
                     <i class="fas fa-pencil-alt fa-lg"></i> Nova Resenha</a>
             </li>
-            {% endif %}
+        {% endif %}
 
-            <li class="nav-item dropdown d-flex justify-content-left">
-                <a class="nav-link navbarBackground dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                   data-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-filter fa-lg"></i> Filtrar Resenhas
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item navbarSubMenuBackground" href="{{ url_for('filter.everything') }}"><i class="fas fa-bars"></i> &nbsp;Todas</a>
-                    <div class="dropdown-divider"></div>
-                {% if session.id != '' %}
-                  <a class="dropdown-item navbarSubMenuBackground" href="{{ url_for('filter.minhas_resenhas', id=session.id) }}"><i class="fas fa-grip-lines"></i> &nbsp;Minhas</a>
-                {% endif %}
-                  <a class="dropdown-item navbarSubMenuBackground" href="{{ url_for('filter.filterArtist') }}"><i class="fas fa-guitar"></i> &nbsp;Artistas</a>
-                  <a class="dropdown-item navbarSubMenuBackground" href="{{ url_for('filter.filterAlbum') }}"><i class="fas fa-compact-disc"></i> &nbsp;Álbums</a>
-                  <a class="dropdown-item navbarSubMenuBackground" href="{{ url_for('filter.filterTrack') }}"><i class="fab fa-itunes-note"></i> &nbsp;Músicas</a>
-                  <a class="dropdown-item navbarSubMenuBackground" href="{{ url_for('filter.filterPlaylist') }}"><i class="fas fa-icons"></i> &nbsp;Playlists</a>
-                </div>
+        <li class="dropdown d-flex justify-content-left text-nowrap">
+            <a class="nav-link navbarBackground dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+               data-toggle="dropdown" aria-expanded="false"><i class="fas fa-filter fa-lg"></i> Filtrar Resenhas</a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item navbarSubMenuBackground" href="{{ url_for('filter.everything') }}"><i class="fas fa-bars"></i> &nbsp;Todas</a>
+                <div class="dropdown-divider"></div>
+            {% if session.id != '' %}
+              <a class="dropdown-item navbarSubMenuBackground py-1" href="{{ url_for('filter.minhas_resenhas', id=session.id) }}"><i class="fas fa-grip-lines"></i> &nbsp;Minhas</a>
+            {% endif %}
+              <a class="dropdown-item navbarSubMenuBackground py-1" href="{{ url_for('filter.filterArtist') }}"><i class="fas fa-guitar"></i> &nbsp;Artistas</a>
+              <a class="dropdown-item navbarSubMenuBackground py-1" href="{{ url_for('filter.filterAlbum') }}"><i class="fas fa-compact-disc"></i> &nbsp;Álbums</a>
+              <a class="dropdown-item navbarSubMenuBackground py-1" href="{{ url_for('filter.filterTrack') }}"><i class="fab fa-itunes-note"></i> &nbsp;Músicas</a>
+              <a class="dropdown-item navbarSubMenuBackground py-1" href="{{ url_for('filter.filterPlaylist') }}"><i class="fas fa-icons"></i> &nbsp;Playlists</a>
+            </div>
+        </li>
+
+        {% if session.id != '' and session['id'] == 1 or session['id'] == 4 %}
+            <li class="nav-item d-flex justify-content-left text-nowrap">
+                <a class="nav-link navbarBackground" href="{{ url_for('adm._adm') }}">* ADM</a>
+            </li>
+        {% endif %}
+
+        {% if session['id'] == '' %}
+            <li class="nav-item d-flex justify-content-left text-nowrap" data-toggle="modal" data-target="#loginModal">
+                <a class="nav-link navbarBackground" href="#"><i class="fas fa-sign-in-alt fa-lg"></i> Login</a>
+            </li>
+            <li class="nav-item d-flex justify-content-left text-nowrap">
+                <a class="nav-link navbarBackground" href="{{ url_for('log.newAccount') }}">
+                    <i class="fas fa-clipboard-list fa-lg"></i> Cadastrar</a>
+            </li>
+        {% else %}
+            <li class="nav-item d-flex justify-content-left text-nowrap">
+                <a class="nav-link navbarBackground" id="editAccount" href="{{ url_for('use.editAccount') }}">
+                    <i class="far fa-address-card fa-lg"></i>
+                    {{ session['name'] }} {{ session['surname'] }}</a>
             </li>
 
-            {% if session.id != '' and session['id'] == 1 or session['id'] == 4 %}
-                <li class="nav-item d-flex justify-content-left">
-                    <a class="nav-link navbarBackground" href="{{ url_for('adm._adm') }}">* ADM</a>
-                </li>
-            {% endif %}
-
-            {% if session['id'] == '' %}
-                <li class="nav-item d-flex justify-content-left" data-toggle="modal" data-target="#loginModal">
-                    <a class="nav-link navbarBackground" href="#"><i class="fas fa-sign-in-alt fa-lg"></i> Login</a>
-                </li>
-                <li class="nav-item d-flex justify-content-left">
-                    <a class="nav-link navbarBackground" href="{{ url_for('log.newAccount') }}"><i class="fas fa-clipboard-list fa-lg"></i> Cadastrar</a>
-                </li>
-            {% else %}
-                <li class="nav-item d-flex justify-content-left">
-                    <a class="nav-link navbarBackground" id="editAccount" href="{{ url_for('use.editAccount') }}">
-                        <i class="far fa-address-card fa-lg"></i>
-                        {{ session['name'] }} {{ session['surname'] }}</a>
-                </li>
-
-                <li class="nav-item d-flex justify-content-left">
-                    <a class="nav-link navbarBackground" id="logout" href="{{ url_for('log.logout') }}">
-                        <i class="fas fa-sign-out-alt fa-lg"></i> Logout</a>
-                </li>
-            {% endif %}
-        </ul>
-      </div>
-    </nav>
-    <!-- Nav End -->
-</main>
+            <li class="nav-item d-flex justify-content-left text-nowrap">
+                <a class="nav-link navbarBackground" id="logout" href="{{ url_for('log.logout') }}">
+                    <i class="fas fa-sign-out-alt fa-lg"></i> Logout</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
 
 <!-- Modal for authentication -->
 {% include 'partials/modalLogin.html' %}
-
 <!-- Modal for notifications -->
 {% include 'partials/modalNotifications.html' %}

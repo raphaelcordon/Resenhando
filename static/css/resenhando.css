@@ -16,7 +16,7 @@
 }
 
 .indexTileImage {
-    max-height: 280px;
+    max-height: 280px !important;
 }
 
 .modal { background: rgba(000, 000, 000, 0.8); min-height:1000000px; }
@@ -395,8 +395,8 @@ body {
         display: inline;
     }
     .logo_smartphone {
-        width: 60% !important;
-        height: 60% !important;
+        width: 65% !important;
+        height: 65% !important;
     }
 
     .reShapeIndex {

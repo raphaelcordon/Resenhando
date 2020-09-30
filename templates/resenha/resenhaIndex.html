@@ -1,72 +1,70 @@
 {% extends 'base.html' %}
 {% block content %}
 <main class="container">
-    <section>
+    <h5>Iniciar resenha:</h5>
+    <h6 class="pb-3">Escrever sobre</h6>
+
+    <div class="row pl-4">
+        <div class="col-5 col-sm-4 col-md4-1 col-lg-1 text-nowrap p-2 m-2">
+            <a href="#" id="buttonArtist"><span class="linkColor">
+                <i class="fas fa-guitar fa-lg"></i> Artista</span></a>
+        </div>
+
+        <div class="col-5 col-sm-4 col-md4-1 col-lg-1 text-nowrap p-2 m-2">
+            <a href="#" id="buttonAlbum"><span class="linkColor">
+                <i class="fas fa-compact-disc fa-lg"></i> Álbum</span></a>
+        </div>
+
+        <div class="col-5 col-sm-4 col-md4-1 col-lg-1 text-nowrap p-2 m-2">
+            <a href="#" id="buttonTrack"><span class="linkColor">
+                <i class="fab fa-itunes-note fa-lg"></i> Música</span></a>
+        </div>
+
+        <div class="col-5 col-sm-4 col-md4-1 col-lg-1 text-nowrap p-2 m-2">
+            <a href="#" id="buttonPlaylist"><span class="linkColor">
+                <i class="fas fa-icons fa-lg"></i> Playlist</span></a>
+        </div>
+    </div>
+
+    <section class="initiallyHidden pb-5" id="formArtist">
         <div class="container">
-            <h5>Iniciar resenha:</h5>
-            <div class="container">
-                <div class="dropdown_position">
-                    <h6>Escrever sobre</h6>
-                    <a href="#" id="buttonArtist"><span class="linkColor">
-                        <i class="fas fa-guitar fa-lg"></i> Artista</span></a>
-
-                    &nbsp; &nbsp; &nbsp;
-
-                    <a href="#" id="buttonAlbum"><span class="linkColor">
-                        <i class="fas fa-compact-disc fa-lg"></i> Álbum</span></a>
-
-                    &nbsp; &nbsp; &nbsp;
-
-                    <a href="#" id="buttonTrack"><span class="linkColor">
-                        <i class="fab fa-itunes-note fa-lg"></i> Música</span></a>
-
-                    &nbsp; &nbsp; &nbsp;
-
-                    <a href="#" id="buttonPlaylist"><span class="linkColor">
-                        <i class="fas fa-icons fa-lg"></i> Playlist</span></a>
-                </div>
+            <div class="dropdown_position">
+                <hr/>
+                <h6><br>Artista</h6><p>Digite o nome do artista abaixo:</p>
             </div>
+                <p>{% include 'partials/resenhaArtistForm.html' %}</p>
+        </div>
+    </section>
 
-            <hr/>
-
-            <section class="initiallyHidden" id="formArtist">
-                <div class="container">
-                    <div class="dropdown_position">
-                        <h6><br>Artista</h6><p>Digite o nome do artista abaixo:</p>
-                    </div>
-                        <p>{% include 'partials/resenhaArtistForm.html' %}</p>
-                </div>
-            </section>
-
-            <section class="initiallyHidden" id="formAlbum">
-                <div class="container">
-                    <div class="dropdown_position">
-                        <h6><br>Álbum</h6><p>Digite o nome do artista para pesquisar o álbum:</p>
-                    </div>
-                        <p>{% include 'partials/resenhaArtistForm.html' %}</p>
-                </div>
-            </section>
+    <section class="initiallyHidden pb-5" id="formAlbum">
+        <div class="container">
+            <div class="dropdown_position">
+                <hr/>
+                <h6><br>Álbum</h6><p>Digite o nome do artista para pesquisar o álbum:</p>
+            </div>
+                <p>{% include 'partials/resenhaArtistForm.html' %}</p>
+        </div>
+    </section>
 
 
-            <section class="initiallyHidden" id="formTrack">
-                <div class="container">
-                    <div class="dropdown_position">
-                        <h6><br>Música</h6><p>Uma música</p>
-                    </div>
-                        <p>{% include 'partials/resenhaTrackForm.html' %}</p>
-                </div>
-            </section>
+    <section class="initiallyHidden pb-5" id="formTrack">
+        <div class="container">
+            <div class="dropdown_position">
+                <hr/>
+                <h6><br>Música</h6><p>Uma música</p>
+            </div>
+                <p>{% include 'partials/resenhaTrackForm.html' %}</p>
+        </div>
+    </section>
 
-            <section class="initiallyHidden" id="formPlaylist">
-                <div class="container">
-                    <div class="dropdown_position">
-                        <h6><br>Playlist</h6><p>Uma de suas playlists do Spotify<br>
-                        <b>É necessário digitar o seu <u>'nome do usuário' do Spotify</u></b></p>
-                    </div>
-                        <p>{% include 'partials/resenhaPlaylistForm.html' %}</p>
-                </div>
-            </section>
-
+    <section class="initiallyHidden pb-5" id="formPlaylist">
+        <div class="container">
+            <div class="dropdown_position">
+                <hr/>
+                <h6><br>Playlist</h6><p>Uma de suas playlists do Spotify<br>
+                <b>É necessário digitar o seu <u>'nome do usuário' do Spotify</u></b></p>
+            </div>
+                <p>{% include 'partials/resenhaPlaylistForm.html' %}</p>
         </div>
     </section>
 </main>

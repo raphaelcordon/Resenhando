@@ -1,6 +1,6 @@
 {% if review.spotify_id == spotify.id %}
-    <div class="single-best-receipe-area pb-0">
-        <div class="receipe-content mb-0 p-0">
+    <div class="pb-0 text-center">
+        <div class="mb-0 p-0">
             <a href="{{ url_for('res.resenhado', id=review.id) }}">
                 {% if spotify.image == None %}
                 <img class="border-0 indexTileImage" src="../static/img/bg-img/No-Image-Available.png" alt="">
