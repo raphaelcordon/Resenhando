@@ -3,6 +3,7 @@
 /* :: 2.0 Import All CSS */
 @import url(css/bootstrap.min.css);
 @import url(css/resenhando.css);
+@import url(css/adsense.css);
 /* :: 3.0 Base CSS */
 * {
   margin: 0;
