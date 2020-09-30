@@ -75,16 +75,13 @@ além da opção de rádios e imagens dos Artistas e Álbuns">
     {% endwith %}
     <!-- ##### Flask Messages end ##### -->
 
-    <!-- ##### Top Screen AdSense ##### -->
-    <div class="adsense">
-    </div>
+    <!-- Python Block Start -->
+        {% block content %} {% endblock %}
+        {% include 'partials/footer.html' %}
 
-    <!-- Python Block -->
-    {% block content %} {% endblock %}
-    {% include 'partials/footer.html' %}
-
-    <!-- Modal for authentication -->
-    {% include 'partials/modalLogin.html' %}
+        <!-- Modal for authentication -->
+        {% include 'partials/modalLogin.html' %}
+    <!-- Python Block End -->
 
     <!-- ##### All Javascript Files ##### -->
     <!-- jQuery-2.2.4 js -->
