@@ -61,7 +61,7 @@ def home():
 
 
 @ind.route('/<ads>.<txt>')
-def myPage(ads, txt):
+def adsTxt(ads, txt):
     if ads == 'ads' and txt == 'txt':
         with open("ads.txt", "r") as f:
             content = f.read()
