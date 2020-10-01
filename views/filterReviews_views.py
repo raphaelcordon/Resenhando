@@ -84,8 +84,8 @@ def filterArtist():
                                resenhasListAll=resenhasListAll, notifyComment=notifyComment, notifyLike=notifyLike)
 
     else:
-        return render_template('resenha/resenhaViews.html', reviewsArtist=reviewsArtist, spotifyArtist=spotifyArtist, users=users,
-                               mainFilter='artist')
+        return render_template('resenha/resenhaViews.html', reviewsArtist=reviewsArtist, spotifyArtist=spotifyArtist,
+                               users=users, mainFilter='artist')
 
 
 @filter.route('/filterAlbum')
