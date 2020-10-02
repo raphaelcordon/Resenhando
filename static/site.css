@@ -83,7 +83,17 @@ img {
     bottom: 0;
     margin: auto;
     animation: spin 2s infinite linear; }
-    
+
+  @-webkit-keyframes spin {
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg); } }
+  @keyframes spin {
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg); } }
+
+/* Miscellaneous */
 .bg-white {
   background-color: #ffffff !important; }
 
