@@ -21,9 +21,8 @@
         {% else %}
 
         {% for artist in artists %}
-        <h2 class="resenhaListArtistName">{{ artist.name }}</h2>
-        <section class="poster_more_details">
-
+            <h2 class="resenhaListArtistName">{{ artist.name }}</h2>
+            <section class="poster_more_details">
                 <div>
                     {% if artist.image == '' %}
                     <img src="{{ url_for('static', filename='img/bg-img/No-Image-Available.png') }}" alt=""
@@ -33,29 +32,27 @@
                     {% endif %}
                 </div>
 
-                <table class="table_poster">
-                        <tr>
-                            <td class="resenha_titles">Fazer uma resenha:</td>
-                        </tr>
-                        <tr>
-                            <td class="resenha_titles">
-                                <ol>
-                                    <li>
-                                        <a href="{{ url_for('res.resenhaNewArtist', artistId=artist.id) }}"
-                                class="navbarBackground">&nbsp;<i class="fas fa-guitar"></i>&nbsp; Do Artista</a>
-                                    </li>
-                                    <li>&nbsp;</li>
-                                    <li>
-                                        <a href="{{ url_for('res.resenhalistAlbums', artistId=artist.id) }}"
-                            class="navbarBackground">&nbsp;<i class="fas fa-compact-disc"></i>&nbsp; Selecionar um Álbum</a>
-                                    </li>
-                                </ol>
-                                </td>
-                        </tr>
+                <table>
+                    <tr>
+                        <td class="pt-2 pl-2">Fazer uma resenha:</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ol>
+                                <li>
+                                    <a href="{{ url_for('res.resenhaNewArtist', artistId=artist.id) }}">
+                                        &nbsp;<i class="ml-3 pt-2 fas fa-guitar"></i>&nbsp; Do Artista</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('res.resenhalistAlbums', artistId=artist.id) }}">
+                                        &nbsp;<i class="ml-3 pt-3 fas fa-compact-disc"></i>&nbsp; Selecionar um Álbum</a>
+                                </li>
+                            </ol>
+                        </td>
+                    </tr>
                 </table>
-
-        </section>
-        <hr/>
+            </section>
+            <hr/>
         {% endfor %}
         {% endif %}
         <!-- ##### Artist info end ##### -->
