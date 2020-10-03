@@ -433,10 +433,10 @@ body {
 /* CSS for Tablets */
 
 @media screen and (min-width: 481px) and (max-width: 800px) {
-
-        /* ------------------------------------- */
-    /* Horizontal Index Scrollbar Beginning */
-
+    .main_results {
+        margin-top: 1%;
+        padding-left: 3%;
+    }
     .index-item {
         width: 40%;
     }
