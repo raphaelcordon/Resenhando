@@ -1,63 +1,65 @@
 {% extends 'base.html' %}
 {% block content %}
 <!-- ##### Main Area Start ##### -->
-<main class="container">
+<main>
 
     <!-- ##### Form Edit Start ##### -->
-    <div>
+    <div class="container">
         <!-- ## Search Artist ## -->
         <p>Pesquisar novamente:</p>
         {% include 'partials/resenhaArtistForm.html' %}
         <hr/>
+        <p>Artistas/Bandas encontrados:</p>
     </div>
-    <p>Artistas/Bandas encontrados:</p>
 
 
     <!-- ##### (5) Artist info begining ##### -->
-    {% if not artists %}
-    <h4>Nenhum artista ou banda encontrado.</h4>
+    <section class="resenhaListArtist">
+        {% if not artists %}
+        <h4>Nenhum artista ou banda encontrado.</h4>
 
-    {% else %}
+        {% else %}
 
-    {% for artist in artists %}
-    <h2>{{ artist.name }}</h2>
-    <section class="poster_more_details">
+        {% for artist in artists %}
+        <h2 class="resenhaListArtistName">{{ artist.name }}</h2>
+        <section class="poster_more_details">
 
-            <div>
-                {% if artist.image == '' %}
-                <img src="{{ url_for('static', filename='img/bg-img/No-Image-Available.png') }}" alt=""
-                     class="imageResenhado imageResenhadoSmartphone">
-                {% else %}
-                <img src="{{ artist.image }}" class="imageResenhado imageResenhadoSmartphone">
-                {% endif %}
-            </div>
+                <div>
+                    {% if artist.image == '' %}
+                    <img src="{{ url_for('static', filename='img/bg-img/No-Image-Available.png') }}" alt=""
+                         class="imageResenhado imageResenhadoSmartphone">
+                    {% else %}
+                    <img src="{{ artist.image }}" class="imageResenhado imageResenhadoSmartphone">
+                    {% endif %}
+                </div>
 
-            <table class="table_poster">
-                    <tr>
-                        <td class="resenha_titles">Fazer uma resenha:</td>
-                    </tr>
-                    <tr>
-                        <td class="resenha_titles">
-                            <ol>
-                                <li>
-                                    <a href="{{ url_for('res.resenhaNewArtist', artistId=artist.id) }}"
-                            class="navbarBackground">&nbsp;<i class="fas fa-guitar"></i>&nbsp; Do Artista</a>
-                                </li>
-                                <li>&nbsp;</li>
-                                <li>
-                                    <a href="{{ url_for('res.resenhalistAlbums', artistId=artist.id) }}"
-                        class="navbarBackground">&nbsp;<i class="fas fa-compact-disc"></i>&nbsp; Selecionar um Álbum</a>
-                                </li>
-                            </ol>
-                            </td>
-                    </tr>
-            </table>
+                <table class="table_poster">
+                        <tr>
+                            <td class="resenha_titles">Fazer uma resenha:</td>
+                        </tr>
+                        <tr>
+                            <td class="resenha_titles">
+                                <ol>
+                                    <li>
+                                        <a href="{{ url_for('res.resenhaNewArtist', artistId=artist.id) }}"
+                                class="navbarBackground">&nbsp;<i class="fas fa-guitar"></i>&nbsp; Do Artista</a>
+                                    </li>
+                                    <li>&nbsp;</li>
+                                    <li>
+                                        <a href="{{ url_for('res.resenhalistAlbums', artistId=artist.id) }}"
+                            class="navbarBackground">&nbsp;<i class="fas fa-compact-disc"></i>&nbsp; Selecionar um Álbum</a>
+                                    </li>
+                                </ol>
+                                </td>
+                        </tr>
+                </table>
 
+        </section>
+        <hr/>
+        {% endfor %}
+        {% endif %}
+        <!-- ##### Artist info end ##### -->
     </section>
-    <hr/>
-    {% endfor %}
-    {% endif %}
-    <!-- ##### Artist info end ##### -->
 
 </main>
 {% endblock %}

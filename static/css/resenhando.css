@@ -347,6 +347,10 @@ body {
     margin-bottom: 0 !important;
 }
 
+.resenhaListArtist {
+    margin-left: 7%
+}
+
 
 /* Horizontal Index Scrollbar Ending */
 /* --------------------------------- */
@@ -376,6 +380,9 @@ body {
     
     .poster_image {
         all: unset;
+    }
+    .resenhaListArtist {
+        all: unset
     }
     
     .table_poster {
@@ -412,11 +419,14 @@ body {
         padding-left: auto !important;
         padding-right: auto !important;
     }
-.imageResenhadoSmartphone .image_artist .resenha_albuns {
+    .imageResenhadoSmartphone .image_artist .resenha_albuns {
         all: unset !important; 
         object-fit:cover !important;
         width: 100%;
         height: auto;
+    }
+    .resenhaListArtistName {
+        text-align: center;
     }
     .justify-content-left{
         padding-left: 12%;
@@ -445,6 +455,9 @@ body {
     .index-item {
         width: 40%;
     }
+    .resenhaListArtist {
+        margin-left: 3%
+    }
 
     .poster_more_details {
     width: 100%;
@@ -468,7 +481,6 @@ body {
         max-width: 400px;
         max-height: 400px;
     }
-
     .newReviewSmartphone {
         width: 100%;
     }
@@ -479,5 +491,8 @@ body {
     .imageResenhado {
         max-width: 400px;
         max-height: 400px;
+    }
+    .resenhaListArtist {
+        margin-left: 5%
     }
 }
