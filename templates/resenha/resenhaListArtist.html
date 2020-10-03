@@ -34,18 +34,18 @@
 
                 <table>
                     <tr>
-                        <td class="pt-2 pl-2">Fazer uma resenha:</td>
+                        <td><p class="pt-2 pl-2 pb-0 mb-0">Fazer uma resenha:</p></td>
                     </tr>
                     <tr>
                         <td>
                             <ol>
                                 <li>
                                     <a href="{{ url_for('res.resenhaNewArtist', artistId=artist.id) }}">
-                                        &nbsp;<i class="ml-3 pt-2 fas fa-guitar"></i>&nbsp; Do Artista</a>
+                                        &nbsp;<h6 class="linkColor"><i class="pt-0 ml-4 fas fa-guitar fa-lg"></i>&nbsp; Do Artista</h6></a>
                                 </li>
                                 <li>
                                     <a href="{{ url_for('res.resenhalistAlbums', artistId=artist.id) }}">
-                                        &nbsp;<i class="ml-3 pt-3 fas fa-compact-disc"></i>&nbsp; Selecionar um Álbum</a>
+                                        &nbsp;<h6 class="linkColor"><i class="ml-4 fas fa-compact-disc fa-lg"></i>&nbsp; Selecionar um Álbum</h6></a>
                                 </li>
                             </ol>
                         </td>
