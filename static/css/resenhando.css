@@ -69,6 +69,11 @@
     padding: 0px 1% 3%;
 }
 
+.imageResenhado {
+        max-width: 400px;
+        max-height: 400px;
+    }
+
 .resenha_titles {
     vertical-align: top;
     font-weight: bold;
@@ -459,14 +464,10 @@ body {
         padding-left: auto !important;
         padding-right: auto !important;
     }
-    .imageResenhadoSmartphone {
-        all: unset !important; 
-        object-fit:cover !important;
-        width: 100%;
-        height: auto;
+    .imageResenhado {
+        max-width: 400px;
+        max-height: 400px;
     }
-
-    
 
     .newReviewSmartphone {
         width: 100%;

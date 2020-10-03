@@ -6,11 +6,11 @@
     <!-- ##### Form Edit Start ##### -->
     <div>
         <!-- ## Search Artist ## -->
+        <p>Pesquisar novamente:</p>
         {% include 'partials/resenhaArtistForm.html' %}
-        <br>
+        <hr/>
     </div>
     <p>Artistas/Bandas encontrados:</p>
-
 
 
     <!-- ##### (5) Artist info begining ##### -->
@@ -25,9 +25,10 @@
 
             <div>
                 {% if artist.image == '' %}
-                <img src="{{ url_for('static', filename='img/bg-img/No-Image-Available.png') }}" alt="" class="resenha_albuns">
+                <img src="{{ url_for('static', filename='img/bg-img/No-Image-Available.png') }}" alt=""
+                     class="imageResenhado imageResenhadoSmartphone">
                 {% else %}
-                <img src="{{ artist.image }}" class="resenha_albuns">
+                <img src="{{ artist.image }}" class="imageResenhado imageResenhadoSmartphone">
                 {% endif %}
             </div>
 
