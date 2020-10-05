@@ -477,7 +477,7 @@ body {
         padding-left: auto !important;
         padding-right: auto !important;
     }
-    .imageResenhado {
+    .imageResenhadoSmartphone {
         max-width: 400px;
         max-height: 400px;
     }
@@ -488,7 +488,7 @@ body {
 }
 
 @media screen and (min-width: 801px) and (max-width: 999px) {
-    .imageResenhado {
+    .imageResenhadoSmartphone {
         max-width: 400px;
         max-height: 400px;
     }
