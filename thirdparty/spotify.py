@@ -23,11 +23,14 @@ class SpotifyGetFiveArtists:
         for item in SPOTIFY.search(q='artist:' + self.name, type='artist')['artists']['items'][:5]:
             image = item['images'][0]['url'] if len(item['images']) > 0 else ''
             if image != '':
+                radio = str.replace(
+                    item['external_urls']['spotify'], "/artist/", "/embed/artist/")
                 artist = {'id':     item['id'],
                           'name':   item['name'],
                           'image':  image,
                           'uri':    item['uri'],
-                          'genres': item['genres']
+                          'genres': item['genres'],
+                          'radio':  radio
                           }
                 self.listArtists.append(artist)
         return self.listArtists

@@ -70,8 +70,9 @@
 }
 
 .imageResenhado {
-        max-width: 350px;
-        max-height: 350px;
+        max-width: 400px;
+        max-height: 400px;
+        padding-right: 10px;
     }
 
 .resenha_titles {
@@ -507,8 +508,8 @@ body {
 
 @media screen and (min-width: 801px) and (max-width: 999px) {
     .imageResenhadoSmartphone {
-        max-width: 350px;
-        max-height: 350px;
+        max-width: 400px;
+        max-height: 400px;
     }
     .resenhaListArtist {
         margin-left: 5%
