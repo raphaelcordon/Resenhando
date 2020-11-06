@@ -392,7 +392,7 @@ body {
     }
 
     .resenhaListArtist {
-        all: unset
+        all: unset !important
     }
     
     .table_poster {
@@ -429,7 +429,8 @@ body {
         padding-left: auto !important;
         padding-right: auto !important;
     }
-    .imageResenhadoSmartphone .image_artist .resenha_albuns {
+
+    .imageResenhado .imageResenhadoSmartphone .image_artist .resenha_albuns {
         all: unset !important; 
         object-fit:cover !important;
         width: 100%;
@@ -499,6 +500,7 @@ body {
     .imageResenhadoSmartphone {
         max-width: 400px;
         max-height: 400px;
+        
     }
     .newReviewSmartphone {
         width: 100%;
