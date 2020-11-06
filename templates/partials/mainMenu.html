@@ -38,20 +38,22 @@
             </li>
         {% endif %}
 
-        <li class="dropdown d-flex justify-content-left text-nowrap pt-2">
-            <a class="nav-link navbarBackground dropdown-toggle" href="#" id="navbarDropdownMenuLink"
-               data-toggle="dropdown" aria-expanded="false"><i class="fas fa-filter fa-lg"></i> Filtrar Resenhas</a>
+        <li class="d-flex justify-content-left text-nowrap pt-2">
+            <div class="dropdown">
+                <a class="nav-link navbarBackground dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                data-toggle="dropdown" aria-expanded="false"><i class="fas fa-filter fa-lg"></i> Filtrar Resenhas</a>
 
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item navbarSubMenuBackground pt-2" href="{{ url_for('filter.everything') }}"><i class="fas fa-bars"></i> &nbsp;Todas</a>
-                <div class="dropdown-divider"></div>
-            {% if session.id != '' %}
-              <a class="dropdown-item navbarSubMenuBackground py-1 pt-2" href="{{ url_for('filter.minhas_resenhas', id=session.id) }}"><i class="fas fa-grip-lines"></i> &nbsp;Minhas</a>
-            {% endif %}
-              <a class="dropdown-item navbarSubMenuBackground py-1 pt-2" href="{{ url_for('filter.filterArtist') }}"><i class="fas fa-guitar"></i> &nbsp;Artistas</a>
-              <a class="dropdown-item navbarSubMenuBackground py-1 pt-2" href="{{ url_for('filter.filterAlbum') }}"><i class="fas fa-compact-disc"></i> &nbsp;Álbums</a>
-              <a class="dropdown-item navbarSubMenuBackground py-1 pt-2" href="{{ url_for('filter.filterTrack') }}"><i class="fab fa-itunes-note"></i> &nbsp;Músicas</a>
-              <a class="dropdown-item navbarSubMenuBackground py-1 pt-2" href="{{ url_for('filter.filterPlaylist') }}"><i class="fas fa-icons"></i> &nbsp;Playlists</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item navbarSubMenuBackground pt-2" href="{{ url_for('filter.everything') }}"><i class="fas fa-bars"></i> &nbsp;Todas</a>
+                    <div class="dropdown-divider"></div>
+                {% if session.id != '' %}
+                  <a class="dropdown-item navbarSubMenuBackground py-1 pt-2" href="{{ url_for('filter.minhas_resenhas', id=session.id) }}"><i class="fas fa-grip-lines"></i> &nbsp;Minhas</a>
+                {% endif %}
+                  <a class="dropdown-item navbarSubMenuBackground py-1 pt-2" href="{{ url_for('filter.filterArtist') }}"><i class="fas fa-guitar"></i> &nbsp;Artistas</a>
+                  <a class="dropdown-item navbarSubMenuBackground py-1 pt-2" href="{{ url_for('filter.filterAlbum') }}"><i class="fas fa-compact-disc"></i> &nbsp;Álbums</a>
+                  <a class="dropdown-item navbarSubMenuBackground py-1 pt-2" href="{{ url_for('filter.filterTrack') }}"><i class="fab fa-itunes-note"></i> &nbsp;Músicas</a>
+                  <a class="dropdown-item navbarSubMenuBackground py-1 pt-2" href="{{ url_for('filter.filterPlaylist') }}"><i class="fas fa-icons"></i> &nbsp;Playlists</a>
+                </div>
             </div>
         </li>
 
