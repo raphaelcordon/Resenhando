@@ -2,61 +2,59 @@
 {% block content %}
 <!-- ##### Main Area Start ##### -->
 <main>
-
-    <!-- ##### Form Edit Start ##### -->
     <div class="container">
+    <!-- ##### Form Edit Start ##### -->
         <!-- ## Search Artist ## -->
         <p>Pesquisar novamente:</p>
         {% include 'partials/resenhaArtistForm.html' %}
         <hr/>
         <p>Artistas/Bandas encontrados:</p>
+
+        <!-- ##### (5) Artist info begining ##### -->
+        <section class="resenhaListArtist">
+            {% if not artists %}
+            <h4>Nenhum artista ou banda encontrado.</h4>
+
+            {% else %}
+
+            {% for artist in artists %}
+                <h2 class="resenhaListArtistName">{{ artist.name }}</h2>
+                <section class="poster_more_details">
+                    <div>
+                        {% if artist.image == '' %}
+                        <img src="{{ url_for('static', filename='img/bg-img/No-Image-Available.png') }}" alt=""
+                             class="imageResenhado imageResenhadoSmartphone">
+                        {% else %}
+                        <img src="{{ artist.image }}" class="imageResenhadoSmartphone">
+                        {% endif %}
+                    </div>
+
+                    <table>
+                        <tr>
+                            <td><p class="pt-2 pl-2 pb-0 mb-0">Fazer uma resenha:</p></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ol>
+                                    <li>
+                                        <a href="{{ url_for('res.resenhaNewArtist', artistId=artist.id) }}">
+                                            &nbsp;<h6 class="linkColor"><i class="pt-0 ml-4 fas fa-guitar fa-lg"></i>&nbsp; Do Artista</h6></a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('res.resenhalistAlbums', artistId=artist.id) }}">
+                                            &nbsp;<h6 class="linkColor"><i class="ml-4 fas fa-compact-disc fa-lg"></i>&nbsp; Selecionar um Álbum</h6></a>
+                                    </li>
+                                </ol>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+                <hr/>
+            {% endfor %}
+            {% endif %}
+            <!-- ##### Artist info end ##### -->
+        </section>
     </div>
-
-
-    <!-- ##### (5) Artist info begining ##### -->
-    <section class="resenhaListArtist">
-        {% if not artists %}
-        <h4>Nenhum artista ou banda encontrado.</h4>
-
-        {% else %}
-
-        {% for artist in artists %}
-            <h2 class="resenhaListArtistName">{{ artist.name }}</h2>
-            <section class="poster_more_details">
-                <div>
-                    {% if artist.image == '' %}
-                    <img src="{{ url_for('static', filename='img/bg-img/No-Image-Available.png') }}" alt=""
-                         class="imageResenhado imageResenhadoSmartphone">
-                    {% else %}
-                    <img src="{{ artist.image }}" class="imageResenhadoSmartphone">
-                    {% endif %}
-                </div>
-
-                <table>
-                    <tr>
-                        <td><p class="pt-2 pl-2 pb-0 mb-0">Fazer uma resenha:</p></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <ol>
-                                <li>
-                                    <a href="{{ url_for('res.resenhaNewArtist', artistId=artist.id) }}">
-                                        &nbsp;<h6 class="linkColor"><i class="pt-0 ml-4 fas fa-guitar fa-lg"></i>&nbsp; Do Artista</h6></a>
-                                </li>
-                                <li>
-                                    <a href="{{ url_for('res.resenhalistAlbums', artistId=artist.id) }}">
-                                        &nbsp;<h6 class="linkColor"><i class="ml-4 fas fa-compact-disc fa-lg"></i>&nbsp; Selecionar um Álbum</h6></a>
-                                </li>
-                            </ol>
-                        </td>
-                    </tr>
-                </table>
-            </section>
-            <hr/>
-        {% endfor %}
-        {% endif %}
-        <!-- ##### Artist info end ##### -->
-    </section>
 
 </main>
 {% endblock %}
