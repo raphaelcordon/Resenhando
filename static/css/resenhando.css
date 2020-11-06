@@ -368,6 +368,14 @@ body {
         padding-left: 3%;
     }
 
+    .indexReviewName {
+        padding: 6px;
+    }
+
+    .indexReviewTitle {
+        padding: 3px;
+    }
+
     .comments_writing {
         display: inline;
     }
@@ -381,6 +389,7 @@ body {
     .poster_image {
         all: unset;
     }
+
     .resenhaListArtist {
         all: unset
     }
@@ -455,6 +464,15 @@ body {
     .index-item {
         width: 40%;
     }
+
+    .indexReviewName {
+        padding: 6px;
+    }
+
+    .indexReviewTitle {
+        padding: 3px;
+    }
+
     .resenhaListArtist {
         margin-left: 3%
     }
@@ -494,5 +512,12 @@ body {
     }
     .resenhaListArtist {
         margin-left: 5%
+    }
+    .indexReviewName {
+        padding: 6px;
+    }
+
+    .indexReviewTitle {
+        padding: 3px;
     }
 }

@@ -8,7 +8,7 @@
                 <img class="border-0 indexTileImage" src="{{ spotify.image }}" alt="{{ spotify.name }}">
                 {% endif %}
             </a>
-            <a href="{{ url_for('res.resenhado', id=review.id) }}">
+            <a href="{{ url_for('res.resenhado', id=review.id) }}" class="linkColor">
                 {% if spotify.name|length > 26 %}
                     <div class="indexReviewTitle bg-secondary text-white">{{ spotify.name[0:26] }}...</div>
                 {% else %}
