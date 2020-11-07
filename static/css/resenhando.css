@@ -16,7 +16,8 @@
 }
 
 .indexTileImage {
-    max-height: 280px !important;
+    max-height: 250px !important;
+ 
 }
 
 .modal { background: rgba(000, 000, 000, 0.8); min-height:1000000px; }
@@ -68,12 +69,6 @@
 .table_poster td {
     padding: 0px 1% 3%;
 }
-
-.imageResenhado {
-        max-width: 400px;
-        max-height: 400px;
-        padding-right: 10px;
-    }
 
 .resenha_titles {
     vertical-align: top;
@@ -439,6 +434,11 @@ body {
     .resenhaListArtistName {
         text-align: center;
     }
+
+    .radioListArtist {
+        padding-left: 8%;
+    }
+
     .justify-content-left{
         padding-left: 12%;
     }
@@ -451,7 +451,7 @@ body {
     /* Horizontal Index Scrollbar Beginning */
 
     .index-item {
-        width: 70%;
+        width: 65%;
     }
 
 }
@@ -464,7 +464,7 @@ body {
         padding-left: 3%;
     }
     .index-item {
-        width: 40%;
+        width: 30%;
     }
 
     .indexReviewName {
@@ -497,10 +497,10 @@ body {
         padding-left: auto !important;
         padding-right: auto !important;
     }
+
     .imageResenhadoSmartphone {
         max-width: 400px;
         max-height: 400px;
-        
     }
     .newReviewSmartphone {
         width: 100%;
@@ -522,5 +522,14 @@ body {
 
     .indexReviewTitle {
         padding: 3px;
+    }
+
+}
+
+@media screen and (min-width: 1000px) {
+    .imageResenhado {
+        max-width: 400px;
+        max-height: 400px;
+        padding-right: 10px;
     }
 }
