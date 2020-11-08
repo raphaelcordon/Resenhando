@@ -56,55 +56,56 @@ $(document).ready(function () {
 });
 
 // Update Comments as read in Notifications
-$(function() {
-  $('#linkComments').bind('click', function() {
+$(function () {
+  $('#linkComments').bind('click', function () {
     $.getJSON('/commentRead',
-        function(data) {
-      //do nothing
-    });
+      function (data) {
+        //do nothing
+      });
     return false;
   });
 });
 
 // Update Likes as read in Notifications
-$(function() {
-  $('#linkLikes').bind('click', function() {
+$(function () {
+  $('#linkLikes').bind('click', function () {
     $.getJSON('/likeRead',
-        function(data) {
-      //do nothing
-    });
+      function (data) {
+        //do nothing
+      });
     return false;
   });
 });
 
 
-$(document).on('shown.bs.modal', function () {
-    var albumId =           $('#albumData').data('album').id;
-    var albumName =         $('#albumData').data('album').name;
-    var albumImage =        $('#albumData').data('album').image;
-    var albumArtistName =   $('#albumData').data('album').artist_name;
-    var albumReleaseDate =  $('#albumData').data('album').release_date;
-    var albumTotalTracks =  $('#albumData').data('album').totalTracks;
-    var albumRadio =        $('#albumData').data('album').radio;
-    var albumGenres =       $('#albumData').data('album').genres;
+$(document).on('click', ".listAlbumModal", function () {
 
+  var album = $(this).data('album');
+  var albumId = album.id;
+  var albumName = album.name;
+  var albumImage = album.image;
+  var albumArtistName = album.artist_name;
+  var albumReleaseDate = album.release_date;
+  var albumTotalTracks = album.totalTracks;
+  var albumRadio = album.radio;
+  var albumGenres = album.genres;
 
-    //clean up the modal
-    $("#albumId").empty();
-    $("#albumName").empty();
-    $("#albumImage").empty();
-    $("#albumArtistName").empty();
-    $("#albumReleaseDate").empty();
-    $("#albumTotalTracks").empty();
-    $("#albumRadio").empty();
-    $("#albumGenres").empty();
+  //clean up the modal
+  $("#albumId").empty();
+  $("#albumName").empty();
+  $("#albumImage").empty();
+  $("#albumArtistName").empty();
+  $("#albumReleaseDate").empty();
+  $("#albumTotalTracks").empty();
+  $("#albumRadio").empty();
+  $("#albumGenres").empty();
 
-    // fill up data
-    $(".modal-body #albumId").val( albumId );
-    $("#albumName").append("<h4>" + albumName + "</h4>");
-    $("#albumImage").append("<img src=' " + albumImage + "'><br>");
-    $("#albumArtistName").after("<b>Artista:</b> " + albumArtistName + ". &nbsp; Álbum lançado em " + albumReleaseDate + ", com " + albumTotalTracks + " faixas.<br>");
-    $("#albumRadio").append("<br> &nbsp;<iframe src='" + albumRadio + "' width='300' height='300' frameborder='0' allowtransparency='true' allow='encrypted-media'></iframe>");
-    $("#linkResenha").append("{{ url_for('res.resenhaNewAlbum', albumId= " + album.id + ") }}");
-    $("#albumGenres").after("<b>Gênero(s):</b> " + albumGenres + "<br>");
+  // fill up data
+  $(".modal-body #albumId").val(albumId);
+  $("#albumName").append("<h4>" + albumName + "</h4>");
+  $("#albumImage").append("<img src=' " + albumImage + "'><br>");
+  $("#albumArtistName").after("<b>Artista:</b> " + albumArtistName + ". &nbsp; Álbum lançado em " + albumReleaseDate + ", com " + albumTotalTracks + " faixas.<br>");
+  $("#albumRadio").append("<br> &nbsp;<iframe src='" + albumRadio + "' width='300' height='300' frameborder='0' allowtransparency='true' allow='encrypted-media'></iframe>");
+  $("#linkResenha").append("{{ url_for('res.resenhaNewAlbum', albumId= " + albumId + ") }}");
+  $("#albumGenres").after("<b>Gênero(s):</b> " + albumGenres + "<br>");
 });

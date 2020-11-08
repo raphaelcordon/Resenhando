@@ -29,7 +29,7 @@
                         <h5 class="linkColor">{{ album.name }}</h5></a>
 
                         <!-- Link of Modal for Album Information - Start -->
-                        <a id="albumData" href="#listAlbumModal" data-toggle="modal"
+                        <a id="albumData{{ album.id }}" href="#listAlbumModal" class="listAlbumModal" data-toggle="modal"
                            data-album='{"id":"{{ album.id }}","name":"{{ album.name }}", "image":"{{ album.image }}",
                            "artist_name":"{{ album.artist_name }}", "release_date":"{{ album.release_date }}",
                            "totalTracks":"{{ album.totalTracks }}", "radio":"{{ album.radio }}",
