@@ -76,3 +76,35 @@ $(function() {
     return false;
   });
 });
+
+
+$(document).on('shown.bs.modal', function () {
+    var albumId =           $('#albumData').data('album').id;
+    var albumName =         $('#albumData').data('album').name;
+    var albumImage =        $('#albumData').data('album').image;
+    var albumArtistName =   $('#albumData').data('album').artist_name;
+    var albumReleaseDate =  $('#albumData').data('album').release_date;
+    var albumTotalTracks =  $('#albumData').data('album').totalTracks;
+    var albumRadio =        $('#albumData').data('album').radio;
+    var albumGenres =       $('#albumData').data('album').genres;
+
+
+    //clean up the modal
+    $("#albumId").empty();
+    $("#albumName").empty();
+    $("#albumImage").empty();
+    $("#albumArtistName").empty();
+    $("#albumReleaseDate").empty();
+    $("#albumTotalTracks").empty();
+    $("#albumRadio").empty();
+    $("#albumGenres").empty();
+
+    // fill up data
+    $(".modal-body #albumId").val( albumId );
+    $("#albumName").append("<h4>" + albumName + "</h4>");
+    $("#albumImage").append("<img src=' " + albumImage + "'><br>");
+    $("#albumArtistName").after("<b>Artista:</b> " + albumArtistName + ". &nbsp; Álbum lançado em " + albumReleaseDate + ", com " + albumTotalTracks + " faixas.<br>");
+    $("#albumRadio").append("<br> &nbsp;<iframe src='" + albumRadio + "' width='300' height='300' frameborder='0' allowtransparency='true' allow='encrypted-media'></iframe>");
+    $("#linkResenha").append("{{ url_for('res.resenhaNewAlbum', albumId= " + album.id + ") }}");
+    $("#albumGenres").after("<b>Gênero(s):</b> " + albumGenres + "<br>");
+});

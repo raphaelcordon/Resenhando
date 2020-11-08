@@ -34,12 +34,19 @@ class SpotifyGetAlbums:
                 artist_name = self.item['artists'][0]['name'] if len(
                     self.item['artists']) > 0 else ''
                 album_name = self.item['name']
+                radio = str.replace(
+                    self.item['external_urls']['spotify'], "/album/", "/embed/album/")
+                albumSearch = SPOTIFY.album(self.item['id'])
+                genres = SPOTIFY.artist(albumSearch['artists'][0]['id'])['genres']
 
                 album = {'id': self.item['id'],
                          'name': self.item['name'],
                          'image': image,
                          'artist_name': artist_name,
-                         'release_date': self.item['release_date'][:4]
+                         'release_date': self.item['release_date'][:4],
+                         'radio': radio,
+                         'totalTracks': self.item['total_tracks'],
+                         'genres': genres
                          }
 
                 if not self.__contains(album_name):
@@ -92,9 +99,9 @@ class SpotifyGetAlbums:
 
         return False
 
-#get = SpotifyGetAlbums('7AC976RDJzL2asmZuz7qil')
-# for g in get.listAlbums:
-#    print(g)
+get = SpotifyGetAlbums('7AC976RDJzL2asmZuz7qil')
+for g in get.listAlbums:
+    print(g)
 
 
 '''
@@ -303,8 +310,8 @@ class SpotifyGetPlaylists:
         return self.playlists
 
 
-for f in SpotifyGetPlaylists('raphaelcordon').createList():
-    print(f)
+#for f in SpotifyGetPlaylists('raphaelcordon').createList():
+#    print(f)
 
 #for f in SPOTIFY.user_playlists('raphaelcordon')['items']:
 #    print(f)

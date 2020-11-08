@@ -88,13 +88,21 @@ class SpotifyGetAlbums:
                 artist_name = self.item['artists'][0]['name'] if len(
                     self.item['artists']) > 0 else ''
                 album_name = self.item['name']
-                print(album_name)
+                radio = str.replace(
+                    self.item['external_urls']['spotify'], "/album/", "/embed/album/")
+
+                # Get album id to get the genre (only artists have genres)
+                albumSearch = SPOTIFY.album(self.item['id'])
+                genres = SPOTIFY.artist(albumSearch['artists'][0]['id'])['genres']
 
                 album = {'id': self.item['id'],
                          'name': self.item['name'],
                          'image': image,
                          'artist_name': artist_name,
-                         'release_date': self.item['release_date'][:4]
+                         'release_date': self.item['release_date'][:4],
+                         'genres': genres,
+                         'radio': radio,
+                         'totalTracks': self.item['total_tracks']
                          }
 
                 if not self.__contains(album_name):

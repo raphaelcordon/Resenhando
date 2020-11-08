@@ -26,9 +26,17 @@
                         {% endif %}
                     </a>
                     <a href="{{ url_for('res.resenhaNewAlbum', albumId=album.id) }}">
-                        <h5>{{ album.name }}</h5>
-                        <h5>Release: {{ album.release_date }}</h5>
-                    </a>
+                        <h5 class="linkColor">{{ album.name }}</h5></a>
+
+                        <!-- Link of Modal for Album Information - Start -->
+                        <a id="albumData" href="#listAlbumModal" data-toggle="modal"
+                           data-album='{"id":"{{ album.id }}","name":"{{ album.name }}", "image":"{{ album.image }}",
+                           "artist_name":"{{ album.artist_name }}", "release_date":"{{ album.release_date }}",
+                           "totalTracks":"{{ album.totalTracks }}", "radio":"{{ album.radio }}",
+                           "genres":"{{ album.genres }}"}'>
+                            <h5 class="linkColor">Release: {{ album.release_date }}</h5>
+                        </a>
+                        <!-- Link of Modal for Album Information - End -->
                 </div>
             </div>
         </div>
@@ -37,4 +45,44 @@
     </div>
     <!-- ##### Artist info end ##### -->
 </main>
+
+<!-- Modal for Album Information -->
+<div class="modal fade" id="listAlbumModal" tabindex="-1" role="dialog" aria-labelledby="listAlbumModalLabel"
+     aria-hidden="true" data-backdrop="true">
+    <div class="container modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+
+            <!-- Modal Header Start -->
+            <div class="modal-header">
+                <!-- Album Title -->
+                <span class="modal-title" id="albumName"></span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- Modal Header End -->
+
+            <!-- Modal Body Start -->
+            <p class="pl-3 pb-0 mb-0">Role a página para mais detalhes</p>
+            <div class="modal-body">
+                <span id="linkResenha"><a href="#">
+                        <h6 class="linkColor text-center">
+                            <i class="fas fa-compact-disc fa-lg"> Resenhar esse Álbum</i></h6></a></span>
+
+                <span id="albumImage"></span>
+
+                <span id="albumArtistName" class="pl-3 mt-2 p-3"></span>
+
+                <span id="albumRadio"></span>
+
+                <span id="albumGenres" class="pl-3 mt-2 p-3"></span>
+
+                <span id="linkResenha" class="pt-3"><a href="#">
+                        <h6 class="linkColor text-center">
+                            <i class="fas fa-compact-disc fa-lg"> Resenhar esse Álbum</i></h6></a></span>
+            </div>
+            <!-- Modal Body End -->
+        </div>
+    </div>
+</div>
 {% endblock %}

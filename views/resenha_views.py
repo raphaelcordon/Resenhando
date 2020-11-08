@@ -102,6 +102,13 @@ def resenhalistAlbums(artistId):
         return render_template('resenha/resenhaListAlbums.html', albums=albums)
 
 
+@res.route('/modalListAlbum/<albumID>/', methods=['GET', 'POST'])
+def modalListAlbum(albumID):
+
+    album = SpotifyGetOneAlbum(albumID).createList()
+
+    return render_template('partials/modalListAlbums.html', album=album)
+
 @res.route('/resenhaNewAlbum/<albumId>/', methods=['GET', 'POST'])
 def resenhaNewAlbum(albumId):
     if session['email'] == '' or 'email' not in session:
