@@ -99,13 +99,18 @@ $(document).on('click', ".listAlbumModal", function () {
   $("#albumTotalTracks").empty();
   $("#albumRadio").empty();
   $("#albumGenres").empty();
+  $("#linkResenha").empty();
+  $("#linkResenha2").empty();
 
   // fill up data
   $(".modal-body #albumId").val(albumId);
   $("#albumName").append("<h4>" + albumName + "</h4>");
   $("#albumImage").append("<img src=' " + albumImage + "'><br>");
-  $("#albumArtistName").after("<b>Artista:</b> " + albumArtistName + ". &nbsp; Álbum lançado em " + albumReleaseDate + ", com " + albumTotalTracks + " faixas.<br>");
-  $("#albumRadio").append("<br> &nbsp;<iframe src='" + albumRadio + "' width='300' height='300' frameborder='0' allowtransparency='true' allow='encrypted-media'></iframe>");
-  $("#linkResenha").append("{{ url_for('res.resenhaNewAlbum', albumId= " + albumId + ") }}");
-  $("#albumGenres").after("<b>Gênero(s):</b> " + albumGenres + "<br>");
+  $("#albumArtistName").append("<b>Artista:</b> " + albumArtistName + ". &nbsp; Álbum lançado em " + albumReleaseDate + ", com " + albumTotalTracks + " faixas.");
+  $("#albumRadio").append("<iframe src='" + albumRadio + "' width='300' height='300' frameborder='0' allowtransparency='true' allow='encrypted-media'></iframe>");
+  $("#linkResenha").attr("href", "/resenhaNewAlbum/" + albumId);
+  $("#linkResenha").append("<h6 class='linkColor text-center'><i class='fas fa-compact-disc fa-lg'> Resenhar esse Álbum</i></h6>");
+  $("#linkResenha2").attr("href", "/resenhaNewAlbum/" + albumId);
+  $("#linkResenha2").append("<h6 class='linkColor text-center'><i class='fas fa-compact-disc fa-lg'> Resenhar esse Álbum</i></h6>");
+  $("#albumGenres").append("<b>Gênero(s):</b> " + albumGenres);
 });

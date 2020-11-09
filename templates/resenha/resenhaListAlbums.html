@@ -18,25 +18,18 @@
         <div class="col-12 col-sm-8 col-lg-2">
             <div class="single-best-receipe-area mb-10">
                 <div class="receipe-content">
-                    <a href="{{ url_for('res.resenhaNewAlbum', albumId=album.id) }}">
+                    <a id="albumData{{ album.id }}" href="#listAlbumModal" class="listAlbumModal" data-toggle="modal"
+                       data-album='{"id":"{{ album.id }}","name":"{{ album.name }}", "image":"{{ album.image }}",
+                       "artist_name":"{{ album.artist_name }}", "release_date":"{{ album.release_date }}",
+                       "totalTracks":"{{ album.totalTracks }}", "radio":"{{ album.radio }}",
+                       "genres":"{{ album.genres }}"}'>
                         {% if not album.image %}
                         <img src="../static/img/bg-img/No-Image-Available.png" alt="">
                         {% else %}
                         <img src="{{ album.image }}" alt="">
                         {% endif %}
+                        <h5 class="linkColor">{{ album.name }}<br>Release: {{ album.release_date }}</h5>
                     </a>
-                    <a href="{{ url_for('res.resenhaNewAlbum', albumId=album.id) }}">
-                        <h5 class="linkColor">{{ album.name }}</h5></a>
-
-                        <!-- Link of Modal for Album Information - Start -->
-                        <a id="albumData{{ album.id }}" href="#listAlbumModal" class="listAlbumModal" data-toggle="modal"
-                           data-album='{"id":"{{ album.id }}","name":"{{ album.name }}", "image":"{{ album.image }}",
-                           "artist_name":"{{ album.artist_name }}", "release_date":"{{ album.release_date }}",
-                           "totalTracks":"{{ album.totalTracks }}", "radio":"{{ album.radio }}",
-                           "genres":"{{ album.genres }}"}'>
-                            <h5 class="linkColor">Release: {{ album.release_date }}</h5>
-                        </a>
-                        <!-- Link of Modal for Album Information - End -->
                 </div>
             </div>
         </div>
@@ -65,21 +58,14 @@
             <!-- Modal Body Start -->
             <p class="pl-3 pb-0 mb-0">Role a página para mais detalhes</p>
             <div class="modal-body">
-                <span id="linkResenha"><a href="#">
-                        <h6 class="linkColor text-center">
-                            <i class="fas fa-compact-disc fa-lg"> Resenhar esse Álbum</i></h6></a></span>
-
-                <span id="albumImage"></span>
-
-                <span id="albumArtistName" class="pl-3 mt-2 p-3"></span>
-
-                <span id="albumRadio"></span>
-
-                <span id="albumGenres" class="pl-3 mt-2 p-3"></span>
-
-                <span id="linkResenha" class="pt-3"><a href="#">
-                        <h6 class="linkColor text-center">
-                            <i class="fas fa-compact-disc fa-lg"> Resenhar esse Álbum</i></h6></a></span>
+                <a id="linkResenha"></a>                                        <!-- Link 1 -->
+                <span id="albumImage" class="text-center"></span>      <!-- Album Image -->
+                <table class="table p-0 m-0">
+                    <tr><td id="albumArtistName" class="text-center"></td></tr> <!-- Artist Name -->
+                    <tr><td id="albumRadio" class="text-center"></td></tr>      <!-- Radio -->
+                    <tr><td id="albumGenres"></td></tr>                         <!-- Genres -->
+                    <tr><td><a id="linkResenha2"></a></td></tr>                 <!-- Link 2 -->
+                </table>
             </div>
             <!-- Modal Body End -->
         </div>
