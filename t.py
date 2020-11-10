@@ -99,9 +99,10 @@ class SpotifyGetAlbums:
 
         return False
 
-get = SpotifyGetAlbums('7AC976RDJzL2asmZuz7qil')
-for g in get.listAlbums:
-    print(g)
+#get = SpotifyGetAlbums('4lgrzShsg2FLA89UM2fdO5')
+#print(get.albums)
+#for g in get.listAlbums:
+#    print(g)
 
 
 '''
@@ -164,6 +165,8 @@ class SpotifyGetOneArtist:
                           }
         return self.oneArtist
 
+artist = SPOTIFY.artist("2nRyqv8aTwpdazeAg0lOQK")
+print(artist)
 
 class SpotifyGetOneAlbum:
     def __init__(self, albumID):
@@ -317,7 +320,6 @@ class SpotifyGetPlaylists:
 #    print(f)
 
 
-
 """
 {'href': 'https://api.spotify.com/v1/users/raphaelcordon/playlists?offset=0&limit=50', 
  'items': [
@@ -339,7 +341,6 @@ class SpotifyGetPlaylists:
      'limit': 50, 'next': None, 'offset': 0, 'previous': None, 'total': 2}
 
 """
-
 
 
 class SpotifyCheckUser:
@@ -390,3 +391,6 @@ class SpotifyGetTracks:
 
 #for f in SpotifyGetTracks('Breakthru').createList():
 #    print(f)
+
+
+# -----------------
