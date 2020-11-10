@@ -93,7 +93,8 @@
 }
 
 .linkColor:hover{
-    color: rgb(1, 104, 1)
+    color: rgb(1, 104, 1);
+    background: #e7e7e7;
 }
 
 .sobre_list {

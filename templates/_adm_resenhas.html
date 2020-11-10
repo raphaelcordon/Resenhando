@@ -45,7 +45,7 @@
                             <td class="col-sm-5">{{ item.nome_review }}</td>
                             <td class="col-sm-2">{{ item.date_register }}</td>
                             <td class="col-sm-1"><a
-                                    data-url="{{ url_for('adm.ResenhasDelete', resenha_id=item.id) }}"
+                                    href="{{ url_for('adm.ResenhasDelete', resenha_id=item.id) }}"
                                     class="btn btn-danger white delete">Delete</a></td>
                         </tr>
                         {% endfor %}
@@ -58,7 +58,7 @@
                             <td class="col-sm-5">{{ item.nome_review }}</td>
                             <td class="col-sm-2">{{ item.date_register }}</td>
                             <td class="col-sm-1"><a
-                                    data-url="{{ url_for('adm.ResenhasDelete', resenha_id=item.id) }}"
+                                    href="{{ url_for('adm.ResenhasDelete', resenha_id=item.id) }}"
                                     class="btn btn-danger white delete">Delete</a></td>
                         </tr>
                         {% endfor %}
@@ -71,7 +71,7 @@
                             <td class="col-sm-5">{{ item.nome_review }}</td>
                             <td class="col-sm-2">{{ item.date_register }}</td>
                             <td class="col-sm-1"><a
-                                    data-url="{{ url_for('adm.ResenhasDelete', resenha_id=item.id) }}"
+                                    href="{{ url_for('adm.ResenhasDelete', resenha_id=item.id) }}"
                                     class="btn btn-danger white delete">Delete</a></td>
                         </tr>
                         {% endfor %}
@@ -84,7 +84,7 @@
                             <td class="col-sm-5">{{ item.nome_review }}</td>
                             <td class="col-sm-2">{{ item.date_register }}</td>
                             <td class="col-sm-1"><a
-                                    data-url="{{ url_for('adm.ResenhasDelete', resenha_id=item.id) }}"
+                                    href="{{ url_for('adm.ResenhasDelete', resenha_id=item.id) }}"
                                     class="btn btn-danger white delete">Delete</a></td>
                         </tr>
                         {% endfor %}
@@ -111,4 +111,6 @@
     <script src="{{ url_for('static', filename='js/active.js') }}"></script>
      <!-- App js -->
     <script src="{{ url_for('static', filename='app.js') }}"></script>
+     <!-- Delete js -->
+    <script src="{{ url_for('static', filename='js/deleteResenha.js') }}"></script>
 </html>
