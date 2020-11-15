@@ -496,6 +496,10 @@ iframe {
         width: 65%;
     }
 
+    .containIframe {
+        height: 500px;
+    }
+
 }
 
 /* CSS for Tablets */
