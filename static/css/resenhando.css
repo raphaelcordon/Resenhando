@@ -266,7 +266,7 @@ footer {
     left: 0;
     border-radius: 7px;
     background: rgba(188, 194, 100, 0.08);
-    border: 3px solid #000000;
+    border: 2.5px solid #000000;
     font-weight: bold;
     padding: 2px 0 0 0;
     margin: 2px;
@@ -275,7 +275,8 @@ footer {
     white-space: nowrap;
   }
   .buttonStyle:hover{
-    background: rgba(155, 153, 158, 0.4);
+    background: rgba(155, 153, 158, 0.4);;
+    font-weight: bold;
   }
 
 
