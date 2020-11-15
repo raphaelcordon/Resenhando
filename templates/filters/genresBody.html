@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='http://www.resenhando.co/' rel='canonical' />
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Escreva e leia resenhas de Artistas, Bandas, Músicas, Álbuns e Playlists,
+além da opção de rádios e imagens dos Artistas e Álbuns">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Title -->
+    <title>Resenhando.co - Escreva resenhas de Artistas, Bandas e Músicas</title>
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='img/core-img/icon.ico') }}">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
+</head>
+<body>
+    <div class="container reShapeIndex">
+        <!-- ##########    Reviews Area Beginning    ########## -->
+        <article>
+            <br>
+            <h4>{{ genreLink|title }}</h4>
+
+            <!-- Ordering by ARTIST Area Beginning-->
+            {% if reviewsArtist %}
+                <p class="text-secondary pl-1"><i class="fas fa-guitar"></i>
+                    &nbsp;Resenhas de Bandas e Artistas</p>
+                <hr/>
+
+                <div class="row">
+                    {% for review in reviewsArtist|sort(attribute='date_register', reverse=true) %}
+                            {% for spotify in spotifyArtist %}
+                                <!-- partials indexTiles.html -->
+                                {% include 'partials/resenhaViewsTiles.html' %}
+                            {% endfor %}
+                    {% endfor %}
+                </div>
+
+                <hr/>
+            {% endif %}
+            <!-- Ordering by ARTIST Area Ending-->
+
+
+            <!-- Ordering by ALBUM Area Beginning-->
+            {% if reviewsAlbum %}
+                <p class="text-secondary pl-1"><i class="fas fa-compact-disc"></i> &nbsp;Resenhas de Álbums</p>
+
+                <div class="row">
+                    {% for review in reviewsAlbum|sort(attribute='date_register', reverse=true) %}
+                        {% for spotify in spotifyAlbum %}
+                            <!-- partials indexTiles.html -->
+                            {% include 'partials/resenhaViewsTiles.html' %}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+
+                <hr/>
+            {% endif %}
+            <!-- Ordering by ALBUM Area Ending-->
+
+
+            <!-- Ordering by TRACK Area Beginning-->
+            {% if reviewsTrack %}
+            <p class="text-secondary pl-1"><i class="fab fa-itunes-note"></i> &nbsp;Resenhas de Músicas</p>
+
+            <div class="row">
+                {% for review in reviewsTrack|sort(attribute='date_register', reverse=true) %}
+                    {% for spotify in spotifyTrack %}
+                        <!-- partials indexTiles.html -->
+                        {% include 'partials/resenhaViewsTiles.html' %}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+
+            <hr/>
+            {% endif %}
+            <!-- Ordering by TRACK Area Ending-->
+
+        </article>
+        <!-- ##########    Reviews Area End    ########## -->
+    </div>
+</body>
+</html>

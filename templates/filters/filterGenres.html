@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container reShapeIndex">
+
+    <!-- ##### Genres info begining ##### -->
+    <section class="resenhaListArtist">
+        <div class="d-flex flex-wrap genresMenuSmartphone">
+        {% for genre in genres %}
+            {% for item in genreCount %}
+                {% if genre == item %}
+                        <a target="genresBody" class="genres buttonStyle "
+                           data-genre='{"genre": "{{ genre }}"}'>&nbsp;
+                            <img src="../static/img/core-img/genres/{{ genre }}.svg" width="25px" height="25px">
+                            {{ genre|title }}
+                        {% for i in range(9 - genre|length) %}&nbsp;{% endfor %} | {{ genreCount.get(genre) }}</a>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        </div>
+    </section>
+    <!-- ##### Genres info end ##### -->
+</div>
+
+<div class="containIframe">
+    <iframe class="genrelink responsiveIframe" src="{{ url_for('filter.blank') }}" title="Genres Body Area"
+            name="genresBody"></iframe>
+</div>
+{% endblock %}

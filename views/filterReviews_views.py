@@ -4,6 +4,7 @@ from repository.users_repos import UsersRepository
 from repository.resenha_repos import ResenhaRepository
 from repository.comments_repos import CommentsRepository
 from repository.curtidas_repos import CurtidasRepository
+from models import genres_model
 
 filter = Blueprint('filter', __name__, url_prefix='')
 
@@ -200,6 +201,82 @@ def minhas_resenhas(id):
         return redirect(url_for('filter.myPage', name=str(user.name).lower(), surname=str(user.surname).lower()))
 
 
+@filter.route('/genresBody/<genreLink>')
+def genresBody(genreLink):
+
+    if 'id' not in session:
+        session['id'] = ''
+
+    genreLink = genreLink
+    users = UsersRepository().List()
+    genres = genres_model.genres
+    resenhasListAll = ResenhaRepository().ListAll()
+    spotifyArtist = []
+    spotifyAlbum = []
+    spotifyTrack = []
+
+    reviewsArtist = ResenhaRepository().ListOneGenre('artista', genreLink)
+    for item in reviewsArtist:
+        print(item.genre)
+    reviewsAlbum = ResenhaRepository().ListOneGenre('album', genreLink)
+    reviewsTrack = ResenhaRepository().ListOneGenre('track', genreLink)
+    for item in reviewsArtist:
+        spotifyArtist.append(SpotifyGetOneArtist(item.spotify_id).oneArtist)
+    for item in reviewsAlbum:
+        spotifyAlbum.append(SpotifyGetOneAlbum(item.spotify_id).oneAlbum)
+    for item in reviewsTrack:
+        spotifyTrack.append(SpotifyGetOneTrack(item.spotify_id).oneTrack)
+
+    genreCount = {}
+    for item in genres:
+        count = 0
+        for genre in resenhasListAll:
+            if genre.genre == item:
+                count += 1
+        if count > 0:
+            genreCount[item] = count
+
+    if session['id'] != '':
+        comments = CommentsRepository().listAuthorId(session['id'])
+        likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+        usersNotifications = UsersRepository().List()
+        notifyComment = UsersRepository().FindById(session['id']).read_comment
+        notifyLike = UsersRepository().FindById(session['id']).read_like
+
+        return render_template('filters/genresBody.html', users=users, reviewsArtist=reviewsArtist,
+                               reviewsAlbum=reviewsAlbum, reviewsTrack=reviewsTrack,
+                               spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum, spotifyTrack=spotifyTrack,
+                               comments=comments, usersNotifications=usersNotifications,
+                               likeNotifications=likeNotifications, notifyComment=notifyComment,
+                               notifyLike=notifyLike, genres=genres, genreCount=genreCount, genreLink=genreLink)
+    else:
+        return render_template('filters/genresBody.html', users=users, reviewsArtist=reviewsArtist,
+                               reviewsAlbum=reviewsAlbum, reviewsTrack=reviewsTrack,
+                               spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
+                               spotifyTrack=spotifyTrack, genres=genres, genreCount=genreCount, genreLink=genreLink)
+
+
+@filter.route('/filterGenres/')
+def filterGenres():
+
+    if 'id' not in session:
+        session['id'] = ''
+
+    genres = genres_model.genres
+    resenhasListAll = ResenhaRepository().ListAll()
+
+    genreCount = {}
+    for item in genres:
+        count = 0
+        for genre in resenhasListAll:
+            if genre.genre == item:
+                count += 1
+        if count > 0:
+            genreCount[item] = count
+
+    return render_template('filters/filterGenres.html', genres=genres, genreCount=genreCount)
+
+
 @filter.route('/<name>-<surname>/')
 def myPage(name, surname):
 
@@ -279,6 +356,11 @@ def myPage(name, surname):
     except:
         flash('Usuário não identificado', 'danger')
         return redirect(url_for('ind.home'))
+
+
+@filter.route('/blank')# Initial page for filterGenres.html
+def blank():
+    return render_template('filters/blank.html')
 
 
 def __createSessionVariables():

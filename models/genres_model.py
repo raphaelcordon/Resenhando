@@ -1,5 +1,3 @@
-
-
 genres = {
     "anime": ['anime', 'anime score', 'j-pop', 'j-poprock', 'j-rock', 'japanese emo', 'japanese pop punk', 'otacore'],
     "blues": ['blues', 'blues rock', 'electric blues', 'modern blues', 'texas blues'],
@@ -27,4 +25,3 @@ genres = {
     "ska": ['ska'],
     "tango": ['tango']
 }
-

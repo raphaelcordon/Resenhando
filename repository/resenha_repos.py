@@ -30,6 +30,32 @@ class ResenhaRepository:
         finally:
             db.close()
 
+    def ListGenres(self, top=0):
+        db = PostgreDB()
+        try:
+            if top > 0:
+                db.query(f"SELECT * FROM public.resenha where genre is not Null"
+                         f"order by date_register desc limit {top}")
+            else:
+                db.query(f"SELECT * FROM public.resenha where genre is not Null"
+                         f"order by date_register")
+            return self.__toList(db.fetchAll())
+        except Exception as exp:
+            print(exp)
+        finally:
+            db.close()
+
+    def ListOneGenre(self, tipo_review, genre):
+        db = PostgreDB()
+        try:
+            db.query(f"SELECT * FROM public.resenha where tipo_review = '{tipo_review}' and genre = '{genre}' "
+                     f"order by date_register")
+            return self.__toList(db.fetchAll())
+        except Exception as exp:
+            print(exp)
+        finally:
+            db.close()
+
     # <- Register a new 'Resenha' in the table ->
     def New(self, tipo_review, author_id, nome_review, spotify_id, review):
         db = PostgreDB()

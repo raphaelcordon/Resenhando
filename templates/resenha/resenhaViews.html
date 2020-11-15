@@ -3,6 +3,25 @@
 <!-- ##### 'Resenhas' Area Start ##### -->
 <div class="container reShapeIndex">
 
+    {% if filterGenre=='filterGenre' %}
+        <!-- ##### Genres info begining ##### -->
+        <section class="resenhaListArtist">
+        <div class="d-flex flex-wrap">
+        {% for genre in genres %}
+            {% for item in genreCount %}
+                {% if genre == item %}
+                    <span class="buttonStyle">
+                   <img src="../static/img/core-img/genres/{{ genre }}.svg" width="30px" height="30px" alt=""> {{ genre|title }}
+                        {% for i in range(9 - genre|length) %}&nbsp;{% endfor %}  &nbsp;| {{ genreCount.get(genre) }}
+                    </span>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+    </section>
+    <!-- ##### Genres info end ##### -->
+    {% endif %}
+
     <!-- Ordering by ARTIST Area Beginning-->
     <!-- Main Filter -->
     {% if mainFilter == 'artist' or mainFilter == 'index' or mainFilter == 'myPage' or mainFilter == 'everything' %}
