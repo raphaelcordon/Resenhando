@@ -174,8 +174,7 @@ footer {
 .notificationsButton {
     position: absolute;
     left: 0;
-    top: 0px;
-    z-index: -1;
+    top: 1px;
 }
 
 .dropbtn {

@@ -192,8 +192,7 @@
                 <td>{{ comment.review }}</td>
                 {% if comment.user_id == session.id %}
                 <td class="buttons">
-                    <a data-url="{{ url_for('com.CommentDelete', comment_id=comment.id, resenha_id=data.id) }}"
-                        class="delete">
+                    <a href="{{ url_for('com.CommentDelete', comment_id=comment.id, resenha_id=data.id) }}">
                         <button type="submit" class="btn btn-link">deletar</button></a></td>
                 {% endif %}
             </tr>

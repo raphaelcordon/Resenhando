@@ -36,6 +36,7 @@ def index():
         comments = CommentsRepository().listAuthorId(session['id'])
         likeNotifications = CurtidasRepository().listAuthorId(session['id'])
         usersNotifications = UsersRepository().List()
+        resenhasListAll = ResenhaRepository().ListAll()
         notifyComment = UsersRepository().FindById(session['id']).read_comment
         notifyLike = UsersRepository().FindById(session['id']).read_like
 
@@ -44,7 +45,8 @@ def index():
                                users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
                                spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='index',
                                comments=comments, usersNotifications=usersNotifications,
-                               likeNotifications=likeNotifications, notifyComment=notifyComment, notifyLike=notifyLike)
+                               likeNotifications=likeNotifications, resenhasListAll=resenhasListAll,
+                               notifyComment=notifyComment, notifyLike=notifyLike)
     else:
         return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
                            reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
