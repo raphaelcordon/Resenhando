@@ -107,7 +107,7 @@ $(document).on('click', ".listAlbumModal", function () {
   $("#albumName").append("<h4>" + albumName + "</h4>");
   $("#albumImage").append("<img src=' " + albumImage + "'><br>");
   $("#albumArtistName").append("<b>Artista:</b> " + albumArtistName + ". &nbsp; Álbum lançado em " + albumReleaseDate + ", com " + albumTotalTracks + " faixas.");
-  $("#albumRadio").append("<iframe src='" + albumRadio + "' width='300' height='300' frameborder='0' allowtransparency='true' allow='encrypted-media'></iframe>");
+  $("#albumRadio").append("<iframe src='" + albumRadio + "' width='280' height='300' frameborder='0' allowtransparency='true' allow='encrypted-media'></iframe>");
   $("#linkResenha").attr("href", "/resenhaNewAlbum/" + albumId);
   $("#linkResenha").append("<h6 class='linkColor text-center'><i class='fas fa-compact-disc fa-lg'> Resenhar esse Álbum</i></h6>");
   $("#linkResenha2").attr("href", "/resenhaNewAlbum/" + albumId);

@@ -389,6 +389,10 @@ iframe {
     height: 100%;
   }
 
+  .modalRadioAlignment {
+      text-align: center;
+  }
+
 
 /* CSS for Smartphones */
 
@@ -487,6 +491,10 @@ iframe {
     .genresMenuSmartphone {
         width: 90%;
         margin: 0 auto 0 auto;
+    }
+    .modalRadioAlignment {
+        left: 0;
+        text-align: left;
     }
 
     /* ------------------------------------- */
