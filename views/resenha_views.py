@@ -4,6 +4,7 @@ from repository.resenha_repos import ResenhaRepository
 from repository.comments_repos import CommentsRepository
 from repository.curtidas_repos import CurtidasRepository
 from models.common import DateConversion, KeepInSession, CleanSession
+from models.genres_model import genres
 from thirdparty.spotify import SpotifyGetFiveArtists, SpotifyGetAlbums, \
     SpotifyGetOneArtist, SpotifyGetOneAlbum, SpotifyGetOneTrack, SpotifyGetOnePlaylist, \
     SpotifyGetPlaylists, SpotifyCheckUser, SpotifyGetTracks
@@ -55,7 +56,7 @@ def resenhaNewArtist(artistId):
     else:
         return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='artista')
 
-
+"""
 @res.route('/createResenhaArtist', methods=['GET', 'POST'])
 def createResenhaArtist():
     if session['email'] == '' or 'email' not in session:
@@ -67,16 +68,27 @@ def createResenhaArtist():
     nome_review = request.form['nome_review']
     spotify_id = request.form['spotify_id']
     review = request.form['review']
+    spotifyArtistGenres = request.form['artistGenres']
+
+    # -- get Genre --
+    genre = ''
+    for item in spotifyArtistGenres:
+        for value in genres.items():
+            if item in value:
+                genre = genre
+            else:
+                genre = ''
+    print(genre)
 
     # In case of error, review will be in session
     KeepInSession(request.form['spotify_id'],
                   request.form['nome_review'], request.form['review'])
 
-    ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review)
+    ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review, genre)
     CleanSession()
     flash('Resenha criada com sucesso', 'success')
     return redirect(url_for('ind.home'))
-
+"""
 
 # <-- ## Artists routes ending ## -->
 
@@ -108,6 +120,7 @@ def modalListAlbum(albumID):
     album = SpotifyGetOneAlbum(albumID).createList()
 
     return render_template('partials/modalListAlbums.html', album=album)
+
 
 @res.route('/resenhaNewAlbum/<albumId>/', methods=['GET', 'POST'])
 def resenhaNewAlbum(albumId):
@@ -239,12 +252,13 @@ def createResenhaPlaylist():
     nome_review = request.form['nome_review']
     spotify_id = request.form['spotify_id']
     review = request.form['review']
+    genres = ''
 
     # In case of error, review will be in session
     KeepInSession(request.form['spotify_id'],
                   request.form['nome_review'], request.form['review'])
 
-    ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review)
+    ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review, genres)
     CleanSession()
     flash('Resenha criada com sucesso', 'success')
     return redirect(url_for('ind.home'))
@@ -288,12 +302,27 @@ def createResenha():
     nome_review = request.form['nome_review']
     spotify_id = request.form['spotify_id']
     review = request.form['review']
+    spotifyArtistId = request.form['spotifyArtistId']
+    print(spotifyArtistId)
+    if spotifyArtistId:
+        spotifyArtistGenres = SpotifyGetOneArtist(spotifyArtistId).createList().get('genres')
+    else:
+        spotifyArtistGenres = SpotifyGetOneArtist(spotify_id).createList().get('genres')
+
+    # -- get Genre --
+    genre = ''
+    if spotifyArtistGenres:
+        for genreName, value in genres.items():
+            for i in spotifyArtistGenres:
+                if i in value:
+                    genre = genreName
+                break
 
     # In case of error, review will be in session
     KeepInSession(request.form['spotify_id'],
                   request.form['nome_review'], request.form['review'])
 
-    ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review)
+    ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review, genre)
     CleanSession()
     flash('Resenha criada com sucesso', 'success')
     return redirect(url_for('ind.home'))

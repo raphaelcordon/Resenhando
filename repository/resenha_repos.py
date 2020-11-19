@@ -57,13 +57,13 @@ class ResenhaRepository:
             db.close()
 
     # <- Register a new 'Resenha' in the table ->
-    def New(self, tipo_review, author_id, nome_review, spotify_id, review):
+    def New(self, tipo_review, author_id, nome_review, spotify_id, review, genre):
         db = PostgreDB()
         try:
-            insert = f"INSERT INTO public.resenha (tipo_review, author_id, nome_review, spotify_id, review) " \
-                f"VALUES (%s, %s, %s, %s, %s)"
+            insert = f"INSERT INTO public.resenha (tipo_review, author_id, nome_review, spotify_id, review, genre) " \
+                f"VALUES (%s, %s, %s, %s, %s, %s)"
             db.queryParams(insert, (tipo_review, author_id,
-                                    nome_review, spotify_id, review))
+                                    nome_review, spotify_id, review, genre))
         except Exception as exp:
             print(exp)
         finally:

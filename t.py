@@ -166,7 +166,7 @@ class SpotifyGetOneArtist:
         return self.oneArtist
 
 artist = SPOTIFY.artist("2nRyqv8aTwpdazeAg0lOQK")
-print(artist)
+
 
 class SpotifyGetOneAlbum:
     def __init__(self, albumID):
@@ -193,11 +193,12 @@ class SpotifyGetOneAlbum:
                          'releaseDate': albumSearch['release_date'][:4],
                          'genres': genres,
                          'radio':  radio,
+                         'artistId': albumSearch['artists'][0]['id'],
                          'artistName': albumSearch['artists'][0]['name']
                          }
         return self.oneAlbum
 
-#print(SpotifyGetOneAlbum('7JPsPwLr67TEfChdr86yIU').createList())
+#print(SpotifyGetOneAlbum('4oq9Qnp8xopMsypgLGbJ7G').createList())
 
 """
 
@@ -245,7 +246,6 @@ class SpotifyGetOnePlaylist:
         self.createList()
 
     def createList(self):
-        print(SPOTIFY.playlist(self.playlistID))
         artistSearch = SPOTIFY.playlist(self.playlistID)
         image = artistSearch['images'][0]['url'] if len(
             artistSearch['images']) > 0 else ''
@@ -370,7 +370,6 @@ class SpotifyGetTracks:
         self.createList()
 
     def createList(self):
-        print(SPOTIFY.search('Breakthru', type='track')['tracks']['items'])
         for item in SPOTIFY.search(self.spotifyTracks, type='track')['tracks']['items']:
             image = item['album']['images'][0]['url'] if len(
                 item['album']['images']) > 0 else ''

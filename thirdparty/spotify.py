@@ -60,7 +60,8 @@ class SpotifyGetOneArtist:
                           'image':  image,
                           'uri':    artistSearch['uri'],
                           'genres': artistSearch['genres'],
-                          'radio':  radio
+                          'radio':  radio,
+                          'spotifyId': artistSearch['id']
                           }
         return self.oneArtist
 
@@ -160,6 +161,7 @@ class SpotifyGetOneAlbum:
                          'releaseDate': albumSearch['release_date'][:4],
                          'genres': genres,
                          'radio':  radio,
+                         'artistId': albumSearch['artists'][0]['id'],
                          'artistName': albumSearch['artists'][0]['name']
                          }
         return self.oneAlbum
@@ -257,14 +259,18 @@ class SpotifyGetOneTrack:
             track['album']['images']) > 0 else ''
         radio = str.replace(
             track['external_urls']['spotify'], "/track/", "/embed/track/")
+        genres = SPOTIFY.artist(track['artists'][0]['id'])['genres']
         self.oneTrack = {'id':     track['id'],
                          'name':   track['name'],
                          'image':  image,
                          'radio':  radio,
                          'releaseDate': track['album']['release_date'][:4],
+                         'genres': genres,
+                         'artistId': track['artists'][0]['id'],
                          'artistName': track['artists'][0]['name'],
                          'albumName': track['album']['name']
                          }
+
         return self.oneTrack
 
 

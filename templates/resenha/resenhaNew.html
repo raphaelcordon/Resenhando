@@ -9,6 +9,7 @@
                 onsubmit="return validateForm();">
                 <fieldset class="resenha_smartphone">
                     <input type="hidden" id="spotify_id" name="spotify_id" value="{{ spotify.id }}">
+                    <input type="hidden" id="spotifyArtistId" name="spotifyArtistId" value="{{ spotify.artistId }}">
                     <input type="hidden" id="tipo_review" name="tipo_review" value="{{ tipo_review }}">
                     <div class="poster_image">
                         {% if spotify.image == None %}

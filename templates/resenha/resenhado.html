@@ -126,9 +126,9 @@
                     <td class="resenha_titles pl-1">Gêneros:</td>
                     <td class="resenha_item">
                         {% for item in spotify.genres %}
-                        {{ item }} |
+                            {{ item|title }} |
                         {% endfor %}
-                        {% endif %}
+                    {% endif %}
                     </td>
                 </tr>
 
