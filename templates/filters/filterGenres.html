@@ -8,7 +8,7 @@
         {% for genre in genres %}
             {% for item in genreCount %}
                 {% if genre == item %}
-                        <a target="genresBody" class="genres buttonStyle "
+                        <a target="genresBody" class="genres buttonStyle"
                            data-genre='{"genre": "{{ genre }}"}'>&nbsp;
                             <img src="../static/img/core-img/genres/{{ genre }}.svg" width="25px" height="25px">
                             {{ genre|title }}

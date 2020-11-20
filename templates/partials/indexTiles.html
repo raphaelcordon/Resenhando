@@ -1,14 +1,14 @@
 {% if review.spotify_id == spotify.id %}
     <div class="pb-0 text-center">
         <div class="mb-0 p-0">
-            <a href="{{ url_for('res.resenhado', id=review.id) }}">
+            <a href="{{ url_for('res.resenhado', id=review.id) }}"">
                 {% if spotify.image == None %}
                 <img class="border-0 indexTileImage" src="../static/img/bg-img/No-Image-Available.png" alt="">
                 {% else %}
                 <img class="border-0 indexTileImage" src="{{ spotify.image }}" alt="{{ spotify.name }}">
                 {% endif %}
             </a>
-            <a href="{{ url_for('res.resenhado', id=review.id) }}" class="linkColor">
+            <a href="{{ url_for('res.resenhado', id=review.id) }}" class="linkColor"">
                 {% if spotify.name|length > 26 %}
                     <div class="indexReviewTitle bg-secondary text-white">{{ spotify.name[0:26] }}...</div>
                 {% else %}
@@ -18,7 +18,7 @@
                 {% if user.id == review.author_id %}
             </a>
                 <div class="indexReviewName">por: <a href="{{ url_for('filter.myPage', name=user.name,
-            surname=user.surname) }}" class="linkColor">{{ user.name }} {{ user.surname }}</a></div>
+                surname=user.surname) }}" class="linkColor">{{ user.name }} {{ user.surname }}</a></div>
                     {% if review.review|length > 100 %}
                         <div class="indexReviewText">{{ review.review[0:80] }}...</div>
                     {% else %}
