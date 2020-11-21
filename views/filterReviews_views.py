@@ -8,7 +8,7 @@ from models import genres_model
 
 filter = Blueprint('filter', __name__, url_prefix='')
 
-
+"""
 @filter.route('/everything')
 def everything():
 
@@ -55,6 +55,7 @@ def everything():
                                reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
                                users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
                                spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='everything')
+"""# Everything, is inactivated, just available as reference
 
 
 @filter.route('/filterArtist')
@@ -79,14 +80,14 @@ def filterArtist():
         notifyComment = UsersRepository().FindById(session['id']).read_comment
         notifyLike = UsersRepository().FindById(session['id']).read_like
 
-        return render_template('resenha/resenhaViews.html', reviewsArtist=reviewsArtist, spotifyArtist=spotifyArtist,
-                               users=users, mainFilter='artist', comments=comments,
+        return render_template('filters/filterArtists.html', reviewsArtist=reviewsArtist, spotifyArtist=spotifyArtist,
+                               users=users, comments=comments, notifyComment=notifyComment, notifyLike=notifyLike,
                                usersNotifications=usersNotifications, likeNotifications=likeNotifications,
-                               resenhasListAll=resenhasListAll, notifyComment=notifyComment, notifyLike=notifyLike)
+                               resenhasListAll=resenhasListAll)
 
     else:
-        return render_template('resenha/resenhaViews.html', reviewsArtist=reviewsArtist, spotifyArtist=spotifyArtist,
-                               users=users, mainFilter='artist')
+        return render_template('filters/filterArtists.html', reviewsArtist=reviewsArtist, spotifyArtist=spotifyArtist,
+                               users=users)
 
 
 @filter.route('/filterAlbum')
@@ -110,13 +111,13 @@ def filterAlbum():
         notifyComment = UsersRepository().FindById(session['id']).read_comment
         notifyLike = UsersRepository().FindById(session['id']).read_like
 
-        return render_template('resenha/resenhaViews.html', reviewsAlbum=reviewsAlbum, spotifyAlbum=spotifyAlbum,
-                               users=users, mainFilter='album', comments=comments,
+        return render_template('filters/filterAlbums.html', reviewsAlbum=reviewsAlbum, spotifyAlbum=spotifyAlbum,
+                               users=users, comments=comments, notifyComment=notifyComment, notifyLike=notifyLike,
                                usersNotifications=usersNotifications, likeNotifications=likeNotifications,
-                               resenhasListAll=resenhasListAll, notifyComment=notifyComment, notifyLike=notifyLike)
+                               resenhasListAll=resenhasListAll)
     else:
-        return render_template('resenha/resenhaViews.html', reviewsAlbum=reviewsAlbum, spotifyAlbum=spotifyAlbum,
-                               users=users, mainFilter='album')
+        return render_template('filters/filterAlbums.html', reviewsAlbum=reviewsAlbum, spotifyAlbum=spotifyAlbum,
+                               users=users)
 
 
 @filter.route('/filterTrack')
@@ -140,14 +141,13 @@ def filterTrack():
         notifyComment = UsersRepository().FindById(session['id']).read_comment
         notifyLike = UsersRepository().FindById(session['id']).read_like
 
-        return render_template('resenha/resenhaViews.html', reviewsTrack=reviewsTrack, spotifyTrack=spotifyTrack,
-                               users=users, mainFilter='track', comments=comments,
+        return render_template('filters/filterTracks.html', reviewsTrack=reviewsTrack, spotifyTrack=spotifyTrack,
+                               users=users, comments=comments, notifyComment=notifyComment, notifyLike=notifyLike,
                                usersNotifications=usersNotifications, likeNotifications=likeNotifications,
-                               resenhasListAll=resenhasListAll, notifyComment=notifyComment, notifyLike=notifyLike)
-
+                               resenhasListAll=resenhasListAll)
     else:
-        return render_template('resenha/resenhaViews.html', reviewsTrack=reviewsTrack, spotifyTrack=spotifyTrack,
-                               users=users, mainFilter='track')
+        return render_template('filters/filterTracks.html', reviewsTrack=reviewsTrack, spotifyTrack=spotifyTrack,
+                               users=users)
 
 
 @filter.route('/filterPlaylist')
@@ -172,14 +172,14 @@ def filterPlaylist():
         notifyComment = UsersRepository().FindById(session['id']).read_comment
         notifyLike = UsersRepository().FindById(session['id']).read_like
 
-        return render_template('resenha/resenhaViews.html', reviewsPlaylist=reviewsPlaylist, spotifyPlaylist=spotifyPlaylist,
-                               users=users, mainFilter='playlist', comments=comments,
+        return render_template('filters/filterPlaylists.html', reviewsPlaylist=reviewsPlaylist,
+                               spotifyPlaylist=spotifyPlaylist, users=users, comments=comments,
+                               notifyComment=notifyComment, notifyLike=notifyLike,
                                usersNotifications=usersNotifications, likeNotifications=likeNotifications,
-                               resenhasListAll=resenhasListAll, notifyComment=notifyComment, notifyLike=notifyLike)
-
+                               resenhasListAll=resenhasListAll)
     else:
-        return render_template('resenha/resenhaViews.html', reviewsPlaylist=reviewsPlaylist, spotifyPlaylist=spotifyPlaylist,
-                               users=users, mainFilter='playlist')
+        return render_template('filters/filterPlaylists.html', reviewsPlaylist=reviewsPlaylist,
+                               spotifyPlaylist=spotifyPlaylist, users=users)
 
 
 @filter.route('/<int:id>/')

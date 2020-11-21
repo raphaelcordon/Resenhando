@@ -16,8 +16,8 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
         <ul class="navbar-nav">
             {% if session['id'] != '' %}
-                <li class="nav-item d-flex justify-content-left adjustNotificationsButton text-nowrap pt-2" data-toggle="modal"
-                    data-target="#notificationsModal"><a class="nav-link navbarBackground" href="#">
+                <li class="nav-item d-flex justify-content-left adjustNotificationsButton text-nowrap pt-2"
+                    data-toggle="modal" data-target="#notificationsModal"><a class="nav-link navbarBackground">
                     <i class="fas fa-inbox fa-lg"></i> Notificações
                         {% if notifyComment==true or notifyLike==true %}
                         <img src="{{ url_for('static', filename='img/core-img/notify.png') }}"
@@ -28,8 +28,9 @@
             {% endif %}
 
             {% if session['email'] == '' or 'email' not in session %}
-                <li class="nav-item d-flex justify-content-left text-nowrap pt-2" data-toggle="modal" data-target="#loginModal">
-                        <a class="nav-link navbarBackground" href="#"><i class="fas fa-pencil-alt fa-lg"></i> Nova Resenha</a>
+                <li class="nav-item d-flex justify-content-left text-nowrap pt-2" data-toggle="modal"
+                    data-target="#loginModal" data-link="newReview">
+                        <a class="nav-link navbarBackground"><i class="fas fa-pencil-alt fa-lg"></i> Nova Resenha</a>
                 </li>
             {% else %}
                 <li class="nav-item d-flex justify-content-left text-nowrap pt-2">

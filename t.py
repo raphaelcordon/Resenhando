@@ -99,8 +99,8 @@ class SpotifyGetAlbums:
 
         return False
 
-#get = SpotifyGetAlbums('4lgrzShsg2FLA89UM2fdO5')
-#print(get.albums)
+get = SpotifyGetAlbums('6mdiAmATAx73kdxrNrnlao')
+print(get.albums)
 #for g in get.listAlbums:
 #    print(g)
 

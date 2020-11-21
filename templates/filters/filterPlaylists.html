@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- ##### 'Resenhas' Area Start ##### -->
+<div class="container reShapeIndex">
+    <p class="text-secondary pl-1"><i class="fas fa-icons"></i> &nbsp;Resenhas de Playlists</p>
+
+    <div class="row">
+        {% for review in reviewsPlaylist|sort(attribute='date_register', reverse=true) %}
+            {% for spotify in spotifyPlaylist %}
+                <!-- partials indexTiles.html -->
+                {% include 'partials/resenhaViewsTiles.html' %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+    <hr>
+</div>
+{% endblock %}

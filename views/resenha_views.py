@@ -56,40 +56,6 @@ def resenhaNewArtist(artistId):
     else:
         return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='artista')
 
-"""
-@res.route('/createResenhaArtist', methods=['GET', 'POST'])
-def createResenhaArtist():
-    if session['email'] == '' or 'email' not in session:
-        flash('Você precisa logar para acessar essa área', 'info')
-        return redirect(url_for('log.login'))
-
-    tipo_review = 'artista'
-    author_id = session['id']
-    nome_review = request.form['nome_review']
-    spotify_id = request.form['spotify_id']
-    review = request.form['review']
-    spotifyArtistGenres = request.form['artistGenres']
-
-    # -- get Genre --
-    genre = ''
-    for item in spotifyArtistGenres:
-        for value in genres.items():
-            if item in value:
-                genre = genre
-            else:
-                genre = ''
-    print(genre)
-
-    # In case of error, review will be in session
-    KeepInSession(request.form['spotify_id'],
-                  request.form['nome_review'], request.form['review'])
-
-    ResenhaRepository().New(tipo_review, author_id, nome_review, spotify_id, review, genre)
-    CleanSession()
-    flash('Resenha criada com sucesso', 'success')
-    return redirect(url_for('ind.home'))
-"""
-
 # <-- ## Artists routes ending ## -->
 
 
@@ -114,13 +80,14 @@ def resenhalistAlbums(artistId):
         return render_template('resenha/resenhaListAlbums.html', albums=albums)
 
 
+"""
 @res.route('/modalListAlbum/<albumID>/', methods=['GET', 'POST'])
 def modalListAlbum(albumID):
 
     album = SpotifyGetOneAlbum(albumID).createList()
 
     return render_template('partials/modalListAlbums.html', album=album)
-
+"""
 
 @res.route('/resenhaNewAlbum/<albumId>/', methods=['GET', 'POST'])
 def resenhaNewAlbum(albumId):
@@ -240,7 +207,7 @@ def resenhaNewPlaylist(playlistId):
     else:
         return render_template('resenha/resenhaNew.html', spotify=spotify, tipo_review='playlist')
 
-
+"""
 @res.route('/createResenhaPlaylist', methods=['GET', 'POST'])
 def createResenhaPlaylist():
     if session['email'] == '' or 'email' not in session:
@@ -262,7 +229,7 @@ def createResenhaPlaylist():
     CleanSession()
     flash('Resenha criada com sucesso', 'success')
     return redirect(url_for('ind.home'))
-
+"""
 
 # <-- ## Playlists routes ending ## -->
 
