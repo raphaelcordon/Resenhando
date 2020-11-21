@@ -10,7 +10,7 @@
     </div>
 
     <hr/>
-    <p class="container">Artistas/Bandas encontrados:</p>
+    <p class="container"><i class="fas fa-guitar fa-lg"></i> Artistas e Bandas encontradas:</p>
 
     <!-- ##### (5) Artist info begining ##### -->
     <section class="resenhaListArtist">
@@ -40,11 +40,11 @@
                             <ol>
                                 <li>
                                     <a href="{{ url_for('res.resenhaNewArtist', artistId=artist.id) }}">
-                                        &nbsp;<h6 class="linkColor"><i class="pt-0 ml-4 fas fa-guitar fa-lg"></i>&nbsp; Fazer resenha do <b>Artista</b></h6></a>
+                                        &nbsp;<h6 class="buttonStyle pt-1 pb-1"><i class="pt-0 ml-2 fas fa-guitar fa-lg"></i>&nbsp; Fazer resenha do <b>Artista</b></h6></a>
                                 </li>
                                 <li>
                                     <a href="{{ url_for('res.resenhalistAlbums', artistId=artist.id) }}">
-                                        &nbsp;<h6 class="linkColor"><i class="ml-4 fas fa-compact-disc fa-lg"></i>&nbsp; Visualizar <b>Álbuns</b> para fazer resenha</h6></a>
+                                        &nbsp;<h6 class="buttonStyle pt-1 pb-1 mb-2"><i class="ml-2 fas fa-compact-disc fa-lg"></i>&nbsp; Visualizar <b>Álbuns</b> para fazer resenha &nbsp;</h6></a>
                                 </li>
                                 <li>
                                     <div class="radioListArtist">

@@ -2,8 +2,14 @@
 {% block content %}
 <!-- ##### Main Area Start ##### -->
 <main class="container">
+    <!-- ## Search Track ## -->
+    <div class="container">
+        <p>Pesquisar novamente. &nbsp;<i class="font-weight-light font-italic">Ps. Adicionar o nome do Artista eventualmente ajuda na pesquisa.</i></p>
+        {% include 'partials/resenhaTrackForm.html' %}
+    </div>
+    <hr/>
 
-    <p>Músicas encontradas:</p>
+    <p><i class="fab fa-itunes-note"></i> Músicas encontradas:</p>
 
     <!-- ##### (5) Artist info begining ##### -->
     {% if not tracks %}

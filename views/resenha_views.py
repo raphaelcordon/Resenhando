@@ -18,6 +18,7 @@ res = Blueprint('res', __name__)
 @res.route('/resenhaListArtist', methods=['GET', 'POST'])
 def resenhaListArtist():
     artists = SpotifyGetFiveArtists(request.form['artist']).listArtists
+    session['resenhaArtist'] = request.form['artist']
 
     if session['id'] != '':
         comments = CommentsRepository().listAuthorId(session['id'])
@@ -64,6 +65,7 @@ def resenhaNewArtist(artistId):
 def resenhalistAlbums(artistId):
 
     albums = SpotifyGetAlbums(artistId).createList()
+    session['resenhaAlbums'] = request.form['artistId']
 
     if session['id'] != '':
         comments = CommentsRepository().listAuthorId(session['id'])
@@ -80,14 +82,6 @@ def resenhalistAlbums(artistId):
         return render_template('resenha/resenhaListAlbums.html', albums=albums)
 
 
-"""
-@res.route('/modalListAlbum/<albumID>/', methods=['GET', 'POST'])
-def modalListAlbum(albumID):
-
-    album = SpotifyGetOneAlbum(albumID).createList()
-
-    return render_template('partials/modalListAlbums.html', album=album)
-"""
 
 @res.route('/resenhaNewAlbum/<albumId>/', methods=['GET', 'POST'])
 def resenhaNewAlbum(albumId):
@@ -121,6 +115,7 @@ def resenhaNewAlbum(albumId):
 @res.route('/resenhaListTracks', methods=['GET', 'POST'])
 def resenhaListTracks():
     tracks = SpotifyGetTracks(request.form['spotifyTracks']).createList()
+    session['resenhaTrack'] = request.form['spotifyTracks']
 
     if session['id'] != '':
         comments = CommentsRepository().listAuthorId(session['id'])
@@ -167,6 +162,8 @@ def resenhaListPlaylists():
         try:
             SpotifyCheckUser(request.form['spotifyUsername'])
             playlists = SpotifyGetPlaylists(request.form['spotifyUsername']).createList()
+            session['resenhaPlaylist'] = request.form['spotifyPlaylist']
+
 
             if session['id'] != '':
                 comments = CommentsRepository().listAuthorId(session['id'])

@@ -20,11 +20,9 @@ class SpotifyGetAlbums:
         self.createList()
 
     def createList(self):
-        results = SPOTIFY.artist_albums(self.artistId, album_type='album')
+
+        results = SPOTIFY.artist_albums(self.artistId, album_type='album', limit=6, offset=0)
         self.albums.extend(results['items'])
-        while results['next']:
-            results = SPOTIFY.next(results)
-            self.albums.extend(results['items'])
 
         seen = set()  # to avoid dups
         for self.item in self.albums:  # Clean list to send to the website
@@ -55,54 +53,33 @@ class SpotifyGetAlbums:
         return self.listAlbums
 
     def __contains(self, album_name):
-        album_name1 = album_name
-        album_name1 = str.replace(album_name1, "- ", "")
+        exclusionList = ["- ", " (Deluxe Edition)", " (Deluxe Version)", " (Expanded Edition)", " (Deluxe)",
+                         " (Remastered)", " (Bonus Track Edition)", " (2007 Remaster)", " (2008 Remaster)",
+                         " (2009 Remaster)", " (2010 Remaster)", " (2011 Remaster)", " (2012 Remaster)",
+                         " (2013 Remaster)", " (2014 Remaster)", " (2015 Remaster)", " (2016 Remaster)",
+                         " (2017 Remaster)", " (2018 Remaster)", " (2019 Remaster)", " (2020 Remaster)",
+                         " (1994 Remaster)", " (Remastered Deluxe Box Set)", " (Super Deluxe Edition)",
+                         " (Deluxe Remaster)", " (Deluxe / Remastered)", " (Collector's Edition)",
+                         " (Deluxe Box Set / Remastered)", " (2011 Remastered Version)", " (Expanded)",
+                         " [Remastered] (Remastered Version)", " [2011 - Remaster] (2011 Remastered Version)",
+                         " (Expanded Bonus Track Edition)", " [Expanded & Remastered]", " (10th Anniversary Edition)",
+                         " (10th Anniversary Edition) [Deluxe]", " (ARIA Awards Edition)", " (Japan Version)",
+                         " (International Explicit Nokia Exclusive Version)", " (Japan Version)", " (Edited)",
+                         " (Explicit)", " (Deluxe Edited)", " (Deluxe Version [Edited])", " (Standard Version [Edited])",
+                         ]
         for item in self.listAlbums:
-            name = str.replace(item['name'], "- ", "")
-            if album_name1 == name:
-                return True
+            for i in exclusionList:
+                itemList = str.replace(item['name'], i, "")
+                compareAlbumName = str.replace(album_name, i, "")
 
-        album_name2 = album_name
-        album_name2 = str.replace(album_name2, " (Deluxe Edition)", "")
-        for item in self.listAlbums:
-            name = str.replace(item['name'], " (Deluxe Edition)", "")
-            if album_name2 == name:
-                return True
-
-        album_name3 = album_name
-        album_name3 = str.replace(album_name3, " (Deluxe Version)", "")
-        for item in self.listAlbums:
-            name = str.replace(item['name'], " (Deluxe Version)", "")
-            if album_name3 == name:
-                return True
-
-        album_name4 = album_name
-        album_name4 = str.replace(album_name4, " (Expanded Edition)", "")
-        for item in self.listAlbums:
-            name = str.replace(item['name'], " (Expanded Edition)", "")
-            if album_name4 == name:
-                return True
-
-        album_name5 = album_name
-        album_name5 = str.replace(album_name5, " (Deluxe)", "")
-        for item in self.listAlbums:
-            name = str.replace(item['name'], " (Deluxe)", "")
-            if album_name5 == name:
-                return True
-
-        album_name6 = album_name
-        album_name6 = str.replace(album_name6, " (Remastered)", "")
-        for item in self.listAlbums:
-            name = str.replace(item['name'], " (Remastered)", "")
-            if album_name6 == name:
-                return True
-
-        return False
+                if itemList.lower() == compareAlbumName.lower() \
+                        or compareAlbumName in self.listAlbums:
+                    return True
 
 get = SpotifyGetAlbums('6mdiAmATAx73kdxrNrnlao')
-print(get.albums)
-#for g in get.listAlbums:
-#    print(g)
+
+for g in get.listAlbums:
+    print(g)
 
 
 '''
