@@ -65,7 +65,7 @@ def resenhaNewArtist(artistId):
 def resenhalistAlbums(artistId):
 
     albums = SpotifyGetAlbums(artistId).createList()
-    session['resenhaAlbums'] = request.form['artistId']
+    session['resenhaAlbums'] = artistId
 
     if session['id'] != '':
         comments = CommentsRepository().listAuthorId(session['id'])
