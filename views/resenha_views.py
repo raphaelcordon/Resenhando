@@ -264,9 +264,10 @@ def createResenha():
     spotify_id = request.form['spotify_id']
     review = request.form['review']
     spotifyArtistId = request.form['spotifyArtistId']
-    print(spotifyArtistId)
     if spotifyArtistId:
         spotifyArtistGenres = SpotifyGetOneArtist(spotifyArtistId).createList().get('genres')
+    elif tipo_review == 'playlist':
+        spotifyArtistGenres = ''
     else:
         spotifyArtistGenres = SpotifyGetOneArtist(spotify_id).createList().get('genres')
 
