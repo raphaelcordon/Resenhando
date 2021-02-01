@@ -236,6 +236,8 @@ class SpotifyGetOnePlaylist:
                          }
         return self.playlist
 
+
+
 """
 class SpotifyGetOneTrack:
     def __init__(self, trackId):
@@ -271,27 +273,29 @@ class SpotifyGetPlaylists:
         :param spotifyUser: from user's typing
         """
         self.spotifyUser = spotifyUser
-        self.playlist = {}
         self.playlists = []
         self.createList()
 
     def createList(self):
-        for item in SPOTIFY.user_playlists(self.spotifyUser)['items']:
-            image = item['images'][0]['url'] if len(item['images']) > 0 else ''
-            radio = str.replace(item['external_urls']['spotify'], "/playlist/", "/embed/playlist/")
-            playlist = {
-                'id':     item['id'],
-                'name':   item['name'],
-                'image':  image,
-                'radio':  radio
-            }
-            if playlist not in self.playlists:
-                self.playlists.append(playlist)
-        return self.playlists
+        if not SPOTIFY.user(self.spotifyUser):
+            return False
+        else:
+            for item in SPOTIFY.user_playlists(self.spotifyUser)['items']:
+                image = item['images'][0]['url'] if len(item['images']) > 0 else ''
+                radio = str.replace(item['external_urls']['spotify'], "/playlist/", "/embed/playlist/")
+                playlist = {
+                    'id':     item['id'],
+                    'name':   item['name'],
+                    'image':  image,
+                    'radio':  radio
+                }
+                if playlist not in self.playlists:
+                    self.playlists.append(playlist)
+            return self.playlists
 
 
-#for f in SpotifyGetPlaylists('raphaelcordon').createList():
-#    print(f)
+for f in SpotifyGetPlaylists('raphaelcordon').createList():
+    print(f)
 
 #for f in SPOTIFY.user_playlists('raphaelcordon')['items']:
 #    print(f)

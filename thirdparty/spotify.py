@@ -184,13 +184,12 @@ class SpotifyGetPlaylists:
         else:
             for item in SPOTIFY.user_playlists(self.spotifyUser)['items']:
                 image = item['images'][0]['url'] if len(item['images']) > 0 else ''
-                radio = str.replace(
-                    item['external_urls']['spotify'], "/playlist/", "/embed/playlist/")
+                radio = str.replace(item['external_urls']['spotify'], "/playlist/", "/embed/playlist/")
                 playlist = {
-                    'id': item['id'],
-                    'name': item['name'],
-                    'image': image,
-                    'radio': radio
+                    'id':     item['id'],
+                    'name':   item['name'],
+                    'image':  image,
+                    'radio':  radio
                 }
                 if playlist not in self.playlists:
                     self.playlists.append(playlist)

@@ -159,27 +159,24 @@ def resenhaNewTrack(trackId):
 
 @res.route('/resenhaListPlaylists', methods=['GET', 'POST'])
 def resenhaListPlaylists():
-        try:
-            SpotifyCheckUser(request.form['spotifyUsername'])
-            playlists = SpotifyGetPlaylists(request.form['spotifyUsername']).createList()
-            session['resenhaPlaylist'] = request.form['spotifyPlaylist']
+    if SpotifyCheckUser(request.form['spotifyUsername']):
+        playlists = SpotifyGetPlaylists(request.form['spotifyUsername']).createList()
 
-
-            if session['id'] != '':
-                comments = CommentsRepository().listAuthorId(session['id'])
-                likeNotifications = CurtidasRepository().listAuthorId(session['id'])
-                usersNotifications = UsersRepository().List()
-                resenhasListAll = ResenhaRepository().ListAll()
-                notifyComment = UsersRepository().FindById(session['id']).read_comment
-                notifyLike = UsersRepository().FindById(session['id']).read_like
-                return render_template('resenha/resenhaListPlaylists.html', playlists=playlists, comments=comments,
-                               usersNotifications=usersNotifications, likeNotifications=likeNotifications,
-                               resenhasListAll=resenhasListAll, notifyComment=notifyComment, notifyLike=notifyLike)
-            else:
-                return render_template('resenha/resenhaListPlaylists.html', playlists=playlists)
-        except:
-            flash('Nome de usuário não encontrado', 'danger')
-            return redirect(url_for('res.resenhaIndex'))
+        if session['id'] != '':
+            comments = CommentsRepository().listAuthorId(session['id'])
+            likeNotifications = CurtidasRepository().listAuthorId(session['id'])
+            usersNotifications = UsersRepository().List()
+            resenhasListAll = ResenhaRepository().ListAll()
+            notifyComment = UsersRepository().FindById(session['id']).read_comment
+            notifyLike = UsersRepository().FindById(session['id']).read_like
+            return render_template('resenha/resenhaListPlaylists.html', playlists=playlists, comments=comments,
+                           usersNotifications=usersNotifications, likeNotifications=likeNotifications,
+                           resenhasListAll=resenhasListAll, notifyComment=notifyComment, notifyLike=notifyLike)
+        else:
+            return render_template('resenha/resenhaListPlaylists.html', playlists=playlists)
+    else:
+        flash('Nome de usuário não encontrado', 'danger')
+        return redirect(url_for('res.resenhaIndex'))
 
 
 @res.route('/resenhaNewPlaylist/<playlistId>/', methods=['GET', 'POST'])
