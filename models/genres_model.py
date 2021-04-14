@@ -15,7 +15,7 @@ genres = {
     "eletronic": [
         'deep tech house', 'disco house', 'edm', 'house', 'progressive house', 'tropical house','belgian edm',
         'drum and bass', 'uk dnb', 'big beat', 'downtempo', 'electronica', 'trip hop', 'dance', 'alternative dance',
-        'electronica', 'electropop', 'neo-synthpop', 'new rave'
+        'electronica', 'electropop', 'neo-synthpop', 'new rave',
     ],
     "folk": [
         'folk-pop', 'neo mellow'
@@ -44,36 +44,40 @@ genres = {
     "metal": [
         'metal', 'heavy metal', 'hard rock', 'alternative metal', 'death metal', 'groove metal',
         'old school thrash', 'thrash metal', 'melodic metal', 'neo classical metal', 'old school thrash',
-        'power metal', 'speed metal', 'progressive metal'
+        'power metal', 'speed metal', 'progressive metal', 'Brazilian Progressive Metal', 'Djent', 'Denver Metal',
+        'Melodic Death Metal', 'Technical Death Metal', 'Technical Melodic Death Metal', 'Brazilian Metal'
+        'Brazilian Power Metal', 'Metal', 'Glam Metal',
     ],
     "mpb": [
-        'mpb', 'piada', 'baiao', 'jovem guarda',
+        'mpb', 'piada', 'baiao', 'jovem guarda', 'Bossa Nova', 'Brazilian Indie', 'Brazilian Percussion', 'Choro',
+        'Coco', 'Forro', 'Forro Tradicional', 'Mpb', 'Samba', 'Velha Guarda'
     ],
     "pop": [
         'pop', 'pop rock', 'bachata', 'latin', 'latin hip hop', 'latin pop', 'trap latino', 'tropical', 'dance pop',
-        'pop dance', 'pop nacional antigas'
+        'pop dance', 'pop nacional antigas', 'Colombian Pop', 'Dance Pop', 'Latin', 'Latin Pop', 'Pop', 'Pop Rock',
+        'Dance Pop', 'Post-Teen Pop', 'Pop Rap',
     ],
     "punk": [
-        'punk', 'punk rock', 'punk-rock', 'brazilian hardcore', 'hardcore'
+        'punk', 'punk rock', 'punk-rock', 'brazilian hardcore', 'hardcore', 'Punk',
     ],
     "reggae": [
         'reggae'
     ],
     "rock": [
         'album rock', 'art rock', 'classic rock', 'folk rock', 'psychedelic rock', 'rock', 'roots rock',
-             'alternative rock', 'grunge', 'permanent wave', 'progressive rock'
+             'alternative rock', 'grunge', 'permanent wave', 'progressive rock', 'Modern Rock', 'Post-Grunge'
     ],
     "salsa": [
         'salsa'
     ],
     "samba": [
-        'samba'
+        'samba', 'Samba-Rock',
     ],
     "soul": [
         'soul', 'southern soul', 'urban contemporary', 'chicago soul', 'classic soul', 'r&b', 'motown'
     ],
     "sertanejo": [
-        'sertanejo'
+        'sertanejo', 'Sertanejo Universitario',
     ],
     "ska": [
         'ska'
