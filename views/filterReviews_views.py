@@ -264,6 +264,8 @@ def filterGenres():
 
     genres = genres_model.genres
     resenhasListAll = ResenhaRepository().ListAll()
+    for i in resenhasListAll:
+        print(i.nome_review, i.genre)
 
     genreCount = {}
     for item in genres:

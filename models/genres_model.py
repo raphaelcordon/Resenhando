@@ -24,7 +24,7 @@ genres = {
         'forro',
     ],
     "funk": [
-        'funk'
+        'funk', 'funk carioca', 'funk pop'
     ],
     "gospel": [
         'gospel'
@@ -73,11 +73,11 @@ genres = {
     "samba": [
         'samba', 'Samba-Rock',
     ],
-    "soul": [
-        'soul', 'southern soul', 'urban contemporary', 'chicago soul', 'classic soul', 'r&b', 'motown'
-    ],
     "sertanejo": [
         'sertanejo', 'Sertanejo Universitario',
+    ],
+    "soul": [
+        'soul', 'southern soul', 'urban contemporary', 'chicago soul', 'classic soul', 'r&b', 'motown'
     ],
     "ska": [
         'ska'
