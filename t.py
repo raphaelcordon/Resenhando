@@ -79,7 +79,7 @@ class SpotifyGetAlbums:
 get = SpotifyGetAlbums('6mdiAmATAx73kdxrNrnlao')
 
 for g in get.listAlbums:
-    print(g)
+    print(g['name'])
 
 
 '''

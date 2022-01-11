@@ -11,7 +11,7 @@ from views.users_views import use
 from flask import Flask
 
 app = Flask(__name__)
-app.jinja_options['extensions'].append('jinja2.ext.do')
+app.jinja_env.add_extension('jinja2.ext.do')
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
@@ -26,4 +26,4 @@ app.register_blueprint(res)
 app.register_blueprint(use)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
