@@ -1,3 +1,4 @@
+python-3.8.8
 decorator==5.1.0
 flake8==4.0.1
 Flask==2.0.2
@@ -10,4 +11,3 @@ PyMySQL==1.0.2
 passlib==1.7.4
 psycopg2-binary==2.9.2
 spotipy==2.19.0
-
