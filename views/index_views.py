@@ -49,9 +49,9 @@ def index():
                                notifyComment=notifyComment, notifyLike=notifyLike)
     else:
         return render_template('index.html', reviewsArtist=reviewsArtist, reviewsAlbum=reviewsAlbum,
-                           reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
-                           users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
-                           spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='index')
+                               reviewsTrack=reviewsTrack, reviewsPlaylist=reviewsPlaylist,
+                               users=users, spotifyArtist=spotifyArtist, spotifyAlbum=spotifyAlbum,
+                               spotifyTrack=spotifyTrack, spotifyPlaylist=spotifyPlaylist, mainFilter='index')
 
 
 @ind.route('/home/')

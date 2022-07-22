@@ -4,11 +4,11 @@ import psycopg2
 class PostgreDB:
     def __init__(self):
         self.conn = psycopg2.connect(
-            host='ec2-176-34-123-50.eu-west-1.compute.amazonaws.com',
-            database='dgs1bk31h45p3',
-            user='jrqbypzwfthnnb',
+            host='ec2-52-211-37-76.eu-west-1.compute.amazonaws.com',
+            database='d88297i13p6bf9',
+            user='riqvbarhkhkheq',
             port='5432',
-            password='581cf159c1fb3d57e39bb6fc3238e9c92cce2574c6d0e5435eb87b06d2a8137a'
+            password='46285b6fc9402d795c768d431d33eca11759b505a227596eb8a870cb9a137718'
         )
         self.cur = self.conn.cursor()
 
