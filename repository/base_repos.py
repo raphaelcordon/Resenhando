@@ -8,7 +8,7 @@ class PostgreDB:
             database='d37k7t1n9j0gnt',
             user='jsjtbbbgrlwylu',
             port='5432',
-            password='fd7046128d574538515e2fb9a30347c56cbd6e50ada6a57f59b9c7dcd90b605f '
+            password='fd7046128d574538515e2fb9a30347c56cbd6e50ada6a57f59b9c7dcd90b605f'
         )
         self.cur = self.conn.cursor()
 
