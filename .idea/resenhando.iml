@@ -12,7 +12,7 @@
       <sourceFolder url="file://$MODULE_DIR$/venv/lib/python3.9/site-packages/_distutils_hack" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/venv/lib/python3.9/site-packages/pip" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.8" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.10 (resenhando)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
