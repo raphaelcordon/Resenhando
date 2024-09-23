@@ -1,11 +1,10 @@
-python==3.11.9
-decorator==5.1.0
-flake8==4.0.1
-Flask==2.0.2
-Flask-Login==0.5.0
-gunicorn==20.1.0
+python==3.10.5
+decorator==5.1.1
+flake8==7.1.1
+Flask==3.0.3
+gunicorn==22.0.0
 html5lib==1.1
-Jinja2==3.0.3
+Jinja2==3.1.4
 locket==1.0.0
 PyMySQL==1.0.2
 passlib==1.7.4
